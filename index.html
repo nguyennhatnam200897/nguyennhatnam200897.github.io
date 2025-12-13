@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favicon.ico">
-    <title>Learning English</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <link fetchpriority="low" rel="stylesheet" href="/fontawesome/css/solid.min.css">
-    <link fetchpriority="low" rel="stylesheet" href="/fontawesome/css/awesomecustom.css">
-    <script src="/js/router.min.js"></script>
-    <script src="/js/wavesurfer.min.js"></script>
-    <script src="/js/practice.js"></script>
-    <script src="/js/practicee.js"></script>
-    <script defer src="/js/focus.min.js"></script>
-    <script defer src="/js/focus.min.js"></script>
-    <script defer src="/js/alpine.min.js"></script>
+    <title>RPG Farming Pure JS</title>
+    <style>
+        body { 
+            background: #222; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        canvas { 
+            background: #fff; 
+            /* Quan trọng: Giữ pixel sắc nét khi phóng to */
+            image-rendering: pixelated; 
+        }
+    </style>
 </head>
-<body class="w-screen h-screen bg-gray-900 font-mono flex justify-center items-center" x-data>
-    <div id="main" class="bg-gray-900 max-w-[500px] min-w-[350px] max-h-[900px] min-h-[600px] w-full h-full flex flex-col p-[20px]">
-        <template x-route="/" x-template.preload="/home.html"></template>
-        <template x-route="/practice" x-template.preload="/practice.html"></template>
-        <!-- <template x-route="/practicee" x-template.preload="/practicee.html"></template> -->
-        <template x-route="notfound" x-template.preload="/404.html"></template>
-    </div>
+<body>
+
+<canvas id="gameCanvas" width="640" height="480"></canvas>
+
+<script type="module" src="js/script.js"></script>
+
 </body>
 </html>
