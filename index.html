@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>RPG Farming Pure JS</title>
-    <style>
-        body { 
-            background: #222; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-        }
-        canvas { 
-            background: #fff; 
-            /* Quan trọng: Giữ pixel sắc nét khi phóng to */
-            image-rendering: pixelated; 
-        }
-    </style>
-</head>
-<body>
-
-<canvas id="gameCanvas" width="640" height="480"></canvas>
-
-<script type="module" src="js/script.js"></script>
-
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>RPG Farming Pure JS</title>
+        <style>
+            body {
+                background: #222;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            canvas {
+                background: #fff;
+                image-rendering: pixelated;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="gameCanvas" width="800" height="800"></canvas>
+        <script type="module" src="js/script.js"></script>
+    </body>
 </html>
