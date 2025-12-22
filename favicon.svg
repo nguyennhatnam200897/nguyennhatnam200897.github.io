@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13" shape-rendering="crispEdges">
+  <defs>
+    <clipPath id="rounded-corners">
+      <rect x="0" y="0" width="13" height="13" rx="1" ry="1"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#rounded-corners)">
+    <g fill="#FF5900">
+      <path d="M 0 0 H 13 V 2 H 0 Z 
+              M 0 2 H 2 V 13 H 0 Z 
+              M 11 2 H 13 V 13 H 11 Z 
+              M 2 11 H 11 V 13 H 2 Z 
+              M 4 4 H 5 V 6 H 4 Z 
+              M 8 4 H 9 V 6 H 8 Z 
+              M 5 6 H 8 V 7 H 5 Z"/>
+    </g>
+    <g fill="#FFFFFF">
+      <path fill-rule="evenodd" d="M 2 2 H 11 V 10 H 2 Z 
+                                  M 4 3 H 5 V 6 H 4 Z 
+                                  M 8 3 H 9 V 6 H 8 Z 
+                                  M 5 6 H 8 V 7 H 5 Z"/>
+    </g>
+    <g fill="#888684">
+      <path d="M 2 10 H 11 V 11 H 2 Z"/>
+    </g>
+    <g fill="#000000">
+      <path d="M 4 3 H 5 V 4 H 4 Z 
+              M 8 3 H 9 V 4 H 8 Z"/>
+    </g>
+  </g>
+</svg>
