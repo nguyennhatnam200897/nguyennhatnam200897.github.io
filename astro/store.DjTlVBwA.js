@@ -1,1 +1,0 @@
-import{d as g,c as S,j as a}from"./solid.Co1BPTuu.js";const i=g(()=>{const[t,o]=S([]),c=75e3,n=a(()=>t().length*c),l=a(()=>t().length);return{selectedSeats:t,totalPrice:n,seatCount:l,toggleSeat:e=>{const s=t();s.includes(e)?o(s.filter(r=>r!==e)):o([...s,e])}}}),{selectedSeats:d,totalPrice:f,seatCount:m,toggleSeat:C}=i;export{m as a,f as b,d as s,C as t};

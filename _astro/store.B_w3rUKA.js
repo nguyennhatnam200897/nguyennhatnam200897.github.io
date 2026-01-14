@@ -1,0 +1,1 @@
+import{d as g,e as S,f as a}from"./aot-runtime.DZJIw1o_.js";const i=g(()=>{const[t,o]=S([]),c=75e3,n=a(()=>t().length*c),l=a(()=>t().length);return{selectedSeats:t,totalPrice:n,seatCount:l,toggleSeat:e=>{const s=t();s.includes(e)?o(s.filter(r=>r!==e)):o([...s,e])}}}),{selectedSeats:P,totalPrice:d,seatCount:m,toggleSeat:C}=i;export{m as a,d as b,P as s,C as t};
