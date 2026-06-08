@@ -1,3 +1,82 @@
-<!DOCTYPE html><html lang="vi"> <head><meta charset="utf-8"><title>Đặt vé AOT Demo</title><script type="module" src="/_astro/index.astro_astro_type_script_index_0_lang.j-t7qOTv.js"></script><link rel="stylesheet" href="/_astro/index.fvnVe_27.css"></head> <body class="bg-gray-100 p-4 min-h-screen"> <div class="max-w-4xl mx-auto"> <div data-cmp="TicketSummary" class="p-6 bg-white shadow-lg rounded-xl mb-6 sticky top-0 z-50"> <div class="flex justify-between items-center"> <h2 class="text-xl font-bold text-gray-800">Rạp Chiếu Phim Astro</h2> <div class="text-right"> <p class="text-gray-500">Đã chọn: <span data-r="countRef" class="font-bold">0</span> ghế</p> <p class="text-2xl font-bold text-blue-600"><span data-r="priceRef">0</span> đ</p> </div> </div> <button data-r="btnRef" disabled class="w-full mt-4 bg-gray-300 text-gray-500 py-3 rounded-lg font-bold transition-all">
-Vui lòng chọn ghế
-</button> </div> <div data-src="/partials/seat-map/" data-on="visible" class="min-h-[400px] flex items-center justify-center"> <div class="text-gray-400 animate-pulse flex flex-col items-center"> <span class="text-4xl mb-2">🍿</span> <span>Đang tải sơ đồ ghế...</span> </div> </div> </div> </body></html>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Học và làm chủ từng bài tiếng Anh bằng một dòng bài tập liên tục."
+    />
+    <title>Article Mastery</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div
+        id="global-progress"
+        class="globalProgress"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        aria-label="Đã hoàn thành 0%"
+      >
+        <div id="progress-bar"></div>
+      </div>
+
+      <button id="reset-course" class="resetButton" type="button">
+        Reset khóa học
+      </button>
+
+      <main class="workspace">
+        <section class="lesson" aria-label="Bài học">
+          <div id="guide-content" class="guide">
+            <div class="guideWord">
+              <p id="guide-term"></p>
+              <p id="guide-meaning"></p>
+            </div>
+
+            <p id="guide-explanation" class="guideExplanation"></p>
+            <div id="guide-parts" class="guideParts" hidden></div>
+
+            <div class="guideActions">
+              <button id="listen-guide" class="secondaryButton" type="button">
+                Nghe lại
+              </button>
+              <button id="continue-guide" type="button">Tiếp tục</button>
+            </div>
+          </div>
+
+          <div id="exercise-content" hidden>
+            <div class="promptBox">
+              <p id="prompt"></p>
+            </div>
+
+            <textarea
+              id="answer"
+              placeholder="Nhập câu trả lời"
+              spellcheck="false"
+            ></textarea>
+
+            <div class="actions">
+              <button id="check-answer" type="button">Kiểm tra</button>
+            </div>
+
+            <div id="feedback" class="feedback" aria-live="polite" hidden>
+              <p id="feedback-message"></p>
+              <pre id="expected-answer" hidden></pre>
+              <div id="feedback-notes"></div>
+            </div>
+          </div>
+
+          <div id="finish-state" class="finishState" hidden>
+            <span class="finishIcon" aria-hidden="true">✓</span>
+            <p>Hoàn thành</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./js/app.mjs"></script>
+  </body>
+</html>
