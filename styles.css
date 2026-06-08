@@ -1,0 +1,406 @@
+:root {
+  --bg: #ffffff;
+  --paper: #fbfbfa;
+  --text: #171916;
+  --muted: #8a8d84;
+  --line: #dedfd9;
+  --soft: #f4f5f1;
+  --green: #4f7553;
+  --green-soft: #edf5ed;
+  --amber-soft: #fff7eb;
+  --amber-line: #f1dcc0;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  align-items: center;
+  background: var(--text);
+  border: 1px solid var(--text);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 650;
+  gap: 8px;
+  height: 44px;
+  justify-content: center;
+  padding: 0 18px;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    opacity 160ms ease;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.secondaryButton {
+  background: #fff;
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.secondaryButton:hover {
+  background: var(--soft);
+  border-color: #c8cac2;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.globalProgress {
+  background: var(--soft);
+  height: 4px;
+  overflow: hidden;
+}
+
+.globalProgress div {
+  background: var(--green);
+  height: 100%;
+  transition: width 180ms ease;
+}
+
+.resetButton {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  height: 34px;
+  padding: 0 12px;
+  position: fixed;
+  right: 16px;
+  top: 14px;
+  z-index: 2;
+}
+
+.resetButton:hover {
+  background: var(--soft);
+  border-color: #c8cac2;
+  color: var(--text);
+}
+
+.workspace {
+  align-items: start;
+  display: grid;
+  justify-items: center;
+  min-height: calc(100vh - 4px);
+  padding: clamp(52px, 12vh, 112px) 18px 40px;
+}
+
+.lesson {
+  max-width: 720px;
+  width: 100%;
+}
+
+.guide {
+  animation: appear 180ms ease-out;
+}
+
+.guideWord {
+  margin-bottom: 28px;
+}
+
+.guideWord p {
+  letter-spacing: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+#guide-term {
+  font-size: 58px;
+  font-weight: 750;
+  line-height: 1.1;
+}
+
+#guide-meaning {
+  color: var(--green);
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+
+.guideExplanation {
+  font-size: 18px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 650px;
+}
+
+.guideParts {
+  align-items: stretch;
+  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 0;
+  margin-top: 28px;
+  overflow-x: auto;
+}
+
+.guidePart {
+  flex: 1 0 150px;
+  padding: 18px 14px;
+}
+
+.guidePart + .guidePart {
+  border-left: 1px solid var(--line);
+}
+
+.guidePart strong,
+.guidePart small {
+  display: block;
+}
+
+.guidePart strong {
+  font-size: 19px;
+  letter-spacing: 0;
+}
+
+.guidePart small {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.guidePart.isNew strong {
+  color: var(--green);
+}
+
+.guideActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.promptBox {
+  margin: 0 0 28px;
+}
+
+.promptBox p {
+  font-weight: 720;
+  letter-spacing: 0;
+  line-height: 1.15;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.promptBox .promptShort {
+  font-size: 56px;
+}
+
+.promptBox .promptMedium {
+  font-size: 34px;
+  line-height: 1.25;
+}
+
+.promptBox .promptLong {
+  font-size: 25px;
+  line-height: 1.4;
+}
+
+.promptBox .promptParagraph {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+textarea {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  display: block;
+  font-size: 20px;
+  line-height: 1.55;
+  min-height: 178px;
+  outline: none;
+  padding: 20px;
+  resize: vertical;
+  width: 100%;
+}
+
+textarea::placeholder {
+  color: #a6a99f;
+}
+
+textarea:focus {
+  background: #fff;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.feedback {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  margin-top: 24px;
+  padding: 16px;
+}
+
+.feedback p,
+.feedback small {
+  line-height: 1.5;
+  margin: 0;
+}
+
+.feedback small {
+  color: var(--muted);
+  display: block;
+  margin-top: 8px;
+}
+
+.feedback pre {
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(154, 93, 27, 0.16);
+  border-radius: 6px;
+  font-family: inherit;
+  line-height: 1.5;
+  margin: 12px 0 0;
+  overflow: auto;
+  padding: 12px;
+  white-space: pre-wrap;
+}
+
+.feedback.correct {
+  background: var(--green-soft);
+  border-color: #d6e6d5;
+}
+
+.feedback.wrong {
+  background: var(--amber-soft);
+  border-color: var(--amber-line);
+  color: #4b2600;
+}
+
+.finishState {
+  align-items: center;
+  color: var(--green);
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  min-height: 40vh;
+}
+
+.finishIcon {
+  font-size: 28px;
+  font-weight: 750;
+  line-height: 1;
+}
+
+.finishState p {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .workspace {
+    padding: 64px 18px 28px;
+  }
+
+  .resetButton {
+    font-size: 12px;
+    height: 32px;
+    padding: 0 10px;
+    right: 12px;
+    top: 12px;
+  }
+
+  #guide-term {
+    font-size: 44px;
+  }
+
+  #guide-meaning {
+    font-size: 20px;
+  }
+
+  .guideExplanation {
+    font-size: 17px;
+  }
+
+  .guideActions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .guideActions button {
+    width: 100%;
+  }
+
+  .promptBox p {
+    font-size: 42px;
+  }
+
+  .promptBox .promptMedium {
+    font-size: 29px;
+  }
+
+  .promptBox .promptLong {
+    font-size: 22px;
+  }
+
+  .promptBox .promptParagraph {
+    font-size: 17px;
+  }
+
+  textarea {
+    font-size: 18px;
+    min-height: 160px;
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}
