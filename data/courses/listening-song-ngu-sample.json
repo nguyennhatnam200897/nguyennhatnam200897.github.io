@@ -4,7 +4,7 @@
   "level": "A2-B1",
   "topic": "Hội thoại công việc",
   "description": "Đi từ từ vựng đơn lẻ đến toàn bộ hội thoại nghe về việc lắp đặt một chiếc TV.",
-  "sessionVersion": 2,
+  "sessionVersion": 3,
   "audioBasePath": "./assets/audio/listening-song-ngu-sample",
   "audioExtension": "wav",
   "paragraphTaskMode": "cumulative",
@@ -56,7 +56,7 @@
         "id": "LS1-01-01",
         "sentenceId": "LS1-01",
         "stage": "object",
-        "prompt": "Steven",
+        "prompt": "tên người thợ lắp đặt",
         "answer": "Steven",
         "guide": {
           "explanation": "Đây là tên của người thợ đang tự giới thiệu. Hãy nghe âm đầu và phần kết của tên như một đơn vị hoàn chỉnh.",
@@ -67,17 +67,11 @@
         "id": "LS1-01-02",
         "sentenceId": "LS1-01",
         "stage": "phrase",
-        "prompt": "Home Appliance Mart",
+        "prompt": "tên cửa hàng thiết bị gia dụng nơi Steven làm việc",
         "answer": "Home Appliance Mart",
         "guide": {
           "explanation": "Đây là tên nơi Steven làm việc. Giữ nguyên cả tên riêng, không tách thành những flashcard rời.",
-          "parts": [
-            {
-              "term": "Home Appliance Mart",
-              "meaning": "tên cửa hàng thiết bị gia dụng",
-              "isNew": true
-            }
-          ]
+          "parts": []
         }
       },
       {

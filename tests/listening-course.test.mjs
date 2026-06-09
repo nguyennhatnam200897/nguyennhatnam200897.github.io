@@ -41,7 +41,7 @@ function assertOrdered(sentenceId, answers) {
 test("builds Exercise 1 as a cumulative WAV course", () => {
   assert.equal(course.sentences.length, 8);
   assert.equal(course.sentenceTaskGroups.length, 8);
-  assert.equal(course.sessionVersion, 2);
+  assert.equal(course.sessionVersion, 3);
   assert.equal(course.audioExtension, "wav");
   assert.equal(courseData.paragraphTaskMode, "cumulative");
   assert.equal(paragraphTasks.length, 7);
@@ -187,6 +187,12 @@ test("keeps ids and prompts unambiguous", () => {
   const promptAnswers = new Map();
 
   course.tasks.forEach((task) => {
+    assert.notEqual(
+      task.prompt.trim().toLocaleLowerCase("vi"),
+      task.answer.trim().toLocaleLowerCase("en"),
+      `${task.id} đang hiển thị luôn đáp án trong câu hỏi`
+    );
+
     const key = `${task.sentenceId}\u0000${task.prompt}`;
     const answers = promptAnswers.get(key) ?? new Set();
     answers.add(task.answer);
@@ -203,6 +209,9 @@ test("keeps ids and prompts unambiguous", () => {
 test("interleaves the listening curriculum in groups of two to four tasks", () => {
   const groups = buildPracticeGroups(course.tasks);
   const knownTaskIds = new Set(course.tasks.map((task) => task.id));
+  const groupCountByTask = new Map(
+    course.tasks.map((task) => [task.id, 0])
+  );
 
   assert.ok(groups.length > 0);
   groups.forEach((group) => {
@@ -212,7 +221,22 @@ test("interleaves the listening curriculum in groups of two to four tasks", () =
       group.taskIds.every((taskId) => knownTaskIds.has(taskId)),
       true
     );
+    group.taskIds.forEach((taskId) => {
+      groupCountByTask.set(taskId, groupCountByTask.get(taskId) + 1);
+    });
   });
+
+  assert.deepEqual(
+    [...groupCountByTask.entries()].filter(([, count]) => count !== 1),
+    []
+  );
+});
+
+test("does not repeat the full Home Appliance Mart answer in its guide parts", () => {
+  const task = sentenceTasks.find((item) => item.id === "LS1-01-02");
+
+  assert.equal(task.prompt, "tên cửa hàng thiết bị gia dụng nơi Steven làm việc");
+  assert.deepEqual(task.guide.parts, []);
 });
 
 test("maps every task to a traceable WAV asset", async () => {

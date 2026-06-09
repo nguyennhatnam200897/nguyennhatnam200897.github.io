@@ -26,11 +26,45 @@ function unique(values) {
   return [...new Set(values)];
 }
 
+function chunkTaskIds(taskIds) {
+  const chunks = [];
+  let cursor = 0;
+
+  while (cursor < taskIds.length) {
+    const remaining = taskIds.length - cursor;
+    const size = remaining === 5 ? 3 : Math.min(4, remaining);
+    chunks.push(taskIds.slice(cursor, cursor + size));
+    cursor += size;
+  }
+
+  return chunks;
+}
+
+function buildSequentialGroups(tasks) {
+  const taskIdsBySentence = new Map();
+
+  tasks.forEach((task) => {
+    const taskIds = taskIdsBySentence.get(task.sentenceId) ?? [];
+    taskIds.push(task.id);
+    taskIdsBySentence.set(task.sentenceId, taskIds);
+  });
+
+  return [...taskIdsBySentence.entries()].flatMap(([sentenceId, taskIds]) =>
+    chunkTaskIds(taskIds).map((chunk, index) =>
+      group(`sequential-${sentenceId}-${index + 1}`, chunk)
+    )
+  );
+}
+
 export function buildPracticeGroups(tasks) {
   const knownTaskIds = new Set(tasks.map((task) => task.id));
   const groups = manualGroups
     .filter((taskIds) => taskIds.every((taskId) => knownTaskIds.has(taskId)))
     .map((taskIds, index) => group(`manual-${index + 1}`, taskIds));
+
+  if (groups.length === 0) {
+    return buildSequentialGroups(tasks);
+  }
 
   const recentBySentence = new Map();
 
