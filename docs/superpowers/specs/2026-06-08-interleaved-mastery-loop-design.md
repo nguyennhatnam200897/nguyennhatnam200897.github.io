@@ -211,14 +211,15 @@ city hướng dẫn -> city bài tập -> life hướng dẫn -> life bài tập
 Chỉ khi cả `city` và `life` đạt đủ 3 tiêu chí thành thạo, app mới mở nhóm tiếp
 theo có `cities`.
 
-Với các course dùng nhóm tuần tự, trong đó các task liên tiếp chính là các nấc
-i+1 của cùng một đường học, app dùng nhịp giới thiệu chậm hơn:
+Với các course mới, các task liên tiếp trong cùng một câu được tạo thành nhóm
+chồng lấp giống Bài 1:
 
 ```text
-đơn vị A -> A -> đơn vị B -> B -> đơn vị C -> xen kẽ A/B/C
+[A, B] -> [A, B, C] -> [A, B, C, D] -> [B, C, D, E]
+đơn vị A -> đúng -> đơn vị B -> đúng -> xen kẽ A/B
 ```
 
-Mỗi đơn vị vừa được giới thiệu phải có hai lần trả lời đúng trước khi mở đơn vị
-mới tiếp theo. Quy tắc này không thay đổi tiêu chí thành thạo cuối cùng và không
-áp dụng cho nhóm neo thủ công như `city + life`, nơi hai đối tượng cần được đưa
-vào vòng xen kẽ ngay từ đầu.
+Một lần trả lời đúng là đủ để giới thiệu đơn vị mới kế tiếp, đúng với nhịp của
+Bài 1. Việc lặp lại diễn ra trong các nhóm chồng lấp và vòng xen kẽ; tiêu chí
+thành thạo cuối cùng vẫn yêu cầu đủ số lần đúng, chuỗi đúng và đúng sau khi bị
+xen bởi đơn vị khác.

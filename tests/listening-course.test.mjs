@@ -46,7 +46,7 @@ function assertOrdered(sentenceId, answers) {
 test("builds Exercise 1 as a cumulative WAV course", () => {
   assert.equal(course.sentences.length, 8);
   assert.equal(course.sentenceTaskGroups.length, 8);
-  assert.equal(course.sessionVersion, 4);
+  assert.equal(course.sessionVersion, 5);
   assert.equal(course.audioExtension, "wav");
   assert.equal(courseData.paragraphTaskMode, "cumulative");
   assert.equal(paragraphTasks.length, 7);
@@ -214,9 +214,6 @@ test("keeps ids and prompts unambiguous", () => {
 test("interleaves the listening curriculum in groups of two to four tasks", () => {
   const groups = buildPracticeGroups(course.tasks);
   const knownTaskIds = new Set(course.tasks.map((task) => task.id));
-  const groupCountByTask = new Map(
-    course.tasks.map((task) => [task.id, 0])
-  );
 
   assert.ok(groups.length > 0);
   groups.forEach((group) => {
@@ -226,29 +223,29 @@ test("interleaves the listening curriculum in groups of two to four tasks", () =
       group.taskIds.every((taskId) => knownTaskIds.has(taskId)),
       true
     );
-    group.taskIds.forEach((taskId) => {
-      groupCountByTask.set(taskId, groupCountByTask.get(taskId) + 1);
-    });
+    assert.equal(group.minCorrectBeforeNextIntroduction, undefined);
   });
 
   assert.deepEqual(
-    [...groupCountByTask.entries()].filter(([, count]) => count !== 1),
-    []
+    groups.slice(0, 4).map((group) => group.taskIds),
+    [
+      ["LS1-01-01", "LS1-01-02"],
+      ["LS1-01-01", "LS1-01-02", "LS1-01-03"],
+      ["LS1-01-01", "LS1-01-02", "LS1-01-03", "LS1-01-04"],
+      ["LS1-01-02", "LS1-01-03", "LS1-01-04", "LS1-01-05"],
+    ]
+  );
+
+  assert.equal(
+    groups.filter((group) => group.taskIds.includes("LS1-01-02")).length,
+    4
   );
 });
 
-test("requires two successful recalls before introducing the next listening task", () => {
+test("introduces the next listening task after one correct answer like lesson one", () => {
   const groups = buildPracticeGroups(course.tasks);
   let session = createMasterySession(groups);
 
-  assert.equal(getCurrentTaskId(session, groups), "LS1-01-01");
-
-  session = recordMasteryAttempt(
-    session,
-    groups,
-    "LS1-01-01",
-    true
-  );
   assert.equal(getCurrentTaskId(session, groups), "LS1-01-01");
 
   session = recordMasteryAttempt(
@@ -265,7 +262,7 @@ test("requires two successful recalls before introducing the next listening task
     "LS1-01-02",
     true
   );
-  assert.equal(getCurrentTaskId(session, groups), "LS1-01-02");
+  assert.equal(getCurrentTaskId(session, groups), "LS1-01-01");
 });
 
 test("does not repeat the full Home Appliance Mart answer in its guide parts", () => {

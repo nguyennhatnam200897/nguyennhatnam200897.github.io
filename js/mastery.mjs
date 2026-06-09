@@ -26,36 +26,22 @@ function unique(values) {
   return [...new Set(values)];
 }
 
-function chunkTaskIds(taskIds) {
-  const chunks = [];
-  let cursor = 0;
-
-  while (cursor < taskIds.length) {
-    const remaining = taskIds.length - cursor;
-    const size = remaining === 5 ? 3 : Math.min(4, remaining);
-    chunks.push(taskIds.slice(cursor, cursor + size));
-    cursor += size;
-  }
-
-  return chunks;
-}
-
-function buildSequentialGroups(tasks) {
-  const taskIdsBySentence = new Map();
+function buildRollingGroups(tasks) {
+  const groups = [];
+  const recentBySentence = new Map();
 
   tasks.forEach((task) => {
-    const taskIds = taskIdsBySentence.get(task.sentenceId) ?? [];
-    taskIds.push(task.id);
-    taskIdsBySentence.set(task.sentenceId, taskIds);
+    const recent = recentBySentence.get(task.sentenceId) ?? [];
+    recent.push(task.id);
+
+    if (recent.length >= 2) {
+      groups.push(group(`rolling-${task.id}`, unique(recent.slice(-4))));
+    }
+
+    recentBySentence.set(task.sentenceId, recent);
   });
 
-  return [...taskIdsBySentence.entries()].flatMap(([sentenceId, taskIds]) =>
-    chunkTaskIds(taskIds).map((chunk, index) =>
-      group(`sequential-${sentenceId}-${index + 1}`, chunk, {
-        minCorrectBeforeNextIntroduction: 2,
-      })
-    )
-  );
+  return groups;
 }
 
 export function buildPracticeGroups(tasks) {
@@ -65,7 +51,7 @@ export function buildPracticeGroups(tasks) {
     .map((taskIds, index) => group(`manual-${index + 1}`, taskIds));
 
   if (groups.length === 0) {
-    return buildSequentialGroups(tasks);
+    return buildRollingGroups(tasks);
   }
 
   const recentBySentence = new Map();

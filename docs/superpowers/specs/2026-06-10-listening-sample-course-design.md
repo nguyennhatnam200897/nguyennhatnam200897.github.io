@@ -43,9 +43,11 @@ Không dùng một từ do ASR đoán nếu người biên soạn chưa xác nh�
 - Bài tập chính vẫn là nhìn nghĩa tiếng Việt sư phạm và nhập tiếng Anh tự do.
 - Sai ở task nào thì quay lại hướng dẫn và làm lại đúng task đó.
 - Các task được luyện xen kẽ theo nhóm nhỏ từ 2 đến 4 đơn vị.
-- Trong nhóm tuần tự của bài nghe, một đơn vị mới phải được trả lời đúng ít
-  nhất hai lần trước khi app mở đơn vị i+1 tiếp theo. Sau khi các đơn vị trong
-  nhóm đã được giới thiệu, app tiếp tục xen kẽ đến khi đạt tiêu chí thành thạo.
+- Các nhóm dùng cửa sổ chồng lấp giống Bài 1: `[A, B]`, `[A, B, C]`,
+  `[A, B, C, D]`, rồi `[B, C, D, E]`.
+- Một lần trả lời đúng là đủ để mở đơn vị i+1 tiếp theo. Sau khi các đơn vị
+  trong nhóm đã được giới thiệu, app tiếp tục xen kẽ đến khi đạt tiêu chí
+  thành thạo giống Bài 1.
 - Không ấn định số task để chạy theo bài 1. Số task do cấu trúc nghĩa quyết
   định, nhưng mỗi câu phải có đường đi i+1 rõ ràng.
 

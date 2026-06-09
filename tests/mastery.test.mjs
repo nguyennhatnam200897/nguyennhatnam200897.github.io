@@ -46,6 +46,43 @@ test("keeps the original anchor group introduction cadence", () => {
   assert.equal(getCurrentTaskId(session, groups), "S1-04");
 });
 
+test("uses lesson-one overlapping groups for a future course by default", () => {
+  const futureTasks = ["A", "B", "C", "D", "E"].map((id) => ({
+    id,
+    sentenceId: "F1",
+  }));
+  const futureGroups = buildPracticeGroups(futureTasks);
+
+  assert.deepEqual(
+    futureGroups.map((practiceGroup) => practiceGroup.taskIds),
+    [
+      ["A", "B"],
+      ["A", "B", "C"],
+      ["A", "B", "C", "D"],
+      ["B", "C", "D", "E"],
+    ]
+  );
+  assert.equal(
+    futureGroups.every(
+      (practiceGroup) =>
+        practiceGroup.minCorrectBeforeNextIntroduction === undefined
+    ),
+    true
+  );
+});
+
+test("uses the lesson-one introduction cadence for a future course", () => {
+  const futureGroups = buildPracticeGroups([
+    { id: "A", sentenceId: "F1" },
+    { id: "B", sentenceId: "F1" },
+  ]);
+  let session = createMasterySession(futureGroups);
+
+  session = recordMasteryAttempt(session, futureGroups, "A", true);
+
+  assert.equal(getCurrentTaskId(session, futureGroups), "B");
+});
+
 test("advances only after every item reaches the mastery rule", () => {
   let session = createMasterySession(groups);
 
