@@ -144,7 +144,15 @@ button:disabled {
   font-size: 22px;
   font-weight: 650;
   line-height: 1.4;
-  margin-top: 10px;
+  margin-top: 8px;
+}
+
+.guideIpa {
+  color: var(--muted);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.4;
+  margin-top: 8px !important;
 }
 
 .guideExplanation {
@@ -152,6 +160,31 @@ button:disabled {
   line-height: 1.65;
   margin: 0;
   max-width: 650px;
+}
+
+.guideNewWords {
+  border-left: 2px solid var(--line);
+  margin-top: 22px;
+  padding-left: 14px;
+}
+
+.guideNewWords p {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  line-height: 1.4;
+  margin: 6px 0;
+}
+
+.guideNewWords strong {
+  font-size: 17px;
+}
+
+.guideNewWords span {
+  color: var(--muted);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
 }
 
 .guideParts {
@@ -359,6 +392,10 @@ textarea:focus {
 
   #guide-meaning {
     font-size: 20px;
+  }
+
+  .guideIpa {
+    font-size: 18px;
   }
 
   .guideExplanation {

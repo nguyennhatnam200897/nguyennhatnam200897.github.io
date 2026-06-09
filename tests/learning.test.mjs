@@ -2,6 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { article, buildLessonTasks } from "../js/article.mjs";
 import { evaluateAnswer, normalizeTextAnswer } from "../js/learning.mjs";
+import {
+  buildPronunciation,
+  getAmericanIpa,
+} from "../js/pronunciation.mjs";
 
 test("ignores capitalization and punctuation for text answers", () => {
   const task = {
@@ -38,6 +42,28 @@ test("normalizes text answers consistently", () => {
     normalizeTextAnswer("The project, also encouraged shops."),
     "the project also encouraged shops"
   );
+});
+
+test("provides simple American IPA for every word form in the article", () => {
+  const tasks = buildLessonTasks();
+  const missing = [
+    ...new Set(
+      tasks.flatMap(
+        (task) => task.answer.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) ?? []
+      )
+    ),
+  ].filter((word) => !getAmericanIpa(word));
+
+  assert.deepEqual(missing, []);
+  assert.equal(getAmericanIpa("city"), "/ˈsɪti/");
+  assert.equal(getAmericanIpa("go"), null);
+});
+
+test("builds full IPA and identifies only newly introduced word forms", () => {
+  assert.deepEqual(buildPronunciation("daily life", new Set(["life"])), {
+    full: "/ˈdeɪli laɪf/",
+    newWords: [{ term: "daily", ipa: "/ˈdeɪli/" }],
+  });
 });
 
 test("keeps lesson tasks free of visible route labels", () => {
@@ -91,6 +117,23 @@ test("explains city, cities, and many cities as a strict i+1 sequence", () => {
     { term: "many", meaning: "nhiều", isNew: true },
     { term: "cities", meaning: "các thành phố", isNew: false },
   ]);
+});
+
+test("guidance shows American IPA for the full unit and only its new words", () => {
+  const tasks = buildLessonTasks();
+
+  assert.deepEqual(tasks[0].guide.pronunciation, {
+    full: "/ˈsɪti/",
+    newWords: [{ term: "city", ipa: "/ˈsɪti/" }],
+  });
+  assert.deepEqual(tasks[2].guide.pronunciation, {
+    full: "/ˈmɛni ˈsɪtiz/",
+    newWords: [{ term: "many", ipa: "/ˈmɛni/" }],
+  });
+  assert.deepEqual(tasks[4].guide.pronunciation, {
+    full: "/ˈdeɪli laɪf/",
+    newWords: [{ term: "daily", ipa: "/ˈdeɪli/" }],
+  });
 });
 
 test("keeps single-object tasks to one-word nouns", () => {

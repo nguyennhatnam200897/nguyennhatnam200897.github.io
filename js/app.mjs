@@ -40,7 +40,9 @@ const elements = {
   finishState: document.querySelector("#finish-state"),
   guideContent: document.querySelector("#guide-content"),
   guideExplanation: document.querySelector("#guide-explanation"),
+  guideIpa: document.querySelector("#guide-ipa"),
   guideMeaning: document.querySelector("#guide-meaning"),
+  guideNewWords: document.querySelector("#guide-new-words"),
   guideParts: document.querySelector("#guide-parts"),
   guideTerm: document.querySelector("#guide-term"),
   listenGuide: document.querySelector("#listen-guide"),
@@ -142,10 +144,41 @@ function renderGuideParts(parts) {
   });
 }
 
+function renderPronunciation(pronunciation) {
+  elements.guideIpa.textContent = pronunciation.full;
+  elements.guideIpa.hidden = !pronunciation.full;
+  elements.guideNewWords.replaceChildren();
+
+  const showNewWords =
+    pronunciation.newWords.length > 0 &&
+    !(
+      pronunciation.newWords.length === 1 &&
+      pronunciation.newWords[0].ipa === pronunciation.full
+    );
+
+  elements.guideNewWords.hidden = !showNewWords;
+
+  if (!showNewWords) {
+    return;
+  }
+
+  pronunciation.newWords.forEach(({ term, ipa }) => {
+    const row = document.createElement("p");
+    const word = document.createElement("strong");
+    const phonetic = document.createElement("span");
+
+    word.textContent = term;
+    phonetic.textContent = ipa;
+    row.append(word, phonetic);
+    elements.guideNewWords.append(row);
+  });
+}
+
 function renderGuide(task) {
   elements.guideTerm.textContent = task.guide.term;
   elements.guideMeaning.textContent = task.guide.meaning;
   elements.guideExplanation.textContent = task.guide.explanation;
+  renderPronunciation(task.guide.pronunciation);
   renderGuideParts(task.guide.parts);
 }
 

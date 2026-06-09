@@ -1,3 +1,8 @@
+import {
+  buildPronunciation,
+  tokenizeEnglish,
+} from "./pronunciation.mjs";
+
 const specialGuides = {
   "S1-01": {
     term: "city",
@@ -73,8 +78,26 @@ export function createGuidance(task, previousTask) {
 }
 
 export function attachGuidance(tasks) {
-  return tasks.map((task, index) => ({
-    ...task,
-    guide: createGuidance(task, tasks[index - 1]),
-  }));
+  const knownWords = new Set();
+
+  return tasks.map((task, index) => {
+    const guide = createGuidance(task, tasks[index - 1]);
+    const words = tokenizeEnglish(guide.term);
+    const pronunciation = buildPronunciation(guide.term, knownWords);
+    const showFull =
+      !["sentence", "paragraph"].includes(task.stage) && words.length <= 12;
+
+    words.forEach((word) => knownWords.add(word));
+
+    return {
+      ...task,
+      guide: {
+        ...guide,
+        pronunciation: {
+          ...pronunciation,
+          full: showFull ? pronunciation.full : "",
+        },
+      },
+    };
+  });
 }

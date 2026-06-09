@@ -14,6 +14,8 @@ test("uses only relative static assets suitable for a GitHub Pages subpath", asy
   assert.match(html, /href="\.\/styles\.css"/);
   assert.match(html, /src="\.\/js\/app\.mjs"/);
   assert.match(html, /id="guide-content"/);
+  assert.match(html, /id="guide-ipa"/);
+  assert.match(html, /id="guide-new-words"/);
   assert.match(html, /id="listen-guide"/);
   assert.match(html, /id="continue-guide"/);
   assert.match(html, /id="reset-course"/);
@@ -28,6 +30,7 @@ test("loads app modules through relative imports", async () => {
   assert.match(appSource, /from "\.\/lesson-flow\.mjs"/);
   assert.match(appSource, /from "\.\/mastery\.mjs"/);
   assert.match(appSource, /from "\.\/speech\.mjs"/);
+  assert.match(appSource, /renderPronunciation/);
   assert.doesNotMatch(appSource, /react|createRoot|lucide/i);
 });
 
@@ -73,10 +76,29 @@ test("does not require npm or generated build directories", () => {
   assert.equal(existsSync(path.join(root, "dist")), false);
 });
 
-test("has a local audio asset for every lesson task", () => {
-  const missing = buildLessonTasks()
-    .map((task) => path.join(root, "assets", "audio", `${task.id}.wav`))
-    .filter((assetPath) => !existsSync(assetPath));
+test("generates local audio with an explicit American voice", async () => {
+  const script = await readFile(
+    path.join(root, "tools", "generate-american-audio.ps1"),
+    "utf8"
+  );
+
+  assert.match(script, /Microsoft Zira Desktop/);
+  assert.match(script, /Culture\.Name\s+-ne\s+"en-US"/);
+  assert.match(script, /export-audio-tasks\.mjs/);
+  assert.doesNotMatch(script, /--input-type=module\s+-e/);
+});
+
+test("has a valid local WAV asset for every lesson task", async () => {
+  const assetPaths = buildLessonTasks().map((task) =>
+    path.join(root, "assets", "audio", `${task.id}.wav`)
+  );
+  const missing = assetPaths.filter((assetPath) => !existsSync(assetPath));
 
   assert.deepEqual(missing, []);
+
+  for (const assetPath of assetPaths) {
+    const header = await readFile(assetPath);
+    assert.equal(header.subarray(0, 4).toString("ascii"), "RIFF");
+    assert.equal(header.subarray(8, 12).toString("ascii"), "WAVE");
+  }
 });

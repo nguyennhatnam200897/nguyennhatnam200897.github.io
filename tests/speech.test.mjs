@@ -84,10 +84,10 @@ test("prefers a local audio file when one is provided", () => {
   assert.equal(endCount, 1);
 });
 
-test("speaks English with a preferred British voice and ends once", () => {
-  const britishVoice = { lang: "en-GB", name: "British voice" };
+test("speaks English with a preferred American voice and ends once", () => {
+  const americanVoice = { lang: "en-US", name: "US voice" };
   const { environment, spoken, timers } = createSpeechEnvironment({
-    voices: [{ lang: "en-US", name: "US voice" }, britishVoice],
+    voices: [{ lang: "en-GB", name: "British voice" }, americanVoice],
   });
   const player = createSpeechPlayer(environment);
   let endCount = 0;
@@ -100,8 +100,8 @@ test("speaks English with a preferred British voice and ends once", () => {
 
   assert.equal(spoken.length, 1);
   assert.equal(spoken[0].text, "city");
-  assert.equal(spoken[0].lang, "en-GB");
-  assert.equal(spoken[0].voice, britishVoice);
+  assert.equal(spoken[0].lang, "en-US");
+  assert.equal(spoken[0].voice, americanVoice);
   assert.ok(spoken[0].rate < 1);
 
   spoken[0].onend();

@@ -7,7 +7,7 @@ function selectEnglishVoice(synthesis) {
   const voices = synthesis.getVoices?.() ?? [];
 
   return (
-    voices.find((voice) => voice.lang?.toLowerCase() === "en-gb") ??
+    voices.find((voice) => voice.lang?.toLowerCase() === "en-us") ??
     voices.find((voice) => voice.lang?.toLowerCase().startsWith("en")) ??
     null
   );
@@ -45,7 +45,7 @@ export function createSpeechPlayer(environment = globalThis) {
     }
 
     const utterance = new Utterance(text);
-    utterance.lang = "en-GB";
+    utterance.lang = "en-US";
     utterance.rate = 0.86;
     utterance.voice = selectEnglishVoice(synthesis);
     utterance.onend = finish;
