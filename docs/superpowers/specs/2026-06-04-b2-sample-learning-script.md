@@ -12,9 +12,16 @@ File mới là giáo án hiện hành và khớp trực tiếp với dữ liệu
 
 ## Cập nhật MVP tối giản ngày 2026-06-05
 
-Theo quyết định mới nhất, kịch bản mẫu cho bản webapp hiện tại **không còn dùng bài tập IPA**. Những mục cũ nói về nghe âm, nhập IPA hoặc bridge word mở bằng IPA được giữ như lịch sử thảo luận/gợi ý cho giai đoạn sau, nhưng không áp dụng cho MVP tối giản.
+Theo quyết định mới nhất, kịch bản mẫu cho bản webapp hiện tại **không dùng bài
+tập nhập IPA**. Màn hướng dẫn vẫn phải hiển thị IPA Anh-Mỹ dạng rộng và đơn
+giản của từng từ mới, gồm từ riêng lẻ và `bridge_word`, đồng thời phát âm bằng
+giọng Anh-Mỹ.
+Những mục cũ yêu cầu người học tự nhập IPA được giữ như lịch sử thảo luận/gợi ý
+cho giai đoạn sau, nhưng không áp dụng cho MVP tối giản.
 
-Luồng học hiện tại bắt đầu thẳng từ bài nhập tiếng Anh: người học nhìn nghĩa tiếng Việt của từ đối tượng, cụm, câu hoặc đoạn rồi nhập lại đúng tiếng Anh của bài gốc. IPA/phát âm có thể quay lại sau khi phần đọc và viết đã ổn định.
+Luồng học hiện tại dùng màn hướng dẫn có tiếng Anh, nghĩa, IPA và âm thanh trước
+khi vào bài nhập tiếng Anh. Người học nhìn nghĩa tiếng Việt của từ đối tượng,
+cụm, câu hoặc đoạn rồi nhập lại đúng tiếng Anh của bài gốc.
 
 ## Cập nhật phân tầng từ vựng ngày 2026-06-08
 

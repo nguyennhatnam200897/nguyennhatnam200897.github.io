@@ -21,7 +21,11 @@ Mục tiêu triển khai là GitHub Pages. Vì vậy mọi stylesheet, script v�
 
 ## Cập nhật MVP tối giản ngày 2026-06-05
 
-Để giảm tải cho người mất gốc và giúp người học tập trung vào dòng học chính, MVP hiện tại **tạm bỏ toàn bộ bài tập liên quan đến IPA**. Các phần cũ trong tài liệu có nhắc đến nghe âm, nhập IPA hoặc bàn phím IPA được xem là ý tưởng cho giai đoạn sau, không còn là yêu cầu của bản webapp hiện tại.
+Để giảm tải cho người mất gốc và giúp người học tập trung vào dòng học chính,
+MVP hiện tại **không dùng bài tập nhập IPA**. Tuy nhiên, màn hướng dẫn vẫn hiển
+thị IPA Anh-Mỹ dạng rộng, đơn giản của mọi từ mới, gồm cả từ riêng lẻ và từ
+liên kết, đồng thời phát âm bằng giọng Anh-Mỹ. IPA dùng để người học nhìn và
+đọc theo, không được chấm điểm; app không dùng ký hiệu ngữ âm hẹp gây rối.
 
 Dòng học hiện tại tập trung vào nhập tiếng Anh tự do, không dùng bài chọn đáp án hoặc điền khuyết. Người học đi từ từ đối tượng/danh từ, sang cụm từ, câu, đoạn và cuối cùng thành thạo bài báo bằng đọc hiểu và viết/dịch ngược đúng nội dung bài gốc.
 

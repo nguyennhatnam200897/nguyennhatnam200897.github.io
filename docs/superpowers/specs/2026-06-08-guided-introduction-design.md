@@ -56,15 +56,39 @@ Phiên bản triển khai hiện tại ưu tiên file âm thanh tĩnh trong `ass
 
 - Mỗi nhiệm vụ có một file `.wav` theo `task.id`, ví dụ `S1-01.wav`.
 - Màn hướng dẫn và lúc nộp bài đều phát cùng file âm thanh của đáp án tiếng Anh.
+- Chuẩn phát âm đã chốt là **Anh-Mỹ**. File âm thanh tĩnh và giọng đọc dự phòng
+  của trình duyệt đều phải ưu tiên giọng `en-US`.
 - Nếu file âm thanh không phát được, app mới fallback sang Web Speech API của
   trình duyệt.
 - Có nút biểu tượng loa để nghe lại ở màn hướng dẫn.
 - Khi phát một âm mới, ứng dụng dừng âm đang phát trước đó.
 - Không chấm IPA và không yêu cầu người học chọn giọng.
 
-Âm thanh hiện tại được tạo bằng giọng đọc tiếng Anh có sẵn trên Windows để phục
-vụ bản mẫu. Đây là âm thanh mẫu hỗ trợ học, không được mô tả là bản ghi âm
-Oxford chính thức.
+Màn hướng dẫn hiển thị **IPA Anh-Mỹ dạng rộng và đơn giản cho người học**:
+
+- Từ riêng lẻ mới có IPA Anh-Mỹ ngay dưới từ tiếng Anh.
+- Khi một cụm thêm từ liên kết, tính từ, trạng từ, động từ, giới từ hoặc từ chức
+  năng mới, app hiển thị riêng từ mới và IPA của từ đó.
+- App đồng thời hiển thị IPA của toàn bộ từ/cụm đang học để người học biết cách
+  đọc liền mạch. Ví dụ: `daily /ˈdeɪli/` và
+  `daily life /ˈdeɪli laɪf/`.
+- Nếu toàn bộ đơn vị chỉ gồm một từ mới, không lặp hai dòng IPA giống nhau.
+- Với câu và đoạn dài, app không liệt kê lại IPA của mọi từ đã biết; chỉ nêu các
+  từ mới được giới thiệu ở bước đó và có thể bỏ dòng IPA toàn câu nếu nó làm
+  màn hướng dẫn quá tải.
+- IPA chỉ dùng để nhìn, nghe và đọc theo; không có bài nhập IPA trong MVP.
+
+IPA chỉ ghi các âm cơ bản và trọng âm cần thiết. App không hiển thị ký hiệu
+ngữ âm hẹp hoặc biến thể phát âm tự nhiên như âm bật nhanh của `/t/`. Ví dụ,
+`city` được ghi đơn giản là `/ˈsɪti/`. Cách nói tự nhiên chi tiết hơn được truyền
+đạt qua âm thanh Anh-Mỹ, không thêm ký hiệu phức tạp vào màn hình.
+
+Các ký hiệu Anh-Mỹ quen thuộc như `/oʊ/` và `/ər/` vẫn được dùng khi cần. Nếu
+một từ có nhiều cách phát âm Mỹ hợp lệ, app chọn một cách phổ biến, dễ học và
+dùng nhất quán trong toàn khóa.
+
+Âm thanh dùng giọng Anh-Mỹ để phục vụ bản mẫu. Đây là âm thanh mẫu hỗ trợ học,
+không được mô tả là bản ghi âm Oxford chính thức.
 
 ## Tiến độ và lưu trạng thái
 
@@ -91,6 +115,10 @@ Mỗi nhiệm vụ có thêm dữ liệu hướng dẫn:
 - `explanation`: lời giải thích ngắn bằng tiếng Việt.
 - `parts`: các thành phần đã học và thành phần mới khi cần minh họa cách ghép.
 - `speech`: nội dung tiếng Anh cần phát âm; mặc định dùng đáp án.
+- `pronunciation.full`: IPA Anh-Mỹ đơn giản của toàn bộ từ/cụm đang hướng dẫn
+  khi cần hiển thị.
+- `pronunciation.newWords`: danh sách từ mới của bước hiện tại, gồm `term`,
+  `ipa` và nghĩa/vai trò ngắn bằng tiếng Việt.
 
 Dữ liệu hướng dẫn được sinh theo quy tắc chung và có thể ghi đè ở các bước cần
 giải thích quan hệ đặc biệt như `city -> cities -> many cities`.
@@ -103,6 +131,8 @@ Giữ phong cách tối giản hiện tại:
 - Mỗi thời điểm chỉ hiện một nội dung.
 - Màn hướng dẫn dùng từ tiếng Anh làm điểm nhìn chính, nghĩa và giải thích đặt
   ngay bên dưới.
+- IPA toàn đơn vị đặt ngay dưới từ/cụm tiếng Anh. Danh sách từ mới và IPA chỉ
+  xuất hiện khi bước hiện tại bổ sung thành phần chưa học.
 - Chỉ có hai thao tác chính: nghe lại và tiếp tục.
 - Màn bài tập vẫn chỉ có đề tiếng Việt, ô nhập và nút kiểm tra.
 - Bàn phím là luồng chính: Enter tiếp tục, Enter nộp, Enter quay lại hướng dẫn
@@ -119,6 +149,11 @@ Giữ phong cách tối giản hiện tại:
   sang bước mới.
 - `cities` giải thích là số nhiều của `city`.
 - `many cities` giới thiệu nghĩa của `many` trước khi yêu cầu nhập cả cụm.
+- `city` hiển thị `/ˈsɪti/`, không dùng ký hiệu biến thể phát âm hẹp.
+- `many cities` nhấn mạnh IPA của từ mới `many` và hiển thị thêm IPA của toàn
+  cụm.
+- Một từ đã được giới thiệu không bị liệt kê lại như từ mới ở các bước sau.
+- Giọng dự phòng của Web Speech API ưu tiên `en-US`.
 - Nếu Web Speech API không khả dụng hoặc không phát sự kiện kết thúc, luồng vẫn
   tiếp tục an toàn.
 - Không phát sinh lỗi giao diện trên desktop và màn hình 390 x 800.
