@@ -10,10 +10,10 @@
     },
     {
       "id": "listening-song-ngu-sample",
-      "title": "Listening Sample: Exercise 1",
+      "title": "Exercise 1: Lắp đặt TV",
       "level": "A2-B1",
-      "topic": "Nghe hội thoại công việc",
-      "description": "Bài nghe mẫu từ phần đầu của file MP3 song ngữ.",
+      "topic": "Hội thoại công việc",
+      "description": "Đi từ từ vựng đơn lẻ đến toàn bộ hội thoại nghe về việc lắp đặt một chiếc TV.",
       "dataPath": "./data/courses/listening-song-ngu-sample.json"
     }
   ]

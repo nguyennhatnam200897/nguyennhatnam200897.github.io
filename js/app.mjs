@@ -61,8 +61,11 @@ let tasks = [];
 
 const courseCache = new Map();
 
-function storageKeyFor(courseId) {
-  return `article-mastery-session-v3:${courseId}`;
+function storageKeyFor(course) {
+  const versionSuffix =
+    course.sessionVersion > 1 ? `:v${course.sessionVersion}` : "";
+
+  return `article-mastery-session-v3:${course.id}${versionSuffix}`;
 }
 
 function audioSrcFor(task) {
@@ -70,7 +73,7 @@ function audioSrcFor(task) {
 }
 
 function loadSession(course, groups) {
-  const storageKey = storageKeyFor(course.id);
+  const storageKey = storageKeyFor(course);
 
   try {
     const stored = localStorage.getItem(storageKey);
@@ -102,7 +105,7 @@ function saveSession() {
   }
 
   localStorage.setItem(
-    storageKeyFor(activeCourse.id),
+    storageKeyFor(activeCourse),
     JSON.stringify(serializeMasterySession(masterySession))
   );
 }
@@ -120,7 +123,7 @@ function resetCourse() {
     return;
   }
 
-  const storageKey = storageKeyFor(activeCourse.id);
+  const storageKey = storageKeyFor(activeCourse);
   speechPlayer.cancel();
   localStorage.removeItem(storageKey);
   masterySession = createMasterySession(practiceGroups);

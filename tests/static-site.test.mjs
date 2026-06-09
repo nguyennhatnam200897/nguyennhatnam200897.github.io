@@ -37,6 +37,8 @@ test("loads app modules through relative imports", async () => {
   assert.match(appSource, /from "\.\/speech\.mjs"/);
   assert.match(appSource, /renderPronunciation/);
   assert.match(appSource, /article-mastery-session-v3:/);
+  assert.match(appSource, /course\.sessionVersion\s*>\s*1/);
+  assert.match(appSource, /storageKeyFor\(activeCourse\)/);
   assert.match(appSource, /article-mastery-session-v2/);
   assert.match(appSource, /activeCourse\.audioExtension/);
   assert.doesNotMatch(appSource, /react|createRoot|lucide/i);

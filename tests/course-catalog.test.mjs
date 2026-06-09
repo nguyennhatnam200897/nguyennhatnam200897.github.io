@@ -28,13 +28,13 @@ test("course catalog includes the listening sample and builds every course", asy
   }
 });
 
-test("listening sample tasks point at committed mp3 clips", async () => {
+test("listening sample uses committed course-local WAV assets", async () => {
   const data = await readJson("data/courses/listening-song-ngu-sample.json");
   const course = buildLessonCourse(data);
 
-  assert.equal(course.audioExtension, "mp3");
+  assert.equal(course.audioExtension, "wav");
   assert.equal(course.audioBasePath, "./assets/audio/listening-song-ngu-sample");
-  assert.ok(course.tasks.length >= 3);
+  assert.ok(course.tasks.length >= 60);
 
   for (const task of course.tasks) {
     const assetPath = path.join(
@@ -45,10 +45,7 @@ test("listening sample tasks point at committed mp3 clips", async () => {
     const header = await readFile(assetPath);
 
     assert.equal(existsSync(assetPath), true);
-    assert.ok(
-      header.subarray(0, 3).toString("ascii") === "ID3" ||
-        header[0] === 0xff,
-      `${assetPath} is not an mp3`
-    );
+    assert.equal(header.subarray(0, 4).toString("ascii"), "RIFF");
+    assert.equal(header.subarray(8, 12).toString("ascii"), "WAVE");
   }
 });

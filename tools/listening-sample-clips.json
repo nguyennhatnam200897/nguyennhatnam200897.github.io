@@ -1,13 +1,61 @@
 {
   "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
   "clips": [
-    { "id": "LS1-01", "start": 3.75, "end": 6.95 },
-    { "id": "LS1-02", "start": 6.75, "end": 11.05 },
-    { "id": "LS1-03", "start": 10.75, "end": 13.05 },
-    { "id": "LS1-04", "start": 12.75, "end": 15.05 },
-    { "id": "LS1-05", "start": 14.75, "end": 19.1 },
-    { "id": "LS1-06", "start": 18.75, "end": 24.1 },
-    { "id": "LS1-07", "start": 23.75, "end": 28.1 },
-    { "id": "LS1-08", "start": 27.75, "end": 35.1 }
+    {
+      "sentenceId": "LS1-01",
+      "audioId": "LS1-01-original",
+      "start": 3.94,
+      "end": 6.94,
+      "verifiedText": "Hello, I'm Steven from Home Appliance Mart."
+    },
+    {
+      "sentenceId": "LS1-02",
+      "audioId": "LS1-02-original",
+      "start": 7.16,
+      "end": 11.14,
+      "verifiedText": "I'm here to install the UHD television that you ordered last week."
+    },
+    {
+      "sentenceId": "LS1-03",
+      "audioId": "LS1-03-original",
+      "start": 11.34,
+      "end": 12.98,
+      "verifiedText": "Yes, come right this way."
+    },
+    {
+      "sentenceId": "LS1-04",
+      "audioId": "LS1-04-original",
+      "start": 13.22,
+      "end": 15.5,
+      "verifiedText": "We would like to mount the television on this wall."
+    },
+    {
+      "sentenceId": "LS1-05",
+      "audioId": "LS1-05-original",
+      "start": 15.66,
+      "end": 18.66,
+      "verifiedText": "We plan to use it for presentations and training seminars."
+    },
+    {
+      "sentenceId": "LS1-06",
+      "audioId": "LS1-06-original",
+      "start": 19.12,
+      "end": 24.16,
+      "verifiedText": "Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount."
+    },
+    {
+      "sentenceId": "LS1-07",
+      "audioId": "LS1-07-original",
+      "start": 24.56,
+      "end": 27.44,
+      "verifiedText": "I'm sorry. I'll have to come back tomorrow morning."
+    },
+    {
+      "sentenceId": "LS1-08",
+      "audioId": "LS1-08-original",
+      "start": 27.44,
+      "end": 35.0,
+      "verifiedText": "Oh, that's all right. However, please call me before you come tomorrow to make sure that someone is in the office to meet you."
+    }
   ]
 }

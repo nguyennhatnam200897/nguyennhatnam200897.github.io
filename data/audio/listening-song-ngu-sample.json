@@ -1,0 +1,620 @@
+{
+  "courseId": "listening-song-ngu-sample",
+  "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+  "format": "wav",
+  "sampleRate": 22050,
+  "channels": 1,
+  "assets": [
+    {
+      "audioId": "LS1-01-01",
+      "answer": "Steven",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-01-02",
+      "answer": "Home Appliance Mart",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-01-03",
+      "answer": "I'm Steven",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-01-04",
+      "answer": "I'm Steven from Home Appliance Mart",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-01-original",
+      "answer": "Hello, I'm Steven from Home Appliance Mart.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-01",
+      "start": 3.94,
+      "end": 6.94
+    },
+    {
+      "audioId": "LS1-02-01",
+      "answer": "television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-02",
+      "answer": "UHD television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-03",
+      "answer": "the UHD television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-04",
+      "answer": "week",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-05",
+      "answer": "last week",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-06",
+      "answer": "you ordered the UHD television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-07",
+      "answer": "you ordered the UHD television last week",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-08",
+      "answer": "the UHD television that you ordered last week",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-09",
+      "answer": "install the UHD television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-10",
+      "answer": "I'm here to install the UHD television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-02-original",
+      "answer": "I'm here to install the UHD television that you ordered last week.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-02",
+      "start": 7.16,
+      "end": 11.14
+    },
+    {
+      "audioId": "LS1-03-01",
+      "answer": "way",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-03-02",
+      "answer": "this way",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-03-03",
+      "answer": "come this way",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-03-04",
+      "answer": "come right this way",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-03-original",
+      "answer": "Yes, come right this way.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-03",
+      "start": 11.34,
+      "end": 12.98
+    },
+    {
+      "audioId": "LS1-04-01",
+      "answer": "wall",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-04-02",
+      "answer": "this wall",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-04-03",
+      "answer": "on this wall",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-04-04",
+      "answer": "mount the television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-04-05",
+      "answer": "mount the television on this wall",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-04-06",
+      "answer": "we would like to mount the television",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-04-original",
+      "answer": "We would like to mount the television on this wall.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-04",
+      "start": 13.22,
+      "end": 15.5
+    },
+    {
+      "audioId": "LS1-05-01",
+      "answer": "presentation",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-02",
+      "answer": "presentations",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-03",
+      "answer": "seminar",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-04",
+      "answer": "seminars",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-05",
+      "answer": "training seminars",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-06",
+      "answer": "presentations and training seminars",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-07",
+      "answer": "use it for presentations",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-08",
+      "answer": "use it for presentations and training seminars",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-09",
+      "answer": "we use it for presentations and training seminars",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-05-original",
+      "answer": "We plan to use it for presentations and training seminars.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-05",
+      "start": 15.66,
+      "end": 18.66
+    },
+    {
+      "audioId": "LS1-06-01",
+      "answer": "tool",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-02",
+      "answer": "tools",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-03",
+      "answer": "the tools",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-04",
+      "answer": "wall mount",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-05",
+      "answer": "the wall mount",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-06",
+      "answer": "screw the television to the wall mount",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-07",
+      "answer": "I need to screw the television to the wall mount",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-08",
+      "answer": "the tools that I need to screw the television to the wall mount",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-09",
+      "answer": "I forgot the tools that I need to screw the television to the wall mount",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-10",
+      "answer": "it looks like I forgot the tools that I need to screw the television to the wall mount",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-06-original",
+      "answer": "Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-06",
+      "start": 19.12,
+      "end": 24.16
+    },
+    {
+      "audioId": "LS1-07-01",
+      "answer": "morning",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-07-02",
+      "answer": "tomorrow morning",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-07-03",
+      "answer": "come back tomorrow morning",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-07-04",
+      "answer": "I have to come back tomorrow morning",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-07-05",
+      "answer": "I'm sorry",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-07-original",
+      "answer": "I'm sorry. I'll have to come back tomorrow morning.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-07",
+      "start": 24.56,
+      "end": 27.44
+    },
+    {
+      "audioId": "LS1-08-01",
+      "answer": "call me",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-02",
+      "answer": "you come tomorrow",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-03",
+      "answer": "before you come tomorrow",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-04",
+      "answer": "call me before you come tomorrow",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-05",
+      "answer": "please call me before you come tomorrow",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-06",
+      "answer": "office",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-07",
+      "answer": "the office",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-08",
+      "answer": "someone is in the office",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-09",
+      "answer": "meet you",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-10",
+      "answer": "someone is in the office to meet you",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-11",
+      "answer": "make sure that someone is in the office to meet you",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-12",
+      "answer": "to make sure that someone is in the office to meet you",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-13",
+      "answer": "please call me before you come tomorrow to make sure that someone is in the office to meet you",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-14",
+      "answer": "that's all right",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-15",
+      "answer": "Oh, that's all right",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-16",
+      "answer": "However, please call me before you come tomorrow",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-17",
+      "answer": "However, please call me before you come tomorrow to make sure that someone is in the office to meet you",
+      "sourceType": "pedagogical",
+      "voice": "Microsoft Zira Desktop",
+      "locale": "en-US"
+    },
+    {
+      "audioId": "LS1-08-original",
+      "answer": "Oh, that's all right. However, please call me before you come tomorrow to make sure that someone is in the office to meet you.",
+      "sourceType": "original",
+      "source": "Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3",
+      "sentenceId": "LS1-08",
+      "start": 27.44,
+      "end": 35.0
+    },
+    {
+      "audioId": "G2",
+      "answer": "Hello, I'm Steven from Home Appliance Mart. I'm here to install the UHD television that you ordered last week.",
+      "sourceType": "cumulative",
+      "clips": [
+        "LS1-01-original",
+        "LS1-02-original"
+      ]
+    },
+    {
+      "audioId": "G3",
+      "answer": "Hello, I'm Steven from Home Appliance Mart. I'm here to install the UHD television that you ordered last week. Yes, come right this way.",
+      "sourceType": "cumulative",
+      "clips": [
+        "LS1-01-original",
+        "LS1-02-original",
+        "LS1-03-original"
+      ]
+    },
+    {
+      "audioId": "G4",
+      "answer": "Hello, I'm Steven from Home Appliance Mart. I'm here to install the UHD television that you ordered last week. Yes, come right this way. We would like to mount the television on this wall.",
+      "sourceType": "cumulative",
+      "clips": [
+        "LS1-01-original",
+        "LS1-02-original",
+        "LS1-03-original",
+        "LS1-04-original"
+      ]
+    },
+    {
+      "audioId": "G5",
+      "answer": "Hello, I'm Steven from Home Appliance Mart. I'm here to install the UHD television that you ordered last week. Yes, come right this way. We would like to mount the television on this wall. We plan to use it for presentations and training seminars.",
+      "sourceType": "cumulative",
+      "clips": [
+        "LS1-01-original",
+        "LS1-02-original",
+        "LS1-03-original",
+        "LS1-04-original",
+        "LS1-05-original"
+      ]
+    },
+    {
+      "audioId": "G6",
+      "answer": "Hello, I'm Steven from Home Appliance Mart. I'm here to install the UHD television that you ordered last week. Yes, come right this way. We would like to mount the television on this wall. We plan to use it for presentations and training seminars. Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount.",
+      "sourceType": "cumulative",
+      "clips": [
+        "LS1-01-original",
+        "LS1-02-original",
+        "LS1-03-original",
+        "LS1-04-original",
+        "LS1-05-original",
+        "LS1-06-original"
+      ]
+    },
+    {
+      "audioId": "G7",
+      "answer": "Hello, I'm Steven from Home Appliance Mart. I'm here to install the UHD television that you ordered last week. Yes, come right this way. We would like to mount the television on this wall. We plan to use it for presentations and training seminars. Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount. I'm sorry. I'll have to come back tomorrow morning.",
+      "sourceType": "cumulative",
+      "clips": [
+        "LS1-01-original",
+        "LS1-02-original",
+        "LS1-03-original",
+        "LS1-04-original",
+        "LS1-05-original",
+        "LS1-06-original",
+        "LS1-07-original"
+      ]
+    },
+    {
+      "audioId": "G8",
+      "answer": "Hello, I'm Steven from Home Appliance Mart. I'm here to install the UHD television that you ordered last week. Yes, come right this way. We would like to mount the television on this wall. We plan to use it for presentations and training seminars. Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount. I'm sorry. I'll have to come back tomorrow morning. Oh, that's all right. However, please call me before you come tomorrow to make sure that someone is in the office to meet you.",
+      "sourceType": "cumulative",
+      "clips": [
+        "LS1-01-original",
+        "LS1-02-original",
+        "LS1-03-original",
+        "LS1-04-original",
+        "LS1-05-original",
+        "LS1-06-original",
+        "LS1-07-original",
+        "LS1-08-original"
+      ]
+    }
+  ]
+}

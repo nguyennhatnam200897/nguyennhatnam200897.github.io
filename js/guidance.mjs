@@ -117,6 +117,18 @@ function encourageToExplanation(task) {
   return `Cấu trúc “encourage someone to do something” nghĩa là khuyến khích ai đó làm việc gì. Trong câu này, dự án khuyến khích các cửa hàng “to use” và “to place”.`;
 }
 
+function cumulativeExplanation(task, previousTask) {
+  if (task.stage !== "paragraph") {
+    return null;
+  }
+
+  if (previousTask?.stage === "paragraph" && isDirectExpansion(task, previousTask)) {
+    return `Phần nội dung cộng dồn này giữ toàn bộ phần bạn vừa thành thạo và thêm một câu mới ở cuối. Hãy nghe rồi tái tạo liền mạch cả phần.`;
+  }
+
+  return `Đây là phần nội dung cộng dồn đầu tiên, ghép các câu bạn đã thành thạo theo đúng thứ tự. Hãy nghe rồi tái tạo liền mạch cả phần.`;
+}
+
 function expansionExplanation(task, previousTask) {
   if (!isDirectExpansion(task, previousTask) || task.stage === "inflection") {
     return null;
@@ -132,6 +144,7 @@ function contextualExplanation(task, previousTask) {
     connectorExplanation(task) ??
     wouldExplanation(task) ??
     articleExplanation(task) ??
+    cumulativeExplanation(task, previousTask) ??
     expansionExplanation(task, previousTask)
   );
 }
@@ -153,7 +166,7 @@ function genericExplanation(task, previousTask) {
     sentence:
       "Đây là câu tiếng Anh hoàn chỉnh trong bài. Hãy đọc theo và chú ý thứ tự các ý.",
     paragraph:
-      "Đây là phần bài báo được ghép từ các câu bạn đã học. Hãy đọc liền mạch toàn bộ phần này.",
+      "Đây là phần nội dung được ghép từ các câu bạn đã học. Hãy nghe và tái tạo liền mạch toàn bộ phần này.",
   };
 
   return introductions[task.stage] ?? `“${task.answer}” có nghĩa là “${task.prompt}”.`;
