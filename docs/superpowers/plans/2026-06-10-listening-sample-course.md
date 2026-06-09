@@ -1,135 +1,119 @@
-# Listening Sample Course Implementation Plan
+# Kế hoạch triển khai bài nghe mẫu theo phương pháp i+1
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+Ngày cập nhật: 2026-06-10
 
-**Goal:** Build one sample listening course from the first three minutes of `Luyen-nghe-Tieng-Anh-Thu-dong-Song-ngu.mp3`.
+**Mục tiêu:** Thay bản thử nghiệm 8 câu/16 task bằng một giáo án hoàn chỉnh
+đưa người học từ danh từ neo đến từng câu gốc và cuối cùng tái tạo toàn bộ
+Exercise 1.
 
-**Architecture:** Keep the existing static JSON course architecture. Add local audio tooling to extract/transcribe the sample, create one new JSON course, add small audio clips under `assets/audio/listening-song-ngu-sample/`, and extend tests so future courses are validated through the same schema.
+**Kiến trúc:** Giữ nguyên webapp tĩnh và schema course JSON. Học liệu được biên
+soạn thủ công trong course data; `course-model.mjs` tiếp tục sinh task hội thoại
+cộng dồn. Một manifest audio riêng ghi nội dung, loại nguồn và timestamp của
+mỗi file. Tooling local sinh WAV giọng Mỹ cho task sư phạm, cắt WAV từ MP3 cho
+câu gốc và ghép WAV cho hội thoại cộng dồn.
 
-**Tech Stack:** Vanilla ES modules, Node `node:test`, Python local tooling, offline transcription, static GitHub Pages assets.
+**Công nghệ:** Vanilla ES modules, JSON, Node `node:test`, PowerShell
+`System.Speech`, Python, FFmpeg qua `imageio-ffmpeg`, static GitHub Pages.
 
 ---
 
-### Task 1: Prepare Local Audio Tooling
+### Task 1: Khóa contract phương pháp bằng test
 
 **Files:**
-- Create: `tools/transcribe-listening-sample.py`
-- Create: `tools/build-listening-sample-assets.py`
+- Modify: `tests/course-catalog.test.mjs`
+- Create: `tests/listening-course.test.mjs`
 
-- [ ] **Step 1: Install local Python tooling**
+- [ ] Kiểm tra course có 8 câu, dùng WAV và bật `paragraphTaskMode: cumulative`.
+- [ ] Kiểm tra mỗi nhóm có đường học nhiều tầng và kết thúc bằng đúng câu gốc.
+- [ ] Kiểm tra task `object` là danh từ một từ; bridge word không bị dùng làm
+  object.
+- [ ] Kiểm tra các chuỗi số ít -> số nhiều và các mốc clause bắt buộc xuất hiện
+  theo đúng thứ tự.
+- [ ] Kiểm tra task id/prompt không mơ hồ và toàn bộ task có guide hoàn chỉnh.
+- [ ] Kiểm tra manifest bao phủ đúng mọi `audioId`, nội dung manifest trùng
+  `answer`, loại nguồn đúng với stage và file WAV hợp lệ.
+- [ ] Chạy test để xác nhận RED với dữ liệu 16 task hiện tại.
 
-Run:
-
-```powershell
-python -m pip install --user faster-whisper imageio-ffmpeg
-```
-
-Expected: command exits 0 and Python can import both packages.
-
-- [ ] **Step 2: Create a transcription helper**
-
-Create `tools/transcribe-listening-sample.py` that loads `faster_whisper.WhisperModel`, transcribes only the first 180 seconds of the MP3, and writes a JSON draft with segment text and timestamps under `tmp/listening-sample-transcript.json`.
-
-- [ ] **Step 3: Create an asset extraction helper**
-
-Create `tools/build-listening-sample-assets.py` that uses `imageio_ffmpeg.get_ffmpeg_exe()` to cut the first 180 seconds and the chosen lesson clips into `assets/audio/listening-song-ngu-sample/`.
-
-### Task 2: Add Failing Course Tests
+### Task 2: Biên soạn lại dữ liệu Exercise 1
 
 **Files:**
-- Modify: `tests/course-loader.test.mjs`
-- Modify: `tests/static-site.test.mjs`
+- Modify: `data/courses/listening-song-ngu-sample.json`
 
-- [ ] **Step 1: Add test for multiple real courses**
+- [ ] Kiểm âm transcript và giữ tên riêng ở trạng thái đã xác nhận.
+- [ ] Viết lại 8 `taskGroups` theo chuỗi object -> inflection -> phrase ->
+  clause -> sentence.
+- [ ] Chỉ giới thiệu bridge word trong cụm/mệnh đề có nghĩa.
+- [ ] Tái sử dụng `television`, `wall`, `tomorrow`, `office` giữa các câu thay
+  vì dạy lại như từ mới.
+- [ ] Viết guide theo ngữ cảnh cho `the`, số nhiều, `that`, `would like to`,
+  `it looks like`, `have to`, `before`, `to make sure`, `however`.
+- [ ] Bật `paragraphTaskMode: cumulative`, dùng WAV và giữ mỗi nhóm kết thúc
+  bằng transcript gốc.
 
-Add a test that reads `data/courses.json`, asserts both `small-public-garden` and `listening-song-ngu-sample` are present, loads every referenced JSON file, and builds each course with `buildLessonCourse`.
-
-- [ ] **Step 2: Add test for listening sample audio**
-
-Add a test that loads `data/courses/listening-song-ngu-sample.json`, builds the course, and asserts every task audio file exists under `assets/audio/listening-song-ngu-sample/` with an MP3 frame/header.
-
-- [ ] **Step 3: Verify RED**
-
-Run:
-
-```powershell
-node --test tests/course-loader.test.mjs tests/static-site.test.mjs
-```
-
-Expected: fails because the new course JSON and audio clips do not exist yet.
-
-### Task 3: Generate Listening Sample Data
+### Task 3: Mở rộng dữ liệu IPA cho bài nghe
 
 **Files:**
-- Create: `data/courses/listening-song-ngu-sample.json`
-- Modify: `data/courses.json`
-- Create: `assets/audio/listening-song-ngu-sample/*.mp3`
+- Modify: `js/pronunciation.mjs`
+- Modify: `tests/listening-course.test.mjs`
 
-- [ ] **Step 1: Transcribe first three minutes**
+- [ ] Liệt kê mọi word form mới trong các task của course nghe.
+- [ ] Bổ sung IPA Anh-Mỹ đơn giản cho các word form còn thiếu.
+- [ ] Kiểm tra không còn mục IPA rỗng trong guide của các đơn vị ngắn.
 
-Run the transcription helper and inspect `tmp/listening-sample-transcript.json`. Select the first clean English listening passage and its Vietnamese support text from the bilingual transcript.
-
-- [ ] **Step 2: Cut lesson audio clips**
-
-Use the asset helper to create short `.mp3` clips for each selected English sentence and an optional full sample clip for manual review.
-
-- [ ] **Step 3: Write course JSON**
-
-Create `data/courses/listening-song-ngu-sample.json` with:
-
-```json
-{
-  "id": "listening-song-ngu-sample",
-  "title": "Listening Sample: Song Ngu",
-  "level": "A2-B1",
-  "topic": "Listening from bilingual audio",
-  "description": "Bai nghe mau tu vai phut dau cua file MP3 song ngu.",
-  "audioBasePath": "./assets/audio/listening-song-ngu-sample",
-  "paragraphTaskMode": "none",
-  "sentences": [],
-  "taskGroups": []
-}
-```
-
-Fill `sentences` and `taskGroups` from the transcript. Each task should use `stage: "sentence"`, Vietnamese meaning as `prompt`, English as `answer`, and a `guide` with context from the bilingual audio.
-
-- [ ] **Step 4: Register course**
-
-Add an entry to `data/courses.json` for `listening-song-ngu-sample`.
-
-### Task 4: Verify App Behavior
+### Task 4: Chuẩn hóa pipeline và manifest audio
 
 **Files:**
-- Modify only if tests or browser check expose a real issue.
+- Modify: `tools/export-audio-tasks.mjs`
+- Modify: `tools/generate-american-audio.ps1`
+- Modify: `tools/build-listening-sample-assets.py`
+- Modify: `tools/listening-sample-clips.json`
+- Create: `data/audio/listening-song-ngu-sample.json`
 
-- [ ] **Step 1: Run focused tests**
+- [ ] Cho exporter nhận đường dẫn course và chỉ xuất task sư phạm.
+- [ ] Cho script giọng Mỹ nhận course/manifest/output, sinh một WAV cho mỗi
+  task sư phạm và xác nhận voice `en-US`.
+- [ ] Đổi công cụ cắt clip gốc sang WAV PCM và dùng `audioId` riêng cho task
+  sentence.
+- [ ] Ghép clip câu gốc thành `G2` đến `G8`.
+- [ ] Sinh manifest có `audioId`, `answer`, `sourceType`, source clip/timestamp
+  hoặc danh sách clip thành phần.
+- [ ] Chỉ cho phép chia sẻ `audioId` khi các answer giống hệt nhau.
 
-Run:
+### Task 5: Sinh và xác thực tài sản audio
 
-```powershell
-node --test tests/course-loader.test.mjs tests/static-site.test.mjs
-```
+**Files:**
+- Replace: `assets/audio/listening-song-ngu-sample/*.mp3`
+- Create: `assets/audio/listening-song-ngu-sample/*.wav`
 
-Expected: pass.
+- [ ] Sinh WAV giọng Mỹ cho object, inflection, phrase và clause.
+- [ ] Cắt 8 câu hoàn chỉnh từ MP3 gốc sang WAV.
+- [ ] Ghép 7 file hội thoại cộng dồn.
+- [ ] Kiểm tra mọi WAV có header RIFF/WAVE, dung lượng khác rỗng và được
+  manifest tham chiếu đúng một cách hợp lệ.
 
-- [ ] **Step 2: Run full tests**
+### Task 6: Kiểm thử tích hợp
 
-Run:
+**Files:**
+- Modify only when a failing test exposes a real issue.
 
-```powershell
-node --test
-```
+- [ ] Chạy `node --test tests/listening-course.test.mjs
+  tests/course-catalog.test.mjs`.
+- [ ] Chạy toàn bộ `node --test`.
+- [ ] Kiểm tra `git diff --check` và không còn MP3 runtime cũ.
 
-Expected: all tests pass.
+### Task 7: Kiểm tra trải nghiệm trên trình duyệt
 
-- [ ] **Step 3: Browser-check picker**
+**Files:**
+- Modify only when browser verification exposes a real issue.
 
-Start a local static server, open the app, confirm the picker shows two courses, select the sample course, and confirm the first guide opens without console errors.
+- [ ] Mở course picker trên local server và xác nhận thẻ bài nghe hiển thị đúng
+  8 câu cùng tổng task mới.
+- [ ] Mở task đầu, kiểm tra guide, IPA, audio và chuyển sang exercise.
+- [ ] Kiểm tra một task ở giữa có guide theo ngữ cảnh và audio đúng answer.
+- [ ] Kiểm tra desktop và mobile không có nội dung chồng lấn hoặc lỗi console.
 
-- [ ] **Step 4: Commit implementation**
+### Task 8: Hoàn tất
 
-Stage the spec, plan, tooling, data, audio clips, and tests. Commit with:
-
-```powershell
-git commit -m "Add listening sample course"
-```
+- [ ] Commit học liệu, tooling, audio và test thành một mốc triển khai.
+- [ ] Báo số task/audio cuối cùng, kết quả test và những điểm cần kiểm âm thêm
+  nếu còn.
