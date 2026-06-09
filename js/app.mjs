@@ -66,7 +66,7 @@ function storageKeyFor(courseId) {
 }
 
 function audioSrcFor(task) {
-  return `${activeCourse.audioBasePath}/${task.audioId ?? task.id}.wav`;
+  return `${activeCourse.audioBasePath}/${task.audioId ?? task.id}.${activeCourse.audioExtension}`;
 }
 
 function loadSession(course, groups) {

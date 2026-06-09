@@ -92,6 +92,7 @@ export function buildLessonCourse(courseData) {
     topic: courseData.topic,
     description: courseData.description ?? "",
     audioBasePath: courseData.audioBasePath ?? "./assets/audio",
+    audioExtension: courseData.audioExtension ?? "wav",
     article: {
       title: courseData.title,
       level: courseData.level,

@@ -7,6 +7,14 @@
       "topic": "Đời sống đô thị và dự án môi trường nhỏ",
       "description": "Chinh phục một bài đọc B2 ngắn về khu vườn công cộng trong đô thị.",
       "dataPath": "./data/courses/small-public-garden.json"
+    },
+    {
+      "id": "listening-song-ngu-sample",
+      "title": "Listening Sample: Exercise 1",
+      "level": "A2-B1",
+      "topic": "Nghe hội thoại công việc",
+      "description": "Bài nghe mẫu từ phần đầu của file MP3 song ngữ.",
+      "dataPath": "./data/courses/listening-song-ngu-sample.json"
     }
   ]
 }

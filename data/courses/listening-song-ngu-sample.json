@@ -1,0 +1,360 @@
+{
+  "id": "listening-song-ngu-sample",
+  "title": "Listening Sample: Exercise 1",
+  "level": "A2-B1",
+  "topic": "Nghe hội thoại công việc",
+  "description": "Bài nghe mẫu từ phần đầu của file MP3 song ngữ.",
+  "audioBasePath": "./assets/audio/listening-song-ngu-sample",
+  "audioExtension": "mp3",
+  "paragraphTaskMode": "none",
+  "sentences": [
+    {
+      "id": "LS1-01",
+      "english": "Hello, I'm Stephen from Home Appliance Mart.",
+      "vietnamese": "Xin chào, tôi là Stephen từ Home Appliance Mart."
+    },
+    {
+      "id": "LS1-02",
+      "english": "I'm here to install the UHD television that you ordered last week.",
+      "vietnamese": "Tôi đến đây để lắp chiếc TV UHD mà anh/chị đã đặt tuần trước."
+    },
+    {
+      "id": "LS1-03",
+      "english": "Yes, come right this way.",
+      "vietnamese": "Vâng, mời đi lối này."
+    },
+    {
+      "id": "LS1-04",
+      "english": "We would like to mount the television on this wall.",
+      "vietnamese": "Chúng tôi muốn gắn chiếc TV lên bức tường này."
+    },
+    {
+      "id": "LS1-05",
+      "english": "We plan to use it for presentations and training seminars.",
+      "vietnamese": "Chúng tôi dự định dùng nó cho các buổi thuyết trình và hội thảo đào tạo."
+    },
+    {
+      "id": "LS1-06",
+      "english": "Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount.",
+      "vietnamese": "Ôi không, có vẻ tôi đã quên các dụng cụ cần để bắt vít chiếc TV vào giá treo tường."
+    },
+    {
+      "id": "LS1-07",
+      "english": "I'm sorry. I'll have to come back tomorrow morning.",
+      "vietnamese": "Tôi xin lỗi. Tôi sẽ phải quay lại vào sáng mai."
+    },
+    {
+      "id": "LS1-08",
+      "english": "Oh, that's all right. However, please call me before you come tomorrow to make sure that someone is in the office to meet you.",
+      "vietnamese": "Ồ, không sao đâu. Tuy nhiên, vui lòng gọi cho tôi trước khi anh đến vào ngày mai để chắc rằng có người ở văn phòng đón anh."
+    }
+  ],
+  "taskGroups": [
+    [
+      {
+        "id": "LS1-01-key",
+        "sentenceId": "LS1-01",
+        "stage": "phrase",
+        "prompt": "Home Appliance Mart",
+        "answer": "Home Appliance Mart",
+        "audioId": "LS1-01",
+        "guide": {
+          "term": "Home Appliance Mart",
+          "meaning": "tên cửa hàng/công ty thiết bị gia dụng",
+          "explanation": "Trong câu mở đầu, hãy bắt được tên nơi Stephen làm việc. Đây là thông tin nhận diện người nói.",
+          "parts": [
+            { "term": "Home Appliance", "meaning": "thiết bị gia dụng", "isNew": true },
+            { "term": "Mart", "meaning": "cửa hàng/chợ", "isNew": true }
+          ],
+          "speech": "Home Appliance Mart"
+        }
+      },
+      {
+        "id": "LS1-01-full",
+        "sentenceId": "LS1-01",
+        "stage": "sentence",
+        "prompt": "Xin chào, tôi là Stephen từ Home Appliance Mart.",
+        "answer": "Hello, I'm Stephen from Home Appliance Mart.",
+        "audioId": "LS1-01",
+        "guide": {
+          "term": "Hello, I'm Stephen from Home Appliance Mart.",
+          "meaning": "Xin chào, tôi là Stephen từ Home Appliance Mart.",
+          "explanation": "Câu này giới thiệu người nói. Khi nghe, hãy chú ý mẫu “I'm ... from ...” để nhận ra tên người và tổ chức.",
+          "parts": [
+            { "term": "I'm Stephen", "meaning": "tôi là Stephen", "isNew": true },
+            { "term": "from Home Appliance Mart", "meaning": "từ Home Appliance Mart", "isNew": true }
+          ],
+          "speech": "Hello, I'm Stephen from Home Appliance Mart."
+        }
+      }
+    ],
+    [
+      {
+        "id": "LS1-02-key",
+        "sentenceId": "LS1-02",
+        "stage": "phrase",
+        "prompt": "lắp chiếc TV UHD",
+        "answer": "install the UHD television",
+        "audioId": "LS1-02",
+        "guide": {
+          "term": "install the UHD television",
+          "meaning": "lắp chiếc TV UHD",
+          "explanation": "Cụm này nói mục đích Stephen đến văn phòng. “Install” là động từ chính cần nghe rõ.",
+          "parts": [
+            { "term": "install", "meaning": "lắp đặt", "isNew": true },
+            { "term": "the UHD television", "meaning": "chiếc TV UHD", "isNew": true }
+          ],
+          "speech": "install the UHD television"
+        }
+      },
+      {
+        "id": "LS1-02-full",
+        "sentenceId": "LS1-02",
+        "stage": "sentence",
+        "prompt": "Tôi đến đây để lắp chiếc TV UHD mà anh/chị đã đặt tuần trước.",
+        "answer": "I'm here to install the UHD television that you ordered last week.",
+        "audioId": "LS1-02",
+        "guide": {
+          "term": "I'm here to install the UHD television that you ordered last week.",
+          "meaning": "Tôi đến đây để lắp chiếc TV UHD mà anh/chị đã đặt tuần trước.",
+          "explanation": "Cấu trúc “I'm here to ...” nêu lý do có mặt. Phần “that you ordered last week” bổ sung TV này là chiếc đã được đặt tuần trước.",
+          "parts": [
+            { "term": "I'm here to install", "meaning": "tôi đến đây để lắp", "isNew": true },
+            { "term": "that you ordered last week", "meaning": "mà bạn đã đặt tuần trước", "isNew": true }
+          ],
+          "speech": "I'm here to install the UHD television that you ordered last week."
+        }
+      }
+    ],
+    [
+      {
+        "id": "LS1-03-key",
+        "sentenceId": "LS1-03",
+        "stage": "phrase",
+        "prompt": "đi lối này",
+        "answer": "come right this way",
+        "audioId": "LS1-03",
+        "guide": {
+          "term": "come right this way",
+          "meaning": "mời đi lối này",
+          "explanation": "Đây là câu mời hoặc chỉ đường rất thường gặp trong hội thoại nơi làm việc.",
+          "parts": [
+            { "term": "come", "meaning": "đi/đến", "isNew": true },
+            { "term": "right this way", "meaning": "ngay lối này", "isNew": true }
+          ],
+          "speech": "come right this way"
+        }
+      },
+      {
+        "id": "LS1-03-full",
+        "sentenceId": "LS1-03",
+        "stage": "sentence",
+        "prompt": "Vâng, mời đi lối này.",
+        "answer": "Yes, come right this way.",
+        "audioId": "LS1-03",
+        "guide": {
+          "term": "Yes, come right this way.",
+          "meaning": "Vâng, mời đi lối này.",
+          "explanation": "Người trong văn phòng đồng ý và dẫn Stephen đến vị trí cần lắp TV.",
+          "parts": [
+            { "term": "Yes", "meaning": "vâng", "isNew": true },
+            { "term": "come right this way", "meaning": "mời đi lối này", "isNew": false }
+          ],
+          "speech": "Yes, come right this way."
+        }
+      }
+    ],
+    [
+      {
+        "id": "LS1-04-key",
+        "sentenceId": "LS1-04",
+        "stage": "phrase",
+        "prompt": "gắn TV lên tường",
+        "answer": "mount the television on this wall",
+        "audioId": "LS1-04",
+        "guide": {
+          "term": "mount the television on this wall",
+          "meaning": "gắn TV lên bức tường này",
+          "explanation": "“Mount” trong ngữ cảnh này nghĩa là gắn hoặc treo thiết bị lên tường.",
+          "parts": [
+            { "term": "mount", "meaning": "gắn/treo", "isNew": true },
+            { "term": "on this wall", "meaning": "trên bức tường này", "isNew": true }
+          ],
+          "speech": "mount the television on this wall"
+        }
+      },
+      {
+        "id": "LS1-04-full",
+        "sentenceId": "LS1-04",
+        "stage": "sentence",
+        "prompt": "Chúng tôi muốn gắn chiếc TV lên bức tường này.",
+        "answer": "We would like to mount the television on this wall.",
+        "audioId": "LS1-04",
+        "guide": {
+          "term": "We would like to mount the television on this wall.",
+          "meaning": "Chúng tôi muốn gắn chiếc TV lên bức tường này.",
+          "explanation": "“Would like to” là cách nói lịch sự cho mong muốn. Câu này nêu yêu cầu lắp TV ở vị trí cụ thể.",
+          "parts": [
+            { "term": "would like to", "meaning": "muốn, một cách lịch sự", "isNew": true },
+            { "term": "mount the television", "meaning": "gắn chiếc TV", "isNew": false }
+          ],
+          "speech": "We would like to mount the television on this wall."
+        }
+      }
+    ],
+    [
+      {
+        "id": "LS1-05-key",
+        "sentenceId": "LS1-05",
+        "stage": "phrase",
+        "prompt": "thuyết trình và hội thảo đào tạo",
+        "answer": "presentations and training seminars",
+        "audioId": "LS1-05",
+        "guide": {
+          "term": "presentations and training seminars",
+          "meaning": "các buổi thuyết trình và hội thảo đào tạo",
+          "explanation": "Cụm này giải thích TV sẽ được dùng cho mục đích công việc, không phải giải trí.",
+          "parts": [
+            { "term": "presentations", "meaning": "các buổi thuyết trình", "isNew": true },
+            { "term": "training seminars", "meaning": "hội thảo đào tạo", "isNew": true }
+          ],
+          "speech": "presentations and training seminars"
+        }
+      },
+      {
+        "id": "LS1-05-full",
+        "sentenceId": "LS1-05",
+        "stage": "sentence",
+        "prompt": "Chúng tôi dự định dùng nó cho các buổi thuyết trình và hội thảo đào tạo.",
+        "answer": "We plan to use it for presentations and training seminars.",
+        "audioId": "LS1-05",
+        "guide": {
+          "term": "We plan to use it for presentations and training seminars.",
+          "meaning": "Chúng tôi dự định dùng nó cho các buổi thuyết trình và hội thảo đào tạo.",
+          "explanation": "“Plan to use it for ...” nói dự định sử dụng một vật cho mục đích nào đó.",
+          "parts": [
+            { "term": "plan to use it", "meaning": "dự định dùng nó", "isNew": true },
+            { "term": "for presentations", "meaning": "cho các buổi thuyết trình", "isNew": false }
+          ],
+          "speech": "We plan to use it for presentations and training seminars."
+        }
+      }
+    ],
+    [
+      {
+        "id": "LS1-06-key",
+        "sentenceId": "LS1-06",
+        "stage": "phrase",
+        "prompt": "quên dụng cụ",
+        "answer": "forgot the tools",
+        "audioId": "LS1-06",
+        "guide": {
+          "term": "forgot the tools",
+          "meaning": "đã quên dụng cụ",
+          "explanation": "Đây là vấn đề chính trong cuộc hội thoại: người lắp đặt không mang đủ dụng cụ.",
+          "parts": [
+            { "term": "forgot", "meaning": "đã quên", "isNew": true },
+            { "term": "the tools", "meaning": "các dụng cụ", "isNew": true }
+          ],
+          "speech": "forgot the tools"
+        }
+      },
+      {
+        "id": "LS1-06-full",
+        "sentenceId": "LS1-06",
+        "stage": "sentence",
+        "prompt": "Ôi không, có vẻ tôi đã quên các dụng cụ cần để bắt vít chiếc TV vào giá treo tường.",
+        "answer": "Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount.",
+        "audioId": "LS1-06",
+        "guide": {
+          "term": "Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount.",
+          "meaning": "Ôi không, có vẻ tôi đã quên các dụng cụ cần để bắt vít chiếc TV vào giá treo tường.",
+          "explanation": "“It looks like ...” dùng khi người nói nhận ra một tình huống. Ở đây vấn đề là anh ấy thiếu dụng cụ để bắt vít TV.",
+          "parts": [
+            { "term": "it looks like", "meaning": "có vẻ như", "isNew": true },
+            { "term": "screw the television", "meaning": "bắt vít chiếc TV", "isNew": true },
+            { "term": "wall mount", "meaning": "giá treo tường", "isNew": true }
+          ],
+          "speech": "Oh no, it looks like I forgot the tools that I need to screw the television to the wall mount."
+        }
+      }
+    ],
+    [
+      {
+        "id": "LS1-07-key",
+        "sentenceId": "LS1-07",
+        "stage": "phrase",
+        "prompt": "quay lại sáng mai",
+        "answer": "come back tomorrow morning",
+        "audioId": "LS1-07",
+        "guide": {
+          "term": "come back tomorrow morning",
+          "meaning": "quay lại vào sáng mai",
+          "explanation": "Cụm này nêu giải pháp tạm thời sau khi Stephen quên dụng cụ.",
+          "parts": [
+            { "term": "come back", "meaning": "quay lại", "isNew": true },
+            { "term": "tomorrow morning", "meaning": "sáng mai", "isNew": true }
+          ],
+          "speech": "come back tomorrow morning"
+        }
+      },
+      {
+        "id": "LS1-07-full",
+        "sentenceId": "LS1-07",
+        "stage": "sentence",
+        "prompt": "Tôi xin lỗi. Tôi sẽ phải quay lại vào sáng mai.",
+        "answer": "I'm sorry. I'll have to come back tomorrow morning.",
+        "audioId": "LS1-07",
+        "guide": {
+          "term": "I'm sorry. I'll have to come back tomorrow morning.",
+          "meaning": "Tôi xin lỗi. Tôi sẽ phải quay lại vào sáng mai.",
+          "explanation": "“I'll have to ...” diễn tả việc phải làm vì hoàn cảnh bắt buộc.",
+          "parts": [
+            { "term": "I'm sorry", "meaning": "tôi xin lỗi", "isNew": true },
+            { "term": "I'll have to", "meaning": "tôi sẽ phải", "isNew": true }
+          ],
+          "speech": "I'm sorry. I'll have to come back tomorrow morning."
+        }
+      }
+    ],
+    [
+      {
+        "id": "LS1-08-key",
+        "sentenceId": "LS1-08",
+        "stage": "phrase",
+        "prompt": "gọi trước khi đến",
+        "answer": "call me before you come tomorrow",
+        "audioId": "LS1-08",
+        "guide": {
+          "term": "call me before you come tomorrow",
+          "meaning": "gọi cho tôi trước khi anh đến vào ngày mai",
+          "explanation": "Cụm này là yêu cầu quan trọng: người lắp đặt phải gọi trước để chắc có người đón.",
+          "parts": [
+            { "term": "call me", "meaning": "gọi cho tôi", "isNew": true },
+            { "term": "before you come tomorrow", "meaning": "trước khi anh đến ngày mai", "isNew": true }
+          ],
+          "speech": "call me before you come tomorrow"
+        }
+      },
+      {
+        "id": "LS1-08-full",
+        "sentenceId": "LS1-08",
+        "stage": "sentence",
+        "prompt": "Ồ, không sao đâu. Tuy nhiên, vui lòng gọi cho tôi trước khi anh đến vào ngày mai để chắc rằng có người ở văn phòng đón anh.",
+        "answer": "Oh, that's all right. However, please call me before you come tomorrow to make sure that someone is in the office to meet you.",
+        "audioId": "LS1-08",
+        "guide": {
+          "term": "Oh, that's all right. However, please call me before you come tomorrow to make sure that someone is in the office to meet you.",
+          "meaning": "Ồ, không sao đâu. Tuy nhiên, vui lòng gọi cho tôi trước khi anh đến vào ngày mai để chắc rằng có người ở văn phòng đón anh.",
+          "explanation": "“However” chuyển từ chấp nhận vấn đề sang yêu cầu mới. Phần “to make sure ...” giải thích lý do cần gọi trước.",
+          "parts": [
+            { "term": "that's all right", "meaning": "không sao đâu", "isNew": true },
+            { "term": "However", "meaning": "tuy nhiên", "isNew": true },
+            { "term": "to make sure", "meaning": "để chắc rằng", "isNew": true }
+          ],
+          "speech": "Oh, that's all right. However, please call me before you come tomorrow to make sure that someone is in the office to meet you."
+        }
+      }
+    ]
+  ]
+}

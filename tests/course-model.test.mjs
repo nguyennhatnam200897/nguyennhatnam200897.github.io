@@ -60,3 +60,35 @@ test("keeps task ids unique and prompts unambiguous inside each sentence", () =>
   assert.equal(new Set(ids).size, ids.length);
   assert.equal([...promptAnswers.values()].every((answers) => answers.size === 1), true);
 });
+
+test("supports a course-level audio extension", () => {
+  const audioCourse = buildLessonCourse({
+    id: "audio-demo",
+    title: "Audio Demo",
+    level: "A2",
+    topic: "Listening",
+    audioBasePath: "./assets/audio/audio-demo",
+    audioExtension: "mp3",
+    paragraphTaskMode: "none",
+    sentences: [
+      {
+        id: "S1",
+        english: "I listen every day.",
+        vietnamese: "Tôi nghe mỗi ngày.",
+      },
+    ],
+    taskGroups: [
+      [
+        {
+          id: "S1-01",
+          sentenceId: "S1",
+          stage: "sentence",
+          prompt: "Tôi nghe mỗi ngày.",
+          answer: "I listen every day.",
+        },
+      ],
+    ],
+  });
+
+  assert.equal(audioCourse.audioExtension, "mp3");
+});
