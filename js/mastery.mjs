@@ -14,8 +14,8 @@ const manualGroups = [
   ["S1-08", "S1-09"],
 ];
 
-function group(id, taskIds) {
-  return { id, taskIds };
+function group(id, taskIds, options = {}) {
+  return { id, taskIds, ...options };
 }
 
 function isManualTask(taskId) {
@@ -51,7 +51,9 @@ function buildSequentialGroups(tasks) {
 
   return [...taskIdsBySentence.entries()].flatMap(([sentenceId, taskIds]) =>
     chunkTaskIds(taskIds).map((chunk, index) =>
-      group(`sequential-${sentenceId}-${index + 1}`, chunk)
+      group(`sequential-${sentenceId}-${index + 1}`, chunk, {
+        minCorrectBeforeNextIntroduction: 2,
+      })
     )
   );
 }
@@ -189,6 +191,21 @@ export function getCurrentTaskId(session, groups) {
   );
 
   if (unintroducedTask) {
+    const introducedTaskIds = currentGroup.taskIds.filter((taskId) =>
+      isTaskIntroduced(session, taskId)
+    );
+    const latestIntroducedTaskId = introducedTaskIds.at(-1);
+    const minCorrectBeforeNext =
+      currentGroup.minCorrectBeforeNextIntroduction ?? 0;
+
+    if (
+      latestIntroducedTaskId &&
+      normalizeStats(session.stats[latestIntroducedTaskId]).correctCount <
+        minCorrectBeforeNext
+    ) {
+      return latestIntroducedTaskId;
+    }
+
     return unintroducedTask;
   }
 

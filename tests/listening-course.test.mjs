@@ -5,7 +5,12 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { buildLessonCourse } from "../js/course-model.mjs";
-import { buildPracticeGroups } from "../js/mastery.mjs";
+import {
+  buildPracticeGroups,
+  createMasterySession,
+  getCurrentTaskId,
+  recordMasteryAttempt,
+} from "../js/mastery.mjs";
 import { getAmericanIpa, tokenizeEnglish } from "../js/pronunciation.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -41,7 +46,7 @@ function assertOrdered(sentenceId, answers) {
 test("builds Exercise 1 as a cumulative WAV course", () => {
   assert.equal(course.sentences.length, 8);
   assert.equal(course.sentenceTaskGroups.length, 8);
-  assert.equal(course.sessionVersion, 3);
+  assert.equal(course.sessionVersion, 4);
   assert.equal(course.audioExtension, "wav");
   assert.equal(courseData.paragraphTaskMode, "cumulative");
   assert.equal(paragraphTasks.length, 7);
@@ -230,6 +235,37 @@ test("interleaves the listening curriculum in groups of two to four tasks", () =
     [...groupCountByTask.entries()].filter(([, count]) => count !== 1),
     []
   );
+});
+
+test("requires two successful recalls before introducing the next listening task", () => {
+  const groups = buildPracticeGroups(course.tasks);
+  let session = createMasterySession(groups);
+
+  assert.equal(getCurrentTaskId(session, groups), "LS1-01-01");
+
+  session = recordMasteryAttempt(
+    session,
+    groups,
+    "LS1-01-01",
+    true
+  );
+  assert.equal(getCurrentTaskId(session, groups), "LS1-01-01");
+
+  session = recordMasteryAttempt(
+    session,
+    groups,
+    "LS1-01-01",
+    true
+  );
+  assert.equal(getCurrentTaskId(session, groups), "LS1-01-02");
+
+  session = recordMasteryAttempt(
+    session,
+    groups,
+    "LS1-01-02",
+    true
+  );
+  assert.equal(getCurrentTaskId(session, groups), "LS1-01-02");
 });
 
 test("does not repeat the full Home Appliance Mart answer in its guide parts", () => {

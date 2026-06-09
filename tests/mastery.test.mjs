@@ -38,6 +38,14 @@ test("does not advance after one correct answer per item", () => {
   assert.equal(getCurrentTaskId(session, groups), "S1-01");
 });
 
+test("keeps the original anchor group introduction cadence", () => {
+  let session = createMasterySession(groups);
+
+  session = recordMasteryAttempt(session, groups, "S1-01", true);
+
+  assert.equal(getCurrentTaskId(session, groups), "S1-04");
+});
+
 test("advances only after every item reaches the mastery rule", () => {
   let session = createMasterySession(groups);
 
