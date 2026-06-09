@@ -1,0 +1,12 @@
+{
+  "courses": [
+    {
+      "id": "small-public-garden",
+      "title": "A Small Public Garden",
+      "level": "B2",
+      "topic": "Đời sống đô thị và dự án môi trường nhỏ",
+      "description": "Chinh phục một bài đọc B2 ngắn về khu vườn công cộng trong đô thị.",
+      "dataPath": "./data/courses/small-public-garden.json"
+    }
+  ]
+}

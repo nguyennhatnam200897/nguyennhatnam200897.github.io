@@ -160,6 +160,20 @@ function genericExplanation(task, previousTask) {
 }
 
 export function createGuidance(task, previousTask) {
+  if (task.guide) {
+    return {
+      term: task.guide.term ?? task.answer,
+      meaning: task.guide.meaning ?? task.prompt,
+      explanation:
+        task.guide.explanation ??
+        genericExplanation({ ...task, guide: undefined }, previousTask),
+      parts: Array.isArray(task.guide.parts)
+        ? task.guide.parts.map((part) => ({ ...part }))
+        : [],
+      speech: task.guide.speech ?? task.answer,
+    };
+  }
+
   const special = specialGuides[task.id];
 
   if (special) {

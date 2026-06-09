@@ -24,12 +24,28 @@
         <div id="progress-bar"></div>
       </div>
 
-      <button id="reset-course" class="resetButton" type="button">
-        Reset khóa học
-      </button>
+      <div class="topActions">
+        <button id="change-course" class="secondaryButton" type="button" hidden>
+          Đổi bài
+        </button>
+        <button id="reset-course" class="resetButton" type="button" hidden>
+          Reset khóa học
+        </button>
+      </div>
 
       <main class="workspace">
-        <section class="lesson" aria-label="Bài học">
+        <section id="course-picker" class="coursePicker" aria-label="Chọn bài học">
+          <div class="pickerHeader">
+            <p class="eyebrow">Article Mastery</p>
+            <h1>Bài học</h1>
+          </div>
+          <p id="course-status" class="courseStatus" aria-live="polite">
+            Đang tải...
+          </p>
+          <div id="course-list" class="courseList"></div>
+        </section>
+
+        <section id="lesson" class="lesson" aria-label="Bài học" hidden>
           <div id="guide-content" class="guide">
             <div class="guideWord">
               <p id="guide-term"></p>

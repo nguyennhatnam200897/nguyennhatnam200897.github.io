@@ -4,9 +4,10 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { buildLessonTasks } from "../js/article.mjs";
+import { loadDefaultCourse } from "./helpers/course-fixture.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+const defaultCourse = await loadDefaultCourse();
 
 test("uses only relative static assets suitable for a GitHub Pages subpath", async () => {
   const html = await readFile(path.join(root, "index.html"), "utf8");
@@ -19,18 +20,24 @@ test("uses only relative static assets suitable for a GitHub Pages subpath", asy
   assert.match(html, /id="listen-guide"/);
   assert.match(html, /id="continue-guide"/);
   assert.match(html, /id="reset-course"/);
+  assert.match(html, /id="course-picker"/);
+  assert.match(html, /id="course-list"/);
+  assert.match(html, /id="change-course"/);
   assert.doesNotMatch(html, /\/src\/main\.jsx|react|vite/i);
 });
 
 test("loads app modules through relative imports", async () => {
   const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
 
-  assert.match(appSource, /from "\.\/article\.mjs"/);
+  assert.match(appSource, /from "\.\/course-loader\.mjs"/);
+  assert.doesNotMatch(appSource, /from "\.\/article\.mjs"/);
   assert.match(appSource, /from "\.\/learning\.mjs"/);
   assert.match(appSource, /from "\.\/lesson-flow\.mjs"/);
   assert.match(appSource, /from "\.\/mastery\.mjs"/);
   assert.match(appSource, /from "\.\/speech\.mjs"/);
   assert.match(appSource, /renderPronunciation/);
+  assert.match(appSource, /article-mastery-session-v3:/);
+  assert.match(appSource, /article-mastery-session-v2/);
   assert.doesNotMatch(appSource, /react|createRoot|lucide/i);
 });
 
@@ -74,6 +81,7 @@ test("does not require npm or generated build directories", () => {
   assert.equal(existsSync(path.join(root, ".volta-home")), false);
   assert.equal(existsSync(path.join(root, "src")), false);
   assert.equal(existsSync(path.join(root, "dist")), false);
+  assert.equal(existsSync(path.join(root, "js", "article.mjs")), false);
 });
 
 test("generates local audio with an explicit American voice", async () => {
@@ -89,8 +97,8 @@ test("generates local audio with an explicit American voice", async () => {
 });
 
 test("has a valid local WAV asset for every lesson task", async () => {
-  const assetPaths = buildLessonTasks().map((task) =>
-    path.join(root, "assets", "audio", `${task.id}.wav`)
+  const assetPaths = defaultCourse.tasks.map((task) =>
+    path.join(root, "assets", "audio", `${task.audioId ?? task.id}.wav`)
   );
   const missing = assetPaths.filter((assetPath) => !existsSync(assetPath));
 

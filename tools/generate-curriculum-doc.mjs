@@ -1,9 +1,14 @@
-import { writeFile } from "node:fs/promises";
-import {
-  article,
-  buildLessonTasks,
-  sentenceTaskGroups,
-} from "../js/article.mjs";
+import { readFile, writeFile } from "node:fs/promises";
+import { buildLessonCourse } from "../js/course-model.mjs";
+
+const courseData = JSON.parse(
+  await readFile(
+    new URL("../data/courses/small-public-garden.json", import.meta.url),
+    "utf8"
+  )
+);
+const course = buildLessonCourse(courseData);
+const article = course.article;
 
 const escapeCell = (value) =>
   String(value).replaceAll("|", "\\|").replaceAll("\n", " ");
@@ -13,7 +18,7 @@ const lines = [
   "",
   "Ngày cập nhật: 2026-06-08",
   "",
-  "> Đây là giáo án hiện hành của webapp. Dữ liệu thực thi tương ứng nằm trong `js/article.mjs`.",
+  "> Đây là giáo án hiện hành của webapp. Dữ liệu thực thi tương ứng nằm trong `data/courses/small-public-garden.json`.",
   "",
   "## Nguyên tắc áp dụng",
   "",
@@ -25,11 +30,11 @@ const lines = [
   "- Câu phức được xây từ các mệnh đề có nghĩa; câu cơ bản đi trước câu mở rộng.",
   "- Sau khi hoàn tất bảy câu, đoạn được ghép cộng dồn từng câu.",
   "",
-  `Tổng số nhiệm vụ: **${buildLessonTasks().length}**.`,
+  `Tổng số nhiệm vụ: **${course.tasks.length}**.`,
   "",
 ];
 
-sentenceTaskGroups.forEach((tasks, index) => {
+course.sentenceTaskGroups.forEach((tasks, index) => {
   const sentence = article.sentences[index];
   lines.push(
     `## ${sentence.id}. ${sentence.english}`,
@@ -49,7 +54,7 @@ sentenceTaskGroups.forEach((tasks, index) => {
   lines.push("");
 });
 
-const paragraphTasks = buildLessonTasks().filter(
+const paragraphTasks = course.tasks.filter(
   (lessonTask) => lessonTask.stage === "paragraph"
 );
 

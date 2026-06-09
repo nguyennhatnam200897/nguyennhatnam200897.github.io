@@ -1,11 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { article, buildLessonTasks } from "../js/article.mjs";
+import { loadDefaultCourse } from "./helpers/course-fixture.mjs";
 import { evaluateAnswer, normalizeTextAnswer } from "../js/learning.mjs";
 import {
   buildPronunciation,
   getAmericanIpa,
 } from "../js/pronunciation.mjs";
+
+const course = await loadDefaultCourse();
+const article = course.article;
+const tasks = course.tasks;
 
 test("ignores capitalization and punctuation for text answers", () => {
   const task = {
@@ -45,7 +49,6 @@ test("normalizes text answers consistently", () => {
 });
 
 test("provides simple American IPA for every word form in the article", () => {
-  const tasks = buildLessonTasks();
   const missing = [
     ...new Set(
       tasks.flatMap(
@@ -67,8 +70,6 @@ test("builds full IPA and identifies only newly introduced word forms", () => {
 });
 
 test("keeps lesson tasks free of visible route labels", () => {
-  const tasks = buildLessonTasks();
-
   assert.ok(tasks.length > 0);
   assert.equal(
     tasks.some((task) =>
@@ -79,8 +80,6 @@ test("keeps lesson tasks free of visible route labels", () => {
 });
 
 test("starts sentence one with singular, plural, then quantity", () => {
-  const tasks = buildLessonTasks();
-
   assert.deepEqual(
     tasks.slice(0, 3).map(({ prompt, answer }) => ({ prompt, answer })),
     [
@@ -92,8 +91,6 @@ test("starts sentence one with singular, plural, then quantity", () => {
 });
 
 test("adds a complete introduction before every exercise", () => {
-  const tasks = buildLessonTasks();
-
   assert.equal(
     tasks.every(
       (task) =>
@@ -107,7 +104,6 @@ test("adds a complete introduction before every exercise", () => {
 });
 
 test("adds contextual explanations for grammar and connector patterns", () => {
-  const tasks = buildLessonTasks();
   const byId = new Map(tasks.map((task) => [task.id, task]));
 
   assert.match(byId.get("S2-06").guide.explanation, /the.*xác định/i);
@@ -122,8 +118,6 @@ test("adds contextual explanations for grammar and connector patterns", () => {
 });
 
 test("explains city, cities, and many cities as a strict i+1 sequence", () => {
-  const tasks = buildLessonTasks();
-
   assert.equal(tasks[0].guide.term, "city");
   assert.equal(tasks[0].guide.meaning, "thành phố");
   assert.match(tasks[1].guide.explanation, /số nhiều.*city/i);
@@ -135,8 +129,6 @@ test("explains city, cities, and many cities as a strict i+1 sequence", () => {
 });
 
 test("guidance shows American IPA for the full unit and only its new words", () => {
-  const tasks = buildLessonTasks();
-
   assert.deepEqual(tasks[0].guide.pronunciation, {
     full: "/ˈsɪti/",
     newWords: [{ term: "city", ipa: "/ˈsɪti/" }],
@@ -152,14 +144,14 @@ test("guidance shows American IPA for the full unit and only its new words", () 
 });
 
 test("keeps single-object tasks to one-word nouns", () => {
-  const objectTasks = buildLessonTasks().filter((task) => task.stage === "object");
+  const objectTasks = tasks.filter((task) => task.stage === "object");
 
   assert.ok(objectTasks.length > 0);
   assert.equal(objectTasks.every((task) => !task.answer.includes(" ")), true);
 });
 
 test("builds sentence two from a basic relation to richer sentences", () => {
-  const sentenceTwoAnswers = buildLessonTasks()
+  const sentenceTwoAnswers = tasks
     .filter((task) => task.sentenceId === "S2")
     .map((task) => task.answer);
 
@@ -179,8 +171,6 @@ test("builds sentence two from a basic relation to richer sentences", () => {
 });
 
 test("completes each sentence before moving to the next sentence", () => {
-  const tasks = buildLessonTasks();
-
   article.sentences.forEach((sentence, sentenceIndex) => {
     const sentenceTasks = tasks.filter((task) => task.sentenceId === sentence.id);
     assert.ok(sentenceTasks.length > 0, `No tasks for ${sentence.id}`);
@@ -201,9 +191,7 @@ test("completes each sentence before moving to the next sentence", () => {
 });
 
 test("builds the paragraph cumulatively one sentence at a time", () => {
-  const paragraphTasks = buildLessonTasks().filter(
-    (task) => task.stage === "paragraph"
-  );
+  const paragraphTasks = tasks.filter((task) => task.stage === "paragraph");
 
   assert.equal(paragraphTasks.length, article.sentences.length - 1);
   paragraphTasks.forEach((task, index) => {
@@ -219,15 +207,12 @@ test("builds the paragraph cumulatively one sentence at a time", () => {
 });
 
 test("does not create IPA exercises or visible route labels", () => {
-  const tasks = buildLessonTasks();
-
   assert.equal(tasks.every((task) => task.mode !== "ipa"), true);
   assert.equal(tasks.every((task) => task.stage !== "ipa"), true);
   assert.equal(tasks.every((task) => !task.id.endsWith("-ipa")), true);
 });
 
 test("keeps task ids unique and avoids ambiguous prompts", () => {
-  const tasks = buildLessonTasks();
   const ids = tasks.map((task) => task.id);
   const promptAnswers = new Map();
 

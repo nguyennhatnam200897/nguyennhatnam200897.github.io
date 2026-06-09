@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildLessonTasks } from "../js/article.mjs";
+import { loadDefaultCourse } from "./helpers/course-fixture.mjs";
 import {
   MASTERY_RULE,
   buildPracticeGroups,
@@ -13,7 +13,7 @@ import {
   serializeMasterySession,
 } from "../js/mastery.mjs";
 
-const tasks = buildLessonTasks();
+const { tasks } = await loadDefaultCourse();
 const groups = buildPracticeGroups(tasks);
 
 test("starts sentence one with a city and life interleaving group", () => {
