@@ -35,6 +35,107 @@ const specialGuides = {
   },
 };
 
+function startsWithWord(value, word) {
+  return value.toLowerCase().startsWith(`${word} `);
+}
+
+function isDirectExpansion(task, previousTask) {
+  return (
+    previousTask?.sentenceId === task.sentenceId &&
+    task.answer.toLowerCase().includes(previousTask.answer.toLowerCase())
+  );
+}
+
+function inflectionExplanation(task, previousTask) {
+  if (
+    task.stage !== "inflection" ||
+    previousTask?.sentenceId !== task.sentenceId ||
+    previousTask.answer.includes(" ")
+  ) {
+    return null;
+  }
+
+  return `“${task.answer}” là dạng số nhiều của “${previousTask.answer}”, có nghĩa là “${task.prompt}”. Hãy học riêng bước này để không nhầm một đối tượng với nhiều đối tượng.`;
+}
+
+function articleExplanation(task) {
+  const answer = task.answer.toLowerCase();
+
+  if (startsWithWord(answer, "the")) {
+    return `Cụm “${task.answer}” dùng “the” vì người nói đang chỉ một đối tượng đã xác định trong ngữ cảnh bài. Ở bước này, hãy giữ “the” như một phần bắt buộc của cụm.`;
+  }
+
+  if (startsWithWord(answer, "an")) {
+    return `Cụm “${task.answer}” dùng “an” để nói về một đối tượng đếm được, và “an” đứng trước âm mở đầu như trong “${task.answer.split(" ")[1]}”.`;
+  }
+
+  if (startsWithWord(answer, "a")) {
+    return `Cụm “${task.answer}” dùng “a” để nói về một đối tượng đếm được chưa cần xác định là đối tượng nào.`;
+  }
+
+  return null;
+}
+
+function wouldExplanation(task) {
+  if (task.stage !== "clause" || !/\bwould\b/i.test(task.answer)) {
+    return null;
+  }
+
+  return `Trong “${task.answer}”, “would” diễn đạt ý “sẽ/có thể sẽ” trong lời phàn nàn hoặc dự đoán, không phải một hành động đang xảy ra ngay lúc này.`;
+}
+
+function connectorExplanation(task) {
+  const answer = task.answer.toLowerCase();
+
+  if (startsWithWord(answer, "although")) {
+    return `“Although” có nghĩa là “mặc dù”. Phần sau “although” tạo nền tương phản, còn mệnh đề còn lại nói ý chính của câu.`;
+  }
+
+  if (startsWithWord(answer, "where")) {
+    return `“Where” mở đầu phần bổ nghĩa cho một nơi chốn. Ở đây nó giúp nói rõ nơi đó là nơi trẻ em, người lớn tuổi và nhân viên văn phòng có thể làm gì.`;
+  }
+
+  if (startsWithWord(answer, "how")) {
+    return `“How” có nghĩa là “cách mà”. Cụm “${task.answer}” nói về cách mọi người nghĩ về không gian chung.`;
+  }
+
+  if (startsWithWord(answer, "when")) {
+    return `“When” có nghĩa là “khi”. Phần này nối điều kiện/thời điểm với ý chính: sự thay đổi có tác động khi mọi người cảm thấy nó thuộc về họ.`;
+  }
+
+  return null;
+}
+
+function encourageToExplanation(task) {
+  if (
+    !/\bencouraged\b/i.test(task.answer) ||
+    !/\bto (use|place)\b/i.test(task.answer)
+  ) {
+    return null;
+  }
+
+  return `Cấu trúc “encourage someone to do something” nghĩa là khuyến khích ai đó làm việc gì. Trong câu này, dự án khuyến khích các cửa hàng “to use” và “to place”.`;
+}
+
+function expansionExplanation(task, previousTask) {
+  if (!isDirectExpansion(task, previousTask) || task.stage === "inflection") {
+    return null;
+  }
+
+  return `Bước này mở rộng từ “${previousTask.answer}” thành “${task.answer}”. Hãy chú ý lớp nghĩa mới được thêm vào để cụm gần hơn với câu gốc.`;
+}
+
+function contextualExplanation(task, previousTask) {
+  return (
+    inflectionExplanation(task, previousTask) ??
+    encourageToExplanation(task) ??
+    connectorExplanation(task) ??
+    wouldExplanation(task) ??
+    articleExplanation(task) ??
+    expansionExplanation(task, previousTask)
+  );
+}
+
 function genericExplanation(task, previousTask) {
   if (
     task.stage === "inflection" &&
@@ -71,7 +172,9 @@ export function createGuidance(task, previousTask) {
   return {
     term: task.answer,
     meaning: task.prompt,
-    explanation: genericExplanation(task, previousTask),
+    explanation:
+      contextualExplanation(task, previousTask) ??
+      genericExplanation(task, previousTask),
     parts: [],
     speech: task.answer,
   };

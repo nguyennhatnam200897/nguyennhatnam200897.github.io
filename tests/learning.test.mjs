@@ -106,6 +106,21 @@ test("adds a complete introduction before every exercise", () => {
   );
 });
 
+test("adds contextual explanations for grammar and connector patterns", () => {
+  const tasks = buildLessonTasks();
+  const byId = new Map(tasks.map((task) => [task.id, task]));
+
+  assert.match(byId.get("S2-06").guide.explanation, /the.*xác định/i);
+  assert.match(byId.get("S2-14").guide.explanation, /an.*âm/i);
+  assert.match(byId.get("S4-11").guide.explanation, /số nhiều.*child/i);
+  assert.match(byId.get("S3-10").guide.explanation, /would.*sẽ/i);
+  assert.match(byId.get("S6-09").guide.explanation, /although.*mặc dù/i);
+  assert.match(byId.get("S4-31").guide.explanation, /where.*nơi/i);
+  assert.match(byId.get("S6-07").guide.explanation, /how.*cách mà/i);
+  assert.match(byId.get("S7-11").guide.explanation, /when.*khi/i);
+  assert.match(byId.get("S5-20").guide.explanation, /encourage.*to do/i);
+});
+
 test("explains city, cities, and many cities as a strict i+1 sequence", () => {
   const tasks = buildLessonTasks();
 
