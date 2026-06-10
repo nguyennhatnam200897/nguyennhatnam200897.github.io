@@ -1,25 +1,11 @@
 export const MASTERY_RULE = {
-  minCorrect: 3,
-  minStreak: 2,
+  minCorrect: 2,
+  minStreak: 1,
   requiresInterleavedCorrect: true,
 };
 
-const manualGroups = [
-  ["S1-01", "S1-04"],
-  ["S1-01", "S1-02", "S1-04"],
-  ["S1-02", "S1-03", "S1-04"],
-  ["S1-04", "S1-05", "S1-03"],
-  ["S1-03", "S1-05", "S1-06"],
-  ["S1-06", "S1-07", "S1-08"],
-  ["S1-08", "S1-09"],
-];
-
 function group(id, taskIds, options = {}) {
   return { id, taskIds, ...options };
-}
-
-function isManualTask(taskId) {
-  return manualGroups.some((taskIds) => taskIds.includes(taskId));
 }
 
 function unique(values) {
@@ -45,34 +31,7 @@ function buildRollingGroups(tasks) {
 }
 
 export function buildPracticeGroups(tasks) {
-  const knownTaskIds = new Set(tasks.map((task) => task.id));
-  const groups = manualGroups
-    .filter((taskIds) => taskIds.every((taskId) => knownTaskIds.has(taskId)))
-    .map((taskIds, index) => group(`manual-${index + 1}`, taskIds));
-
-  if (groups.length === 0) {
-    return buildRollingGroups(tasks);
-  }
-
-  const recentBySentence = new Map();
-
-  tasks.forEach((task) => {
-    if (isManualTask(task.id)) {
-      return;
-    }
-
-    const recent = recentBySentence.get(task.sentenceId) ?? [];
-    recent.push(task.id);
-
-    if (recent.length >= 2) {
-      const taskIdsForGroup = unique(recent.slice(-4));
-      groups.push(group(`auto-${task.id}`, taskIdsForGroup));
-    }
-
-    recentBySentence.set(task.sentenceId, recent);
-  });
-
-  return groups;
+  return buildRollingGroups(tasks);
 }
 
 function emptyStats() {

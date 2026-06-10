@@ -78,7 +78,7 @@ function loadSession(course, groups) {
   try {
     const stored = localStorage.getItem(storageKey);
     const legacy =
-      course.id === "small-public-garden"
+      course.id === "small-public-garden" && course.sessionVersion === 1
         ? localStorage.getItem(legacyStorageKey)
         : null;
     const restored = restoreMasterySession(

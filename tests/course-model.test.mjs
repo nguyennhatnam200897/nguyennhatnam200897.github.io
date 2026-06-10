@@ -16,7 +16,7 @@ test("builds the current course from JSON data", () => {
   assert.equal(course.id, "small-public-garden");
   assert.equal(course.article.title, "A Small Public Garden");
   assert.equal(course.article.level, "B2");
-  assert.equal(course.sessionVersion, 1);
+  assert.equal(course.sessionVersion, 2);
   assert.equal(course.article.topic, "Đời sống đô thị và dự án môi trường nhỏ");
   assert.equal(course.tasks.length, 138);
   assert.deepEqual(

@@ -21,10 +21,10 @@ Mỗi câu trong bài báo được chia thành các cụm luyện nhỏ. Khi tr
 lần đúng. App sẽ tạo một vòng luyện xen kẽ các đơn vị đó cho đến khi từng đơn
 vị đạt tiêu chí thành thạo.
 
-Ví dụ nếu câu đang học có hai đối tượng `city` và `life`, dòng luyện có thể là:
+Ví dụ với hai task đầu tiên `city` và `cities`, dòng luyện có thể là:
 
 ```text
-city -> life -> city -> life -> life -> city
+city -> cities -> city -> cities
 ```
 
 Mục tiêu không phải là lặp máy móc vô hạn, mà là tạo đủ bằng chứng rằng người
@@ -35,13 +35,14 @@ học có thể nhớ lại đúng sau khi sự chú ý đã chuyển sang đơn
 Một đơn vị nhỏ như `city`, `cities`, `many cities`, `life`, `daily life` được
 xem là thành thạo trong cụm luyện hiện tại khi đạt đủ cả ba điều kiện:
 
-1. Trả lời đúng ít nhất **3 lần**.
-2. Có ít nhất **2 lần đúng liên tiếp**.
+1. Trả lời đúng ít nhất **2 lần**.
+2. Có ít nhất **1 lần đúng liên tiếp**.
 3. Có ít nhất **1 lần đúng sau khi đã bị xen bởi đơn vị khác**.
 
-Điều kiện thứ ba là điểm quan trọng nhất. Nó kiểm tra khả năng nhớ lại sau khi
-người học đã chuyển ngữ cảnh, thay vì chỉ gõ lại ngay lập tức theo trí nhớ ngắn
-hạn.
+Vì chuỗi đúng tối thiểu là một, điều kiện thứ hai được thỏa ngay khi có một
+lần đúng. Điều kiện thứ ba vẫn là điểm quan trọng nhất: nó kiểm tra khả năng
+nhớ lại sau khi người học đã chuyển ngữ cảnh, thay vì chỉ gõ lại ngay lập tức
+theo trí nhớ ngắn hạn.
 
 ## Khi người học trả lời sai
 
@@ -66,12 +67,10 @@ thành thạo.
 Ví dụ trong câu 1:
 
 1. Giới thiệu `city`.
-2. Giới thiệu `life`.
-3. Luyện xen kẽ `city` và `life` đến khi cả hai thành thạo.
-4. Mở rộng `city -> cities`.
-5. Luyện `city`, `life`, `cities` hoặc chỉ nhóm đang liên quan, tùy cấu trúc
-   câu.
-6. Khi ổn, mở `many cities`, rồi tiếp tục vòng luyện mới.
+2. Sau một lần đúng, giới thiệu `cities`.
+3. Luyện xen kẽ `city` và `cities` đến khi cả hai thành thạo.
+4. Mở nhóm tiếp theo và giới thiệu `many cities`.
+5. Tiếp tục theo cửa sổ chồng lấp, mỗi nhóm chỉ thêm một task mới.
 
 Như vậy i+1 vẫn được giữ, nhưng mỗi nấc i+1 không còn là một lần nhập đơn lẻ.
 Mỗi nấc là một cụm luyện nhỏ có bằng chứng thành thạo.
@@ -107,17 +106,17 @@ Many cities are trying to make daily life more sustainable
 Các vòng đúng i+1 có thể là:
 
 ```text
-Vòng 1: city + life
-Vòng 2: city + cities + life
-Vòng 3: cities + many cities + life
-Vòng 4: life + daily life + many cities
-Vòng 5: many cities + daily life + cities make daily life sustainable
+Vòng 1: city + cities
+Vòng 2: city + cities + many cities
+Vòng 3: city + cities + many cities + life
+Vòng 4: cities + many cities + life + daily life
+Vòng 5: many cities + life + daily life + cities make daily life sustainable
 Vòng 6: câu quan hệ đơn giản -> câu mở rộng hơn
 ```
 
 Trong cách chia này:
 
-- `city` và `life` là neo danh từ đầu tiên;
+- `city` là neo danh từ đầu tiên và `cities` là bước biến thể kế tiếp;
 - `cities` là một lớp mới từ `city`;
 - `many cities` chỉ được mở sau khi `cities` đã đủ nền;
 - `daily life` chỉ được mở sau khi `life` đã đủ nền;
@@ -181,21 +180,20 @@ Luật mặc định đã chốt:
 
 ```text
 Một đơn vị được qua cụm luyện khi:
-- đúng ít nhất 3 lần;
-- có ít nhất 2 lần đúng liên tiếp;
+- đúng ít nhất 2 lần;
+- có ít nhất 1 lần đúng liên tiếp;
 - có ít nhất 1 lần đúng sau khi đã bị xen bởi đơn vị khác.
 ```
 
-Đây là tiêu chí mặc định cho bản webapp tiếp theo. Sau này có thể điều chỉnh
-theo độ khó của đơn vị, nhưng không thay đổi nguyên tắc: phải có lặp xen kẽ và
-có bằng chứng nhớ lại sau chuyển ngữ cảnh.
+Đây là tiêu chí chung cho mọi khóa học hiện tại và tương lai. Không khóa nào
+được tự đặt nhóm hoặc ngưỡng riêng.
 
 ## Triển khai hiện tại
 
 Webapp hiện có module `js/mastery.mjs` chịu trách nhiệm:
 
 - tạo các nhóm luyện 2 đến 4 đơn vị;
-- ưu tiên nhóm đầu câu 1 là `city + life`;
+- dùng cùng cửa sổ chồng lấp cho mọi câu và mọi khóa học;
 - theo dõi số lần đúng, đúng liên tiếp và đúng sau xen kẽ;
 - reset thống kê của riêng đơn vị bị sai trong nhóm hiện tại;
 - chọn task kế tiếp theo trạng thái nhóm;
@@ -204,15 +202,15 @@ Webapp hiện có module `js/mastery.mjs` chịu trách nhiệm:
 Luồng khởi đầu hiện tại:
 
 ```text
-city hướng dẫn -> city bài tập -> life hướng dẫn -> life bài tập
--> city bài tập lại -> life bài tập lại -> ...
+city hướng dẫn -> city bài tập -> cities hướng dẫn -> cities bài tập
+-> city bài tập lại -> cities bài tập lại
 ```
 
-Chỉ khi cả `city` và `life` đạt đủ 3 tiêu chí thành thạo, app mới mở nhóm tiếp
-theo có `cities`.
+Chỉ khi cả `city` và `cities` đạt đủ ba tiêu chí thành thạo, app mới mở nhóm
+`[city, cities, many cities]` và giới thiệu `many cities`.
 
-Với các course mới, các task liên tiếp trong cùng một câu được tạo thành nhóm
-chồng lấp giống Bài 1:
+Với mọi course, các task liên tiếp trong cùng một câu được tạo thành nhóm
+chồng lấp:
 
 ```text
 [A, B] -> [A, B, C] -> [A, B, C, D] -> [B, C, D, E]

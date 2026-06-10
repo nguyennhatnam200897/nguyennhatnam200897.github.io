@@ -71,8 +71,8 @@ nhập đúng.
 
 Một đơn vị được xem là thành thạo trong cụm luyện hiện tại khi đạt đủ:
 
-- đúng ít nhất 3 lần;
-- có ít nhất 2 lần đúng liên tiếp;
+- đúng ít nhất 2 lần;
+- có ít nhất 1 lần đúng liên tiếp;
 - có ít nhất 1 lần đúng sau khi đã bị xen bởi đơn vị khác.
 
 Nếu người học sai, app phát đáp án, chỉ lỗi, rồi Enter lần nữa đưa về màn hướng

@@ -4,6 +4,7 @@
   "level": "B2",
   "topic": "Đời sống đô thị và dự án môi trường nhỏ",
   "description": "Chinh phục một bài đọc B2 ngắn về khu vườn công cộng trong đô thị.",
+  "sessionVersion": 2,
   "audioBasePath": "./assets/audio",
   "paragraphTaskMode": "cumulative",
   "sentences": [

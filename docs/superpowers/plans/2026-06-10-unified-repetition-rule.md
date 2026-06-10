@@ -17,7 +17,7 @@
 - Modify: `tests/listening-course.test.mjs`
 - Modify: `tests/course-model.test.mjs`
 
-- [ ] **Step 1: Đổi kỳ vọng nhóm đầu của Bài 1**
+- [x] **Step 1: Đổi kỳ vọng nhóm đầu của Bài 1**
 
 Thay kiểm thử nhóm thủ công bằng:
 
@@ -35,7 +35,7 @@ test("uses the same overlapping groups for lesson one", () => {
 });
 ```
 
-- [ ] **Step 2: Khóa ngưỡng hai lần đúng**
+- [x] **Step 2: Khóa ngưỡng hai lần đúng**
 
 Trong `tests/mastery.test.mjs`, thay chuỗi sáu lượt đúng bằng:
 
@@ -53,13 +53,14 @@ assert.equal(MASTERY_RULE.minCorrect, 2);
 assert.equal(MASTERY_RULE.minStreak, 1);
 assert.equal(MASTERY_RULE.requiresInterleavedCorrect, true);
 assert.equal(session.groupIndex, 1);
+assert.equal(getCurrentTaskId(session, groups), "S1-03");
 ```
 
 Thêm một kiểm thử chứng minh hai lần đúng liên tiếp cho cùng task nhưng chưa
 được xen bởi task khác không đủ thành thạo bằng cách gọi nhóm giả lập và kiểm
 tra `groupIndex` vẫn bằng `0`.
 
-- [ ] **Step 3: Khóa phiên bản tiến độ mới**
+- [x] **Step 3: Khóa phiên bản tiến độ mới**
 
 Trong `tests/course-model.test.mjs`:
 
@@ -84,7 +85,13 @@ Thêm kiểm thử Bài 2 qua nhóm đầu sau chuỗi:
 ]
 ```
 
-- [ ] **Step 4: Chạy kiểm thử và xác nhận RED**
+Sau khi nhóm đầu hoàn thành, task hiện tại phải là `LS1-01-03`, tức task mới
+`C` của nhóm `[A, B, C]`.
+
+Trong `tests/static-site.test.mjs`, khóa việc course có phiên bản không được
+migration từ storage legacy của Bài 1.
+
+- [x] **Step 4: Chạy kiểm thử và xác nhận RED**
 
 Run:
 
@@ -102,7 +109,7 @@ hai course vẫn có `sessionVersion` cũ.
 - Modify: `data/courses/small-public-garden.json`
 - Modify: `data/courses/listening-song-ngu-sample.json`
 
-- [ ] **Step 1: Đổi ngưỡng mastery**
+- [x] **Step 1: Đổi ngưỡng mastery**
 
 ```js
 export const MASTERY_RULE = {
@@ -112,7 +119,7 @@ export const MASTERY_RULE = {
 };
 ```
 
-- [ ] **Step 2: Xóa nhóm riêng của Bài 1**
+- [x] **Step 2: Xóa nhóm riêng của Bài 1**
 
 Xóa `manualGroups` và `isManualTask()`. Đổi `buildPracticeGroups()` thành:
 
@@ -125,7 +132,7 @@ export function buildPracticeGroups(tasks) {
 `buildRollingGroups()` hiện có tiếp tục tạo `AB`, `ABC`, `ABCD`, `BCDE` trong
 từng `sentenceId`.
 
-- [ ] **Step 3: Tăng phiên bản session**
+- [x] **Step 3: Tăng phiên bản session**
 
 Trong Bài 1:
 
@@ -139,7 +146,10 @@ Trong Bài 2:
 "sessionVersion": 6
 ```
 
-- [ ] **Step 4: Chạy targeted tests và xác nhận GREEN**
+Chỉ cho phép migration từ `article-mastery-session-v2` khi Bài 1 vẫn có
+`sessionVersion === 1`.
+
+- [x] **Step 4: Chạy targeted tests và xác nhận GREEN**
 
 Run:
 
@@ -155,7 +165,7 @@ Expected: toàn bộ targeted tests PASS.
 - Modify: `docs/superpowers/specs/2026-06-08-interleaved-mastery-loop-design.md`
 - Modify: `docs/superpowers/specs/2026-06-10-listening-sample-course-design.md`
 
-- [ ] **Step 1: Đồng bộ tài liệu cũ**
+- [x] **Step 1: Đồng bộ tài liệu cũ**
 
 Đổi mọi mô tả ngưỡng `3 lần đúng / chuỗi 2` thành `2 lần đúng / chuỗi 1`, và
 xóa mô tả nhóm đầu Bài 1 là `city + life`. Ghi rõ mọi khóa dùng cửa sổ chung:
@@ -164,7 +174,7 @@ xóa mô tả nhóm đầu Bài 1 là `city + life`. Ghi rõ mọi khóa dùng c
 [A, B] -> [A, B, C] -> [A, B, C, D] -> [B, C, D, E]
 ```
 
-- [ ] **Step 2: Chạy toàn bộ kiểm thử**
+- [x] **Step 2: Chạy toàn bộ kiểm thử**
 
 Run:
 
@@ -174,7 +184,7 @@ node --test
 
 Expected: tất cả tests PASS, không có fail hoặc skip.
 
-- [ ] **Step 3: Kiểm tra thay đổi**
+- [x] **Step 3: Kiểm tra thay đổi**
 
 Run:
 
@@ -185,7 +195,7 @@ git status --short
 
 Expected: không có lỗi whitespace; chỉ các file trong kế hoạch thay đổi.
 
-- [ ] **Step 4: Kiểm tra trình duyệt**
+- [x] **Step 4: Kiểm tra trình duyệt**
 
 Chạy static server, mở Bài 1 và Bài 2, xác nhận:
 

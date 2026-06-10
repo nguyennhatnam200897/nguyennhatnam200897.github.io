@@ -2,7 +2,8 @@
 
 Ngày cập nhật: 2026-06-08
 
-> Đây là giáo án hiện hành của webapp. Dữ liệu thực thi tương ứng nằm trong `js/article.mjs`.
+> Đây là giáo án hiện hành của webapp. Dữ liệu thực thi tương ứng nằm trong
+> `data/courses/small-public-garden.json`.
 > Vòng luyện xen kẽ và tiêu chí thành thạo được thực thi trong `js/mastery.mjs`.
 > Âm thanh mẫu của từng nhiệm vụ nằm trong `assets/audio/<task-id>.wav`.
 
@@ -15,10 +16,10 @@ Ngày cập nhật: 2026-06-08
 - Nếu sai, Enter lần nữa quay về hướng dẫn cùng đơn vị rồi người học phải làm lại.
 - Trong mỗi câu, các đơn vị cùng cụm học sẽ được luyện xen kẽ đến khi đủ tiêu
   chí thành thạo, không còn mặc định đúng một lần là qua vĩnh viễn.
-- Tiêu chí mặc định: đúng ít nhất 3 lần, có 2 lần đúng liên tiếp, và có 1 lần
+- Tiêu chí mặc định: đúng ít nhất 2 lần, có 1 lần đúng liên tiếp, và có 1 lần
   đúng sau khi đã bị xen bởi đơn vị khác.
-- Mỗi vòng luyện chỉ thêm một độ khó mới, rồi xen kẽ với vài đơn vị nền gần
-  nhất; vòng luyện nên có khoảng 2 đến 4 đơn vị để giữ đúng i+1.
+- Mọi câu dùng cùng cửa sổ nhóm `[A, B]`, `[A, B, C]`, `[A, B, C, D]`,
+  `[B, C, D, E]`; mỗi vòng chỉ thêm một task mới và giữ từ 2 đến 4 đơn vị.
 - Tầng đầu chỉ có danh từ/đối tượng viết thành một từ.
 - Dạng gốc đi trước biến thể: `city` -> `cities` -> `many cities`.
 - Cụm được xây từ danh từ neo; mỗi lượt chỉ thêm một lớp nghĩa hoặc chức năng.

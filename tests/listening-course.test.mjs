@@ -46,7 +46,7 @@ function assertOrdered(sentenceId, answers) {
 test("builds Exercise 1 as a cumulative WAV course", () => {
   assert.equal(course.sentences.length, 8);
   assert.equal(course.sentenceTaskGroups.length, 8);
-  assert.equal(course.sessionVersion, 5);
+  assert.equal(course.sessionVersion, 6);
   assert.equal(course.audioExtension, "wav");
   assert.equal(courseData.paragraphTaskMode, "cumulative");
   assert.equal(paragraphTasks.length, 7);
@@ -263,6 +263,23 @@ test("introduces the next listening task after one correct answer like lesson on
     true
   );
   assert.equal(getCurrentTaskId(session, groups), "LS1-01-01");
+});
+
+test("advances the listening course after two interleaved correct answers per task", () => {
+  const groups = buildPracticeGroups(course.tasks);
+  let session = createMasterySession(groups);
+
+  [
+    "LS1-01-01",
+    "LS1-01-02",
+    "LS1-01-01",
+    "LS1-01-02",
+  ].forEach((taskId) => {
+    session = recordMasteryAttempt(session, groups, taskId, true);
+  });
+
+  assert.equal(session.groupIndex, 1);
+  assert.equal(getCurrentTaskId(session, groups), "LS1-01-03");
 });
 
 test("does not repeat the full Home Appliance Mart answer in its guide parts", () => {

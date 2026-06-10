@@ -16,8 +16,16 @@ import {
 const { tasks } = await loadDefaultCourse();
 const groups = buildPracticeGroups(tasks);
 
-test("starts sentence one with a city and life interleaving group", () => {
-  assert.deepEqual(groups[0].taskIds, ["S1-01", "S1-04"]);
+test("uses the same overlapping groups for lesson one", () => {
+  assert.deepEqual(
+    groups.slice(0, 4).map((practiceGroup) => practiceGroup.taskIds),
+    [
+      ["S1-01", "S1-02"],
+      ["S1-01", "S1-02", "S1-03"],
+      ["S1-01", "S1-02", "S1-03", "S1-04"],
+      ["S1-02", "S1-03", "S1-04", "S1-05"],
+    ]
+  );
   assert.equal(
     groups.every((group) => group.taskIds.length >= 2 && group.taskIds.length <= 4),
     true
@@ -31,19 +39,19 @@ test("does not advance after one correct answer per item", () => {
   assert.equal(isTaskIntroduced(session, "S1-01"), false);
 
   session = recordMasteryAttempt(session, groups, "S1-01", true);
-  assert.equal(getCurrentTaskId(session, groups), "S1-04");
+  assert.equal(getCurrentTaskId(session, groups), "S1-02");
 
-  session = recordMasteryAttempt(session, groups, "S1-04", true);
+  session = recordMasteryAttempt(session, groups, "S1-02", true);
   assert.equal(session.groupIndex, 0);
   assert.equal(getCurrentTaskId(session, groups), "S1-01");
 });
 
-test("keeps the original anchor group introduction cadence", () => {
+test("introduces the next lesson-one task after one correct answer", () => {
   let session = createMasterySession(groups);
 
   session = recordMasteryAttempt(session, groups, "S1-01", true);
 
-  assert.equal(getCurrentTaskId(session, groups), "S1-04");
+  assert.equal(getCurrentTaskId(session, groups), "S1-02");
 });
 
 test("uses lesson-one overlapping groups for a future course by default", () => {
@@ -88,33 +96,54 @@ test("advances only after every item reaches the mastery rule", () => {
 
   [
     "S1-01",
-    "S1-04",
+    "S1-02",
     "S1-01",
-    "S1-04",
-    "S1-01",
-    "S1-04",
+    "S1-02",
   ].forEach((taskId) => {
     session = recordMasteryAttempt(session, groups, taskId, true);
   });
 
-  assert.equal(MASTERY_RULE.minCorrect, 3);
-  assert.equal(MASTERY_RULE.minStreak, 2);
+  assert.equal(MASTERY_RULE.minCorrect, 2);
+  assert.equal(MASTERY_RULE.minStreak, 1);
   assert.equal(MASTERY_RULE.requiresInterleavedCorrect, true);
   assert.equal(session.groupIndex, 1);
-  assert.equal(getCurrentTaskId(session, groups), "S1-02");
+  assert.equal(getCurrentTaskId(session, groups), "S1-03");
+});
+
+test("requires a correct answer after another task has intervened", () => {
+  const futureGroups = buildPracticeGroups([
+    { id: "A", sentenceId: "F1" },
+    { id: "B", sentenceId: "F1" },
+  ]);
+  let session = createMasterySession(futureGroups);
+
+  ["A", "A", "B", "B"].forEach((taskId) => {
+    session = recordMasteryAttempt(
+      session,
+      futureGroups,
+      taskId,
+      true
+    );
+  });
+
+  assert.equal(session.groupIndex, 0);
+
+  session = recordMasteryAttempt(session, futureGroups, "A", true);
+
+  assert.equal(session.groupIndex, 1);
 });
 
 test("wrong answers reset only the failed item inside the current group", () => {
   let session = createMasterySession(groups);
 
   session = recordMasteryAttempt(session, groups, "S1-01", true);
-  session = recordMasteryAttempt(session, groups, "S1-04", true);
+  session = recordMasteryAttempt(session, groups, "S1-02", true);
   session = recordMasteryAttempt(session, groups, "S1-01", false);
 
   assert.equal(session.groupIndex, 0);
   assert.equal(session.stats["S1-01"].correctCount, 0);
   assert.equal(session.stats["S1-01"].streak, 0);
-  assert.equal(session.stats["S1-04"].correctCount, 1);
+  assert.equal(session.stats["S1-02"].correctCount, 1);
 });
 
 test("serializes and restores the mastery session", () => {

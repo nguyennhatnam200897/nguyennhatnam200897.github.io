@@ -47,7 +47,8 @@ Không dùng một từ do ASR đoán nếu người biên soạn chưa xác nh�
   `[A, B, C, D]`, rồi `[B, C, D, E]`.
 - Một lần trả lời đúng là đủ để mở đơn vị i+1 tiếp theo. Sau khi các đơn vị
   trong nhóm đã được giới thiệu, app tiếp tục xen kẽ đến khi đạt tiêu chí
-  thành thạo giống Bài 1.
+  thành thạo chung: mỗi task đúng ít nhất hai lần, có chuỗi đúng tối thiểu một
+  lần và có ít nhất một lần đúng sau khi bị xen bởi task khác.
 - Không ấn định số task để chạy theo bài 1. Số task do cấu trúc nghĩa quyết
   định, nhưng mỗi câu phải có đường đi i+1 rõ ràng.
 

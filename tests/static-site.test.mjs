@@ -44,6 +44,15 @@ test("loads app modules through relative imports", async () => {
   assert.doesNotMatch(appSource, /react|createRoot|lucide/i);
 });
 
+test("does not migrate legacy progress into a versioned course session", async () => {
+  const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
+
+  assert.match(
+    appSource,
+    /course\.id === "small-public-garden"\s*&&\s*course\.sessionVersion === 1/
+  );
+});
+
 test("keeps exercise Enter from leaking into the next guide", async () => {
   const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
   const handler = appSource.match(

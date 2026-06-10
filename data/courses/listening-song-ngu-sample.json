@@ -4,7 +4,7 @@
   "level": "A2-B1",
   "topic": "Hội thoại công việc",
   "description": "Đi từ từ vựng đơn lẻ đến toàn bộ hội thoại nghe về việc lắp đặt một chiếc TV.",
-  "sessionVersion": 5,
+  "sessionVersion": 6,
   "audioBasePath": "./assets/audio/listening-song-ngu-sample",
   "audioExtension": "wav",
   "paragraphTaskMode": "cumulative",
