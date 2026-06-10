@@ -16,9 +16,11 @@ import {
   restoreMasterySession,
   serializeMasterySession,
 } from "./mastery.mjs";
+import { createSpeechInput } from "./speech-input.mjs";
 import { createSpeechPlayer } from "./speech.mjs";
 
 const legacyStorageKey = "article-mastery-session-v2";
+const speechInput = createSpeechInput(window);
 const speechPlayer = createSpeechPlayer(window);
 
 const elements = {
@@ -48,6 +50,8 @@ const elements = {
   progressBar: document.querySelector("#progress-bar"),
   prompt: document.querySelector("#prompt"),
   resetCourse: document.querySelector("#reset-course"),
+  speakAnswer: document.querySelector("#speak-answer"),
+  speechInputStatus: document.querySelector("#speech-input-status"),
 };
 
 let activeCourse = null;
@@ -56,6 +60,7 @@ let courseStates = [];
 let flow = null;
 let masterySession = null;
 let practiceGroups = [];
+let speechInputListening = false;
 let taskIndexById = new Map();
 let tasks = [];
 
@@ -125,6 +130,8 @@ function resetCourse() {
 
   const storageKey = storageKeyFor(activeCourse);
   speechPlayer.cancel();
+  stopSpeechInput();
+  setSpeechInputStatus("");
   localStorage.removeItem(storageKey);
   masterySession = createMasterySession(practiceGroups);
   showCurrentTask({ forceGuide: true });
@@ -172,6 +179,85 @@ function focusGuideContinue() {
 function setCourseStatus(message) {
   elements.courseStatus.textContent = message;
   elements.courseStatus.hidden = !message;
+}
+
+function setSpeechInputStatus(message) {
+  elements.speechInputStatus.textContent = message;
+  elements.speechInputStatus.hidden = !message;
+}
+
+function stopSpeechInput() {
+  speechInput.stop();
+  speechInputListening = false;
+  elements.speakAnswer.textContent = "Nói thử";
+}
+
+function speechInputErrorMessage(error) {
+  if (error === "not-allowed" || error === "service-not-allowed") {
+    return "Trình duyệt chưa cho phép dùng micro. Bạn vẫn có thể gõ tay.";
+  }
+
+  if (error === "no-speech") {
+    return "Mình chưa nghe rõ. Bạn có thể nói lại hoặc gõ tay.";
+  }
+
+  if (error === "audio-capture") {
+    return "Trình duyệt chưa tìm thấy micro. Bạn vẫn có thể gõ tay.";
+  }
+
+  if (error === "unsupported") {
+    return "Trình duyệt này chưa hỗ trợ nói để nhập. Bạn vẫn có thể gõ tay.";
+  }
+
+  return "Tính năng nói đang không khả dụng. Bạn vẫn có thể gõ tay.";
+}
+
+function handleSpeechFinal(transcript) {
+  stopSpeechInput();
+  elements.answer.value = transcript;
+  setSpeechInputStatus(
+    `Máy nghe được: "${transcript}". Bạn có thể sửa trước khi kiểm tra.`
+  );
+  focusAnswer();
+}
+
+function handleSpeakAnswer() {
+  if (flow?.phase !== "exercise" || isFinished() || flow.feedback) {
+    return;
+  }
+
+  if (speechInputListening) {
+    stopSpeechInput();
+    setSpeechInputStatus("Đã dừng nghe. Bạn có thể nói lại hoặc gõ tay.");
+    focusAnswer();
+    return;
+  }
+
+  speechPlayer.cancel();
+  setSpeechInputStatus("Đang nghe...");
+  speechInputListening = true;
+  elements.speakAnswer.textContent = "Dừng nghe";
+
+  const started = speechInput.start({
+    onEnd: () => {
+      speechInputListening = false;
+      elements.speakAnswer.textContent = "Nói thử";
+    },
+    onError: (error) => {
+      speechInputListening = false;
+      elements.speakAnswer.textContent = "Nói thử";
+      setSpeechInputStatus(speechInputErrorMessage(error));
+    },
+    onFinal: handleSpeechFinal,
+    onInterim: (transcript) => {
+      setSpeechInputStatus(`Máy đang nghe: "${transcript}"`);
+    },
+  });
+
+  if (!started) {
+    speechInputListening = false;
+    elements.speakAnswer.textContent = "Nói thử";
+  }
 }
 
 async function loadCourseForEntry(entry) {
@@ -259,6 +345,8 @@ async function refreshCoursePicker() {
 
 function showPicker() {
   speechPlayer.cancel();
+  stopSpeechInput();
+  setSpeechInputStatus("");
   activeCourse = null;
   flow = null;
   masterySession = null;
@@ -404,6 +492,11 @@ function renderExercise(task) {
           : "promptShort";
 
   elements.answer.disabled = hasSubmitted;
+  elements.speakAnswer.hidden = !speechInput.isAvailable || hasSubmitted;
+  elements.speakAnswer.disabled = hasSubmitted;
+  if (!hasSubmitted && !speechInputListening) {
+    elements.speakAnswer.textContent = "Nói thử";
+  }
   elements.checkButton.disabled = Boolean(flow.feedback?.correct);
   elements.checkButton.textContent = flow.feedback
     ? flow.feedback.correct
@@ -444,11 +537,14 @@ function render() {
 function playGuide() {
   if (flow?.phase === "guide" && !isFinished()) {
     const task = activeTask();
+    stopSpeechInput();
     speechPlayer.speak(task.guide.speech, { audioSrc: audioSrcFor(task) });
   }
 }
 
 function showCurrentTask({ forceGuide = false, speak = true } = {}) {
+  stopSpeechInput();
+  setSpeechInputStatus("");
   flow = createFlowForCurrentTask({ forceGuide });
   elements.answer.value = "";
   render();
@@ -474,6 +570,8 @@ function handleGuideContinue() {
   }
 
   speechPlayer.cancel();
+  stopSpeechInput();
+  setSpeechInputStatus("");
   flow = openExercise(flow);
   elements.answer.value = "";
   render();
@@ -494,6 +592,8 @@ function handleFailedRetry() {
   }
 
   speechPlayer.cancel();
+  stopSpeechInput();
+  setSpeechInputStatus("");
   flow = revisitFailedGuide(flow);
   elements.answer.value = "";
   render();
@@ -505,6 +605,9 @@ function handleCheck() {
   if (flow?.phase !== "exercise" || isFinished() || flow.feedback?.correct) {
     return;
   }
+
+  stopSpeechInput();
+  setSpeechInputStatus("");
 
   if (flow.feedback && !flow.feedback.correct) {
     handleFailedRetry();
@@ -568,6 +671,8 @@ async function initializeApp() {
   elements.lesson.hidden = true;
   elements.resetCourse.hidden = true;
   elements.changeCourse.hidden = true;
+  elements.speakAnswer.hidden = true;
+  setSpeechInputStatus("");
 
   try {
     const index = await loadCourseIndex();
@@ -584,6 +689,7 @@ elements.checkButton.addEventListener("click", handleCheck);
 elements.continueGuide.addEventListener("click", handleGuideContinue);
 elements.listenGuide.addEventListener("click", playGuide);
 elements.resetCourse.addEventListener("click", resetCourse);
+elements.speakAnswer.addEventListener("click", handleSpeakAnswer);
 document.addEventListener("keydown", handleGlobalKeyDown);
 
 initializeApp();

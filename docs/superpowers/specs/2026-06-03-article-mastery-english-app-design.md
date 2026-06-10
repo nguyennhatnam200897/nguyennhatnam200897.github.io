@@ -59,6 +59,29 @@ Người học có thể bấm `Reset khóa học` để xóa tiến độ đã 
 quay về mốc học đầu tiên. Nút này chỉ dùng khi người học chủ động muốn học lại
 từ đầu, không phải cơ chế ôn tập tự động.
 
+## Cập nhật speech-to-text hỗ trợ nhập nháp ngày 2026-06-10
+
+App có thể thêm nút `Nói thử` ở màn bài tập để người học nói câu trả lời và để
+trình duyệt điền transcript nháp vào ô nhập. Đây là tính năng hỗ trợ nhập, không
+phải bài kiểm tra nói hoặc chấm phát âm.
+
+Nguyên tắc đã chốt:
+
+- Speech-to-text chỉ hoạt động trước khi người học nộp đáp án.
+- Khi có transcript, app hiện `Máy nghe được: ...` và tự điền transcript vào ô
+  trả lời.
+- Người học luôn được sửa transcript bằng tay trước khi bấm `Kiểm tra`.
+- App không tự nộp bài sau khi nghe được giọng nói.
+- Điểm, tiến độ và vòng luyện xen kẽ vẫn chỉ thay đổi sau khi người học tự nộp
+  đáp án và `evaluateAnswer()` chấm kết quả.
+- Nếu trình duyệt không hỗ trợ nhận diện giọng nói hoặc người học không cấp
+  quyền micro, app giữ nguyên luồng gõ tay.
+- Vì Web Speech API không hỗ trợ đều trên mọi trình duyệt và có thể dùng dịch vụ
+  nhận diện từ xa, tính năng này phải được xem là tùy chọn.
+
+Thiết kế chi tiết được ghi tại:
+`docs/superpowers/specs/2026-06-10-speech-to-text-draft-input-design.md`.
+
 ## Cập nhật vòng luyện xen kẽ ngày 2026-06-08
 
 Luật `đúng một lần thì qua` không còn là mục tiêu thiết kế lâu dài. Nó chỉ phù

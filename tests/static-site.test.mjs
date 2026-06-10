@@ -23,6 +23,8 @@ test("uses only relative static assets suitable for a GitHub Pages subpath", asy
   assert.match(html, /id="course-picker"/);
   assert.match(html, /id="course-list"/);
   assert.match(html, /id="change-course"/);
+  assert.match(html, /id="speak-answer"/);
+  assert.match(html, /id="speech-input-status"/);
   assert.doesNotMatch(html, /\/src\/main\.jsx|react|vite/i);
 });
 
@@ -35,6 +37,7 @@ test("loads app modules through relative imports", async () => {
   assert.match(appSource, /from "\.\/lesson-flow\.mjs"/);
   assert.match(appSource, /from "\.\/mastery\.mjs"/);
   assert.match(appSource, /from "\.\/speech\.mjs"/);
+  assert.match(appSource, /from "\.\/speech-input\.mjs"/);
   assert.match(appSource, /renderPronunciation/);
   assert.match(appSource, /article-mastery-session-v3:/);
   assert.match(appSource, /course\.sessionVersion\s*>\s*1/);
@@ -84,6 +87,18 @@ test("resets course progress from the reset button", async () => {
   assert.match(handler, /masterySession\s*=\s*createMasterySession\(practiceGroups\)/);
   assert.match(handler, /showCurrentTask\(\{\s*forceGuide:\s*true\s*\}\)/);
   assert.match(appSource, /resetCourse.*addEventListener\("click"/s);
+});
+
+test("speech input fills the answer without auto-submitting", async () => {
+  const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
+  const speechHandler = appSource.match(
+    /function handleSpeechFinal\(transcript\) \{[\s\S]*?\n\}/
+  )?.[0];
+
+  assert.ok(speechHandler, "Expected handleSpeechFinal handler");
+  assert.match(speechHandler, /elements\.answer\.value\s*=\s*transcript/);
+  assert.doesNotMatch(speechHandler, /handleCheck\(/);
+  assert.doesNotMatch(speechHandler, /recordMasteryAttempt/);
 });
 
 test("does not require npm or generated build directories", () => {
