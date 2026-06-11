@@ -6,6 +6,10 @@ Create a new experiment course cloned from lesson one so the learner can compare
 the current progression with a softer i+1 progression without changing existing
 courses.
 
+Update: the experiment's repetition model is now refined by
+`2026-06-11-frontier-rollback-i-plus-one-design.md`. Bridge tasks stay, but the
+course no longer uses unconditional overlapping review for old tasks.
+
 The experiment applies two ideas:
 
 1. Add bridge tasks before larger jumps.
@@ -63,13 +67,15 @@ Existing courses keep the current cadence:
   at least two correct answers, including one correct answer after another task
   has intervened.
 
-The experiment course sets:
+The experiment course now uses `frontier-rollback` cadence:
 
-- `minCorrectBeforeNextIntroduction: 2`
+- each frontier task is practiced until it is correct twice;
+- earlier tasks hidden inside the frontier task do not appear again by default;
+- an earlier task appears again only when the wrong answer shows that embedded
+  part failed.
 
-That means the latest introduced task must be correct twice before the next task
-inside the same overlapping group appears. This deliberately makes the first
-experiment conservative; later versions can tune the threshold per task type.
+This keeps the learner moving through i+1 instead of repeatedly dropping back to
+already-covered i steps.
 
 ## Non-goals
 
@@ -88,4 +94,5 @@ Tests should prove:
 - bridge tasks reuse the target answer and audio;
 - default courses do not receive bridge tasks or delayed introduction;
 - the experiment course passes its `practicePolicy` into the scheduler;
-- the scheduler delays task introduction for the experiment course.
+- the scheduler practices only the frontier task unless a targeted repair is
+  triggered.

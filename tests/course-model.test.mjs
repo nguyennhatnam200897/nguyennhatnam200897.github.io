@@ -71,11 +71,20 @@ test("builds the gentle i+1 experiment as a cloned course with bridges", async (
   assert.equal(experiment.id, "small-public-garden-gentle-i1");
   assert.equal(experiment.sessionVersion, 1);
   assert.equal(experiment.practiceProfile, "gentle-i-plus-one");
+  assert.equal(experiment.practicePolicy.mode, "frontier-rollback");
   assert.deepEqual(experiment.article.sentences, course.article.sentences);
   assert.equal(course.practicePolicy, undefined);
   assert.equal(course.tasks.some((task) => task.isBridge), false);
   assert.ok(experiment.tasks.length > course.tasks.length);
   assert.ok(bridges.length > 0);
+  assert.deepEqual(
+    byId.get("S1-03").rollbackTargets.find((target) => target.taskId === "S1-02"),
+    {
+      taskId: "S1-02",
+      start: 1,
+      end: 2,
+    }
+  );
   assert.deepEqual(
     experiment.sentenceTaskGroups.map((group) => group.length).slice(0, 2),
     [22, 24]

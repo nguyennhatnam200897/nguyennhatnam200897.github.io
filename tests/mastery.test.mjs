@@ -111,6 +111,61 @@ test("can delay the next task introduction with a course policy", () => {
   assert.equal(getCurrentTaskId(session, futureGroups), "B");
 });
 
+test("uses frontier groups for a rollback i+1 course", () => {
+  const futureGroups = buildPracticeGroups(
+    [
+      { id: "cities", sentenceId: "F1", answer: "cities" },
+      {
+        id: "many-cities",
+        sentenceId: "F1",
+        answer: "many cities",
+        rollbackTargets: [{ taskId: "cities", start: 1, end: 2 }],
+      },
+    ],
+    { mode: "frontier-rollback", minCorrect: 2, repairCorrectCount: 1 }
+  );
+
+  assert.deepEqual(
+    futureGroups.map((practiceGroup) => practiceGroup.taskIds),
+    [["cities"], ["many-cities"]]
+  );
+  assert.equal(futureGroups[0].requiresInterleavedCorrect, false);
+});
+
+test("rolls back only when the failed token is inside a learned prerequisite", () => {
+  const futureGroups = buildPracticeGroups(
+    [
+      { id: "cities", sentenceId: "F1", answer: "cities" },
+      {
+        id: "many-cities",
+        sentenceId: "F1",
+        answer: "many cities",
+        rollbackTargets: [{ taskId: "cities", start: 1, end: 2 }],
+      },
+    ],
+    { mode: "frontier-rollback", minCorrect: 2, repairCorrectCount: 1 }
+  );
+  let session = createMasterySession(futureGroups);
+
+  session = recordMasteryAttempt(session, futureGroups, "cities", true);
+  assert.equal(getCurrentTaskId(session, futureGroups), "cities");
+  session = recordMasteryAttempt(session, futureGroups, "cities", true);
+  assert.equal(getCurrentTaskId(session, futureGroups), "many-cities");
+
+  session = recordMasteryAttempt(session, futureGroups, "many-cities", false, {
+    issue: { index: 1, actual: "cite", expected: "cities", type: "mismatch" },
+  });
+  assert.equal(getCurrentTaskId(session, futureGroups), "cities");
+
+  session = recordMasteryAttempt(session, futureGroups, "cities", true);
+  assert.equal(getCurrentTaskId(session, futureGroups), "many-cities");
+
+  session = recordMasteryAttempt(session, futureGroups, "many-cities", false, {
+    issue: { index: 0, actual: "cities", expected: "many", type: "mismatch" },
+  });
+  assert.equal(getCurrentTaskId(session, futureGroups), "many-cities");
+});
+
 test("advances only after every item reaches the mastery rule", () => {
   let session = createMasterySession(groups);
 

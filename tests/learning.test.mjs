@@ -41,6 +41,18 @@ test("blocks missing article errors", () => {
   assert.match(result.message, /the/);
 });
 
+test("reports the first blocking token issue for targeted repair", () => {
+  const result = evaluateAnswer({ answer: "many cities" }, "many cite");
+
+  assert.equal(result.correct, false);
+  assert.deepEqual(result.issue, {
+    index: 1,
+    actual: "cite",
+    expected: "cities",
+    type: "mismatch",
+  });
+});
+
 test("normalizes text answers consistently", () => {
   assert.equal(
     normalizeTextAnswer("The project, also encouraged shops."),

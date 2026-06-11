@@ -594,6 +594,14 @@ function handleFailedRetry() {
   speechPlayer.cancel();
   stopSpeechInput();
   setSpeechInputStatus("");
+
+  const scheduledTaskId = currentTaskId();
+
+  if (scheduledTaskId && scheduledTaskId !== activeTask().id) {
+    showCurrentTask({ forceGuide: true });
+    return;
+  }
+
   flow = revisitFailedGuide(flow);
   elements.answer.value = "";
   render();
@@ -621,7 +629,8 @@ function handleCheck() {
     masterySession,
     practiceGroups,
     task.id,
-    feedback.correct
+    feedback.correct,
+    feedback
   );
   saveSession();
   flow = recordSubmission(flow, feedback);

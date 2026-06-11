@@ -79,7 +79,7 @@ test("keeps exercise Enter from leaking into the next guide", async () => {
   assert.match(handler, /event\.stopPropagation\(\)/);
 });
 
-test("retries the exact failed task instead of asking the scheduler for another task", async () => {
+test("retries the exact failed task when no scheduler repair is active", async () => {
   const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
   const handler = appSource.match(
     /function handleFailedRetry\(\) \{[\s\S]*?\n\}/
@@ -88,7 +88,19 @@ test("retries the exact failed task instead of asking the scheduler for another 
   assert.ok(handler);
   assert.match(appSource, /revisitFailedGuide/);
   assert.match(handler, /flow\s*=\s*revisitFailedGuide\(flow\)/);
-  assert.doesNotMatch(handler, /showCurrentTask\(\{\s*forceGuide:\s*true\s*\}\)/);
+  assert.match(handler, /showCurrentTask\(\{\s*forceGuide:\s*true\s*\}\)/);
+});
+
+test("failed retry follows a scheduler repair task when one is active", async () => {
+  const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
+  const handler = appSource.match(
+    /function handleFailedRetry\(\) \{[\s\S]*?\n\}/
+  )?.[0];
+
+  assert.ok(handler);
+  assert.match(handler, /const scheduledTaskId\s*=\s*currentTaskId\(\)/);
+  assert.match(handler, /scheduledTaskId\s*!==\s*activeTask\(\)\.id/);
+  assert.match(handler, /showCurrentTask\(\{\s*forceGuide:\s*true\s*\}\)/);
 });
 
 test("resets course progress from the reset button", async () => {

@@ -1,4 +1,5 @@
 import { attachGuidance } from "./guidance.mjs";
+import { normalizeTextAnswer } from "./learning.mjs";
 
 function assertString(value, field) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -43,6 +44,15 @@ function normalizeTask(task, indexPath) {
       : {}),
     ...(typeof task.supportLevel === "string"
       ? { supportLevel: task.supportLevel }
+      : {}),
+    ...(Array.isArray(task.rollbackTargets)
+      ? {
+          rollbackTargets: task.rollbackTargets.map((target) => ({
+            taskId: target.taskId,
+            start: Number(target.start),
+            end: Number(target.end),
+          })),
+        }
       : {}),
     ...(task.guide ? { guide: normalizeGuide(task.guide) } : {}),
   };
@@ -99,12 +109,36 @@ function buildPracticePolicy(practiceProfile) {
   }
 
   return {
-    minCorrectBeforeNextIntroduction: 2,
+    mode: "frontier-rollback",
+    minCorrect: 2,
+    repairCorrectCount: 1,
   };
 }
 
 function countWords(answer) {
   return answer.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function answerTokens(answer) {
+  return normalizeTextAnswer(answer).split(" ").filter(Boolean);
+}
+
+function findTokenSpan(sourceTokens, targetTokens) {
+  if (targetTokens.length === 0 || targetTokens.length > sourceTokens.length) {
+    return null;
+  }
+
+  for (let start = 0; start <= sourceTokens.length - targetTokens.length; start += 1) {
+    const matches = targetTokens.every(
+      (token, index) => sourceTokens[start + index] === token
+    );
+
+    if (matches) {
+      return { start, end: start + targetTokens.length };
+    }
+  }
+
+  return null;
 }
 
 function shouldCreateBridgeTask(task, previousTask) {
@@ -170,6 +204,46 @@ function insertBridgeTasks(tasks, practiceProfile) {
   return withBridges;
 }
 
+function buildRollbackTargets(task, previousTasks) {
+  const sourceTokens = answerTokens(task.answer);
+
+  return previousTasks
+    .map((previousTask) => {
+      const span = findTokenSpan(sourceTokens, answerTokens(previousTask.answer));
+
+      if (!span) {
+        return null;
+      }
+
+      return {
+        taskId: previousTask.id,
+        start: span.start,
+        end: span.end,
+      };
+    })
+    .filter(Boolean);
+}
+
+function attachRollbackTargets(tasks, practiceProfile) {
+  if (practiceProfile !== "gentle-i-plus-one") {
+    return tasks;
+  }
+
+  const previousTasks = [];
+
+  return tasks.map((task) => {
+    const rollbackTargets = buildRollbackTargets(task, previousTasks);
+    const taskWithTargets =
+      rollbackTargets.length > 0 ? { ...task, rollbackTargets } : task;
+
+    if (!task.isBridge) {
+      previousTasks.push(task);
+    }
+
+    return taskWithTargets;
+  });
+}
+
 export function buildLessonCourse(courseData) {
   ["id", "title", "level", "topic"].forEach((field) => {
     assertString(courseData[field], field);
@@ -187,11 +261,17 @@ export function buildLessonCourse(courseData) {
         practiceProfile
       )
   );
-  const paragraphTasks = insertBridgeTasks(
-    buildParagraphTasks(courseData, sentences),
+  const sentenceTaskGroupsWithRollback = sentenceTaskGroups.map((group) =>
+    attachRollbackTargets(group, practiceProfile)
+  );
+  const paragraphTasks = attachRollbackTargets(
+    insertBridgeTasks(buildParagraphTasks(courseData, sentences), practiceProfile),
     practiceProfile
   );
-  const tasks = attachGuidance([...sentenceTaskGroups.flat(), ...paragraphTasks]);
+  const tasks = attachGuidance([
+    ...sentenceTaskGroupsWithRollback.flat(),
+    ...paragraphTasks,
+  ]);
 
   return {
     id: courseData.id,
@@ -210,7 +290,7 @@ export function buildLessonCourse(courseData) {
       sentences,
     },
     sentences,
-    sentenceTaskGroups,
+    sentenceTaskGroups: sentenceTaskGroupsWithRollback,
     tasks,
     summary: {
       sentenceCount: sentences.length,

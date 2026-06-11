@@ -17,18 +17,42 @@ function firstTokenIssue(input, expected) {
   for (let index = 0; index < max; index += 1) {
     if (actualTokens[index] !== expectedTokens[index]) {
       if (actualTokens[index] === undefined) {
-        return `Thiếu từ "${expectedTokens[index]}" ở vị trí ${index + 1}.`;
+        return {
+          index,
+          actual: undefined,
+          expected: expectedTokens[index],
+          type: "missing",
+          message: `Thiếu từ "${expectedTokens[index]}" ở vị trí ${index + 1}.`,
+        };
       }
 
       if (expectedTokens[index] === undefined) {
-        return `Thừa từ "${actualTokens[index]}" ở vị trí ${index + 1}.`;
+        return {
+          index,
+          actual: actualTokens[index],
+          expected: undefined,
+          type: "extra",
+          message: `Thừa từ "${actualTokens[index]}" ở vị trí ${index + 1}.`,
+        };
       }
 
-      return `Ở vị trí ${index + 1}, bạn nhập "${actualTokens[index]}", đáp án là "${expectedTokens[index]}".`;
+      return {
+        index,
+        actual: actualTokens[index],
+        expected: expectedTokens[index],
+        type: "mismatch",
+        message: `Ở vị trí ${index + 1}, bạn nhập "${actualTokens[index]}", đáp án là "${expectedTokens[index]}".`,
+      };
     }
   }
 
-  return "Câu chưa khớp với bài gốc.";
+  return {
+    index: -1,
+    actual: undefined,
+    expected: undefined,
+    type: "unknown",
+    message: "Câu chưa khớp với bài gốc.",
+  };
 }
 
 export function evaluateAnswer(task, input) {
@@ -63,11 +87,19 @@ export function evaluateAnswer(task, input) {
     };
   }
 
+  const issue = firstTokenIssue(trimmedInput, task.answer);
+
   return {
     correct: false,
     kind: "blocking",
-    message: firstTokenIssue(trimmedInput, task.answer),
+    message: issue.message,
     expected: task.answer,
+    issue: {
+      index: issue.index,
+      actual: issue.actual,
+      expected: issue.expected,
+      type: issue.type,
+    },
     notes: ["Lỗi này chặn qua vì output phải tái tạo đúng từ/cụm/câu của bài gốc."],
   };
 }

@@ -24,6 +24,16 @@ function groupOptionsFor(practicePolicy = {}) {
   return {};
 }
 
+function masteryRuleFor(groupToCheck = {}) {
+  return {
+    minCorrect: Number(groupToCheck.minCorrect) || MASTERY_RULE.minCorrect,
+    minStreak: Number(groupToCheck.minStreak) || MASTERY_RULE.minStreak,
+    requiresInterleavedCorrect:
+      groupToCheck.requiresInterleavedCorrect ??
+      MASTERY_RULE.requiresInterleavedCorrect,
+  };
+}
+
 function buildRollingGroups(tasks, practicePolicy) {
   const groups = [];
   const recentBySentence = new Map();
@@ -43,7 +53,32 @@ function buildRollingGroups(tasks, practicePolicy) {
   return groups;
 }
 
+function buildFrontierGroups(tasks, practicePolicy = {}) {
+  const minCorrect = Number(practicePolicy.minCorrect) || 2;
+  const repairCorrectCount = Number(practicePolicy.repairCorrectCount) || 1;
+
+  return tasks.map((task) =>
+    group(`frontier-${task.id}`, [task.id], {
+      minCorrect,
+      minStreak: 1,
+      requiresInterleavedCorrect: false,
+      repairCorrectCount,
+      ...(Array.isArray(task.rollbackTargets) && task.rollbackTargets.length > 0
+        ? {
+            rollbackTargetsByTaskId: {
+              [task.id]: task.rollbackTargets.map((target) => ({ ...target })),
+            },
+          }
+        : {}),
+    })
+  );
+}
+
 export function buildPracticeGroups(tasks, practicePolicy) {
+  if (practicePolicy?.mode === "frontier-rollback") {
+    return buildFrontierGroups(tasks, practicePolicy);
+  }
+
   return buildRollingGroups(tasks, practicePolicy);
 }
 
@@ -65,11 +100,11 @@ function normalizeStats(stats = {}) {
   };
 }
 
-function isStatsMastered(stats) {
+function isStatsMastered(stats, rule = MASTERY_RULE) {
   return (
-    stats.correctCount >= MASTERY_RULE.minCorrect &&
-    stats.streak >= MASTERY_RULE.minStreak &&
-    (!MASTERY_RULE.requiresInterleavedCorrect || stats.hasInterleavedCorrect)
+    stats.correctCount >= rule.minCorrect &&
+    stats.streak >= rule.minStreak &&
+    (!rule.requiresInterleavedCorrect || stats.hasInterleavedCorrect)
   );
 }
 
@@ -79,6 +114,7 @@ export function createMasterySession() {
     groupIndex: 0,
     introducedIds: [],
     lastAnsweredTaskId: null,
+    repair: null,
     stats: {},
   };
 }
@@ -89,6 +125,7 @@ export function serializeMasterySession(session) {
     groupIndex: session.groupIndex,
     introducedIds: [...session.introducedIds],
     lastAnsweredTaskId: session.lastAnsweredTaskId,
+    repair: session.repair ? { ...session.repair } : null,
     stats: Object.fromEntries(
       Object.entries(session.stats).map(([taskId, stats]) => [
         taskId,
@@ -116,6 +153,24 @@ export function restoreMasterySession(value, groups) {
       : [],
     lastAnsweredTaskId:
       typeof value.lastAnsweredTaskId === "string" ? value.lastAnsweredTaskId : null,
+    repair:
+      value.repair &&
+      typeof value.repair === "object" &&
+      typeof value.repair.taskId === "string"
+        ? {
+            taskId: value.repair.taskId,
+            returnGroupIndex: Math.min(
+              Math.max(Number(value.repair.returnGroupIndex) || groupIndex, 0),
+              groups.length
+            ),
+            returnTaskId:
+              typeof value.repair.returnTaskId === "string"
+                ? value.repair.returnTaskId
+                : null,
+            correctCountRequired:
+              Number(value.repair.correctCountRequired) || 1,
+          }
+        : null,
     stats: Object.fromEntries(
       Object.entries(value.stats ?? {}).map(([taskId, stats]) => [
         taskId,
@@ -133,11 +188,18 @@ export function isTaskIntroduced(session, taskId) {
   return session.introducedIds.includes(taskId);
 }
 
-function isTaskMastered(session, taskId) {
-  return isStatsMastered(normalizeStats(session.stats[taskId]));
+function isTaskMastered(session, taskId, groupToCheck) {
+  return isStatsMastered(
+    normalizeStats(session.stats[taskId]),
+    masteryRuleFor(groupToCheck)
+  );
 }
 
 export function getCurrentTaskId(session, groups) {
+  if (session.repair?.taskId) {
+    return session.repair.taskId;
+  }
+
   const currentGroup = getCurrentGroup(session, groups);
 
   if (!currentGroup) {
@@ -168,7 +230,7 @@ export function getCurrentTaskId(session, groups) {
   }
 
   const pending = currentGroup.taskIds.filter(
-    (taskId) => !isTaskMastered(session, taskId)
+    (taskId) => !isTaskMastered(session, taskId, currentGroup)
   );
 
   if (pending.length === 0) {
@@ -216,10 +278,66 @@ function updateStats(stats, taskId, correct, lastAnsweredTaskId) {
 }
 
 function isGroupMastered(session, groupToCheck) {
-  return groupToCheck.taskIds.every((taskId) => isTaskMastered(session, taskId));
+  return groupToCheck.taskIds.every((taskId) =>
+    isTaskMastered(session, taskId, groupToCheck)
+  );
 }
 
-export function recordMasteryAttempt(session, groups, taskId, correct) {
+function rollbackTaskIdFor(groupToCheck, taskId, feedback) {
+  const issueIndex = Number(feedback?.issue?.index);
+  const rollbackTargets = groupToCheck.rollbackTargetsByTaskId?.[taskId] ?? [];
+
+  if (!Number.isInteger(issueIndex) || rollbackTargets.length === 0) {
+    return null;
+  }
+
+  const matches = rollbackTargets
+    .filter((target) => issueIndex >= target.start && issueIndex < target.end)
+    .sort((a, b) => {
+      const aLength = a.end - a.start;
+      const bLength = b.end - b.start;
+
+      return aLength - bLength || b.start - a.start;
+    });
+
+  return matches[0]?.taskId ?? null;
+}
+
+function recordRepairAttempt(session, taskId, correct) {
+  const stats = updateStats(
+    session.stats,
+    taskId,
+    correct,
+    session.lastAnsweredTaskId
+  );
+  const nextSession = {
+    ...session,
+    introducedIds: markIntroduced(session, taskId),
+    lastAnsweredTaskId: taskId,
+    stats,
+  };
+
+  if (
+    !correct ||
+    normalizeStats(stats[taskId]).correctCount <
+      (session.repair.correctCountRequired ?? 1)
+  ) {
+    return nextSession;
+  }
+
+  return {
+    ...nextSession,
+    cycleCursor: 0,
+    groupIndex: session.repair.returnGroupIndex,
+    repair: null,
+  };
+}
+
+export function recordMasteryAttempt(session, groups, taskId, correct, feedback) {
+  if (session.repair?.taskId === taskId) {
+    return recordRepairAttempt(session, taskId, correct);
+  }
+
   const currentGroup = getCurrentGroup(session, groups);
 
   if (!currentGroup || !currentGroup.taskIds.includes(taskId)) {
@@ -240,7 +358,24 @@ export function recordMasteryAttempt(session, groups, taskId, correct) {
     stats,
   };
 
-  if (!correct || !isGroupMastered(nextSession, currentGroup)) {
+  if (!correct) {
+    const rollbackTaskId = rollbackTaskIdFor(currentGroup, taskId, feedback);
+
+    return {
+      ...nextSession,
+      repair:
+        rollbackTaskId && rollbackTaskId !== taskId
+          ? {
+              taskId: rollbackTaskId,
+              returnGroupIndex: session.groupIndex,
+              returnTaskId: taskId,
+              correctCountRequired: currentGroup.repairCorrectCount ?? 1,
+            }
+          : null,
+    };
+  }
+
+  if (!isGroupMastered(nextSession, currentGroup)) {
     return nextSession;
   }
 
@@ -258,14 +393,20 @@ export function calculateMasteryProgress(session, groups) {
   }
 
   const currentGroup = getCurrentGroup(session, groups);
+  const rule = masteryRuleFor(currentGroup);
   const groupProgress =
     currentGroup.taskIds.reduce((total, taskId) => {
       const stats = normalizeStats(session.stats[taskId]);
       const correctProgress = Math.min(
-        stats.correctCount / MASTERY_RULE.minCorrect,
+        stats.correctCount / rule.minCorrect,
         1
       );
-      const streakProgress = Math.min(stats.streak / MASTERY_RULE.minStreak, 1);
+      const streakProgress = Math.min(stats.streak / rule.minStreak, 1);
+
+      if (!rule.requiresInterleavedCorrect) {
+        return total + (correctProgress + streakProgress) / 2;
+      }
+
       const interleavedProgress = stats.hasInterleavedCorrect ? 1 : 0;
 
       return total + (correctProgress + streakProgress + interleavedProgress) / 3;
