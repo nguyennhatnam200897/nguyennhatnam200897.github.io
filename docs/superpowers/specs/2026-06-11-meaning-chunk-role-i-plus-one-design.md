@@ -1,173 +1,173 @@
-# Huong di moi: i+1 theo cum nghia va vai tro cum
+# Hướng đi mới: i+1 theo cụm nghĩa và vai trò cụm
 
-Ngay tao: 2026-06-11
+Ngày tạo: 2026-06-11
 
-## Trang thai
+## Trạng thái
 
-Day la huong thiet ke moi cua du an de tiep tuc thao luan truoc khi trien khai.
-Tai lieu nay ghi lai quyet dinh san pham da thong nhat trong phien thao luan:
-nguoi hoc khong hoc bang nhieu dang bai tap khac nhau, ma hoc bang mot hanh vi
-cot loi duy nhat: nhin y tieng Viet va tu viet hoac tu noi dap an tieng Anh.
+Đây là hướng thiết kế mới của dự án để tiếp tục thảo luận trước khi triển khai.
+Tài liệu này ghi lại quyết định sản phẩm đã thống nhất trong phiên thảo luận:
+người học không học bằng nhiều dạng bài tập khác nhau, mà học bằng một hành vi
+cốt lõi duy nhất: nhìn ý tiếng Việt và tự viết hoặc tự nói đáp án tiếng Anh.
 
-Huong nay thay the cach nghi "tang do kho task" bang cach nghi "lam chu tung
-cum nghia, hieu vai tro cua cum, roi ghep cac cum da lam chu thanh y dai hon".
+Hướng này thay thế cách nghĩ "tăng độ khó task" bằng cách nghĩ "làm chủ từng
+cụm nghĩa, hiểu vai trò của cụm, rồi ghép các cụm đã làm chủ thành ý dài hơn".
 
-## Muc tieu
+## Mục tiêu
 
-Muc tieu cua app khong chi la giup nguoi hoc chep lai dung cau tieng Anh trong
-bai bao. App phai giup nguoi hoc nhin cau tieng Anh nhu mot dong y nghia duoc
-xay tu cac don vi nho co vai tro ro rang.
+Mục tiêu của app không chỉ là giúp người học chép lại đúng câu tiếng Anh trong
+bài báo. App phải giúp người học nhìn câu tiếng Anh như một dòng ý nghĩa được
+xây từ các đơn vị nhỏ có vai trò rõ ràng.
 
-Nguoi hoc can cam thay rang moi ngay minh dang:
+Người học cần cảm thấy rằng mỗi ngày mình đang:
 
-- so huu them mot vai cum co nghia;
-- hieu cum do dung de tra loi cau hoi nao trong cau;
-- biet ghep cum do voi cac cum khac de dien dat mot y lon hon;
-- tien gan hon toi viec tu viet hoac tu noi lai dung cau goc.
+- sở hữu thêm một vài cụm có nghĩa;
+- hiểu cụm đó dùng để trả lời câu hỏi nào trong câu;
+- biết ghép cụm đó với các cụm khác để diễn đạt một ý lớn hơn;
+- tiến gần hơn tới việc tự viết hoặc tự nói lại đúng câu gốc.
 
-## Nguyen tac khong doi
+## Nguyên tắc không đổi
 
-- Chi co mot dang bai cot loi: tieng Viet -> nguoi hoc tu viet hoac tu noi tieng Anh doc lap.
-- Khong them dang dien khuyet, chon dap an, keo tha, ghep the, hoac goi y truc tiep trong o tra loi.
-- Speech-to-text neu co chi la cach nhap nhap; nguoi hoc van duoc sua truoc khi nop va app khong cham phat am.
-- Ket qua cuoi van phai bam sat van ban tieng Anh goc cua khoa hoc, khong cham theo y tu do.
-- IPA, audio va giai thich chi la lop ho tro, khong bien thanh bai cham diem rieng.
+- Chỉ có một dạng bài cốt lõi: tiếng Việt -> người học tự viết hoặc tự nói tiếng Anh độc lập.
+- Không thêm dạng điền khuyết, chọn đáp án, kéo thả, ghép thẻ, hoặc gợi ý trực tiếp trong ô trả lời.
+- Speech-to-text nếu có chỉ là cách nhập nháp; người học vẫn được sửa trước khi nộp và app không chấm phát âm.
+- Kết quả cuối vẫn phải bám sát văn bản tiếng Anh gốc của khóa học, không chấm theo ý tự do.
+- IPA, audio và giải thích chỉ là lớp hỗ trợ, không biến thành bài chấm điểm riêng.
 
-## Don vi hoc trung tam: cum nghia
+## Đơn vị học trung tâm: cụm nghĩa
 
-Cum nghia khong phai chi la mot doan chu cat ra cho ngan. Cum nghia la mot don
-vi chuan cua y. Moi cum phai co nghia ro va dai dien cho mot vai tro nao do
-trong cau.
+Cụm nghĩa không phải chỉ là một đoạn chữ cắt ra cho ngắn. Cụm nghĩa là một đơn
+vị chuẩn của ý. Mỗi cụm phải có nghĩa rõ và đại diện cho một vai trò nào đó
+trong câu.
 
-Moi cum nghia can co it nhat cac thuoc tinh sau:
+Mỗi cụm nghĩa cần có ít nhất các thuộc tính sau:
 
-- `english`: cum tieng Anh can so huu.
-- `vietnamese`: y tieng Viet tuong ung.
-- `roleQuestion`: cau hoi vai tro ma cum nay tra loi, vi du `Ai?`, `Dang lam gi?`, `Ket qua gi?`.
-- `roleMeaning`: giai thich ngan ve vai tro cua cum trong dong y.
-- `chunkType`: loai cum noi bo, vi du `entity`, `action-frame`, `action-object`, `result`, `linker`, `description`.
-- `prerequisites`: cac buoc nho can hoc truoc de di toi cum nay.
-- `compositionTargets`: cac cum hoac y dai hon ma cum nay se tham gia ghep vao.
+- `english`: cụm tiếng Anh cần sở hữu.
+- `vietnamese`: ý tiếng Việt tương ứng.
+- `roleQuestion`: câu hỏi vai trò mà cụm này trả lời, ví dụ `Ai?`, `Đang làm gì?`, `Kết quả gì?`.
+- `roleMeaning`: giải thích ngắn về vai trò của cụm trong dòng ý.
+- `chunkType`: loại cụm nội bộ, ví dụ `entity`, `action-frame`, `action-object`, `result`, `linker`, `description`.
+- `prerequisites`: các bước nhỏ cần học trước để đi tới cụm này.
+- `compositionTargets`: các cụm hoặc ý dài hơn mà cụm này sẽ tham gia ghép vào.
 
-## Vai tro cum
+## Vai trò cụm
 
-App can phan loai va gan vai tro cho cum bang ngon ngu gan voi nguoi moi hoc,
-khong can goi ten ngu phap kho. Vai tro la cau noi giua tu vung va ngu phap.
+App cần phân loại và gắn vai trò cho cụm bằng ngôn ngữ gần với người mới học,
+không cần gọi tên ngữ pháp khó. Vai trò là cầu nối giữa từ vựng và ngữ pháp.
 
-Bo vai tro nen bat dau bang cac nhan gan voi y nghia:
+Bộ vai trò nên bắt đầu bằng các nhãn gần với ý nghĩa:
 
-- `Ai? / Cai gi?`: chu the, doi tuong, hoac cai dang duoc noi toi.
-- `Dang lam gi?`: hanh dong dang dien ra, y dinh, hoac khung hanh dong.
-- `Lam gi?`: hanh dong chinh.
-- `Lam voi cai gi?`: doi tuong bi tac dong hoac phan hanh dong huong toi.
-- `Ket qua gi? / Tro nen the nao?`: ket qua, muc tieu, hoac trang thai dat toi.
-- `La gi? / Co dac diem gi?`: nhan dinh, dinh danh, hoac dac diem.
-- `Khi nao? / O dau? / Bang cach nao? / Vi sao?`: hoan canh bo sung cho y chinh.
-- `Quan he giua hai y?`: tu noi, doi lap, bo sung, nguyen nhan, ket qua.
+- `Ai? / Cái gì?`: chủ thể, đối tượng, hoặc cái đang được nói tới.
+- `Đang làm gì?`: hành động đang diễn ra, ý định, hoặc khung hành động.
+- `Làm gì?`: hành động chính.
+- `Làm với cái gì?`: đối tượng bị tác động hoặc phần hành động hướng tới.
+- `Kết quả gì? / Trở nên thế nào?`: kết quả, mục tiêu, hoặc trạng thái đạt tới.
+- `Là gì? / Có đặc điểm gì?`: nhận định, định danh, hoặc đặc điểm.
+- `Khi nào? / Ở đâu? / Bằng cách nào? / Vì sao?`: hoàn cảnh bổ sung cho ý chính.
+- `Quan hệ giữa hai ý?`: từ nối, đối lập, bổ sung, nguyên nhân, kết quả.
 
-Trong UI, app co the hien ngan gon vai tro cua cum tren man huong dan. Tuy nhien
-man bai tap van giu nguyen: nguoi hoc nhin tieng Viet va tu viet/noi tieng Anh.
+Trong UI, app có thể hiện ngắn gọn vai trò của cụm trên màn hướng dẫn. Tuy nhiên
+màn bài tập vẫn giữ nguyên: người học nhìn tiếng Việt và tự viết/nói tiếng Anh.
 
-## Hai tang i+1
+## Hai tầng i+1
 
-Huong moi dung hai tang i+1 long vao nhau.
+Hướng mới dùng hai tầng i+1 lồng vào nhau.
 
-### Tang 1: i+1 ben trong tung cum
+### Tầng 1: i+1 bên trong từng cụm
 
-Moi cum co mot qua trinh rieng de nguoi hoc di tu thanh phan nho len cum nghia
-hoan chinh. Moi buoc van la mot lan viet/noi doc lap.
+Mỗi cụm có một quá trình riêng để người học đi từ thành phần nhỏ lên cụm nghĩa
+hoàn chỉnh. Mỗi bước vẫn là một lần viết/nói độc lập.
 
-Vi du `many cities`:
+Ví dụ `many cities`:
 
-- `thanh pho` -> `city`
-- `cac thanh pho` -> `cities`
-- `nhieu thanh pho` -> `many cities`
+- `thành phố` -> `city`
+- `các thành phố` -> `cities`
+- `nhiều thành phố` -> `many cities`
 
-Vai tro cua cum hoan chinh:
+Vai trò của cụm hoàn chỉnh:
 
 - `many cities`
-- Nghia: nhieu thanh pho
-- Vai tro: `Ai? / Chu the cua hanh dong`
+- Nghĩa: nhiều thành phố
+- Vai trò: `Ai? / Chủ thể của hành động`
 
-Vi du `are trying to`:
+Ví dụ `are trying to`:
 
-- `co gang` -> `try`
-- `dang co gang` -> `are trying`
-- `dang co gang lam` -> `are trying to`
+- `cố gắng` -> `try`
+- `đang cố gắng` -> `are trying`
+- `đang cố gắng làm` -> `are trying to`
 
-Vai tro cua cum hoan chinh:
+Vai trò của cụm hoàn chỉnh:
 
 - `are trying to`
-- Nghia: dang co gang lam
-- Vai tro: `Dang lam gi? / Khung y dinh hanh dong`
+- Nghĩa: đang cố gắng làm
+- Vai trò: `Đang làm gì? / Khung ý định hành động`
 
-Vi du `more sustainable`:
+Ví dụ `more sustainable`:
 
-- `ben vung` -> `sustainable`
-- `ben vung hon` -> `more sustainable`
+- `bền vững` -> `sustainable`
+- `bền vững hơn` -> `more sustainable`
 
-Vai tro cua cum hoan chinh:
+Vai trò của cụm hoàn chỉnh:
 
 - `more sustainable`
-- Nghia: ben vung hon
-- Vai tro: `Ket qua gi? / Tro nen the nao?`
+- Nghĩa: bền vững hơn
+- Vai trò: `Kết quả gì? / Trở nên thế nào?`
 
-### Tang 2: i+1 giua cac cum
+### Tầng 2: i+1 giữa các cụm
 
-Sau khi tung cum da duoc lam chu, app bat dau ghep cac cum theo vai tro de tao
-thanh y dai hon. Moi buoc ghep van la mot prompt tieng Viet va mot dap an tieng
-Anh doc lap.
+Sau khi từng cụm đã được làm chủ, app bắt đầu ghép các cụm theo vai trò để tạo
+thành ý dài hơn. Mỗi bước ghép vẫn là một prompt tiếng Việt và một đáp án tiếng
+Anh độc lập.
 
-Vi du:
+Ví dụ:
 
-- `nhieu thanh pho` -> `many cities`
-- `dang co gang lam` -> `are trying to`
-- `nhieu thanh pho dang co gang lam` -> `many cities are trying to`
+- `nhiều thành phố` -> `many cities`
+- `đang cố gắng làm` -> `are trying to`
+- `nhiều thành phố đang cố gắng làm` -> `many cities are trying to`
 
-Tiep theo:
+Tiếp theo:
 
-- `lam cho doi song hang ngay` -> `make daily life`
-- `ben vung hon` -> `more sustainable`
-- `lam cho doi song hang ngay ben vung hon` -> `make daily life more sustainable`
+- `làm cho đời sống hằng ngày` -> `make daily life`
+- `bền vững hơn` -> `more sustainable`
+- `làm cho đời sống hằng ngày bền vững hơn` -> `make daily life more sustainable`
 
-Sau do ghep thanh y lon:
+Sau đó ghép thành ý lớn:
 
-- `nhieu thanh pho dang co gang lam cho doi song hang ngay ben vung hon`
+- `nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn`
 - `many cities are trying to make daily life more sustainable`
 
-## Vi du cau dau bai 1
+## Ví dụ câu đầu bài 1
 
-Cau dich:
+Câu đích:
 
 `Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.`
 
-### Cum cua ve 1
+### Cụm của vế 1
 
 `many cities`
 
-- Nghia: nhieu thanh pho
-- Vai tro: `Ai? / Chu the`
-- Qua trinh cum: `city` -> `cities` -> `many cities`
+- Nghĩa: nhiều thành phố
+- Vai trò: `Ai? / Chủ thể`
+- Quá trình cụm: `city` -> `cities` -> `many cities`
 
 `are trying to`
 
-- Nghia: dang co gang lam
-- Vai tro: `Dang lam gi? / Khung y dinh hanh dong`
-- Qua trinh cum: `try` -> `are trying` -> `are trying to`
+- Nghĩa: đang cố gắng làm
+- Vai trò: `Đang làm gì? / Khung ý định hành động`
+- Quá trình cụm: `try` -> `are trying` -> `are trying to`
 
 `make daily life`
 
-- Nghia: lam cho doi song hang ngay
-- Vai tro: `Lam gi voi cai gi? / Hanh dong + doi tuong bi tac dong`
-- Qua trinh cum: `life` -> `daily life` -> `make daily life`
+- Nghĩa: làm cho đời sống hằng ngày
+- Vai trò: `Làm gì với cái gì? / Hành động + đối tượng bị tác động`
+- Quá trình cụm: `life` -> `daily life` -> `make daily life`
 
 `more sustainable`
 
-- Nghia: ben vung hon
-- Vai tro: `Ket qua gi? / Trang thai muon dat toi`
-- Qua trinh cum: `sustainable` -> `more sustainable`
+- Nghĩa: bền vững hơn
+- Vai trò: `Kết quả gì? / Trạng thái muốn đạt tới`
+- Quá trình cụm: `sustainable` -> `more sustainable`
 
-Ghep ve 1:
+Ghép vế 1:
 
 - `many cities` + `are trying to`
 - `many cities are trying to`
@@ -175,89 +175,89 @@ Ghep ve 1:
 - `make daily life more sustainable`
 - `many cities are trying to make daily life more sustainable`
 
-### Cum cua ve 2
+### Cụm của vế 2
 
 `the most effective changes`
 
-- Nghia: nhung thay doi hieu qua nhat
-- Vai tro: `Cai gi? / Chu the cua nhan dinh`
-- Qua trinh cum: `change` -> `changes` -> `effective changes` -> `the most effective changes`
+- Nghĩa: những thay đổi hiệu quả nhất
+- Vai trò: `Cái gì? / Chủ thể của nhận định`
+- Quá trình cụm: `change` -> `changes` -> `effective changes` -> `the most effective changes`
 
 `are often`
 
-- Nghia: thuong la
-- Vai tro: `Nhan dinh thuong xay ra`
-- Qua trinh cum: `are` -> `are often`, neu can; hoac gioi thieu truc tiep trong y co nghia khi hoc cau.
+- Nghĩa: thường là
+- Vai trò: `Nhận định thường xảy ra`
+- Quá trình cụm: `are` -> `are often`, nếu cần; hoặc giới thiệu trực tiếp trong ý có nghĩa khi học câu.
 
 `the least dramatic`
 
-- Nghia: it gay an tuong manh nhat
-- Vai tro: `Co dac diem gi? / Dac diem cua chu the`
-- Qua trinh cum: `dramatic` -> `less dramatic` hoac `least dramatic` -> `the least dramatic`, tuy muc do can thiet.
+- Nghĩa: ít gây ấn tượng mạnh nhất
+- Vai trò: `Có đặc điểm gì? / Đặc điểm của chủ thể`
+- Quá trình cụm: `dramatic` -> `less dramatic` hoặc `least dramatic` -> `the least dramatic`, tùy mức độ cần thiết.
 
-Ghep ve 2:
+Ghép vế 2:
 
 - `the most effective changes`
 - `the most effective changes are often`
 - `the most effective changes are often the least dramatic`
 
-### Quan he giua hai ve
+### Quan hệ giữa hai vế
 
 `but`
 
-- Nghia: nhung
-- Vai tro: `Quan he trai chieu / Doi huong y`
+- Nghĩa: nhưng
+- Vai trò: `Quan hệ trái chiều / Đổi hướng ý`
 
-Ghep cau hoan chinh:
+Ghép câu hoàn chỉnh:
 
-- Ve 1: `many cities are trying to make daily life more sustainable`
-- Quan he: `but`
-- Ve 2: `the most effective changes are often the least dramatic`
-- Cau cuoi: `Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.`
+- Vế 1: `many cities are trying to make daily life more sustainable`
+- Quan hệ: `but`
+- Vế 2: `the most effective changes are often the least dramatic`
+- Câu cuối: `Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.`
 
-## Quy tac thanh thao
+## Quy tắc thành thạo
 
-Mot cum duoc xem la da so huu khi co du bang chung:
+Một cụm được xem là đã sở hữu khi có đủ bằng chứng:
 
-- nguoi hoc viet/noi dung cum do it nhat 2 lan;
-- co it nhat 1 lan dung sau khi da bi xen ke boi mot don vi khac;
-- cum do duoc dung dung ben trong mot y dai hon.
+- người học viết/nói đúng cụm đó ít nhất 2 lần;
+- có ít nhất 1 lần đúng sau khi đã bị xen kẽ bởi một đơn vị khác;
+- cụm đó được dùng đúng bên trong một ý dài hơn.
 
-Khi nguoi hoc da so huu mot cum, app khong hoi lai cum do rieng le neu khong can.
-Cum do duoc dua vao cau dai hon va duoc cung co am tham khi nguoi hoc viet/noi
-dung y dai hon.
+Khi người học đã sở hữu một cụm, app không hỏi lại cụm đó riêng lẻ nếu không cần.
+Cụm đó được đưa vào câu dài hơn và được củng cố âm thầm khi người học viết/nói
+đúng ý dài hơn.
 
-Neu nguoi hoc sai trong mot y dai, app can xac dinh cum nao dang hong. App chi
-dua cum do quay lai vong luyen noi bo bang cung mot dang viet/noi doc lap, sau
-do tra nguoi hoc ve y dai dang hoc.
+Nếu người học sai trong một ý dài, app cần xác định cụm nào đang hỏng. App chỉ
+đưa cụm đó quay lại vòng luyện nội bộ bằng cùng một dạng viết/nói độc lập, sau
+đó trả người học về ý dài đang học.
 
-Vi du:
+Ví dụ:
 
-- Prompt: `nhieu thanh pho dang co gang lam cho doi song hang ngay ben vung hon`
-- Nguoi hoc viet: `many city are trying to make daily life more sustainable`
-- Cum hong: `many cities`
-- Repair prompt: `nhieu thanh pho` -> `many cities`
-- Sau khi dung, quay lai prompt dai.
+- Prompt: `nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn`
+- Người học viết: `many city are trying to make daily life more sustainable`
+- Cụm hỏng: `many cities`
+- Repair prompt: `nhiều thành phố` -> `many cities`
+- Sau khi đúng, quay lại prompt dài.
 
-## Cam giac hoc mong muon
+## Cảm giác học mong muốn
 
-Nguoi hoc khong nen cam thay app dang tang do kho dot ngot. Ho nen cam thay minh
-dang lam chu tung cum, hieu vai tro cua no, va dung cum do de xay y lon hon.
+Người học không nên cảm thấy app đang tăng độ khó đột ngột. Họ nên cảm thấy mình
+đang làm chủ từng cụm, hiểu vai trò của nó, và dùng cụm đó để xây ý lớn hơn.
 
-Tien trinh nen tao cam giac:
+Tiến trình nên tạo cảm giác:
 
-- hom nay minh so huu them mot cum;
-- minh biet cum nay tra loi cau hoi nao trong cau;
-- minh ghep duoc cum moi vao cum cu;
-- cau cua minh dai hon, ro y hon, va gan cau goc hon.
+- hôm nay mình sở hữu thêm một cụm;
+- mình biết cụm này trả lời câu hỏi nào trong câu;
+- mình ghép được cụm mới vào cụm cũ;
+- câu của mình dài hơn, rõ ý hơn, và gần câu gốc hơn.
 
-## Cac diem can tiep tuc ban
+## Các điểm cần tiếp tục bàn
 
-Nhung diem sau la noi dung can tiep tuc thao luan truoc khi trien khai:
+Những điểm sau là nội dung cần tiếp tục thảo luận trước khi triển khai:
 
-- Bo vai tro cum nen gon toi muc nao de nguoi moi hoc khong bi ngop.
-- UI nen hien vai tro cum o man huong dan truoc bai tap, sau khi tra loi, hay ca hai.
-- Mot so cum chua dong nghia hoan toan, nhu `are trying to`, nen duoc goi la `cum chuc nang` hay van goi chung la `cum nghia`.
-- Cach chon ranh gioi cum sao cho moi cum vua co nghia, vua du nho de hoc em ai.
-- Cac quy tac repair khi mot loi trong cau dai co the thuoc nhieu cum cung luc.
-- Cach ap dung huong nay truoc tien cho course thu nghiem Gentle i+1 ma khong lam thay doi cac bai hien tai.
+- Bộ vai trò cụm nên gọn tới mức nào để người mới học không bị ngợp.
+- UI nên hiện vai trò cụm ở màn hướng dẫn trước bài tập, sau khi trả lời, hay cả hai.
+- Một số cụm chưa đóng nghĩa hoàn toàn, như `are trying to`, nên được gọi là `cụm chức năng` hay vẫn gọi chung là `cụm nghĩa`.
+- Cách chọn ranh giới cụm sao cho mỗi cụm vừa có nghĩa, vừa đủ nhỏ để học êm ái.
+- Các quy tắc repair khi một lỗi trong câu dài có thể thuộc nhiều cụm cùng lúc.
+- Cách áp dụng hướng này trước tiên cho course thử nghiệm Gentle i+1 mà không làm thay đổi các bài hiện tại.
