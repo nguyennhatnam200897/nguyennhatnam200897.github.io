@@ -43,7 +43,8 @@ Mỗi cụm nghĩa cần có ít nhất các thuộc tính sau:
 
 - `english`: cụm tiếng Anh cần sở hữu.
 - `vietnamese`: ý tiếng Việt tương ứng.
-- `roleQuestion`: câu hỏi vai trò mà cụm này trả lời, ví dụ `Ai?`, `Đang làm gì?`, `Kết quả gì?`.
+- `whenNeeded`: giải thích thực tế về lúc nào người học cần dùng cụm này.
+- `roleQuestion`: câu hỏi tóm gọn mục đích của cụm, ví dụ `Ai?`, `Đang làm gì?`, `Kết quả gì?`.
 - `roleMeaning`: giải thích ngắn về vai trò của cụm trong dòng ý.
 - `chunkType`: loại cụm nội bộ, ví dụ `entity`, `action-frame`, `action-object`, `result`, `linker`, `description`.
 - `prerequisites`: các bước nhỏ cần học trước để đi tới cụm này.
@@ -67,6 +68,59 @@ Bộ vai trò nên bắt đầu bằng các nhãn gần với ý nghĩa:
 
 Trong UI, app có thể hiện ngắn gọn vai trò của cụm trên màn hướng dẫn. Tuy nhiên
 màn bài tập vẫn giữ nguyên: người học nhìn tiếng Việt và tự viết/nói tiếng Anh.
+
+## Cách giải thích vai trò cho người học
+
+Vai trò cụm không phải là nhãn ngữ pháp để học thuộc. Vai trò cụm là câu hỏi
+giúp người học tự tạo câu khi muốn diễn đạt một ý trong đời thật.
+
+Mỗi cụm chỉ cần hai phần giải thích chính:
+
+1. `Khi nào cần?`
+   Phần này nói rõ tình huống diễn đạt mà người học cần cụm đó. Đây là lý do
+   tồn tại của cụm.
+2. `Mục đích là gì?`
+   Phần này tóm gọn vai trò của cụm thành một câu hỏi đơn giản, có thể dùng để
+   xây câu như `Ai?`, `Đang cố làm gì?`, `Tác động vào cái gì?`, `Kết quả gì?`.
+
+App không nên đặt thuật ngữ như `chủ ngữ`, `vị ngữ`, `bổ ngữ` làm lời giải thích
+chính cho người mới học. Nếu cần lưu thông tin ngữ pháp trong dữ liệu nội bộ,
+thông tin đó chỉ nên hỗ trợ hệ thống; phần người học nhìn thấy phải ưu tiên nhu
+cầu diễn đạt và câu hỏi vai trò.
+
+Ví dụ:
+
+`many cities`
+
+- Khi nào cần? Khi muốn nói về nhiều thành phố như một nhóm đang làm điều gì đó.
+- Mục đích là gì? `Ai? / Cái gì?`
+
+`are trying to`
+
+- Khi nào cần? Khi muốn nói ai đó đang cố gắng làm một việc, nhưng việc đó chưa chắc đã xong.
+- Mục đích là gì? `Đang cố làm gì?`
+
+`make daily life`
+
+- Khi nào cần? Khi muốn nói hành động đang tác động vào đời sống hằng ngày.
+- Mục đích là gì? `Tác động vào cái gì?`
+
+`more sustainable`
+
+- Khi nào cần? Khi muốn nói kết quả mong muốn là một điều gì đó trở nên bền vững hơn.
+- Mục đích là gì? `Kết quả gì?`
+
+Khi ghép câu, app có thể cho người học nhìn dòng vai trò:
+
+- `Ai?` -> `many cities`
+- `Đang cố làm gì?` -> `are trying to`
+- `Tác động vào cái gì?` -> `make daily life`
+- `Kết quả gì?` -> `more sustainable`
+
+Mục tiêu là để người học rút ra một bộ câu hỏi có thể dùng lại trong tình huống
+mới, không chỉ nhớ riêng câu trong bài. Khi muốn tự diễn đạt, người học có thể
+tự hỏi: mình đang nói về ai, người đó đang làm gì, hành động tác động vào cái
+gì, và mình muốn kết quả gì.
 
 ## Hai tầng i+1
 
