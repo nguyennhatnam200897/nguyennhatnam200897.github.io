@@ -91,6 +91,26 @@ test("uses the lesson-one introduction cadence for a future course", () => {
   assert.equal(getCurrentTaskId(session, futureGroups), "B");
 });
 
+test("can delay the next task introduction with a course policy", () => {
+  const futureGroups = buildPracticeGroups(
+    [
+      { id: "A", sentenceId: "F1" },
+      { id: "B", sentenceId: "F1" },
+    ],
+    { minCorrectBeforeNextIntroduction: 2 }
+  );
+  let session = createMasterySession(futureGroups);
+
+  assert.equal(futureGroups[0].minCorrectBeforeNextIntroduction, 2);
+  assert.equal(getCurrentTaskId(session, futureGroups), "A");
+
+  session = recordMasteryAttempt(session, futureGroups, "A", true);
+  assert.equal(getCurrentTaskId(session, futureGroups), "A");
+
+  session = recordMasteryAttempt(session, futureGroups, "A", true);
+  assert.equal(getCurrentTaskId(session, futureGroups), "B");
+});
+
 test("advances only after every item reaches the mastery rule", () => {
   let session = createMasterySession(groups);
 

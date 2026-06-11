@@ -17,6 +17,7 @@ test("course catalog includes the listening sample and builds every course", asy
   const ids = index.courses.map((entry) => entry.id);
 
   assert.ok(ids.includes("small-public-garden"));
+  assert.ok(ids.includes("small-public-garden-gentle-i1"));
   assert.ok(ids.includes("listening-song-ngu-sample"));
 
   for (const entry of index.courses) {

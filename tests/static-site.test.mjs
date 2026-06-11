@@ -47,6 +47,19 @@ test("loads app modules through relative imports", async () => {
   assert.doesNotMatch(appSource, /react|createRoot|lucide/i);
 });
 
+test("passes course practice policy into the mastery scheduler", async () => {
+  const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
+
+  assert.match(
+    appSource,
+    /buildPracticeGroups\(course\.tasks,\s*course\.practicePolicy\)/
+  );
+  assert.match(
+    appSource,
+    /buildPracticeGroups\(tasks,\s*activeCourse\.practicePolicy\)/
+  );
+});
+
 test("does not migrate legacy progress into a versioned course session", async () => {
   const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
 

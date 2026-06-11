@@ -1,0 +1,1163 @@
+{
+  "id": "small-public-garden-gentle-i1",
+  "title": "A Small Public Garden - Gentle i+1",
+  "level": "B2",
+  "topic": "Đời sống đô thị và dự án môi trường nhỏ",
+  "description": "Bản thử nghiệm i+1 mềm: thêm bước cầu nối và mở task mới chậm hơn để người học bắt kịp độ khó.",
+  "sessionVersion": 1,
+  "practiceProfile": "gentle-i-plus-one",
+  "audioBasePath": "./assets/audio",
+  "paragraphTaskMode": "cumulative",
+  "sentences": [
+    {
+      "id": "S1",
+      "english": "Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.",
+      "vietnamese": "Nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn, nhưng những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất."
+    },
+    {
+      "id": "S2",
+      "english": "In one neighborhood, the local council turned an empty parking lot into a small public garden.",
+      "vietnamese": "Ở một khu dân cư, hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ."
+    },
+    {
+      "id": "S3",
+      "english": "At first, some residents complained that the project would reduce parking spaces and attract noise.",
+      "vietnamese": "Ban đầu, một số cư dân phàn nàn rằng dự án này sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn."
+    },
+    {
+      "id": "S4",
+      "english": "However, within a few months, the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks.",
+      "vietnamese": "Tuy nhiên, chỉ trong vài tháng, khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa."
+    },
+    {
+      "id": "S5",
+      "english": "The project also encouraged nearby shops to use fewer plastic bags and to place recycling bins outside their doors.",
+      "vietnamese": "Dự án này cũng khuyến khích các cửa hàng gần đó sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa hàng của họ."
+    },
+    {
+      "id": "S6",
+      "english": "Although the garden did not solve every environmental problem, it changed how people thought about shared space.",
+      "vietnamese": "Mặc dù khu vườn không giải quyết mọi vấn đề môi trường, nó đã thay đổi cách mọi người nghĩ về không gian chung."
+    },
+    {
+      "id": "S7",
+      "english": "It showed that a simple local project can influence daily habits when people feel that the change belongs to them.",
+      "vietnamese": "Nó cho thấy rằng một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ."
+    }
+  ],
+  "taskGroups": [
+    [
+      {
+        "id": "S1-01",
+        "sentenceId": "S1",
+        "stage": "object",
+        "prompt": "thành phố",
+        "answer": "city",
+        "audioId": "S1-01",
+        "guide": {
+          "term": "city",
+          "meaning": "thành phố",
+          "explanation": "“City” dùng để chỉ một thành phố.",
+          "parts": [],
+          "speech": "city"
+        }
+      },
+      {
+        "id": "S1-02",
+        "sentenceId": "S1",
+        "stage": "inflection",
+        "prompt": "các thành phố",
+        "answer": "cities",
+        "audioId": "S1-02",
+        "guide": {
+          "term": "cities",
+          "meaning": "các thành phố",
+          "explanation": "“Cities” là dạng số nhiều của “city”, dùng khi nói về từ hai thành phố trở lên.",
+          "parts": [
+            {
+              "term": "city",
+              "meaning": "một thành phố",
+              "isNew": false
+            },
+            {
+              "term": "cities",
+              "meaning": "các thành phố",
+              "isNew": true
+            }
+          ],
+          "speech": "cities"
+        }
+      },
+      {
+        "id": "S1-03",
+        "sentenceId": "S1",
+        "stage": "phrase",
+        "prompt": "nhiều thành phố",
+        "answer": "many cities",
+        "audioId": "S1-03",
+        "guide": {
+          "term": "many cities",
+          "meaning": "nhiều thành phố",
+          "explanation": "“Many” có nghĩa là “nhiều”. Đặt “many” trước danh từ số nhiều “cities”.",
+          "parts": [
+            {
+              "term": "many",
+              "meaning": "nhiều",
+              "isNew": true
+            },
+            {
+              "term": "cities",
+              "meaning": "các thành phố",
+              "isNew": false
+            }
+          ],
+          "speech": "many cities"
+        }
+      },
+      {
+        "id": "S1-04",
+        "sentenceId": "S1",
+        "stage": "object",
+        "prompt": "cuộc sống",
+        "answer": "life",
+        "audioId": "S1-04"
+      },
+      {
+        "id": "S1-05",
+        "sentenceId": "S1",
+        "stage": "phrase",
+        "prompt": "đời sống hằng ngày",
+        "answer": "daily life",
+        "audioId": "S1-05"
+      },
+      {
+        "id": "S1-06",
+        "sentenceId": "S1",
+        "stage": "clause",
+        "prompt": "các thành phố làm cho đời sống hằng ngày bền vững",
+        "answer": "cities make daily life sustainable",
+        "audioId": "S1-06"
+      },
+      {
+        "id": "S1-07",
+        "sentenceId": "S1",
+        "stage": "clause",
+        "prompt": "các thành phố làm cho đời sống hằng ngày bền vững hơn",
+        "answer": "cities make daily life more sustainable",
+        "audioId": "S1-07"
+      },
+      {
+        "id": "S1-08",
+        "sentenceId": "S1",
+        "stage": "clause",
+        "prompt": "các thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn",
+        "answer": "cities are trying to make daily life more sustainable",
+        "audioId": "S1-08"
+      },
+      {
+        "id": "S1-09",
+        "sentenceId": "S1",
+        "stage": "clause",
+        "prompt": "nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn",
+        "answer": "many cities are trying to make daily life more sustainable",
+        "audioId": "S1-09"
+      },
+      {
+        "id": "S1-10",
+        "sentenceId": "S1",
+        "stage": "object",
+        "prompt": "sự thay đổi",
+        "answer": "change",
+        "audioId": "S1-10"
+      },
+      {
+        "id": "S1-11",
+        "sentenceId": "S1",
+        "stage": "inflection",
+        "prompt": "những thay đổi",
+        "answer": "changes",
+        "audioId": "S1-11"
+      },
+      {
+        "id": "S1-12",
+        "sentenceId": "S1",
+        "stage": "phrase",
+        "prompt": "những thay đổi hiệu quả",
+        "answer": "effective changes",
+        "audioId": "S1-12"
+      },
+      {
+        "id": "S1-13",
+        "sentenceId": "S1",
+        "stage": "phrase",
+        "prompt": "những thay đổi hiệu quả nhất",
+        "answer": "the most effective changes",
+        "audioId": "S1-13"
+      },
+      {
+        "id": "S1-14",
+        "sentenceId": "S1",
+        "stage": "phrase",
+        "prompt": "những thay đổi gây ấn tượng mạnh",
+        "answer": "dramatic changes",
+        "audioId": "S1-14"
+      },
+      {
+        "id": "S1-15",
+        "sentenceId": "S1",
+        "stage": "phrase",
+        "prompt": "những thay đổi ít gây ấn tượng mạnh nhất",
+        "answer": "the least dramatic changes",
+        "audioId": "S1-15"
+      },
+      {
+        "id": "S1-16",
+        "sentenceId": "S1",
+        "stage": "clause",
+        "prompt": "những thay đổi hiệu quả nhất là những thay đổi ít gây ấn tượng mạnh nhất",
+        "answer": "the most effective changes are the least dramatic",
+        "audioId": "S1-16"
+      },
+      {
+        "id": "S1-17",
+        "sentenceId": "S1",
+        "stage": "clause",
+        "prompt": "những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất",
+        "answer": "the most effective changes are often the least dramatic",
+        "audioId": "S1-17"
+      },
+      {
+        "id": "S1-18",
+        "sentenceId": "S1",
+        "stage": "sentence",
+        "prompt": "Nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn, nhưng những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất.",
+        "answer": "Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.",
+        "audioId": "S1-18"
+      }
+    ],
+    [
+      {
+        "id": "S2-01",
+        "sentenceId": "S2",
+        "stage": "object",
+        "prompt": "khu dân cư",
+        "answer": "neighborhood",
+        "audioId": "S2-01"
+      },
+      {
+        "id": "S2-02",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "một khu dân cư",
+        "answer": "one neighborhood",
+        "audioId": "S2-02"
+      },
+      {
+        "id": "S2-03",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "ở một khu dân cư",
+        "answer": "in one neighborhood",
+        "audioId": "S2-03"
+      },
+      {
+        "id": "S2-04",
+        "sentenceId": "S2",
+        "stage": "object",
+        "prompt": "hội đồng",
+        "answer": "council",
+        "audioId": "S2-04"
+      },
+      {
+        "id": "S2-05",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "hội đồng địa phương",
+        "answer": "local council",
+        "audioId": "S2-05"
+      },
+      {
+        "id": "S2-06",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "hội đồng địa phương đó",
+        "answer": "the local council",
+        "audioId": "S2-06"
+      },
+      {
+        "id": "S2-07",
+        "sentenceId": "S2",
+        "stage": "object",
+        "prompt": "bãi/khu đất",
+        "answer": "lot",
+        "audioId": "S2-07"
+      },
+      {
+        "id": "S2-08",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "bãi đỗ xe",
+        "answer": "parking lot",
+        "audioId": "S2-08"
+      },
+      {
+        "id": "S2-09",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "một bãi đỗ xe",
+        "answer": "a parking lot",
+        "audioId": "S2-09"
+      },
+      {
+        "id": "S2-10",
+        "sentenceId": "S2",
+        "stage": "object",
+        "prompt": "khu vườn",
+        "answer": "garden",
+        "audioId": "S2-10"
+      },
+      {
+        "id": "S2-11",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "một khu vườn",
+        "answer": "a garden",
+        "audioId": "S2-11"
+      },
+      {
+        "id": "S2-12",
+        "sentenceId": "S2",
+        "stage": "clause",
+        "prompt": "hội đồng địa phương đã biến một bãi đỗ xe thành một khu vườn",
+        "answer": "the local council turned a parking lot into a garden",
+        "audioId": "S2-12"
+      },
+      {
+        "id": "S2-13",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "bãi đỗ xe trống",
+        "answer": "empty parking lot",
+        "audioId": "S2-13"
+      },
+      {
+        "id": "S2-14",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "một bãi đỗ xe trống",
+        "answer": "an empty parking lot",
+        "audioId": "S2-14"
+      },
+      {
+        "id": "S2-15",
+        "sentenceId": "S2",
+        "stage": "clause",
+        "prompt": "hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn",
+        "answer": "the local council turned an empty parking lot into a garden",
+        "audioId": "S2-15"
+      },
+      {
+        "id": "S2-16",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "khu vườn công cộng",
+        "answer": "public garden",
+        "audioId": "S2-16"
+      },
+      {
+        "id": "S2-17",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "khu vườn công cộng nhỏ",
+        "answer": "small public garden",
+        "audioId": "S2-17"
+      },
+      {
+        "id": "S2-18",
+        "sentenceId": "S2",
+        "stage": "phrase",
+        "prompt": "một khu vườn công cộng nhỏ",
+        "answer": "a small public garden",
+        "audioId": "S2-18"
+      },
+      {
+        "id": "S2-19",
+        "sentenceId": "S2",
+        "stage": "clause",
+        "prompt": "hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
+        "answer": "the local council turned an empty parking lot into a small public garden",
+        "audioId": "S2-19"
+      },
+      {
+        "id": "S2-20",
+        "sentenceId": "S2",
+        "stage": "sentence",
+        "prompt": "Ở một khu dân cư, hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ.",
+        "answer": "In one neighborhood, the local council turned an empty parking lot into a small public garden.",
+        "audioId": "S2-20"
+      }
+    ],
+    [
+      {
+        "id": "S3-01",
+        "sentenceId": "S3",
+        "stage": "object",
+        "prompt": "cư dân",
+        "answer": "resident",
+        "audioId": "S3-01"
+      },
+      {
+        "id": "S3-02",
+        "sentenceId": "S3",
+        "stage": "inflection",
+        "prompt": "các cư dân",
+        "answer": "residents",
+        "audioId": "S3-02"
+      },
+      {
+        "id": "S3-03",
+        "sentenceId": "S3",
+        "stage": "phrase",
+        "prompt": "một số cư dân",
+        "answer": "some residents",
+        "audioId": "S3-03"
+      },
+      {
+        "id": "S3-04",
+        "sentenceId": "S3",
+        "stage": "object",
+        "prompt": "dự án",
+        "answer": "project",
+        "audioId": "S3-04"
+      },
+      {
+        "id": "S3-05",
+        "sentenceId": "S3",
+        "stage": "phrase",
+        "prompt": "dự án đó",
+        "answer": "the project",
+        "audioId": "S3-05"
+      },
+      {
+        "id": "S3-06",
+        "sentenceId": "S3",
+        "stage": "object",
+        "prompt": "chỗ/không gian",
+        "answer": "space",
+        "audioId": "S3-06"
+      },
+      {
+        "id": "S3-07",
+        "sentenceId": "S3",
+        "stage": "inflection",
+        "prompt": "các chỗ",
+        "answer": "spaces",
+        "audioId": "S3-07"
+      },
+      {
+        "id": "S3-08",
+        "sentenceId": "S3",
+        "stage": "phrase",
+        "prompt": "các chỗ đỗ xe",
+        "answer": "parking spaces",
+        "audioId": "S3-08"
+      },
+      {
+        "id": "S3-09",
+        "sentenceId": "S3",
+        "stage": "object",
+        "prompt": "tiếng ồn",
+        "answer": "noise",
+        "audioId": "S3-09"
+      },
+      {
+        "id": "S3-10",
+        "sentenceId": "S3",
+        "stage": "clause",
+        "prompt": "dự án đó sẽ làm giảm các chỗ đỗ xe",
+        "answer": "the project would reduce parking spaces",
+        "audioId": "S3-10"
+      },
+      {
+        "id": "S3-11",
+        "sentenceId": "S3",
+        "stage": "clause",
+        "prompt": "dự án đó sẽ thu hút tiếng ồn",
+        "answer": "the project would attract noise",
+        "audioId": "S3-11"
+      },
+      {
+        "id": "S3-12",
+        "sentenceId": "S3",
+        "stage": "clause",
+        "prompt": "dự án đó sẽ làm giảm các chỗ đỗ xe và dự án đó sẽ thu hút tiếng ồn",
+        "answer": "the project would reduce parking spaces and the project would attract noise",
+        "audioId": "S3-12"
+      },
+      {
+        "id": "S3-13",
+        "sentenceId": "S3",
+        "stage": "clause",
+        "prompt": "dự án đó sẽ làm giảm các chỗ đỗ xe và thu hút tiếng ồn",
+        "answer": "the project would reduce parking spaces and attract noise",
+        "audioId": "S3-13"
+      },
+      {
+        "id": "S3-14",
+        "sentenceId": "S3",
+        "stage": "clause",
+        "prompt": "một số cư dân đã phàn nàn",
+        "answer": "some residents complained",
+        "audioId": "S3-14"
+      },
+      {
+        "id": "S3-15",
+        "sentenceId": "S3",
+        "stage": "clause",
+        "prompt": "một số cư dân phàn nàn rằng dự án đó sẽ làm giảm các chỗ đỗ xe và thu hút tiếng ồn",
+        "answer": "some residents complained that the project would reduce parking spaces and attract noise",
+        "audioId": "S3-15"
+      },
+      {
+        "id": "S3-16",
+        "sentenceId": "S3",
+        "stage": "sentence",
+        "prompt": "Ban đầu, một số cư dân phàn nàn rằng dự án này sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn.",
+        "answer": "At first, some residents complained that the project would reduce parking spaces and attract noise.",
+        "audioId": "S3-16"
+      }
+    ],
+    [
+      {
+        "id": "S4-01",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "khu vườn đó",
+        "answer": "the garden",
+        "audioId": "S4-01"
+      },
+      {
+        "id": "S4-02",
+        "sentenceId": "S4",
+        "stage": "object",
+        "prompt": "tháng",
+        "answer": "month",
+        "audioId": "S4-02"
+      },
+      {
+        "id": "S4-03",
+        "sentenceId": "S4",
+        "stage": "inflection",
+        "prompt": "các tháng",
+        "answer": "months",
+        "audioId": "S4-03"
+      },
+      {
+        "id": "S4-04",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "vài tháng",
+        "answer": "a few months",
+        "audioId": "S4-04"
+      },
+      {
+        "id": "S4-05",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "trong vòng vài tháng",
+        "answer": "within a few months",
+        "audioId": "S4-05"
+      },
+      {
+        "id": "S4-06",
+        "sentenceId": "S4",
+        "stage": "object",
+        "prompt": "nơi",
+        "answer": "place",
+        "audioId": "S4-06"
+      },
+      {
+        "id": "S4-07",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "nơi yên tĩnh",
+        "answer": "quiet place",
+        "audioId": "S4-07"
+      },
+      {
+        "id": "S4-08",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "một nơi yên tĩnh",
+        "answer": "a quiet place",
+        "audioId": "S4-08"
+      },
+      {
+        "id": "S4-09",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "khu vườn đã trở thành một nơi yên tĩnh",
+        "answer": "the garden became a quiet place",
+        "audioId": "S4-09"
+      },
+      {
+        "id": "S4-10",
+        "sentenceId": "S4",
+        "stage": "object",
+        "prompt": "đứa trẻ",
+        "answer": "child",
+        "audioId": "S4-10"
+      },
+      {
+        "id": "S4-11",
+        "sentenceId": "S4",
+        "stage": "inflection",
+        "prompt": "trẻ em",
+        "answer": "children",
+        "audioId": "S4-11"
+      },
+      {
+        "id": "S4-12",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "trẻ em chơi",
+        "answer": "children play",
+        "audioId": "S4-12"
+      },
+      {
+        "id": "S4-13",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "trẻ em có thể chơi",
+        "answer": "children could play",
+        "audioId": "S4-13"
+      },
+      {
+        "id": "S4-14",
+        "sentenceId": "S4",
+        "stage": "object",
+        "prompt": "một người",
+        "answer": "person",
+        "audioId": "S4-14"
+      },
+      {
+        "id": "S4-15",
+        "sentenceId": "S4",
+        "stage": "inflection",
+        "prompt": "những người",
+        "answer": "people",
+        "audioId": "S4-15"
+      },
+      {
+        "id": "S4-16",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "người lớn tuổi",
+        "answer": "older people",
+        "audioId": "S4-16"
+      },
+      {
+        "id": "S4-17",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "người lớn tuổi gặp nhau",
+        "answer": "older people meet",
+        "audioId": "S4-17"
+      },
+      {
+        "id": "S4-18",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "người lớn tuổi có thể gặp nhau",
+        "answer": "older people could meet",
+        "audioId": "S4-18"
+      },
+      {
+        "id": "S4-19",
+        "sentenceId": "S4",
+        "stage": "object",
+        "prompt": "nhân viên",
+        "answer": "worker",
+        "audioId": "S4-19"
+      },
+      {
+        "id": "S4-20",
+        "sentenceId": "S4",
+        "stage": "inflection",
+        "prompt": "các nhân viên",
+        "answer": "workers",
+        "audioId": "S4-20"
+      },
+      {
+        "id": "S4-21",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "nhân viên văn phòng",
+        "answer": "office workers",
+        "audioId": "S4-21"
+      },
+      {
+        "id": "S4-22",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "nhân viên văn phòng nghỉ ngơi",
+        "answer": "office workers rest",
+        "audioId": "S4-22"
+      },
+      {
+        "id": "S4-23",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "nhân viên văn phòng có thể nghỉ ngơi",
+        "answer": "office workers could rest",
+        "audioId": "S4-23"
+      },
+      {
+        "id": "S4-24",
+        "sentenceId": "S4",
+        "stage": "object",
+        "prompt": "giờ nghỉ",
+        "answer": "break",
+        "audioId": "S4-24"
+      },
+      {
+        "id": "S4-25",
+        "sentenceId": "S4",
+        "stage": "inflection",
+        "prompt": "các giờ nghỉ",
+        "answer": "breaks",
+        "audioId": "S4-25"
+      },
+      {
+        "id": "S4-26",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "giờ nghỉ trưa",
+        "answer": "lunch breaks",
+        "audioId": "S4-26"
+      },
+      {
+        "id": "S4-27",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "trong giờ nghỉ trưa",
+        "answer": "during lunch breaks",
+        "audioId": "S4-27"
+      },
+      {
+        "id": "S4-28",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+        "answer": "office workers could rest during lunch breaks",
+        "audioId": "S4-28"
+      },
+      {
+        "id": "S4-29",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "trẻ em có thể chơi, người lớn tuổi có thể gặp nhau",
+        "answer": "children could play, older people could meet",
+        "audioId": "S4-29"
+      },
+      {
+        "id": "S4-30",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+        "answer": "children could play, older people could meet, and office workers could rest during lunch breaks",
+        "audioId": "S4-30"
+      },
+      {
+        "id": "S4-31",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+        "answer": "where children could play, older people could meet, and office workers could rest during lunch breaks",
+        "audioId": "S4-31"
+      },
+      {
+        "id": "S4-32",
+        "sentenceId": "S4",
+        "stage": "phrase",
+        "prompt": "một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+        "answer": "a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks",
+        "audioId": "S4-32"
+      },
+      {
+        "id": "S4-33",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+        "answer": "the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks",
+        "audioId": "S4-33"
+      },
+      {
+        "id": "S4-34",
+        "sentenceId": "S4",
+        "stage": "clause",
+        "prompt": "trong vòng vài tháng, khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+        "answer": "within a few months, the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks",
+        "audioId": "S4-34"
+      },
+      {
+        "id": "S4-35",
+        "sentenceId": "S4",
+        "stage": "sentence",
+        "prompt": "Tuy nhiên, chỉ trong vài tháng, khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa.",
+        "answer": "However, within a few months, the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks.",
+        "audioId": "S4-35"
+      }
+    ],
+    [
+      {
+        "id": "S5-01",
+        "sentenceId": "S5",
+        "stage": "object",
+        "prompt": "cửa hàng",
+        "answer": "shop",
+        "audioId": "S5-01"
+      },
+      {
+        "id": "S5-02",
+        "sentenceId": "S5",
+        "stage": "inflection",
+        "prompt": "các cửa hàng",
+        "answer": "shops",
+        "audioId": "S5-02"
+      },
+      {
+        "id": "S5-03",
+        "sentenceId": "S5",
+        "stage": "phrase",
+        "prompt": "các cửa hàng gần đó",
+        "answer": "nearby shops",
+        "audioId": "S5-03"
+      },
+      {
+        "id": "S5-04",
+        "sentenceId": "S5",
+        "stage": "object",
+        "prompt": "túi",
+        "answer": "bag",
+        "audioId": "S5-04"
+      },
+      {
+        "id": "S5-05",
+        "sentenceId": "S5",
+        "stage": "inflection",
+        "prompt": "các túi",
+        "answer": "bags",
+        "audioId": "S5-05"
+      },
+      {
+        "id": "S5-06",
+        "sentenceId": "S5",
+        "stage": "phrase",
+        "prompt": "các túi nhựa",
+        "answer": "plastic bags",
+        "audioId": "S5-06"
+      },
+      {
+        "id": "S5-07",
+        "sentenceId": "S5",
+        "stage": "phrase",
+        "prompt": "ít túi nhựa hơn",
+        "answer": "fewer plastic bags",
+        "audioId": "S5-07"
+      },
+      {
+        "id": "S5-08",
+        "sentenceId": "S5",
+        "stage": "clause",
+        "prompt": "các cửa hàng gần đó sử dụng ít túi nhựa hơn",
+        "answer": "nearby shops use fewer plastic bags",
+        "audioId": "S5-08"
+      },
+      {
+        "id": "S5-09",
+        "sentenceId": "S5",
+        "stage": "object",
+        "prompt": "thùng",
+        "answer": "bin",
+        "audioId": "S5-09"
+      },
+      {
+        "id": "S5-10",
+        "sentenceId": "S5",
+        "stage": "inflection",
+        "prompt": "các thùng",
+        "answer": "bins",
+        "audioId": "S5-10"
+      },
+      {
+        "id": "S5-11",
+        "sentenceId": "S5",
+        "stage": "phrase",
+        "prompt": "các thùng tái chế",
+        "answer": "recycling bins",
+        "audioId": "S5-11"
+      },
+      {
+        "id": "S5-12",
+        "sentenceId": "S5",
+        "stage": "object",
+        "prompt": "cánh cửa",
+        "answer": "door",
+        "audioId": "S5-12"
+      },
+      {
+        "id": "S5-13",
+        "sentenceId": "S5",
+        "stage": "inflection",
+        "prompt": "các cánh cửa",
+        "answer": "doors",
+        "audioId": "S5-13"
+      },
+      {
+        "id": "S5-14",
+        "sentenceId": "S5",
+        "stage": "phrase",
+        "prompt": "các cánh cửa của họ",
+        "answer": "their doors",
+        "audioId": "S5-14"
+      },
+      {
+        "id": "S5-15",
+        "sentenceId": "S5",
+        "stage": "phrase",
+        "prompt": "bên ngoài cửa hàng của họ",
+        "answer": "outside their doors",
+        "audioId": "S5-15"
+      },
+      {
+        "id": "S5-16",
+        "sentenceId": "S5",
+        "stage": "clause",
+        "prompt": "các cửa hàng gần đó đặt các thùng tái chế",
+        "answer": "nearby shops place recycling bins",
+        "audioId": "S5-16"
+      },
+      {
+        "id": "S5-17",
+        "sentenceId": "S5",
+        "stage": "clause",
+        "prompt": "các cửa hàng gần đó đặt các thùng tái chế bên ngoài cửa hàng của họ",
+        "answer": "nearby shops place recycling bins outside their doors",
+        "audioId": "S5-17"
+      },
+      {
+        "id": "S5-18",
+        "sentenceId": "S5",
+        "stage": "clause",
+        "prompt": "các cửa hàng gần đó sử dụng ít túi nhựa hơn và các cửa hàng gần đó đặt các thùng tái chế bên ngoài cửa hàng của họ",
+        "answer": "nearby shops use fewer plastic bags and nearby shops place recycling bins outside their doors",
+        "audioId": "S5-18"
+      },
+      {
+        "id": "S5-19",
+        "sentenceId": "S5",
+        "stage": "clause",
+        "prompt": "các cửa hàng gần đó sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa hàng của họ",
+        "answer": "nearby shops use fewer plastic bags and place recycling bins outside their doors",
+        "audioId": "S5-19"
+      },
+      {
+        "id": "S5-20",
+        "sentenceId": "S5",
+        "stage": "clause",
+        "prompt": "dự án đó đã khuyến khích các cửa hàng gần đó sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa hàng của họ",
+        "answer": "the project encouraged nearby shops to use fewer plastic bags and to place recycling bins outside their doors",
+        "audioId": "S5-20"
+      },
+      {
+        "id": "S5-21",
+        "sentenceId": "S5",
+        "stage": "sentence",
+        "prompt": "Dự án này cũng khuyến khích các cửa hàng gần đó sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa hàng của họ.",
+        "answer": "The project also encouraged nearby shops to use fewer plastic bags and to place recycling bins outside their doors.",
+        "audioId": "S5-21"
+      }
+    ],
+    [
+      {
+        "id": "S6-01",
+        "sentenceId": "S6",
+        "stage": "object",
+        "prompt": "vấn đề",
+        "answer": "problem",
+        "audioId": "S6-01"
+      },
+      {
+        "id": "S6-02",
+        "sentenceId": "S6",
+        "stage": "phrase",
+        "prompt": "vấn đề môi trường",
+        "answer": "environmental problem",
+        "audioId": "S6-02"
+      },
+      {
+        "id": "S6-03",
+        "sentenceId": "S6",
+        "stage": "phrase",
+        "prompt": "mọi vấn đề môi trường",
+        "answer": "every environmental problem",
+        "audioId": "S6-03"
+      },
+      {
+        "id": "S6-04",
+        "sentenceId": "S6",
+        "stage": "clause",
+        "prompt": "khu vườn không giải quyết mọi vấn đề môi trường",
+        "answer": "the garden did not solve every environmental problem",
+        "audioId": "S6-04"
+      },
+      {
+        "id": "S6-05",
+        "sentenceId": "S6",
+        "stage": "phrase",
+        "prompt": "không gian chung",
+        "answer": "shared space",
+        "audioId": "S6-05"
+      },
+      {
+        "id": "S6-06",
+        "sentenceId": "S6",
+        "stage": "clause",
+        "prompt": "mọi người nghĩ về không gian chung",
+        "answer": "people thought about shared space",
+        "audioId": "S6-06"
+      },
+      {
+        "id": "S6-07",
+        "sentenceId": "S6",
+        "stage": "clause",
+        "prompt": "cách mọi người nghĩ về không gian chung",
+        "answer": "how people thought about shared space",
+        "audioId": "S6-07"
+      },
+      {
+        "id": "S6-08",
+        "sentenceId": "S6",
+        "stage": "clause",
+        "prompt": "nó đã thay đổi cách mọi người nghĩ về không gian chung",
+        "answer": "it changed how people thought about shared space",
+        "audioId": "S6-08"
+      },
+      {
+        "id": "S6-09",
+        "sentenceId": "S6",
+        "stage": "sentence",
+        "prompt": "Mặc dù khu vườn không giải quyết mọi vấn đề môi trường, nó đã thay đổi cách mọi người nghĩ về không gian chung.",
+        "answer": "Although the garden did not solve every environmental problem, it changed how people thought about shared space.",
+        "audioId": "S6-09"
+      }
+    ],
+    [
+      {
+        "id": "S7-01",
+        "sentenceId": "S7",
+        "stage": "phrase",
+        "prompt": "dự án địa phương",
+        "answer": "local project",
+        "audioId": "S7-01"
+      },
+      {
+        "id": "S7-02",
+        "sentenceId": "S7",
+        "stage": "phrase",
+        "prompt": "dự án địa phương đơn giản",
+        "answer": "simple local project",
+        "audioId": "S7-02"
+      },
+      {
+        "id": "S7-03",
+        "sentenceId": "S7",
+        "stage": "phrase",
+        "prompt": "một dự án địa phương đơn giản",
+        "answer": "a simple local project",
+        "audioId": "S7-03"
+      },
+      {
+        "id": "S7-04",
+        "sentenceId": "S7",
+        "stage": "object",
+        "prompt": "thói quen",
+        "answer": "habit",
+        "audioId": "S7-04"
+      },
+      {
+        "id": "S7-05",
+        "sentenceId": "S7",
+        "stage": "inflection",
+        "prompt": "các thói quen",
+        "answer": "habits",
+        "audioId": "S7-05"
+      },
+      {
+        "id": "S7-06",
+        "sentenceId": "S7",
+        "stage": "phrase",
+        "prompt": "thói quen hằng ngày",
+        "answer": "daily habits",
+        "audioId": "S7-06"
+      },
+      {
+        "id": "S7-07",
+        "sentenceId": "S7",
+        "stage": "clause",
+        "prompt": "một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày",
+        "answer": "a simple local project can influence daily habits",
+        "audioId": "S7-07"
+      },
+      {
+        "id": "S7-08",
+        "sentenceId": "S7",
+        "stage": "phrase",
+        "prompt": "sự thay đổi đó",
+        "answer": "the change",
+        "audioId": "S7-08"
+      },
+      {
+        "id": "S7-09",
+        "sentenceId": "S7",
+        "stage": "clause",
+        "prompt": "sự thay đổi đó thuộc về họ",
+        "answer": "the change belongs to them",
+        "audioId": "S7-09"
+      },
+      {
+        "id": "S7-10",
+        "sentenceId": "S7",
+        "stage": "clause",
+        "prompt": "mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
+        "answer": "people feel that the change belongs to them",
+        "audioId": "S7-10"
+      },
+      {
+        "id": "S7-11",
+        "sentenceId": "S7",
+        "stage": "clause",
+        "prompt": "khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
+        "answer": "when people feel that the change belongs to them",
+        "audioId": "S7-11"
+      },
+      {
+        "id": "S7-12",
+        "sentenceId": "S7",
+        "stage": "clause",
+        "prompt": "một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
+        "answer": "a simple local project can influence daily habits when people feel that the change belongs to them",
+        "audioId": "S7-12"
+      },
+      {
+        "id": "S7-13",
+        "sentenceId": "S7",
+        "stage": "sentence",
+        "prompt": "Nó cho thấy rằng một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ.",
+        "answer": "It showed that a simple local project can influence daily habits when people feel that the change belongs to them.",
+        "audioId": "S7-13"
+      }
+    ]
+  ]
+}

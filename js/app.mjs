@@ -271,7 +271,7 @@ async function loadCourseForEntry(entry) {
 async function buildCourseState(entry) {
   try {
     const course = await loadCourseForEntry(entry);
-    const groups = buildPracticeGroups(course.tasks);
+    const groups = buildPracticeGroups(course.tasks, course.practicePolicy);
     const session = loadSession(course, groups);
 
     return {
@@ -384,7 +384,7 @@ async function selectCourse(courseId) {
 
   activeCourse = courseState.course;
   tasks = activeCourse.tasks;
-  practiceGroups = buildPracticeGroups(tasks);
+  practiceGroups = buildPracticeGroups(tasks, activeCourse.practicePolicy);
   taskIndexById = new Map(tasks.map((task, index) => [task.id, index]));
   masterySession = loadSession(activeCourse, practiceGroups);
   flow = createFlowForCurrentTask();

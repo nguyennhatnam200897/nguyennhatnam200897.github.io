@@ -3,13 +3,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { buildLessonCourse } from "../js/course-model.mjs";
 
-const courseData = JSON.parse(
-  await readFile(
-    new URL("../data/courses/small-public-garden.json", import.meta.url),
-    "utf8"
-  )
-);
+async function readCourseData(pathname) {
+  return JSON.parse(await readFile(new URL(pathname, import.meta.url), "utf8"));
+}
 
+const courseData = await readCourseData("../data/courses/small-public-garden.json");
 const course = buildLessonCourse(courseData);
 
 test("builds the current course from JSON data", () => {
@@ -60,6 +58,41 @@ test("keeps task ids unique and prompts unambiguous inside each sentence", () =>
 
   assert.equal(new Set(ids).size, ids.length);
   assert.equal([...promptAnswers.values()].every((answers) => answers.size === 1), true);
+});
+
+test("builds the gentle i+1 experiment as a cloned course with bridges", async () => {
+  const experimentData = await readCourseData(
+    "../data/courses/small-public-garden-gentle-i1.json"
+  );
+  const experiment = buildLessonCourse(experimentData);
+  const bridges = experiment.tasks.filter((task) => task.isBridge);
+  const byId = new Map(experiment.tasks.map((task) => [task.id, task]));
+
+  assert.equal(experiment.id, "small-public-garden-gentle-i1");
+  assert.equal(experiment.sessionVersion, 1);
+  assert.equal(experiment.practiceProfile, "gentle-i-plus-one");
+  assert.deepEqual(experiment.article.sentences, course.article.sentences);
+  assert.equal(course.practicePolicy, undefined);
+  assert.equal(course.tasks.some((task) => task.isBridge), false);
+  assert.ok(experiment.tasks.length > course.tasks.length);
+  assert.ok(bridges.length > 0);
+  assert.deepEqual(
+    experiment.sentenceTaskGroups.map((group) => group.length).slice(0, 2),
+    [22, 24]
+  );
+
+  bridges.forEach((bridge) => {
+    const target = byId.get(bridge.bridgeForTaskId);
+    const bridgeIndex = experiment.tasks.findIndex((task) => task.id === bridge.id);
+    const targetIndex = experiment.tasks.findIndex((task) => task.id === target?.id);
+
+    assert.ok(target, `${bridge.id} should point to a target task`);
+    assert.equal(bridge.answer, target.answer);
+    assert.equal(bridge.audioId, target.audioId);
+    assert.equal(bridgeIndex < targetIndex, true);
+    assert.match(bridge.prompt, /\[frame:/);
+    assert.match(bridge.guide.explanation, /cau noi/);
+  });
 });
 
 test("supports a course-level audio extension", () => {

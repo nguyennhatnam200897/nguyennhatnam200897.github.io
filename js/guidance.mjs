@@ -209,9 +209,10 @@ export function createGuidance(task, previousTask) {
 
 export function attachGuidance(tasks) {
   const knownWords = new Set();
+  let previousGuideTask = null;
 
-  return tasks.map((task, index) => {
-    const guide = createGuidance(task, tasks[index - 1]);
+  return tasks.map((task) => {
+    const guide = createGuidance(task, previousGuideTask);
     const words = tokenizeEnglish(guide.term);
     const pronunciation = buildPronunciation(guide.term, knownWords);
     const showFull =
@@ -219,7 +220,7 @@ export function attachGuidance(tasks) {
 
     words.forEach((word) => knownWords.add(word));
 
-    return {
+    const taskWithGuide = {
       ...task,
       guide: {
         ...guide,
@@ -229,5 +230,11 @@ export function attachGuidance(tasks) {
         },
       },
     };
+
+    if (!task.isBridge) {
+      previousGuideTask = taskWithGuide;
+    }
+
+    return taskWithGuide;
   });
 }

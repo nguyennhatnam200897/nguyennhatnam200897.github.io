@@ -12,16 +12,29 @@ function unique(values) {
   return [...new Set(values)];
 }
 
-function buildRollingGroups(tasks) {
+function groupOptionsFor(practicePolicy = {}) {
+  const minCorrectBeforeNextIntroduction = Number(
+    practicePolicy.minCorrectBeforeNextIntroduction
+  );
+
+  if (minCorrectBeforeNextIntroduction > 0) {
+    return { minCorrectBeforeNextIntroduction };
+  }
+
+  return {};
+}
+
+function buildRollingGroups(tasks, practicePolicy) {
   const groups = [];
   const recentBySentence = new Map();
+  const options = groupOptionsFor(practicePolicy);
 
   tasks.forEach((task) => {
     const recent = recentBySentence.get(task.sentenceId) ?? [];
     recent.push(task.id);
 
     if (recent.length >= 2) {
-      groups.push(group(`rolling-${task.id}`, unique(recent.slice(-4))));
+      groups.push(group(`rolling-${task.id}`, unique(recent.slice(-4)), options));
     }
 
     recentBySentence.set(task.sentenceId, recent);
@@ -30,8 +43,8 @@ function buildRollingGroups(tasks) {
   return groups;
 }
 
-export function buildPracticeGroups(tasks) {
-  return buildRollingGroups(tasks);
+export function buildPracticeGroups(tasks, practicePolicy) {
+  return buildRollingGroups(tasks, practicePolicy);
 }
 
 function emptyStats() {
