@@ -1,6 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { loadDefaultCourse } from "./helpers/course-fixture.mjs";
+import { buildLessonCourse } from "../js/course-model.mjs";
 import { evaluateAnswer, normalizeTextAnswer } from "../js/learning.mjs";
 import {
   buildPronunciation,
@@ -257,4 +259,27 @@ test("includes normalized answers in blocking feedback for repair rules", () => 
     result.normalizedExpected,
     "the most effective changes are often the least dramatic"
   );
+});
+
+test("provides simple American IPA for meaning chunk step words", async () => {
+  const experimentData = JSON.parse(
+    await readFile(
+      new URL(
+        "../data/courses/small-public-garden-gentle-i1.json",
+        import.meta.url
+      ),
+      "utf8"
+    )
+  );
+  const experiment = buildLessonCourse(experimentData);
+  const missing = [
+    ...new Set(
+      experiment.tasks.flatMap(
+        (task) =>
+          task.answer.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) ?? []
+      )
+    ),
+  ].filter((word) => !getAmericanIpa(word));
+
+  assert.deepEqual(missing, []);
 });

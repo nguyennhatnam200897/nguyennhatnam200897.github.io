@@ -25,6 +25,7 @@ test("course catalog includes the listening sample and builds every course", asy
     const course = buildLessonCourse(data);
 
     assert.equal(course.id, entry.id);
+    assert.equal(data.description, entry.description);
     assert.ok(course.tasks.length > 0);
   }
 });
