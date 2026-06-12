@@ -268,5 +268,8 @@ function buildLessonTasks(lesson, lessonIndex) {
 }
 
 export function buildMeaningChunkTaskGroups(meaningChunkLessons = []) {
-  return meaningChunkLessons.map(buildLessonTasks);
+  const groups = meaningChunkLessons.map(buildLessonTasks);
+  assertUniqueTaskIds(groups.flat(), { id: "meaningChunkLessons" });
+
+  return groups;
 }

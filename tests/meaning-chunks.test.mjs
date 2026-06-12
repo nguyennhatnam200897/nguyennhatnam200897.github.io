@@ -166,6 +166,50 @@ test("rejects duplicate output task ids", () => {
   );
 });
 
+test("rejects duplicate task ids across lesson groups", () => {
+  const firstLesson = {
+    id: "duplicate-task-group-one",
+    sentenceId: "D1",
+    chunks: [
+      {
+        id: "D1-C01",
+        english: "clear signal",
+        vietnamese: "tin hiệu rõ",
+        chunkType: "entity",
+        roleQuestion: "Cái gì?",
+        whenNeeded: "Khi muốn nói về một tín hiệu rõ.",
+        roleMeaning: "Cụm này cho biết điều đang được nói tới.",
+        iPlusOneSteps: [
+          { id: "DUPLICATE-TASK", prompt: "tin hiệu rõ", answer: "clear signal" },
+        ],
+      },
+    ],
+  };
+  const secondLesson = {
+    id: "duplicate-task-group-two",
+    sentenceId: "D2",
+    chunks: [
+      {
+        id: "D2-C01",
+        english: "clear signal",
+        vietnamese: "tin hiệu rõ",
+        chunkType: "entity",
+        roleQuestion: "Cái gì?",
+        whenNeeded: "Khi muốn nói về một tín hiệu rõ ở câu khác.",
+        roleMeaning: "Cụm này cho biết điều đang được nói tới.",
+        iPlusOneSteps: [
+          { id: "DUPLICATE-TASK", prompt: "tin hiệu rõ", answer: "clear signal" },
+        ],
+      },
+    ],
+  };
+
+  assert.throws(
+    () => buildMeaningChunkTaskGroups([firstLesson, secondLesson]),
+    /Invalid meaning chunk data:.*DUPLICATE-TASK/
+  );
+});
+
 test("rollback targets match repeated chunk phrases in usesChunks order", () => {
   const repeatedPhraseLesson = {
     id: "repeated-phrase",
