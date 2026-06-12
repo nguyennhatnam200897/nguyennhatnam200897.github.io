@@ -4,6 +4,8 @@ export const MASTERY_RULE = {
   requiresInterleavedCorrect: true,
 };
 
+const repairRulePunctuationPattern = /[.,!?;:"\u201c\u201d\u2018\u2019'()[\]{}]/g;
+
 function group(id, taskIds, options = {}) {
   return { id, taskIds, ...options };
 }
@@ -22,6 +24,15 @@ function groupOptionsFor(practicePolicy = {}) {
   }
 
   return {};
+}
+
+function normalizeRepairRuleText(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replace(/[\u2019\u2018]/g, "'")
+    .replace(repairRulePunctuationPattern, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function masteryRuleFor(groupToCheck = {}) {
@@ -67,6 +78,18 @@ function buildFrontierGroups(tasks, practicePolicy = {}) {
         ? {
             rollbackTargetsByTaskId: {
               [task.id]: task.rollbackTargets.map((target) => ({ ...target })),
+            },
+          }
+        : {}),
+      ...(Array.isArray(task.repairRules) && task.repairRules.length > 0
+        ? {
+            repairRulesByTaskId: {
+              [task.id]: task.repairRules.map((rule) => ({
+                ...rule,
+                commonWrongAnswers: Array.isArray(rule.commonWrongAnswers)
+                  ? [...rule.commonWrongAnswers]
+                  : [],
+              })),
             },
           }
         : {}),
@@ -283,7 +306,37 @@ function isGroupMastered(session, groupToCheck) {
   );
 }
 
+function repairRuleTaskIdFor(groupToCheck, taskId, feedback) {
+  const normalizedActual = normalizeRepairRuleText(feedback?.normalizedActual);
+  const repairRules = groupToCheck.repairRulesByTaskId?.[taskId] ?? [];
+
+  if (!normalizedActual || repairRules.length === 0) {
+    return null;
+  }
+
+  const matchingRule = repairRules.find((rule) =>
+    (Array.isArray(rule.commonWrongAnswers) ? rule.commonWrongAnswers : []).some(
+      (answer) => {
+        const normalizedAnswer = normalizeRepairRuleText(answer);
+
+        return (
+          normalizedAnswer &&
+          normalizedActual.includes(normalizedAnswer)
+        );
+      }
+    )
+  );
+
+  return matchingRule?.taskId ?? null;
+}
+
 function rollbackTaskIdFor(groupToCheck, taskId, feedback) {
+  const repairRuleTaskId = repairRuleTaskIdFor(groupToCheck, taskId, feedback);
+
+  if (repairRuleTaskId) {
+    return repairRuleTaskId;
+  }
+
   const issueIndex = Number(feedback?.issue?.index);
   const rollbackTargets = groupToCheck.rollbackTargetsByTaskId?.[taskId] ?? [];
 

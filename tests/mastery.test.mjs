@@ -166,6 +166,43 @@ test("rolls back only when the failed token is inside a learned prerequisite", (
   assert.equal(getCurrentTaskId(session, futureGroups), "many-cities");
 });
 
+test("uses common wrong answer repair rules when token spans do not catch the issue", () => {
+  const futureGroups = buildPracticeGroups(
+    [
+      {
+        id: "least-dramatic",
+        sentenceId: "F1",
+        answer: "the least dramatic",
+      },
+      {
+        id: "full-claim",
+        sentenceId: "F1",
+        answer: "the most effective changes are often the least dramatic",
+        repairRules: [
+          {
+            taskId: "least-dramatic",
+            commonWrongAnswers: ["the least dramatic changes"],
+            message: "Cụm cần dùng: the least dramatic.",
+          },
+        ],
+      },
+    ],
+    { mode: "frontier-rollback", minCorrect: 2, repairCorrectCount: 1 }
+  );
+  let session = createMasterySession(futureGroups);
+
+  session = recordMasteryAttempt(session, futureGroups, "least-dramatic", true);
+  session = recordMasteryAttempt(session, futureGroups, "least-dramatic", true);
+
+  session = recordMasteryAttempt(session, futureGroups, "full-claim", false, {
+    normalizedActual:
+      "the most effective changes are often the least dramatic changes",
+    issue: { index: 9, actual: "changes", expected: undefined, type: "extra" },
+  });
+
+  assert.equal(getCurrentTaskId(session, futureGroups), "least-dramatic");
+});
+
 test("advances only after every item reaches the mastery rule", () => {
   let session = createMasterySession(groups);
 

@@ -94,6 +94,8 @@ export function evaluateAnswer(task, input) {
     kind: "blocking",
     message: issue.message,
     expected: task.answer,
+    normalizedActual: actual,
+    normalizedExpected: expected,
     issue: {
       index: issue.index,
       actual: issue.actual,

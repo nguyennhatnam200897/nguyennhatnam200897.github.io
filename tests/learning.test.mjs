@@ -241,3 +241,20 @@ test("keeps task ids unique and avoids ambiguous prompts", () => {
     true
   );
 });
+
+test("includes normalized answers in blocking feedback for repair rules", () => {
+  const result = evaluateAnswer(
+    { answer: "the most effective changes are often the least dramatic" },
+    "the most effective changes are often the least dramatic changes"
+  );
+
+  assert.equal(result.correct, false);
+  assert.equal(
+    result.normalizedActual,
+    "the most effective changes are often the least dramatic changes"
+  );
+  assert.equal(
+    result.normalizedExpected,
+    "the most effective changes are often the least dramatic"
+  );
+});
