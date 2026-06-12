@@ -563,30 +563,37 @@ từ các câu hỏi đơn giản, có mục đích, và có thể dùng lại.
 
 ## Củng cố thành thạo
 
-Một cụm được xem là sở hữu khi có đủ bằng chứng:
+Phần này tuân theo đặc tả
+`2026-06-12-sequential-meaning-chunk-mastery-design.md`.
 
-- người học viết/nói đúng cụm đó ít nhất 2 lần;
-- có ít nhất 1 lần đúng sau khi đã bị xen kẽ bởi một đơn vị khác;
-- cụm đó được dùng đúng bên trong một ý dài hơn.
+Một cụm được xem là vững khi người học đã đi hết chuỗi i+1 nội bộ và viết/nói
+đúng cụm hoàn chỉnh 2 lần liên tiếp. App hoàn thành cụm hiện tại rồi mới chuyển
+sang cụm tiếp theo; không xen kẽ các cụm khi luyện riêng.
 
 Ví dụ với `many cities`:
 
 ```text
+thành phố
+=> city
+
+các thành phố
+=> cities
+
 nhiều thành phố
 => many cities
 
-đời sống hằng ngày
-=> daily life
-
 nhiều thành phố
 => many cities
 
-nhiều thành phố đang cố gắng làm
-=> many cities are trying to
+Sau đó mới chuyển sang cụm:
+
+cố gắng
+=> try
 ```
 
-Sau chuỗi này, `many cities` được xem là vững hơn vì nó vừa đúng riêng lẻ, vừa
-đúng sau xen kẽ, vừa hoạt động được trong ý dài.
+Các phần `Khi nào cần?`, `Mục đích là gì?`, `Vai trò trong câu` chỉ xuất hiện
+khi người học đã đến task cụm hoàn chỉnh như `many cities`; không xuất hiện ở
+`city` hoặc `cities`.
 
 ## Cách xử lý khi sai
 
@@ -697,7 +704,8 @@ Sau khi đúng, quay lại prompt dài.
 ## Điều cần giữ khi triển khai
 
 - Cụm là đơn vị của ý, không phải mảnh chữ cắt máy móc.
-- Mỗi cụm cần có `Khi nào cần?` và `Mục đích là gì?`.
+- Mỗi cụm hoàn chỉnh cần có `Khi nào cần?` và `Mục đích là gì?`; các bước từ
+  đơn hoặc mảnh chưa hoàn chỉnh không hiển thị các phần này.
 - `Mục đích là gì?` phải tóm thành câu hỏi đơn giản.
 - Người học chỉ làm bài bằng viết/nói độc lập.
 - Khi ghép câu, app nên nhắc dòng vai trò, nhưng không gợi ý trực tiếp trong ô trả lời.

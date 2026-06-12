@@ -271,11 +271,17 @@ Ghép câu hoàn chỉnh:
 
 ## Quy tắc thành thạo
 
-Một cụm được xem là đã sở hữu khi có đủ bằng chứng:
+Quy tắc trong phần này đã được thay thế bởi đặc tả
+`2026-06-12-sequential-meaning-chunk-mastery-design.md`.
 
-- người học viết/nói đúng cụm đó ít nhất 2 lần;
-- có ít nhất 1 lần đúng sau khi đã bị xen kẽ bởi một đơn vị khác;
-- cụm đó được dùng đúng bên trong một ý dài hơn.
+Quy tắc hiện hành:
+
+- hoàn thành trọn chuỗi i+1 của một cụm trước khi sang cụm khác;
+- cụm hoàn chỉnh phải đúng 2 lần liên tiếp;
+- không xen kẽ các cụm trong giai đoạn luyện riêng;
+- phần `Khi nào cần?`, `Mục đích là gì?`, `Vai trò trong câu` chỉ hiện ở cụm
+  hoàn chỉnh, không hiện ở từ đơn hoặc mảnh chưa tạo thành cụm;
+- cụm đã vững chỉ quay lại khi lỗi trong ý dài chứng minh chính cụm đó đang hỏng.
 
 Khi người học đã sở hữu một cụm, app không hỏi lại cụm đó riêng lẻ nếu không cần.
 Cụm đó được đưa vào câu dài hơn và được củng cố âm thầm khi người học viết/nói

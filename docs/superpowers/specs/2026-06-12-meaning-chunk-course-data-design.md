@@ -183,8 +183,9 @@ description     Có đặc điểm gì?
 linker          Quan hệ giữa hai ý là gì?
 ```
 
-Bộ này chỉ là dữ liệu nội bộ. UI có thể không cần hiển thị `chunkType`; người
-học nên nhìn thấy `roleQuestion`, `whenNeeded`, và ví dụ cụ thể.
+Bộ này chỉ là dữ liệu nội bộ. UI có thể không cần hiển thị `chunkType`. Người
+học chỉ nhìn thấy `roleQuestion`, `whenNeeded`, và ví dụ cụ thể tại task cuối
+của cụm hoàn chỉnh.
 
 ## Đường i+1 bên trong cụm
 
@@ -361,13 +362,22 @@ Khi triển khai, app hoặc loader có thể sinh ra các task theo thứ tự:
 
 1. Hiển thị `overview` của câu.
 2. Với từng cụm:
-   - hiển thị `whenNeeded`, `roleQuestion`, `roleMeaning`;
-   - luyện các `iPlusOneSteps` theo quy tắc thành thạo;
-   - đánh dấu cụm đã sở hữu khi đạt mastery.
-3. Mở `compositionTasks` khi các cụm cần thiết đã sẵn sàng.
-4. Nếu composition đúng, cấp `masteryCredit` cho các cụm bên trong.
+   - luyện các `iPlusOneSteps` theo đúng thứ tự;
+   - mỗi bước nhỏ đúng một lần thì mở bước tiếp theo trong cùng cụm;
+   - nếu bước nhỏ sai, làm lại chính bước đó và không mất các bước trước;
+   - chỉ task cuối của cụm hiển thị `whenNeeded`, `roleQuestion`,
+     `roleMeaning`;
+   - yêu cầu task cuối đúng 2 lần liên tiếp;
+   - nếu task cuối sai trước khi đủ 2 lần, đặt lại chuỗi xác nhận về `0`;
+   - đánh dấu cụm đã vững rồi mới chuyển sang cụm tiếp theo.
+3. Mở `compositionTasks` khi các cụm cần thiết đã vững.
+4. Nếu composition đúng, dùng `masteryCredit` để ghi nhận lần củng cố cho các
+   cụm bên trong; không dùng lượt này để thay thế điều kiện thành thạo cụm.
 5. Nếu composition sai, dùng `repairRules` để đưa người học về cụm hỏng.
 6. Sau repair đúng, quay lại composition hoặc final task.
+
+Không xen kẽ hai cụm trong giai đoạn luyện riêng. Quy tắc chi tiết được chốt tại
+`2026-06-12-sequential-meaning-chunk-mastery-design.md`.
 
 ## Dữ liệu không nên làm
 
@@ -412,5 +422,6 @@ Sau khi spec dữ liệu được duyệt, bước tiếp theo mới là lập k
 - thêm schema dữ liệu cho `meaningChunkLessons`;
 - cập nhật course thử nghiệm Gentle i+1 với dữ liệu câu 1;
 - cập nhật loader/scheduler để sinh luồng học từ dữ liệu mới;
-- cập nhật UI hướng dẫn để hiện `Khi nào cần?`, `Mục đích là gì?`, và dòng vai trò;
+- cập nhật UI hướng dẫn để chỉ hiện `Khi nào cần?`, `Mục đích là gì?`, và dòng
+  vai trò tại task cụm hoàn chỉnh;
 - thêm kiểm thử để course cũ không đổi hành vi.
