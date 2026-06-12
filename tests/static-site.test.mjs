@@ -126,6 +126,18 @@ test("speech input fills the answer without auto-submitting", async () => {
   assert.doesNotMatch(speechHandler, /recordMasteryAttempt/);
 });
 
+test("renders meaning chunk role guidance in the guide screen", async () => {
+  const html = await readFile(path.join(root, "index.html"), "utf8");
+  const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
+
+  assert.match(html, /id="guide-role"/);
+  assert.match(html, /id="guide-when-needed"/);
+  assert.match(html, /id="guide-role-line"/);
+  assert.match(appSource, /renderGuideRole/);
+  assert.match(appSource, /task\.guide\.whenNeeded/);
+  assert.match(appSource, /task\.guide\.roleQuestion/);
+});
+
 test("does not require npm or generated build directories", () => {
   assert.equal(existsSync(path.join(root, "package.json")), false);
   assert.equal(existsSync(path.join(root, "package-lock.json")), false);

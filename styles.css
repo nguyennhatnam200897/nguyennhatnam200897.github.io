@@ -249,6 +249,47 @@ button:disabled {
   max-width: 650px;
 }
 
+.guideRole {
+  background: var(--green-soft);
+  border: 1px solid #d6e6d5;
+  border-radius: 6px;
+  display: grid;
+  gap: 10px;
+  line-height: 1.55;
+  margin-top: 22px;
+  padding: 16px;
+}
+
+.guideRole div {
+  color: var(--text);
+  font-size: 16px;
+}
+
+.guideRole strong {
+  color: var(--green);
+}
+
+.guideRoleLine {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 14px;
+}
+
+.guideRoleLine p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.guideRoleLine strong {
+  color: var(--green);
+}
+
 .guideNewWords {
   border-left: 2px solid var(--line);
   margin-top: 22px;

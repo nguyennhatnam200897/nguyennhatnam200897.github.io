@@ -4,6 +4,8 @@ export const MASTERY_RULE = {
   requiresInterleavedCorrect: true,
 };
 
+const repairRulePunctuationPattern = /[.,!?;:"\u201c\u201d\u2018\u2019'()[\]{}]/g;
+
 function group(id, taskIds, options = {}) {
   return { id, taskIds, ...options };
 }
@@ -24,11 +26,61 @@ function groupOptionsFor(practicePolicy = {}) {
   return {};
 }
 
-function masteryRuleFor(groupToCheck = {}) {
+function normalizeRepairRuleText(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replace(/[\u2019\u2018]/g, "'")
+    .replace(repairRulePunctuationPattern, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function tokenizeRepairRuleText(value) {
+  return normalizeRepairRuleText(value).split(" ").filter(Boolean);
+}
+
+function matchingTokenSpans(tokens, targetTokens) {
+  if (targetTokens.length === 0 || targetTokens.length > tokens.length) {
+    return [];
+  }
+
+  const spans = [];
+  const lastStart = tokens.length - targetTokens.length;
+
+  for (let start = 0; start <= lastStart; start += 1) {
+    const matches = targetTokens.every(
+      (targetToken, offset) => tokens[start + offset] === targetToken
+    );
+
+    if (matches) {
+      spans.push({ start, end: start + targetTokens.length });
+    }
+  }
+
+  return spans;
+}
+
+function isIssueIndexNearSpan(issueIndex, span) {
+  return (
+    issueIndex >= span.start - 1 &&
+    issueIndex <= span.end
+  );
+}
+
+function masteryRuleFor(groupToCheck = {}, taskId) {
+  const taskRule = taskId
+    ? groupToCheck.masteryRulesByTaskId?.[taskId]
+    : undefined;
+
   return {
-    minCorrect: Number(groupToCheck.minCorrect) || MASTERY_RULE.minCorrect,
-    minStreak: Number(groupToCheck.minStreak) || MASTERY_RULE.minStreak,
+    minCorrect:
+      Number(taskRule?.minCorrect ?? groupToCheck.minCorrect) ||
+      MASTERY_RULE.minCorrect,
+    minStreak:
+      Number(taskRule?.minStreak ?? groupToCheck.minStreak) ||
+      MASTERY_RULE.minStreak,
     requiresInterleavedCorrect:
+      taskRule?.requiresInterleavedCorrect ??
       groupToCheck.requiresInterleavedCorrect ??
       MASTERY_RULE.requiresInterleavedCorrect,
   };
@@ -70,11 +122,277 @@ function buildFrontierGroups(tasks, practicePolicy = {}) {
             },
           }
         : {}),
+      ...(Array.isArray(task.repairRules) && task.repairRules.length > 0
+        ? {
+            repairRulesByTaskId: {
+              [task.id]: task.repairRules.map((rule) => ({
+                ...rule,
+                commonWrongAnswers: Array.isArray(rule.commonWrongAnswers)
+                  ? [...rule.commonWrongAnswers]
+                  : [],
+              })),
+            },
+          }
+        : {}),
     })
   );
 }
 
+function taskRepairOptions(tasks) {
+  const rollbackTargetsByTaskId = {};
+  const repairRulesByTaskId = {};
+
+  tasks.forEach((task) => {
+    if (Array.isArray(task.rollbackTargets) && task.rollbackTargets.length > 0) {
+      rollbackTargetsByTaskId[task.id] = task.rollbackTargets.map((target) => ({
+        ...target,
+      }));
+    }
+
+    if (Array.isArray(task.repairRules) && task.repairRules.length > 0) {
+      repairRulesByTaskId[task.id] = task.repairRules.map((rule) => ({
+        ...rule,
+        commonWrongAnswers: Array.isArray(rule.commonWrongAnswers)
+          ? [...rule.commonWrongAnswers]
+          : [],
+      }));
+    }
+  });
+
+  return {
+    ...(Object.keys(rollbackTargetsByTaskId).length > 0
+      ? { rollbackTargetsByTaskId }
+      : {}),
+    ...(Object.keys(repairRulesByTaskId).length > 0
+      ? { repairRulesByTaskId }
+      : {}),
+  };
+}
+
+function taskMasteryRule({
+  minCorrect,
+  requiresInterleavedCorrect,
+}) {
+  return {
+    minCorrect,
+    minStreak: 1,
+    requiresInterleavedCorrect,
+  };
+}
+
+function meaningChunkGroup(id, tasks, rules, practicePolicy, options = {}) {
+  return group(id, tasks.map((task) => task.id), {
+    repairCorrectCount: Number(practicePolicy.repairCorrectCount) || 1,
+    masteryRulesByTaskId: Object.fromEntries(
+      tasks.map((task) => [task.id, rules[task.id]])
+    ),
+    ...taskRepairOptions(tasks),
+    ...options,
+  });
+}
+
+function buildMeaningChunkSentenceGroups(tasks, practicePolicy) {
+  const groups = [];
+  const chunkSteps = new Map();
+  const compositions = [];
+  const scheduledTaskIds = new Set();
+  const preparedChunkIds = new Set();
+
+  tasks.forEach((task) => {
+    const chunkId = task.meaningChunk?.id;
+
+    if (chunkId) {
+      const steps = chunkSteps.get(chunkId) ?? [];
+      steps.push(task);
+      chunkSteps.set(chunkId, steps);
+    }
+
+    if (Array.isArray(task.usesChunks)) {
+      compositions.push(task);
+    }
+  });
+
+  const appendInternalSteps = (chunkId) => {
+    const steps = chunkSteps.get(chunkId) ?? [];
+
+    steps
+      .filter((task) => !task.meaningChunk?.isFinalStep)
+      .forEach((task) => {
+        if (scheduledTaskIds.has(task.id)) {
+          return;
+        }
+
+        groups.push(
+          meaningChunkGroup(
+            `meaning-step-${task.id}`,
+            [task],
+            {
+              [task.id]: taskMasteryRule({
+                minCorrect: 1,
+                requiresInterleavedCorrect: false,
+              }),
+            },
+            practicePolicy
+          )
+        );
+        scheduledTaskIds.add(task.id);
+      });
+  };
+
+  const finalStepForChunk = (chunkId) =>
+    (chunkSteps.get(chunkId) ?? []).find(
+      (task) => task.meaningChunk?.isFinalStep
+    );
+
+  const nextUnpreparedChunkId = (compositionIndex, excludedChunkIds) => {
+    for (
+      let index = compositionIndex + 1;
+      index < compositions.length;
+      index += 1
+    ) {
+      const candidate = compositions[index].usesChunks.find(
+        (chunkId) =>
+          !preparedChunkIds.has(chunkId) &&
+          !excludedChunkIds.has(chunkId) &&
+          finalStepForChunk(chunkId)
+      );
+
+      if (candidate) {
+        return candidate;
+      }
+    }
+
+    return null;
+  };
+
+  compositions.forEach((composition, compositionIndex) => {
+    const newChunkIds = composition.usesChunks.filter(
+      (chunkId) => !preparedChunkIds.has(chunkId)
+    );
+    const practiceChunkIds = [...newChunkIds];
+
+    if (practiceChunkIds.length === 1) {
+      const supportChunkId = nextUnpreparedChunkId(
+        compositionIndex,
+        new Set(practiceChunkIds)
+      );
+
+      if (supportChunkId) {
+        practiceChunkIds.push(supportChunkId);
+      }
+    }
+
+    practiceChunkIds.forEach((chunkId) => {
+      appendInternalSteps(chunkId);
+    });
+
+    const finalSteps = practiceChunkIds
+      .map(finalStepForChunk)
+      .filter(
+        (task) => task && !scheduledTaskIds.has(task.id)
+      );
+
+    if (finalSteps.length === 1) {
+      throw new Error(
+        `Invalid meaning chunk schedule: cannot interleave meaning chunk ` +
+          `"${finalSteps[0].meaningChunk.id}" before composition ` +
+          `"${composition.id}".`
+      );
+    }
+
+    if (finalSteps.length > 0) {
+      groups.push(
+        meaningChunkGroup(
+          `meaning-chunks-${composition.id}`,
+          finalSteps,
+          Object.fromEntries(
+            finalSteps.map((task) => [
+              task.id,
+              taskMasteryRule({
+                minCorrect: Number(practicePolicy.minCorrect) || 2,
+                requiresInterleavedCorrect: true,
+              }),
+            ])
+          ),
+          practicePolicy,
+          { minCorrectBeforeNextIntroduction: 1 }
+        )
+      );
+      finalSteps.forEach((task) => {
+        scheduledTaskIds.add(task.id);
+        preparedChunkIds.add(task.meaningChunk.id);
+      });
+    }
+
+    groups.push(
+      meaningChunkGroup(
+        `meaning-compose-${composition.id}`,
+        [composition],
+        {
+          [composition.id]: taskMasteryRule({
+            minCorrect: 1,
+            requiresInterleavedCorrect: false,
+          }),
+        },
+        practicePolicy
+      )
+    );
+    scheduledTaskIds.add(composition.id);
+  });
+
+  tasks
+    .filter((task) => !scheduledTaskIds.has(task.id))
+    .forEach((task) => {
+      groups.push(
+        meaningChunkGroup(
+          `meaning-fallback-${task.id}`,
+          [task],
+          {
+            [task.id]: taskMasteryRule({
+              minCorrect: task.meaningChunk?.isFinalStep
+                ? Number(practicePolicy.minCorrect) || 2
+                : 1,
+              requiresInterleavedCorrect: false,
+            }),
+          },
+          practicePolicy
+        )
+      );
+    });
+
+  return groups;
+}
+
+function buildMeaningChunkGroups(tasks, practicePolicy) {
+  const groups = [];
+  const tasksBySentenceId = new Map();
+
+  tasks.forEach((task) => {
+    const sentenceTasks = tasksBySentenceId.get(task.sentenceId) ?? [];
+    sentenceTasks.push(task);
+    tasksBySentenceId.set(task.sentenceId, sentenceTasks);
+  });
+
+  tasksBySentenceId.forEach((sentenceTasks) => {
+    const hasMeaningChunkData = sentenceTasks.some(
+      (task) => task.meaningChunk || Array.isArray(task.usesChunks)
+    );
+
+    groups.push(
+      ...(hasMeaningChunkData
+        ? buildMeaningChunkSentenceGroups(sentenceTasks, practicePolicy)
+        : buildFrontierGroups(sentenceTasks, practicePolicy))
+    );
+  });
+
+  return groups;
+}
+
 export function buildPracticeGroups(tasks, practicePolicy) {
+  if (practicePolicy?.meaningChunkMastery) {
+    return buildMeaningChunkGroups(tasks, practicePolicy);
+  }
+
   if (practicePolicy?.mode === "frontier-rollback") {
     return buildFrontierGroups(tasks, practicePolicy);
   }
@@ -191,7 +509,7 @@ export function isTaskIntroduced(session, taskId) {
 function isTaskMastered(session, taskId, groupToCheck) {
   return isStatsMastered(
     normalizeStats(session.stats[taskId]),
-    masteryRuleFor(groupToCheck)
+    masteryRuleFor(groupToCheck, taskId)
   );
 }
 
@@ -283,7 +601,42 @@ function isGroupMastered(session, groupToCheck) {
   );
 }
 
+function repairRuleTaskIdFor(groupToCheck, taskId, feedback) {
+  const actualTokens = tokenizeRepairRuleText(feedback?.normalizedActual);
+  const issueIndex = Number(feedback?.issue?.index);
+  const repairRules = groupToCheck.repairRulesByTaskId?.[taskId] ?? [];
+
+  if (
+    actualTokens.length === 0 ||
+    !Number.isInteger(issueIndex) ||
+    issueIndex < 0 ||
+    repairRules.length === 0
+  ) {
+    return null;
+  }
+
+  const matchingRule = repairRules.find((rule) =>
+    (Array.isArray(rule.commonWrongAnswers) ? rule.commonWrongAnswers : []).some(
+      (answer) => {
+        const answerTokens = tokenizeRepairRuleText(answer);
+
+        return matchingTokenSpans(actualTokens, answerTokens).some((span) =>
+          isIssueIndexNearSpan(issueIndex, span)
+        );
+      }
+    )
+  );
+
+  return matchingRule?.taskId ?? null;
+}
+
 function rollbackTaskIdFor(groupToCheck, taskId, feedback) {
+  const repairRuleTaskId = repairRuleTaskIdFor(groupToCheck, taskId, feedback);
+
+  if (repairRuleTaskId) {
+    return repairRuleTaskId;
+  }
+
   const issueIndex = Number(feedback?.issue?.index);
   const rollbackTargets = groupToCheck.rollbackTargetsByTaskId?.[taskId] ?? [];
 
@@ -393,9 +746,9 @@ export function calculateMasteryProgress(session, groups) {
   }
 
   const currentGroup = getCurrentGroup(session, groups);
-  const rule = masteryRuleFor(currentGroup);
   const groupProgress =
     currentGroup.taskIds.reduce((total, taskId) => {
+      const rule = masteryRuleFor(currentGroup, taskId);
       const stats = normalizeStats(session.stats[taskId]);
       const correctProgress = Math.min(
         stats.correctCount / rule.minCorrect,

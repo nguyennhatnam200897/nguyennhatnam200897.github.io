@@ -3,9 +3,18 @@
   "title": "A Small Public Garden - Gentle i+1",
   "level": "B2",
   "topic": "Đời sống đô thị và dự án môi trường nhỏ",
-  "description": "Bản thử nghiệm i+1 mềm: thêm bước cầu nối và mở task mới chậm hơn để người học bắt kịp độ khó.",
-  "sessionVersion": 1,
-  "practiceProfile": "gentle-i-plus-one",
+  "description": "Bản thử nghiệm i+1 theo cụm nghĩa: học từng cụm có vai trò rõ ràng, rồi ghép thành ý dài hơn.",
+  "sessionVersion": 2,
+  "practiceProfile": "meaning-chunk-i-plus-one",
+  "meaningChunkProfile": {
+    "version": 1,
+    "scriptSpec": "docs/superpowers/specs/2026-06-12-sentence-1-meaning-chunk-learning-script.md",
+    "masteryRule": {
+      "minCorrect": 2,
+      "requiresInterleavedCorrect": true,
+      "requiresUseInLongerMeaning": true
+    }
+  },
   "audioBasePath": "./assets/audio",
   "paragraphTaskMode": "cumulative",
   "sentences": [
@@ -43,6 +52,374 @@
       "id": "S7",
       "english": "It showed that a simple local project can influence daily habits when people feel that the change belongs to them.",
       "vietnamese": "Nó cho thấy rằng một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ."
+    }
+  ],
+  "meaningChunkLessons": [
+    {
+      "id": "S1-meaning-chunks",
+      "sentenceId": "S1",
+      "source": {
+        "english": "Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.",
+        "vietnamese": "Nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn, nhưng những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất."
+      },
+      "chunks": [
+        {
+          "id": "S1-C01",
+          "english": "many cities",
+          "vietnamese": "nhiều thành phố",
+          "chunkType": "entity",
+          "roleQuestion": "Ai?",
+          "whenNeeded": "Khi muốn nói về nhiều thành phố như một nhóm đang làm điều gì đó.",
+          "roleMeaning": "Cụm này cho biết ai hoặc cái gì đang được nói tới.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C01-STEP01",
+              "prompt": "thành phố",
+              "answer": "city",
+              "audioId": "S1-01",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S1-C01-STEP02",
+              "prompt": "các thành phố",
+              "answer": "cities",
+              "audioId": "S1-02",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S1-C01-STEP03",
+              "prompt": "nhiều thành phố",
+              "answer": "many cities",
+              "audioId": "S1-03",
+              "purpose": "Thêm lớp số lượng và hoàn chỉnh cụm."
+            }
+          ]
+        },
+        {
+          "id": "S1-C02",
+          "english": "are trying to",
+          "vietnamese": "đang cố gắng làm",
+          "chunkType": "action-frame",
+          "roleQuestion": "Đang cố làm gì?",
+          "whenNeeded": "Khi muốn nói ai đó đang cố gắng làm một việc, nhưng việc đó chưa chắc đã xong.",
+          "roleMeaning": "Cụm này mở ra ý định hoặc nỗ lực của chủ thể.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C02-STEP01",
+              "prompt": "cố gắng",
+              "answer": "try",
+              "purpose": "Nắm lõi nghĩa là cố gắng."
+            },
+            {
+              "id": "S1-C02-STEP02",
+              "prompt": "đang cố gắng",
+              "answer": "are trying",
+              "purpose": "Thêm cảm giác hành động đang diễn ra."
+            },
+            {
+              "id": "S1-C02-STEP03",
+              "prompt": "đang cố gắng làm",
+              "answer": "are trying to",
+              "purpose": "Mở ra hành động phía sau."
+            }
+          ]
+        },
+        {
+          "id": "S1-C03",
+          "english": "make daily life",
+          "vietnamese": "làm cho đời sống hằng ngày",
+          "chunkType": "action-object",
+          "roleQuestion": "Tác động vào cái gì?",
+          "whenNeeded": "Khi muốn nói một hành động tác động vào đời sống hằng ngày.",
+          "roleMeaning": "Cụm này cho biết hành động đang chạm tới đối tượng nào.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C03-STEP01",
+              "prompt": "cuộc sống",
+              "answer": "life",
+              "audioId": "S1-04",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S1-C03-STEP02",
+              "prompt": "đời sống hằng ngày",
+              "answer": "daily life",
+              "audioId": "S1-05",
+              "purpose": "Biến mỏ neo thành một cụm đời sống cụ thể."
+            },
+            {
+              "id": "S1-C03-STEP03",
+              "prompt": "làm cho đời sống hằng ngày",
+              "answer": "make daily life",
+              "purpose": "Đặt đời sống hằng ngày vào một hành động có tác động."
+            }
+          ]
+        },
+        {
+          "id": "S1-C04",
+          "english": "more sustainable",
+          "vietnamese": "bền vững hơn",
+          "chunkType": "result",
+          "roleQuestion": "Kết quả gì?",
+          "whenNeeded": "Khi muốn nói một điều gì đó trở nên bền vững hơn.",
+          "roleMeaning": "Cụm này cho biết trạng thái hoặc kết quả muốn đạt tới.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C04-STEP01",
+              "prompt": "bền vững",
+              "answer": "sustainable",
+              "purpose": "Nắm trạng thái nền."
+            },
+            {
+              "id": "S1-C04-STEP02",
+              "prompt": "bền vững hơn",
+              "answer": "more sustainable",
+              "purpose": "Thêm hướng cải thiện."
+            }
+          ]
+        },
+        {
+          "id": "S1-C05",
+          "english": "the most effective changes",
+          "vietnamese": "những thay đổi hiệu quả nhất",
+          "chunkType": "claim-subject",
+          "roleQuestion": "Cái gì đang được nhận định?",
+          "whenNeeded": "Khi muốn nói về những thay đổi tốt nhất hoặc có tác dụng nhất.",
+          "roleMeaning": "Cụm này cho biết điều đang được đưa ra nhận định.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C05-STEP01",
+              "prompt": "sự thay đổi",
+              "answer": "change",
+              "audioId": "S1-10",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S1-C05-STEP02",
+              "prompt": "những thay đổi",
+              "answer": "changes",
+              "audioId": "S1-11",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S1-C05-STEP03",
+              "prompt": "những thay đổi hiệu quả",
+              "answer": "effective changes",
+              "audioId": "S1-12",
+              "purpose": "Thêm chất lượng của thay đổi."
+            },
+            {
+              "id": "S1-C05-STEP04",
+              "prompt": "những thay đổi hiệu quả nhất",
+              "answer": "the most effective changes",
+              "audioId": "S1-13",
+              "purpose": "Thêm lớp so sánh cao nhất và xác định nhóm đang được nói tới."
+            }
+          ]
+        },
+        {
+          "id": "S1-C06",
+          "english": "are often",
+          "vietnamese": "thường là",
+          "chunkType": "claim-link",
+          "roleQuestion": "Thường là gì?",
+          "whenNeeded": "Khi muốn nói điều gì đó thường xảy ra hoặc thường đúng.",
+          "roleMeaning": "Cụm này nối điều được nhận định với đặc điểm thường gặp.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C06-STEP01",
+              "prompt": "là",
+              "answer": "are",
+              "purpose": "Nắm phần nối nhận định."
+            },
+            {
+              "id": "S1-C06-STEP02",
+              "prompt": "thường là",
+              "answer": "are often",
+              "purpose": "Thêm sắc thái thường xảy ra."
+            }
+          ]
+        },
+        {
+          "id": "S1-C07",
+          "english": "the least dramatic",
+          "vietnamese": "ít gây ấn tượng mạnh nhất",
+          "chunkType": "description",
+          "roleQuestion": "Có đặc điểm gì?",
+          "whenNeeded": "Khi muốn nói một thứ ít gây ấn tượng mạnh nhất hoặc ít nổi bật nhất.",
+          "roleMeaning": "Cụm này cho biết đặc điểm của điều đang được nhận định.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C07-STEP01",
+              "prompt": "gây ấn tượng mạnh",
+              "answer": "dramatic",
+              "purpose": "Nắm đặc điểm nền."
+            },
+            {
+              "id": "S1-C07-STEP02",
+              "prompt": "ít gây ấn tượng mạnh nhất",
+              "answer": "the least dramatic",
+              "purpose": "Giữ đúng dạng rút gọn của câu gốc, không lặp lại changes ở cuối."
+            }
+          ]
+        },
+        {
+          "id": "S1-C08",
+          "english": "but",
+          "vietnamese": "nhưng",
+          "chunkType": "linker",
+          "roleQuestion": "Quan hệ giữa hai ý là gì?",
+          "whenNeeded": "Khi ý sau đổi hướng hoặc hơi trái với điều người nghe có thể đang nghĩ.",
+          "roleMeaning": "Cụm này báo hiệu ý sau làm người nghe nhìn lại ý trước theo hướng khác.",
+          "iPlusOneSteps": [
+            {
+              "id": "S1-C08-STEP01",
+              "prompt": "nhưng",
+              "answer": "but",
+              "purpose": "Nắm quan hệ đổi hướng giữa hai ý."
+            }
+          ]
+        }
+      ],
+      "compositionTasks": [
+        {
+          "id": "S1-M01",
+          "prompt": "nhiều thành phố đang cố gắng làm",
+          "answer": "many cities are trying to",
+          "usesChunks": ["S1-C01", "S1-C02"],
+          "masteryCredit": ["S1-C01", "S1-C02"],
+          "roleLine": [
+            { "roleQuestion": "Ai?", "chunkId": "S1-C01", "english": "many cities" },
+            { "roleQuestion": "Đang cố làm gì?", "chunkId": "S1-C02", "english": "are trying to" }
+          ],
+          "successMessage": "Bạn đã ghép được: ai đang cố làm gì."
+        },
+        {
+          "id": "S1-M02",
+          "prompt": "làm cho đời sống hằng ngày bền vững hơn",
+          "answer": "make daily life more sustainable",
+          "usesChunks": ["S1-C03", "S1-C04"],
+          "masteryCredit": ["S1-C03", "S1-C04"],
+          "roleLine": [
+            { "roleQuestion": "Tác động vào cái gì?", "chunkId": "S1-C03", "english": "make daily life" },
+            { "roleQuestion": "Kết quả gì?", "chunkId": "S1-C04", "english": "more sustainable" }
+          ],
+          "successMessage": "Bạn đã ghép được: hành động tác động vào cái gì để đạt kết quả gì."
+        },
+        {
+          "id": "S1-M03",
+          "prompt": "nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn",
+          "answer": "many cities are trying to make daily life more sustainable",
+          "audioId": "S1-09",
+          "usesChunks": ["S1-C01", "S1-C02", "S1-C03", "S1-C04"],
+          "masteryCredit": ["S1-C01", "S1-C02", "S1-C03", "S1-C04"],
+          "roleLine": [
+            { "roleQuestion": "Ai?", "chunkId": "S1-C01", "english": "many cities" },
+            { "roleQuestion": "Đang cố làm gì?", "chunkId": "S1-C02", "english": "are trying to" },
+            { "roleQuestion": "Tác động vào cái gì?", "chunkId": "S1-C03", "english": "make daily life" },
+            { "roleQuestion": "Kết quả gì?", "chunkId": "S1-C04", "english": "more sustainable" }
+          ],
+          "successMessage": "Bạn đã viết được một ý hoàn chỉnh: ai đang cố làm gì, tác động vào cái gì, để đạt kết quả gì."
+        },
+        {
+          "id": "S1-M04",
+          "prompt": "những thay đổi hiệu quả nhất thường là",
+          "answer": "the most effective changes are often",
+          "usesChunks": ["S1-C05", "S1-C06"],
+          "masteryCredit": ["S1-C05", "S1-C06"],
+          "roleLine": [
+            { "roleQuestion": "Cái gì đang được nhận định?", "chunkId": "S1-C05", "english": "the most effective changes" },
+            { "roleQuestion": "Thường là gì?", "chunkId": "S1-C06", "english": "are often" }
+          ],
+          "successMessage": "Bạn đã mở được ý nhận định thứ hai."
+        },
+        {
+          "id": "S1-M05",
+          "prompt": "những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất",
+          "answer": "the most effective changes are often the least dramatic",
+          "audioId": "S1-17",
+          "usesChunks": ["S1-C05", "S1-C06", "S1-C07"],
+          "masteryCredit": ["S1-C05", "S1-C06", "S1-C07"],
+          "roleLine": [
+            { "roleQuestion": "Cái gì đang được nhận định?", "chunkId": "S1-C05", "english": "the most effective changes" },
+            { "roleQuestion": "Thường là gì?", "chunkId": "S1-C06", "english": "are often" },
+            { "roleQuestion": "Có đặc điểm gì?", "chunkId": "S1-C07", "english": "the least dramatic" }
+          ],
+          "successMessage": "Bạn đã viết được ý thứ hai: cái gì thường có đặc điểm gì."
+        },
+        {
+          "id": "S1-M06",
+          "stage": "sentence",
+          "prompt": "Nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn, nhưng những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất.",
+          "answer": "Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.",
+          "audioId": "S1-18",
+          "usesChunks": ["S1-C01", "S1-C02", "S1-C03", "S1-C04", "S1-C08", "S1-C05", "S1-C06", "S1-C07"],
+          "masteryCredit": ["S1-C01", "S1-C02", "S1-C03", "S1-C04", "S1-C08", "S1-C05", "S1-C06", "S1-C07"],
+          "roleLine": [
+            { "roleQuestion": "Ai?", "chunkId": "S1-C01", "english": "many cities" },
+            { "roleQuestion": "Đang cố làm gì?", "chunkId": "S1-C02", "english": "are trying to" },
+            { "roleQuestion": "Tác động vào cái gì?", "chunkId": "S1-C03", "english": "make daily life" },
+            { "roleQuestion": "Kết quả gì?", "chunkId": "S1-C04", "english": "more sustainable" },
+            { "roleQuestion": "Quan hệ giữa hai ý là gì?", "chunkId": "S1-C08", "english": "but" },
+            { "roleQuestion": "Cái gì đang được nhận định?", "chunkId": "S1-C05", "english": "the most effective changes" },
+            { "roleQuestion": "Thường là gì?", "chunkId": "S1-C06", "english": "are often" },
+            { "roleQuestion": "Có đặc điểm gì?", "chunkId": "S1-C07", "english": "the least dramatic" }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu này và dùng được các câu hỏi vai trò để xây một ý dài."
+        }
+      ],
+      "repairRules": [
+        {
+          "id": "S1-R01",
+          "appliesTo": ["S1-M01", "S1-M03", "S1-M06"],
+          "chunkId": "S1-C01",
+          "detect": {
+            "expected": "many cities",
+            "commonWrongAnswers": ["many city"]
+          },
+          "message": "Cụm cần sửa: nhiều thành phố."
+        },
+        {
+          "id": "S1-R02",
+          "appliesTo": ["S1-M01", "S1-M03", "S1-M06"],
+          "chunkId": "S1-C02",
+          "detect": {
+            "expected": "are trying to",
+            "commonWrongAnswers": ["trying to", "are try to", "are trying"]
+          },
+          "message": "Cụm cần sửa: đang cố gắng làm."
+        },
+        {
+          "id": "S1-R03",
+          "appliesTo": ["S1-M02", "S1-M03", "S1-M06"],
+          "chunkId": "S1-C03",
+          "detect": {
+            "expected": "daily life",
+            "commonWrongAnswers": ["daily lives"]
+          },
+          "message": "Cụm cần sửa: đời sống hằng ngày."
+        },
+        {
+          "id": "S1-R04",
+          "appliesTo": ["S1-M04", "S1-M05", "S1-M06"],
+          "chunkId": "S1-C05",
+          "detect": {
+            "expected": "the most effective changes",
+            "commonWrongAnswers": ["most effective changes"]
+          },
+          "message": "Cụm cần sửa: những thay đổi hiệu quả nhất."
+        },
+        {
+          "id": "S1-R05",
+          "appliesTo": ["S1-M05", "S1-M06"],
+          "chunkId": "S1-C07",
+          "detect": {
+            "expected": "the least dramatic",
+            "commonWrongAnswers": ["the least dramatic changes", "least dramatic changes"]
+          },
+          "message": "Ý của bạn dễ hiểu, nhưng câu gốc không lặp lại changes ở cuối. Cụm cần dùng: ít gây ấn tượng mạnh nhất."
+        }
+      ]
     }
   ],
   "taskGroups": [

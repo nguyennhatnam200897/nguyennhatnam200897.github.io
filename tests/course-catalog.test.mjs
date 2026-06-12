@@ -25,6 +25,7 @@ test("course catalog includes the listening sample and builds every course", asy
     const course = buildLessonCourse(data);
 
     assert.equal(course.id, entry.id);
+    assert.equal(data.description, entry.description);
     assert.ok(course.tasks.length > 0);
   }
 });
@@ -36,6 +37,26 @@ test("listening sample uses committed course-local WAV assets", async () => {
   assert.equal(course.audioExtension, "wav");
   assert.equal(course.audioBasePath, "./assets/audio/listening-song-ngu-sample");
   assert.ok(course.tasks.length >= 60);
+
+  for (const task of course.tasks) {
+    const assetPath = path.join(
+      root,
+      course.audioBasePath.replace("./", ""),
+      `${task.audioId ?? task.id}.${course.audioExtension}`
+    );
+    const header = await readFile(assetPath);
+
+    assert.equal(existsSync(assetPath), true);
+    assert.equal(header.subarray(0, 4).toString("ascii"), "RIFF");
+    assert.equal(header.subarray(8, 12).toString("ascii"), "WAVE");
+  }
+});
+
+test("meaning chunk experiment has a valid WAV asset for every task", async () => {
+  const data = await readJson(
+    "data/courses/small-public-garden-gentle-i1.json"
+  );
+  const course = buildLessonCourse(data);
 
   for (const task of course.tasks) {
     const assetPath = path.join(

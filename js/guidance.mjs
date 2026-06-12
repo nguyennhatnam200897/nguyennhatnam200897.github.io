@@ -184,6 +184,21 @@ export function createGuidance(task, previousTask) {
         ? task.guide.parts.map((part) => ({ ...part }))
         : [],
       speech: task.guide.speech ?? task.answer,
+      ...(typeof task.guide.whenNeeded === "string"
+        ? { whenNeeded: task.guide.whenNeeded }
+        : {}),
+      ...(typeof task.guide.roleQuestion === "string"
+        ? { roleQuestion: task.guide.roleQuestion }
+        : {}),
+      ...(typeof task.guide.roleMeaning === "string"
+        ? { roleMeaning: task.guide.roleMeaning }
+        : {}),
+      ...(Array.isArray(task.guide.roleLine)
+        ? { roleLine: task.guide.roleLine.map((item) => ({ ...item })) }
+        : {}),
+      ...(typeof task.guide.successMessage === "string"
+        ? { successMessage: task.guide.successMessage }
+        : {}),
     };
   }
 

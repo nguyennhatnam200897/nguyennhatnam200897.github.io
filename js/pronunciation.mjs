@@ -8,6 +8,7 @@ export const AMERICAN_IPA = {
   sustainable: "/səˈsteɪnəbəl/",
   more: "/mɔr/",
   are: "/ɑr/",
+  try: "/traɪ/",
   trying: "/ˈtraɪɪŋ/",
   to: "/tu/",
   change: "/tʃeɪndʒ/",
