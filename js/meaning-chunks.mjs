@@ -34,15 +34,12 @@ function cloneRoleLine(roleLine = []) {
   return roleLine.map((item) => ({ ...item }));
 }
 
-function findTokenSpan(sourceAnswer, targetAnswer) {
-  const sourceTokens = normalizedTokens(sourceAnswer);
-  const targetTokens = normalizedTokens(targetAnswer);
-
+function findTokenSpan(sourceTokens, targetTokens, startAt = 0) {
   if (targetTokens.length === 0 || targetTokens.length > sourceTokens.length) {
     return null;
   }
 
-  for (let start = 0; start <= sourceTokens.length - targetTokens.length; start += 1) {
+  for (let start = startAt; start <= sourceTokens.length - targetTokens.length; start += 1) {
     const matches = targetTokens.every(
       (token, index) => sourceTokens[start + index] === token
     );
@@ -139,6 +136,9 @@ function buildChunkIndex(chunks, lesson) {
 }
 
 function buildRollbackTargets(composition, chunksById, lesson) {
+  const answerTokens = normalizedTokens(composition.answer);
+  let cursor = 0;
+
   return composition.usesChunks.map((chunkId) => {
     const chunk = chunksById.get(chunkId);
 
@@ -146,11 +146,13 @@ function buildRollbackTargets(composition, chunksById, lesson) {
       fail(`${lesson.id}.${composition.id}.usesChunks references unknown chunk "${chunkId}".`);
     }
 
-    const span = findTokenSpan(composition.answer, chunk.english);
+    const span = findTokenSpan(answerTokens, normalizedTokens(chunk.english), cursor);
 
     if (!span) {
       fail(`${lesson.id}.${composition.id}.answer does not contain chunk "${chunkId}".`);
     }
+
+    cursor = span.end;
 
     return {
       taskId: finalStepFor(chunk).id,
@@ -227,6 +229,18 @@ function buildCompositionTask(lesson, composition, chunksById, compositionIndex)
   };
 }
 
+function assertUniqueTaskIds(tasks, lesson) {
+  const seenIds = new Set();
+
+  tasks.forEach((task) => {
+    if (seenIds.has(task.id)) {
+      fail(`${lesson.id} contains duplicate task id "${task.id}".`);
+    }
+
+    seenIds.add(task.id);
+  });
+}
+
 function buildLessonTasks(lesson, lessonIndex) {
   assertString(lesson.id, `meaningChunkLessons[${lessonIndex}].id`);
   assertString(lesson.sentenceId, `${lesson.id}.sentenceId`);
@@ -247,7 +261,10 @@ function buildLessonTasks(lesson, lessonIndex) {
       buildCompositionTask(lesson, composition, chunksById, compositionIndex)
   );
 
-  return [...stepTasks, ...compositionTasks];
+  const tasks = [...stepTasks, ...compositionTasks];
+  assertUniqueTaskIds(tasks, lesson);
+
+  return tasks;
 }
 
 export function buildMeaningChunkTaskGroups(meaningChunkLessons = []) {
