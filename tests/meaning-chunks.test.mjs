@@ -89,8 +89,14 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
 
   const finalChunkTask = groups[0].find((task) => task.id === "S1-C01-STEP03");
   assert.equal(finalChunkTask.stage, "phrase");
-  assert.equal(finalChunkTask.meaningChunk.id, "S1-C01");
-  assert.equal(finalChunkTask.meaningChunk.isFinalStep, true);
+  assert.deepEqual(finalChunkTask.meaningChunk, {
+    id: "S1-C01",
+    english: "many cities",
+    vietnamese: "nhiều thành phố",
+    chunkType: "entity",
+    roleQuestion: "Ai?",
+    isFinalStep: true,
+  });
   assert.equal(finalChunkTask.guide.whenNeeded, lesson.chunks[0].whenNeeded);
   assert.equal(finalChunkTask.guide.roleQuestion, "Ai?");
 });
