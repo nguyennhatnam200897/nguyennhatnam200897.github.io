@@ -51,3 +51,23 @@ test("listening sample uses committed course-local WAV assets", async () => {
     assert.equal(header.subarray(8, 12).toString("ascii"), "WAVE");
   }
 });
+
+test("meaning chunk experiment has a valid WAV asset for every task", async () => {
+  const data = await readJson(
+    "data/courses/small-public-garden-gentle-i1.json"
+  );
+  const course = buildLessonCourse(data);
+
+  for (const task of course.tasks) {
+    const assetPath = path.join(
+      root,
+      course.audioBasePath.replace("./", ""),
+      `${task.audioId ?? task.id}.${course.audioExtension}`
+    );
+    const header = await readFile(assetPath);
+
+    assert.equal(existsSync(assetPath), true);
+    assert.equal(header.subarray(0, 4).toString("ascii"), "RIFF");
+    assert.equal(header.subarray(8, 12).toString("ascii"), "WAVE");
+  }
+});
