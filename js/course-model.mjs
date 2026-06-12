@@ -1,10 +1,35 @@
 import { attachGuidance } from "./guidance.mjs";
 import { normalizeTextAnswer } from "./learning.mjs";
+import { buildMeaningChunkTaskGroups } from "./meaning-chunks.mjs";
 
 function assertString(value, field) {
   if (typeof value !== "string" || value.trim() === "") {
     throw new Error(`Invalid course data: ${field} must be a non-empty string.`);
   }
+}
+
+function cloneObjectArray(value) {
+  return value.map((item) =>
+    item && typeof item === "object" ? { ...item } : item
+  );
+}
+
+function cloneGuideMetadata(guide) {
+  const metadata = {};
+
+  ["whenNeeded", "roleQuestion", "roleMeaning", "successMessage"].forEach(
+    (field) => {
+      if (guide[field] !== undefined) {
+        metadata[field] = guide[field];
+      }
+    }
+  );
+
+  if (Array.isArray(guide.roleLine)) {
+    metadata.roleLine = cloneObjectArray(guide.roleLine);
+  }
+
+  return metadata;
 }
 
 function normalizeGuide(guide) {
@@ -20,7 +45,17 @@ function normalizeGuide(guide) {
       ? guide.parts.map((part) => ({ ...part }))
       : [],
     speech: guide.speech,
+    ...cloneGuideMetadata(guide),
   };
+}
+
+function cloneRepairRules(repairRules) {
+  return repairRules.map((rule) => ({
+    ...rule,
+    ...(Array.isArray(rule.commonWrongAnswers)
+      ? { commonWrongAnswers: [...rule.commonWrongAnswers] }
+      : {}),
+  }));
 }
 
 function normalizeTask(task, indexPath) {
@@ -53,6 +88,21 @@ function normalizeTask(task, indexPath) {
             end: Number(target.end),
           })),
         }
+      : {}),
+    ...(task.meaningChunk && typeof task.meaningChunk === "object"
+      ? { meaningChunk: { ...task.meaningChunk } }
+      : {}),
+    ...(Array.isArray(task.roleLine)
+      ? { roleLine: cloneObjectArray(task.roleLine) }
+      : {}),
+    ...(Array.isArray(task.usesChunks)
+      ? { usesChunks: [...task.usesChunks] }
+      : {}),
+    ...(Array.isArray(task.masteryCredit)
+      ? { masteryCredit: [...task.masteryCredit] }
+      : {}),
+    ...(Array.isArray(task.repairRules)
+      ? { repairRules: cloneRepairRules(task.repairRules) }
       : {}),
     ...(task.guide ? { guide: normalizeGuide(task.guide) } : {}),
   };
@@ -96,7 +146,9 @@ function normalizePracticeProfile(profile) {
     return undefined;
   }
 
-  if (profile !== "gentle-i-plus-one") {
+  if (
+    !["gentle-i-plus-one", "meaning-chunk-i-plus-one"].includes(profile)
+  ) {
     throw new Error(`Invalid course data: unknown practiceProfile "${profile}".`);
   }
 
@@ -104,7 +156,9 @@ function normalizePracticeProfile(profile) {
 }
 
 function buildPracticePolicy(practiceProfile) {
-  if (practiceProfile !== "gentle-i-plus-one") {
+  if (
+    !["gentle-i-plus-one", "meaning-chunk-i-plus-one"].includes(practiceProfile)
+  ) {
     return undefined;
   }
 
@@ -113,6 +167,56 @@ function buildPracticePolicy(practiceProfile) {
     minCorrect: 2,
     repairCorrectCount: 1,
   };
+}
+
+function sentenceIdForTaskGroup(group) {
+  return group.find((task) => typeof task?.sentenceId === "string")?.sentenceId;
+}
+
+function taskGroupsBySentenceId(taskGroups) {
+  const groupsBySentenceId = new Map();
+
+  taskGroups.forEach((group) => {
+    const sentenceId = sentenceIdForTaskGroup(group);
+
+    if (sentenceId && !groupsBySentenceId.has(sentenceId)) {
+      groupsBySentenceId.set(sentenceId, group);
+    }
+  });
+
+  return groupsBySentenceId;
+}
+
+function buildRawTaskGroups(courseData, practiceProfile) {
+  const legacyGroups = courseData.taskGroups ?? [];
+
+  if (
+    practiceProfile !== "meaning-chunk-i-plus-one" ||
+    !Array.isArray(courseData.meaningChunkLessons) ||
+    courseData.meaningChunkLessons.length === 0
+  ) {
+    return legacyGroups;
+  }
+
+  const meaningGroups = buildMeaningChunkTaskGroups(courseData.meaningChunkLessons);
+  const meaningGroupsBySentenceId = new Map();
+  const legacyGroupsBySentenceId = taskGroupsBySentenceId(legacyGroups);
+
+  courseData.meaningChunkLessons.forEach((lesson, index) => {
+    if (typeof lesson?.sentenceId === "string" && lesson.sentenceId.trim() !== "") {
+      meaningGroupsBySentenceId.set(lesson.sentenceId, meaningGroups[index]);
+    }
+  });
+
+  const orderedGroups = (courseData.sentences ?? [])
+    .map(
+      (sentence) =>
+        meaningGroupsBySentenceId.get(sentence.id) ??
+        legacyGroupsBySentenceId.get(sentence.id)
+    )
+    .filter(Boolean);
+
+  return orderedGroups.length > 0 ? orderedGroups : meaningGroups;
 }
 
 function countWords(answer) {
@@ -244,6 +348,26 @@ function attachRollbackTargets(tasks, practiceProfile) {
   });
 }
 
+function attachGuidancePreservingMetadata(tasks) {
+  return attachGuidance(tasks).map((task, index) => {
+    const guideMetadata = tasks[index]?.guide
+      ? cloneGuideMetadata(tasks[index].guide)
+      : {};
+
+    if (Object.keys(guideMetadata).length === 0) {
+      return task;
+    }
+
+    return {
+      ...task,
+      guide: {
+        ...task.guide,
+        ...guideMetadata,
+      },
+    };
+  });
+}
+
 export function buildLessonCourse(courseData) {
   ["id", "title", "level", "topic"].forEach((field) => {
     assertString(courseData[field], field);
@@ -252,7 +376,8 @@ export function buildLessonCourse(courseData) {
   const practiceProfile = normalizePracticeProfile(courseData.practiceProfile);
   const practicePolicy = buildPracticePolicy(practiceProfile);
   const sentences = (courseData.sentences ?? []).map(normalizeSentence);
-  const sentenceTaskGroups = (courseData.taskGroups ?? []).map(
+  const rawTaskGroups = buildRawTaskGroups(courseData, practiceProfile);
+  const sentenceTaskGroups = rawTaskGroups.map(
     (group, groupIndex) =>
       insertBridgeTasks(
         group.map((task, taskIndex) =>
@@ -268,7 +393,7 @@ export function buildLessonCourse(courseData) {
     insertBridgeTasks(buildParagraphTasks(courseData, sentences), practiceProfile),
     practiceProfile
   );
-  const tasks = attachGuidance([
+  const tasks = attachGuidancePreservingMetadata([
     ...sentenceTaskGroupsWithRollback.flat(),
     ...paragraphTasks,
   ]);

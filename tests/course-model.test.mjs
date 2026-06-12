@@ -135,3 +135,114 @@ test("supports a course-level audio extension", () => {
 
   assert.equal(audioCourse.audioExtension, "mp3");
 });
+
+test("builds a meaning chunk i+1 experiment while keeping unmigrated legacy sentences", async () => {
+  const experimentData = await readCourseData(
+    "../data/courses/small-public-garden-gentle-i1.json"
+  );
+  const experiment = buildLessonCourse({
+    ...experimentData,
+    sessionVersion: 2,
+    practiceProfile: "meaning-chunk-i-plus-one",
+    meaningChunkLessons: [
+      {
+        id: "S1-meaning-chunks",
+        sentenceId: "S1",
+        chunks: [
+          {
+            id: "S1-C01",
+            english: "many cities",
+            vietnamese: "many cities",
+            chunkType: "entity",
+            roleQuestion: "Ai?",
+            whenNeeded: "When talking about many cities as the actor.",
+            roleMeaning: "This chunk names who the sentence talks about.",
+            iPlusOneSteps: [
+              { id: "S1-C01-STEP01", prompt: "city", answer: "city" },
+              { id: "S1-C01-STEP02", prompt: "cities", answer: "cities" },
+              {
+                id: "S1-C01-STEP03",
+                prompt: "many cities",
+                answer: "many cities",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  assert.equal(experiment.practiceProfile, "meaning-chunk-i-plus-one");
+  assert.equal(experiment.practicePolicy.mode, "frontier-rollback");
+  assert.equal(experiment.sessionVersion, 2);
+  assert.equal(course.practicePolicy, undefined);
+  assert.equal(course.tasks.some((task) => task.id === "S1-C01-STEP03"), false);
+  assert.equal(experiment.tasks.some((task) => task.id === "S1-C01-STEP03"), true);
+  assert.equal(experiment.tasks.some((task) => task.id === "S2-01"), true);
+});
+
+test("preserves meaning chunk guide and role metadata through course normalization", () => {
+  const experiment = buildLessonCourse({
+    id: "meaning-demo",
+    title: "Meaning Demo",
+    level: "A2",
+    topic: "Meaning chunks",
+    practiceProfile: "meaning-chunk-i-plus-one",
+    paragraphTaskMode: "none",
+    sentences: [
+      {
+        id: "S1",
+        english: "Many cities try.",
+        vietnamese: "Many cities try.",
+      },
+    ],
+    taskGroups: [],
+    meaningChunkLessons: [
+      {
+        id: "S1-meaning-chunks",
+        sentenceId: "S1",
+        chunks: [
+          {
+            id: "S1-C01",
+            english: "many cities",
+            vietnamese: "many cities",
+            chunkType: "entity",
+            roleQuestion: "Ai?",
+            whenNeeded: "When talking about many cities.",
+            roleMeaning: "This chunk names who the sentence talks about.",
+            iPlusOneSteps: [
+              { id: "S1-C01-STEP01", prompt: "cities", answer: "cities" },
+              {
+                id: "S1-C01-STEP02",
+                prompt: "many cities",
+                answer: "many cities",
+              },
+            ],
+          },
+        ],
+        compositionTasks: [
+          {
+            id: "S1-M01",
+            prompt: "many cities",
+            answer: "many cities",
+            usesChunks: ["S1-C01"],
+            roleLine: [
+              { roleQuestion: "Ai?", chunkId: "S1-C01", english: "many cities" },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+  const byId = new Map(experiment.tasks.map((task) => [task.id, task]));
+
+  assert.equal(
+    byId.get("S1-C01-STEP02").guide.whenNeeded,
+    "When talking about many cities."
+  );
+  assert.equal(byId.get("S1-C01-STEP02").guide.roleQuestion, "Ai?");
+  assert.equal(byId.get("S1-C01-STEP02").meaningChunk.id, "S1-C01");
+  assert.deepEqual(byId.get("S1-M01").roleLine, [
+    { roleQuestion: "Ai?", chunkId: "S1-C01", english: "many cities" },
+  ]);
+});
