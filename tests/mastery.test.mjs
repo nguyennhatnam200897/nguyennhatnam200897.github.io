@@ -203,6 +203,50 @@ test("uses common wrong answer repair rules when token spans do not catch the is
   assert.equal(getCurrentTaskId(session, futureGroups), "least-dramatic");
 });
 
+test("falls back to token rollback when common wrong answer is away from the issue", () => {
+  const futureGroups = buildPracticeGroups(
+    [
+      {
+        id: "many-cities",
+        sentenceId: "F1",
+        answer: "many cities",
+      },
+      {
+        id: "are-trying-to",
+        sentenceId: "F1",
+        answer: "are trying to",
+      },
+      {
+        id: "long-claim",
+        sentenceId: "F1",
+        answer: "many cities in the region are trying to make life better",
+        rollbackTargets: [{ taskId: "many-cities", start: 0, end: 2 }],
+        repairRules: [
+          {
+            taskId: "are-trying-to",
+            commonWrongAnswers: ["are trying"],
+            message: "Use the full chunk: are trying to.",
+          },
+        ],
+      },
+    ],
+    { mode: "frontier-rollback", minCorrect: 2, repairCorrectCount: 1 }
+  );
+  let session = createMasterySession(futureGroups);
+
+  session = recordMasteryAttempt(session, futureGroups, "many-cities", true);
+  session = recordMasteryAttempt(session, futureGroups, "many-cities", true);
+  session = recordMasteryAttempt(session, futureGroups, "are-trying-to", true);
+  session = recordMasteryAttempt(session, futureGroups, "are-trying-to", true);
+
+  session = recordMasteryAttempt(session, futureGroups, "long-claim", false, {
+    normalizedActual: "many city in the region are trying to make life better",
+    issue: { index: 1, actual: "city", expected: "cities", type: "mismatch" },
+  });
+
+  assert.equal(getCurrentTaskId(session, futureGroups), "many-cities");
+});
+
 test("advances only after every item reaches the mastery rule", () => {
   let session = createMasterySession(groups);
 

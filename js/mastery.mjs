@@ -35,6 +35,38 @@ function normalizeRepairRuleText(value) {
     .trim();
 }
 
+function tokenizeRepairRuleText(value) {
+  return normalizeRepairRuleText(value).split(" ").filter(Boolean);
+}
+
+function matchingTokenSpans(tokens, targetTokens) {
+  if (targetTokens.length === 0 || targetTokens.length > tokens.length) {
+    return [];
+  }
+
+  const spans = [];
+  const lastStart = tokens.length - targetTokens.length;
+
+  for (let start = 0; start <= lastStart; start += 1) {
+    const matches = targetTokens.every(
+      (targetToken, offset) => tokens[start + offset] === targetToken
+    );
+
+    if (matches) {
+      spans.push({ start, end: start + targetTokens.length });
+    }
+  }
+
+  return spans;
+}
+
+function isIssueIndexNearSpan(issueIndex, span) {
+  return (
+    issueIndex >= span.start - 1 &&
+    issueIndex <= span.end
+  );
+}
+
 function masteryRuleFor(groupToCheck = {}) {
   return {
     minCorrect: Number(groupToCheck.minCorrect) || MASTERY_RULE.minCorrect,
@@ -307,21 +339,26 @@ function isGroupMastered(session, groupToCheck) {
 }
 
 function repairRuleTaskIdFor(groupToCheck, taskId, feedback) {
-  const normalizedActual = normalizeRepairRuleText(feedback?.normalizedActual);
+  const actualTokens = tokenizeRepairRuleText(feedback?.normalizedActual);
+  const issueIndex = Number(feedback?.issue?.index);
   const repairRules = groupToCheck.repairRulesByTaskId?.[taskId] ?? [];
 
-  if (!normalizedActual || repairRules.length === 0) {
+  if (
+    actualTokens.length === 0 ||
+    !Number.isInteger(issueIndex) ||
+    issueIndex < 0 ||
+    repairRules.length === 0
+  ) {
     return null;
   }
 
   const matchingRule = repairRules.find((rule) =>
     (Array.isArray(rule.commonWrongAnswers) ? rule.commonWrongAnswers : []).some(
       (answer) => {
-        const normalizedAnswer = normalizeRepairRuleText(answer);
+        const answerTokens = tokenizeRepairRuleText(answer);
 
-        return (
-          normalizedAnswer &&
-          normalizedActual.includes(normalizedAnswer)
+        return matchingTokenSpans(actualTokens, answerTokens).some((span) =>
+          isIssueIndexNearSpan(issueIndex, span)
         );
       }
     )
