@@ -52,6 +52,45 @@ function findTokenSpan(sourceTokens, targetTokens, startAt = 0) {
   return null;
 }
 
+function relatedTokenForms(token) {
+  const forms = new Set([token]);
+
+  if (token.endsWith("ies") && token.length > 3) {
+    forms.add(`${token.slice(0, -3)}y`);
+  }
+
+  if (token.endsWith("ing") && token.length > 4) {
+    const withoutIng = token.slice(0, -3);
+    forms.add(withoutIng);
+    forms.add(`${withoutIng}e`);
+  }
+
+  if (token.endsWith("es") && token.length > 3) {
+    forms.add(token.slice(0, -1));
+    forms.add(token.slice(0, -2));
+  }
+
+  if (token.endsWith("s") && token.length > 2) {
+    forms.add(token.slice(0, -1));
+  }
+
+  return forms;
+}
+
+function findRelatedTokenSpan(sourceTokens, targetTokens) {
+  if (targetTokens.length !== 1) {
+    return null;
+  }
+
+  const targetForms = relatedTokenForms(targetTokens[0]);
+  const start = sourceTokens.findIndex(
+    (token) =>
+      [...relatedTokenForms(token)].some((form) => targetForms.has(form))
+  );
+
+  return start >= 0 ? { start, end: start + 1 } : null;
+}
+
 function finalStepFor(chunk) {
   return chunk.iPlusOneSteps.at(-1);
 }
@@ -75,6 +114,28 @@ function buildStepGuide(chunk, step, isFinalStep) {
   };
 }
 
+function buildStepRollbackTargets(chunk, stepIndex) {
+  if (stepIndex === 0) {
+    return [];
+  }
+
+  const answerTokens = normalizedTokens(chunk.iPlusOneSteps[stepIndex].answer);
+
+  for (let previousIndex = stepIndex - 1; previousIndex >= 0; previousIndex -= 1) {
+    const previousStep = chunk.iPlusOneSteps[previousIndex];
+    const previousTokens = normalizedTokens(previousStep.answer);
+    const span =
+      findTokenSpan(answerTokens, previousTokens) ??
+      findRelatedTokenSpan(answerTokens, previousTokens);
+
+    if (span) {
+      return [{ taskId: previousStep.id, ...span }];
+    }
+  }
+
+  return [];
+}
+
 function buildStepTask(lesson, chunk, step, stepIndex) {
   assertString(step.id, `${lesson.id}.${chunk.id}.iPlusOneSteps[${stepIndex}].id`);
   assertString(step.prompt, `${lesson.id}.${chunk.id}.iPlusOneSteps[${stepIndex}].prompt`);
@@ -85,6 +146,7 @@ function buildStepTask(lesson, chunk, step, stepIndex) {
   }
 
   const isFinalStep = stepIndex === chunk.iPlusOneSteps.length - 1;
+  const rollbackTargets = buildStepRollbackTargets(chunk, stepIndex);
 
   return {
     id: step.id,
@@ -101,6 +163,7 @@ function buildStepTask(lesson, chunk, step, stepIndex) {
       roleQuestion: chunk.roleQuestion,
       isFinalStep,
     },
+    ...(rollbackTargets.length > 0 ? { rollbackTargets } : {}),
     guide: buildStepGuide(chunk, step, isFinalStep),
   };
 }

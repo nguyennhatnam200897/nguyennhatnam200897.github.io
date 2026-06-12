@@ -101,6 +101,8 @@ test("builds the meaning chunk i+1 experiment as a cloned course", async () => {
   assert.equal(experiment.sessionVersion, 2);
   assert.equal(experiment.practiceProfile, "meaning-chunk-i-plus-one");
   assert.equal(experiment.practicePolicy.mode, "frontier-rollback");
+  assert.equal(experiment.practicePolicy.meaningChunkMastery, true);
+  assert.equal(experiment.practicePolicy.requiresInterleavedCorrect, true);
   assert.deepEqual(experiment.article.sentences, course.article.sentences);
   assert.equal(course.practicePolicy, undefined);
   assert.equal(course.tasks.some((task) => task.id === "S1-C01-STEP03"), false);

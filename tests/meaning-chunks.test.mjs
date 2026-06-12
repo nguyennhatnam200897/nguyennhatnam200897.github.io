@@ -89,6 +89,7 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
 
   const finalChunkTask = groups[0].find((task) => task.id === "S1-C01-STEP03");
   const oneTokenTask = groups[0].find((task) => task.id === "S1-C01-STEP01");
+  const pluralTask = groups[0].find((task) => task.id === "S1-C01-STEP02");
   const explicitStageTask = groups[0].find((task) => task.id === "S1-C02-STEP01");
 
   assert.equal(oneTokenTask.stage, "object");
@@ -110,6 +111,12 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
   assert.equal(finalChunkTask.guide.whenNeeded, lesson.chunks[0].whenNeeded);
   assert.equal(finalChunkTask.guide.roleQuestion, "Ai?");
   assert.equal(finalChunkTask.guide.roleMeaning, lesson.chunks[0].roleMeaning);
+  assert.deepEqual(finalChunkTask.rollbackTargets, [
+    { taskId: "S1-C01-STEP02", start: 1, end: 2 },
+  ]);
+  assert.deepEqual(pluralTask.rollbackTargets, [
+    { taskId: "S1-C01-STEP01", start: 0, end: 1 },
+  ]);
 });
 
 test("composition rollback targets complete chunks instead of smaller old steps", () => {
@@ -257,5 +264,33 @@ test("rollback targets match repeated chunk phrases in usesChunks order", () => 
   assert.deepEqual(composition.rollbackTargets, [
     { taskId: "R1-C01-STEP02", start: 0, end: 2 },
     { taskId: "R1-C02-STEP02", start: 3, end: 5 },
+  ]);
+});
+
+test("rollback targets match a singular word inside its plural form", () => {
+  const changeLesson = {
+    id: "change-forms",
+    sentenceId: "C1",
+    chunks: [
+      {
+        id: "C1-C01",
+        english: "changes",
+        vietnamese: "những thay đổi",
+        chunkType: "entity",
+        roleQuestion: "Cái gì?",
+        whenNeeded: "Khi muốn nói về nhiều thay đổi.",
+        roleMeaning: "Cụm này cho biết điều đang được nói tới.",
+        iPlusOneSteps: [
+          { id: "C1-C01-STEP01", prompt: "sự thay đổi", answer: "change" },
+          { id: "C1-C01-STEP02", prompt: "những thay đổi", answer: "changes" },
+        ],
+      },
+    ],
+  };
+  const [tasks] = buildMeaningChunkTaskGroups([changeLesson]);
+  const pluralTask = tasks.find((task) => task.id === "C1-C01-STEP02");
+
+  assert.deepEqual(pluralTask.rollbackTargets, [
+    { taskId: "C1-C01-STEP01", start: 0, end: 1 },
   ]);
 });

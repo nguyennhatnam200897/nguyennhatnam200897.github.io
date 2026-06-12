@@ -132,6 +132,260 @@ test("uses frontier groups for a rollback i+1 course", () => {
   assert.equal(futureGroups[0].requiresInterleavedCorrect, false);
 });
 
+test("builds meaning chunk mastery groups around complete chunks and compositions", () => {
+  const meaningChunkGroups = buildPracticeGroups(
+    [
+      {
+        id: "C1-step",
+        sentenceId: "F1",
+        meaningChunk: { id: "C1", isFinalStep: false },
+      },
+      {
+        id: "C1-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C1", isFinalStep: true },
+      },
+      {
+        id: "C2-step",
+        sentenceId: "F1",
+        meaningChunk: { id: "C2", isFinalStep: false },
+      },
+      {
+        id: "C2-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C2", isFinalStep: true },
+      },
+      {
+        id: "M1",
+        sentenceId: "F1",
+        usesChunks: ["C1", "C2"],
+        masteryCredit: ["C1", "C2"],
+      },
+      {
+        id: "C3-step",
+        sentenceId: "F1",
+        meaningChunk: { id: "C3", isFinalStep: false },
+      },
+      {
+        id: "C3-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C3", isFinalStep: true },
+      },
+      {
+        id: "M2",
+        sentenceId: "F1",
+        usesChunks: ["C1", "C3"],
+        masteryCredit: ["C3"],
+      },
+      {
+        id: "C4-step",
+        sentenceId: "F1",
+        meaningChunk: { id: "C4", isFinalStep: false },
+      },
+      {
+        id: "C4-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C4", isFinalStep: true },
+      },
+      {
+        id: "M3",
+        sentenceId: "F1",
+        usesChunks: ["C1", "C2", "C3", "C4"],
+        masteryCredit: ["C4"],
+      },
+    ],
+    {
+      mode: "frontier-rollback",
+      meaningChunkMastery: true,
+      minCorrect: 2,
+      repairCorrectCount: 1,
+    }
+  );
+
+  assert.deepEqual(
+    meaningChunkGroups.map((practiceGroup) => practiceGroup.taskIds),
+    [
+      ["C1-step"],
+      ["C2-step"],
+      ["C1-final", "C2-final"],
+      ["M1"],
+      ["C3-step"],
+      ["C4-step"],
+      ["C3-final", "C4-final"],
+      ["M2"],
+      ["M3"],
+    ]
+  );
+  assert.deepEqual(meaningChunkGroups[0].masteryRulesByTaskId["C1-step"], {
+    minCorrect: 1,
+    minStreak: 1,
+    requiresInterleavedCorrect: false,
+  });
+  assert.equal(meaningChunkGroups[2].minCorrectBeforeNextIntroduction, 1);
+  assert.deepEqual(meaningChunkGroups[2].masteryRulesByTaskId["C1-final"], {
+    minCorrect: 2,
+    minStreak: 1,
+    requiresInterleavedCorrect: true,
+  });
+  assert.deepEqual(meaningChunkGroups[7].masteryRulesByTaskId.M2, {
+    minCorrect: 1,
+    minStreak: 1,
+    requiresInterleavedCorrect: false,
+  });
+  assert.equal(
+    meaningChunkGroups.flatMap((practiceGroup) => practiceGroup.taskIds).filter(
+      (taskId) => taskId === "C1-final"
+    ).length,
+    1
+  );
+});
+
+test("requires complete chunks twice with an intervening unit before composition", () => {
+  const meaningChunkGroups = buildPracticeGroups(
+    [
+      {
+        id: "C1-step",
+        sentenceId: "F1",
+        meaningChunk: { id: "C1", isFinalStep: false },
+      },
+      {
+        id: "C1-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C1", isFinalStep: true },
+      },
+      {
+        id: "C2-step",
+        sentenceId: "F1",
+        meaningChunk: { id: "C2", isFinalStep: false },
+      },
+      {
+        id: "C2-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C2", isFinalStep: true },
+      },
+      {
+        id: "M1",
+        sentenceId: "F1",
+        usesChunks: ["C1", "C2"],
+        masteryCredit: ["C1", "C2"],
+      },
+    ],
+    {
+      mode: "frontier-rollback",
+      meaningChunkMastery: true,
+      minCorrect: 2,
+      repairCorrectCount: 1,
+    }
+  );
+  let session = createMasterySession(meaningChunkGroups);
+  const expectedSequence = [
+    "C1-step",
+    "C2-step",
+    "C1-final",
+    "C2-final",
+    "C1-final",
+    "C2-final",
+    "M1",
+  ];
+
+  expectedSequence.forEach((taskId, index) => {
+    assert.equal(getCurrentTaskId(session, meaningChunkGroups), taskId);
+    session = recordMasteryAttempt(
+      session,
+      meaningChunkGroups,
+      taskId,
+      true
+    );
+    assert.equal(session.groupIndex <= index + 1, true);
+  });
+
+  assert.equal(getCurrentTaskId(session, meaningChunkGroups), null);
+});
+
+test("finishes isolated chunk practice before moving to a longer meaning", () => {
+  const meaningChunkGroups = buildPracticeGroups(
+    [
+      {
+        id: "C1-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C1", isFinalStep: true },
+      },
+      {
+        id: "M1",
+        sentenceId: "F1",
+        usesChunks: ["C1"],
+        masteryCredit: ["C1"],
+      },
+      {
+        id: "C2-final",
+        sentenceId: "F1",
+        meaningChunk: { id: "C2", isFinalStep: true },
+      },
+      {
+        id: "M2",
+        sentenceId: "F1",
+        usesChunks: ["C1", "C2"],
+        masteryCredit: ["C2"],
+      },
+    ],
+    {
+      mode: "frontier-rollback",
+      meaningChunkMastery: true,
+      minCorrect: 2,
+      repairCorrectCount: 1,
+    }
+  );
+  let session = createMasterySession(meaningChunkGroups);
+  const expectedSequence = [
+    "C1-final",
+    "C2-final",
+    "C1-final",
+    "C2-final",
+    "M1",
+    "M2",
+  ];
+
+  expectedSequence.forEach((taskId) => {
+    assert.equal(getCurrentTaskId(session, meaningChunkGroups), taskId);
+    session = recordMasteryAttempt(
+      session,
+      meaningChunkGroups,
+      taskId,
+      true
+    );
+  });
+
+  assert.equal(getCurrentTaskId(session, meaningChunkGroups), null);
+});
+
+test("rejects a lone meaning chunk that cannot be interleaved before composition", () => {
+  assert.throws(
+    () =>
+      buildPracticeGroups(
+        [
+          {
+            id: "C1-final",
+            sentenceId: "F1",
+            meaningChunk: { id: "C1", isFinalStep: true },
+          },
+          {
+            id: "M1",
+            sentenceId: "F1",
+            usesChunks: ["C1"],
+            masteryCredit: ["C1"],
+          },
+        ],
+        {
+          mode: "frontier-rollback",
+          meaningChunkMastery: true,
+          minCorrect: 2,
+          repairCorrectCount: 1,
+        }
+      ),
+    /cannot interleave meaning chunk "C1" before composition "M1"/
+  );
+});
+
 test("rolls back only when the failed token is inside a learned prerequisite", () => {
   const futureGroups = buildPracticeGroups(
     [

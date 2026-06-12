@@ -156,17 +156,25 @@ function normalizePracticeProfile(profile) {
 }
 
 function buildPracticePolicy(practiceProfile) {
-  if (
-    !["gentle-i-plus-one", "meaning-chunk-i-plus-one"].includes(practiceProfile)
-  ) {
-    return undefined;
+  if (practiceProfile === "meaning-chunk-i-plus-one") {
+    return {
+      mode: "frontier-rollback",
+      meaningChunkMastery: true,
+      minCorrect: 2,
+      requiresInterleavedCorrect: true,
+      repairCorrectCount: 1,
+    };
   }
 
-  return {
-    mode: "frontier-rollback",
-    minCorrect: 2,
-    repairCorrectCount: 1,
-  };
+  if (practiceProfile === "gentle-i-plus-one") {
+    return {
+      mode: "frontier-rollback",
+      minCorrect: 2,
+      repairCorrectCount: 1,
+    };
+  }
+
+  return undefined;
 }
 
 function sentenceIdForTaskGroup(group) {
