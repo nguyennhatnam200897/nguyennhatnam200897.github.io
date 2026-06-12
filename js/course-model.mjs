@@ -187,6 +187,29 @@ function taskGroupsBySentenceId(taskGroups) {
   return groupsBySentenceId;
 }
 
+function validateMeaningChunkLessonSentenceIds(courseData) {
+  const sentenceIds = new Set((courseData.sentences ?? []).map((sentence) => sentence.id));
+  const seenLessonSentenceIds = new Set();
+
+  courseData.meaningChunkLessons.forEach((lesson, index) => {
+    assertString(lesson?.sentenceId, `meaningChunkLessons[${index}].sentenceId`);
+
+    if (!sentenceIds.has(lesson.sentenceId)) {
+      throw new Error(
+        `Invalid course data: meaningChunkLessons[${index}].sentenceId "${lesson.sentenceId}" does not match a course sentence.`
+      );
+    }
+
+    if (seenLessonSentenceIds.has(lesson.sentenceId)) {
+      throw new Error(
+        `Invalid course data: meaningChunkLessons[${index}].sentenceId "${lesson.sentenceId}" duplicates an earlier meaning chunk lesson.`
+      );
+    }
+
+    seenLessonSentenceIds.add(lesson.sentenceId);
+  });
+}
+
 function buildRawTaskGroups(courseData, practiceProfile) {
   const legacyGroups = courseData.taskGroups ?? [];
 
@@ -197,6 +220,8 @@ function buildRawTaskGroups(courseData, practiceProfile) {
   ) {
     return legacyGroups;
   }
+
+  validateMeaningChunkLessonSentenceIds(courseData);
 
   const meaningGroups = buildMeaningChunkTaskGroups(courseData.meaningChunkLessons);
   const meaningGroupsBySentenceId = new Map();

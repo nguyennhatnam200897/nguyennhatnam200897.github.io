@@ -10,6 +10,36 @@ async function readCourseData(pathname) {
 const courseData = await readCourseData("../data/courses/small-public-garden.json");
 const course = buildLessonCourse(courseData);
 
+function buildSingleChunkLesson({
+  id = "S1-meaning-chunks",
+  sentenceId = "S1",
+} = {}) {
+  return {
+    id,
+    sentenceId,
+    chunks: [
+      {
+        id: `${sentenceId}-C01`,
+        english: "many cities",
+        vietnamese: "many cities",
+        chunkType: "entity",
+        roleQuestion: "Ai?",
+        whenNeeded: "When talking about many cities.",
+        roleMeaning: "This chunk names who the sentence talks about.",
+        iPlusOneSteps: [
+          { id: `${sentenceId}-C01-STEP01`, prompt: "city", answer: "city" },
+          { id: `${sentenceId}-C01-STEP02`, prompt: "cities", answer: "cities" },
+          {
+            id: `${sentenceId}-C01-STEP03`,
+            prompt: "many cities",
+            answer: "many cities",
+          },
+        ],
+      },
+    ],
+  };
+}
+
 test("builds the current course from JSON data", () => {
   assert.equal(course.id, "small-public-garden");
   assert.equal(course.article.title, "A Small Public Garden");
@@ -178,7 +208,17 @@ test("builds a meaning chunk i+1 experiment while keeping unmigrated legacy sent
   assert.equal(course.practicePolicy, undefined);
   assert.equal(course.tasks.some((task) => task.id === "S1-C01-STEP03"), false);
   assert.equal(experiment.tasks.some((task) => task.id === "S1-C01-STEP03"), true);
+  assert.equal(experiment.tasks.some((task) => task.id === "S1-01"), false);
+  assert.equal(experiment.tasks.some((task) => task.isBridge), false);
   assert.equal(experiment.tasks.some((task) => task.id === "S2-01"), true);
+  assert.deepEqual(
+    experiment.sentenceTaskGroups[0].map((task) => task.id),
+    ["S1-C01-STEP01", "S1-C01-STEP02", "S1-C01-STEP03"]
+  );
+  assert.equal(
+    experiment.sentenceTaskGroups[0].some((task) => /^S1-\d/.test(task.id)),
+    false
+  );
 });
 
 test("preserves meaning chunk guide and role metadata through course normalization", () => {
@@ -210,6 +250,7 @@ test("preserves meaning chunk guide and role metadata through course normalizati
             roleQuestion: "Ai?",
             whenNeeded: "When talking about many cities.",
             roleMeaning: "This chunk names who the sentence talks about.",
+            successMessage: "You found the actor.",
             iPlusOneSteps: [
               { id: "S1-C01-STEP01", prompt: "cities", answer: "cities" },
               {
@@ -226,9 +267,21 @@ test("preserves meaning chunk guide and role metadata through course normalizati
             prompt: "many cities",
             answer: "many cities",
             usesChunks: ["S1-C01"],
+            successMessage: "You built the meaning.",
             roleLine: [
               { roleQuestion: "Ai?", chunkId: "S1-C01", english: "many cities" },
             ],
+          },
+        ],
+        repairRules: [
+          {
+            id: "S1-R01",
+            appliesTo: ["S1-M01"],
+            chunkId: "S1-C01",
+            detect: {
+              commonWrongAnswers: ["many city"],
+            },
+            message: "Use the plural chunk.",
           },
         ],
       },
@@ -241,8 +294,79 @@ test("preserves meaning chunk guide and role metadata through course normalizati
     "When talking about many cities."
   );
   assert.equal(byId.get("S1-C01-STEP02").guide.roleQuestion, "Ai?");
+  assert.equal(
+    byId.get("S1-C01-STEP02").guide.roleMeaning,
+    "This chunk names who the sentence talks about."
+  );
+  assert.equal(byId.get("S1-C01-STEP02").guide.successMessage, "You found the actor.");
   assert.equal(byId.get("S1-C01-STEP02").meaningChunk.id, "S1-C01");
+  assert.deepEqual(byId.get("S1-M01").usesChunks, ["S1-C01"]);
+  assert.deepEqual(byId.get("S1-M01").masteryCredit, ["S1-C01"]);
+  assert.deepEqual(byId.get("S1-M01").repairRules, [
+    {
+      taskId: "S1-C01-STEP02",
+      commonWrongAnswers: ["many city"],
+      message: "Use the plural chunk.",
+    },
+  ]);
+  assert.equal(byId.get("S1-M01").guide.successMessage, "You built the meaning.");
   assert.deepEqual(byId.get("S1-M01").roleLine, [
     { roleQuestion: "Ai?", chunkId: "S1-C01", english: "many cities" },
   ]);
+});
+
+test("rejects meaning chunk lessons for unknown course sentences", () => {
+  assert.throws(
+    () =>
+      buildLessonCourse({
+        id: "unknown-meaning-sentence",
+        title: "Unknown Meaning Sentence",
+        level: "A2",
+        topic: "Meaning chunks",
+        practiceProfile: "meaning-chunk-i-plus-one",
+        paragraphTaskMode: "none",
+        sentences: [
+          {
+            id: "S1",
+            english: "Many cities try.",
+            vietnamese: "Many cities try.",
+          },
+        ],
+        taskGroups: [],
+        meaningChunkLessons: [
+          buildSingleChunkLesson({
+            id: "S99-meaning-chunks",
+            sentenceId: "S99",
+          }),
+        ],
+      }),
+    /Invalid course data: meaningChunkLessons\[0\]\.sentenceId "S99" does not match a course sentence\./
+  );
+});
+
+test("rejects duplicate meaning chunk lessons for the same sentence", () => {
+  assert.throws(
+    () =>
+      buildLessonCourse({
+        id: "duplicate-meaning-sentence",
+        title: "Duplicate Meaning Sentence",
+        level: "A2",
+        topic: "Meaning chunks",
+        practiceProfile: "meaning-chunk-i-plus-one",
+        paragraphTaskMode: "none",
+        sentences: [
+          {
+            id: "S1",
+            english: "Many cities try.",
+            vietnamese: "Many cities try.",
+          },
+        ],
+        taskGroups: [],
+        meaningChunkLessons: [
+          buildSingleChunkLesson(),
+          buildSingleChunkLesson({ id: "S1-meaning-chunks-again" }),
+        ],
+      }),
+    /Invalid course data: meaningChunkLessons\[1\]\.sentenceId "S1" duplicates an earlier meaning chunk lesson\./
+  );
 });
