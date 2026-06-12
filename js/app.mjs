@@ -43,7 +43,12 @@ const elements = {
   guideMeaning: document.querySelector("#guide-meaning"),
   guideNewWords: document.querySelector("#guide-new-words"),
   guideParts: document.querySelector("#guide-parts"),
+  guidePurpose: document.querySelector("#guide-purpose"),
+  guideRole: document.querySelector("#guide-role"),
+  guideRoleLine: document.querySelector("#guide-role-line"),
+  guideRoleMeaning: document.querySelector("#guide-role-meaning"),
   guideTerm: document.querySelector("#guide-term"),
+  guideWhenNeeded: document.querySelector("#guide-when-needed"),
   lesson: document.querySelector("#lesson"),
   listenGuide: document.querySelector("#listen-guide"),
   progress: document.querySelector("#global-progress"),
@@ -444,10 +449,76 @@ function renderPronunciation(pronunciation) {
   });
 }
 
+function renderGuideRole(guide) {
+  const hasRole = Boolean(
+    guide.whenNeeded || guide.roleQuestion || guide.roleMeaning
+  );
+
+  elements.guideRole.hidden = !hasRole;
+  elements.guideWhenNeeded.replaceChildren();
+  elements.guidePurpose.replaceChildren();
+  elements.guideRoleMeaning.replaceChildren();
+
+  if (!hasRole) {
+    return;
+  }
+
+  if (guide.whenNeeded) {
+    const label = document.createElement("strong");
+    const text = document.createTextNode(` ${guide.whenNeeded}`);
+
+    label.textContent = "Khi nào cần?";
+    elements.guideWhenNeeded.append(label, text);
+  }
+
+  if (guide.roleQuestion) {
+    const label = document.createElement("strong");
+    const text = document.createTextNode(` ${guide.roleQuestion}`);
+
+    label.textContent = "Mục đích là gì?";
+    elements.guidePurpose.append(label, text);
+  }
+
+  if (guide.roleMeaning) {
+    const label = document.createElement("strong");
+    const text = document.createTextNode(` ${guide.roleMeaning}`);
+
+    label.textContent = "Vai trò trong câu:";
+    elements.guideRoleMeaning.append(label, text);
+  }
+}
+
+function renderGuideRoleLine(roleLine = []) {
+  const rows = Array.isArray(roleLine) ? roleLine : [];
+
+  elements.guideRoleLine.replaceChildren();
+  elements.guideRoleLine.hidden = rows.length === 0;
+
+  if (rows.length === 0) {
+    return;
+  }
+
+  rows.forEach((item) => {
+    const row = document.createElement("p");
+    const role = document.createElement("strong");
+    const arrow = document.createElement("span");
+    const term = document.createElement("span");
+
+    role.textContent = item.roleQuestion ?? "";
+    arrow.textContent = "->";
+    term.textContent = item.english ?? "";
+    row.append(role, arrow, term);
+    elements.guideRoleLine.append(row);
+  });
+}
+
 function renderGuide(task) {
   elements.guideTerm.textContent = task.guide.term;
   elements.guideMeaning.textContent = task.guide.meaning;
   elements.guideExplanation.textContent = task.guide.explanation;
+  // Role metadata such as task.guide.whenNeeded and task.guide.roleQuestion is guide-only.
+  renderGuideRole(task.guide);
+  renderGuideRoleLine(task.guide.roleLine ?? task.roleLine ?? []);
   renderPronunciation(task.guide.pronunciation);
   renderGuideParts(task.guide.parts);
 }
