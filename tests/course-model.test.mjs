@@ -221,11 +221,11 @@ test("builds the meaning chunk i+1 experiment as a cloned course", async () => {
   const byId = new Map(experiment.tasks.map((task) => [task.id, task]));
 
   assert.equal(experiment.id, "small-public-garden-gentle-i1");
-  assert.equal(experiment.sessionVersion, 2);
+  assert.equal(experiment.sessionVersion, 3);
   assert.equal(experiment.practiceProfile, "meaning-chunk-i-plus-one");
   assert.equal(experiment.practicePolicy.mode, "frontier-rollback");
   assert.equal(experiment.practicePolicy.meaningChunkMastery, true);
-  assert.equal(experiment.practicePolicy.requiresInterleavedCorrect, true);
+  assert.equal(experiment.practicePolicy.requiresInterleavedCorrect, false);
   assert.deepEqual(experiment.article.sentences, course.article.sentences);
   assert.equal(course.practicePolicy, undefined);
   assert.equal(course.tasks.some((task) => task.id === "S1-C01-STEP03"), false);
@@ -234,7 +234,8 @@ test("builds the meaning chunk i+1 experiment as a cloned course", async () => {
   assert.equal(experiment.tasks.some((task) => task.id === "S2-C01-STEP01"), true);
   assert.equal(experiment.tasks.some((task) => task.id === "S4-01"), false);
   assert.equal(experiment.tasks.some((task) => task.id === "S4-C01-STEP01"), true);
-  assert.equal(experiment.tasks.some((task) => task.id === "S5-01"), true);
+  assert.equal(experiment.tasks.some((task) => task.id === "S5-01"), false);
+  assert.equal(experiment.tasks.some((task) => task.id === "S5-C01-STEP01"), true);
   assert.equal(byId.get("S1-C01-STEP03").answer, "many cities");
   assert.equal(
     byId.get("S1-M03").answer,
@@ -328,6 +329,72 @@ test("defines the approved meaning chunk map for sentence four", async () => {
   assert.equal(s4.compositionTasks.at(-1).roleLine.length, 6);
 });
 
+test("defines complete meaning chunk coverage for sentences five through seven", async () => {
+  const experimentData = await readCourseData(
+    "../data/courses/small-public-garden-gentle-i1.json"
+  );
+  const experiment = buildLessonCourse(experimentData);
+  const sentenceById = new Map(
+    experimentData.sentences.map((sentence) => [sentence.id, sentence])
+  );
+  const lessonBySentenceId = new Map(
+    experimentData.meaningChunkLessons.map((lesson) => [
+      lesson.sentenceId,
+      lesson,
+    ])
+  );
+  const s5 = lessonBySentenceId.get("S5");
+  const s6 = lessonBySentenceId.get("S6");
+  const s7 = lessonBySentenceId.get("S7");
+
+  assert.deepEqual(s5.chunks.map(({ english }) => english), [
+    "the project",
+    "also encouraged nearby shops to",
+    "use fewer plastic bags",
+    "and to place recycling bins outside their doors",
+  ]);
+  assert.deepEqual(s6.chunks.map(({ english }) => english), [
+    "although",
+    "the garden did not solve every environmental problem",
+    "it changed",
+    "how people thought about shared space",
+  ]);
+  assert.deepEqual(s7.chunks.map(({ english }) => english), [
+    "it showed that",
+    "a simple local project",
+    "can influence daily habits",
+    "when people feel that the change belongs to them",
+  ]);
+  [s5, s6, s7].forEach((lesson) => {
+    assert.equal(
+      lesson.compositionTasks.at(-1).answer,
+      sentenceById.get(lesson.sentenceId).english
+    );
+  });
+  assert.equal(experimentData.sessionVersion, 3);
+  assert.equal(experimentData.meaningChunkProfile.version, 2);
+  assert.equal(
+    experimentData.meaningChunkProfile.lessonCoverage,
+    "complete"
+  );
+  assert.deepEqual(
+    experimentData.meaningChunkLessons.map((lesson) => lesson.sentenceId),
+    ["S1", "S2", "S3", "S4", "S5", "S6", "S7"]
+  );
+  assert.equal(
+    experiment.sentenceTaskGroups.every((group) =>
+      group.every(
+        (task) => task.meaningChunk || Array.isArray(task.usesChunks)
+      )
+    ),
+    true
+  );
+  assert.equal(
+    experiment.tasks.some((task) => /^S[1-7]-\d+$/.test(task.id)),
+    false
+  );
+});
+
 test("supports a course-level audio extension", () => {
   const audioCourse = buildLessonCourse({
     id: "audio-demo",
@@ -368,6 +435,10 @@ test("builds a meaning chunk i+1 experiment while keeping unmigrated legacy sent
     ...experimentData,
     sessionVersion: 2,
     practiceProfile: "meaning-chunk-i-plus-one",
+    meaningChunkProfile: {
+      ...experimentData.meaningChunkProfile,
+      lessonCoverage: "partial",
+    },
     meaningChunkLessons: [
       {
         id: "S1-meaning-chunks",

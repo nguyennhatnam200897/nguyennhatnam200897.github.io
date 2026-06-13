@@ -183,7 +183,7 @@ function buildPracticePolicy(practiceProfile) {
       mode: "frontier-rollback",
       meaningChunkMastery: true,
       minCorrect: 2,
-      requiresInterleavedCorrect: true,
+      requiresInterleavedCorrect: false,
       repairCorrectCount: 1,
     };
   }

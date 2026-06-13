@@ -4,14 +4,15 @@
   "level": "B2",
   "topic": "Đời sống đô thị và dự án môi trường nhỏ",
   "description": "Bản thử nghiệm i+1 theo cụm nghĩa: học từng cụm có vai trò rõ ràng, rồi ghép thành ý dài hơn.",
-  "sessionVersion": 2,
+  "sessionVersion": 3,
   "practiceProfile": "meaning-chunk-i-plus-one",
   "meaningChunkProfile": {
-    "version": 1,
-    "scriptSpec": "docs/superpowers/specs/2026-06-12-sentence-1-meaning-chunk-learning-script.md",
+    "version": 2,
+    "lessonCoverage": "complete",
+    "scriptSpec": "docs/superpowers/specs/2026-06-13-complete-gentle-meaning-chunk-course-design.md",
     "masteryRule": {
       "minCorrect": 2,
-      "requiresInterleavedCorrect": true,
+      "requiresInterleavedCorrect": false,
       "requiresUseInLongerMeaning": true
     }
   },
@@ -1378,6 +1379,754 @@
             "commonWrongAnswers": ["within a few months"]
           },
           "message": "Câu hoàn chỉnh cần however để đổi hướng so với lo ngại trước đó."
+        }
+      ]
+    },
+    {
+      "id": "S5-meaning-chunks",
+      "sentenceId": "S5",
+      "overview": {
+        "title": "Mình sẽ xây câu này từ các cụm nghĩa",
+        "summary": [
+          "Câu này nói dự án đã khuyến khích các cửa hàng làm hai việc.",
+          "Mình sẽ học khung khuyến khích ai làm gì và từng hành động.",
+          "Sau đó mình sẽ ghép hai hành động vào cùng một câu."
+        ],
+        "graded": false
+      },
+      "chunks": [
+        {
+          "id": "S5-C01",
+          "english": "the project",
+          "vietnamese": "dự án này",
+          "chunkType": "actor",
+          "roleQuestion": "Điều gì tạo ảnh hưởng?",
+          "whenNeeded": "Khi muốn nói về dự án cụ thể đang được nhắc tới.",
+          "roleMeaning": "Cụm này nêu điều tạo ra sự khuyến khích.",
+          "successMessage": "Bạn đã có cụm chủ thể: the project.",
+          "iPlusOneSteps": [
+            {
+              "id": "S5-C01-STEP01",
+              "prompt": "dự án",
+              "answer": "project",
+              "audioId": "S3-04",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S5-C01-STEP02",
+              "prompt": "dự án đã được xác định",
+              "answer": "the project",
+              "audioId": "S3-05",
+              "purpose": "Thêm the vì đây là dự án đang được nói tới."
+            }
+          ]
+        },
+        {
+          "id": "S5-C02",
+          "english": "also encouraged nearby shops to",
+          "vietnamese": "cũng khuyến khích các cửa hàng gần đó làm",
+          "chunkType": "encouragement-frame",
+          "roleQuestion": "Đã khuyến khích ai làm gì?",
+          "whenNeeded": "Khi muốn nói thêm rằng ai đó đã khuyến khích một nhóm thực hiện hành động.",
+          "roleMeaning": "Cụm này mở khung người được khuyến khích và hành động phía sau.",
+          "successMessage": "Bạn đã có khung also encouraged ... to ....",
+          "iPlusOneSteps": [
+            {
+              "id": "S5-C02-STEP01",
+              "prompt": "cửa hàng",
+              "answer": "shop",
+              "audioId": "S5-01",
+              "purpose": "Tạo mỏ neo nghĩa cho một cửa hàng."
+            },
+            {
+              "id": "S5-C02-STEP02",
+              "prompt": "các cửa hàng",
+              "answer": "shops",
+              "audioId": "S5-02",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S5-C02-STEP03",
+              "prompt": "các cửa hàng gần đó",
+              "answer": "nearby shops",
+              "audioId": "S5-03",
+              "purpose": "Thêm vị trí gần dự án."
+            },
+            {
+              "id": "S5-C02-STEP04",
+              "prompt": "đã khuyến khích các cửa hàng gần đó",
+              "answer": "encouraged nearby shops",
+              "purpose": "Thêm hành động khuyến khích."
+            },
+            {
+              "id": "S5-C02-STEP05",
+              "prompt": "đã khuyến khích các cửa hàng gần đó làm",
+              "answer": "encouraged nearby shops to",
+              "purpose": "Thêm to để mở hành động phía sau."
+            },
+            {
+              "id": "S5-C02-STEP06",
+              "prompt": "cũng khuyến khích các cửa hàng gần đó làm",
+              "answer": "also encouraged nearby shops to",
+              "purpose": "Thêm also để nối với tác động trước đó của dự án."
+            }
+          ]
+        },
+        {
+          "id": "S5-C03",
+          "english": "use fewer plastic bags",
+          "vietnamese": "sử dụng ít túi nhựa hơn",
+          "chunkType": "action",
+          "roleQuestion": "Hành động thứ nhất?",
+          "whenNeeded": "Khi muốn nói về việc giảm số lượng túi nhựa được sử dụng.",
+          "roleMeaning": "Cụm này nêu hành động đầu tiên các cửa hàng được khuyến khích làm.",
+          "successMessage": "Bạn đã có hành động thứ nhất: use fewer plastic bags.",
+          "iPlusOneSteps": [
+            {
+              "id": "S5-C03-STEP01",
+              "prompt": "túi",
+              "answer": "bag",
+              "audioId": "S5-04",
+              "purpose": "Tạo mỏ neo nghĩa cho một túi."
+            },
+            {
+              "id": "S5-C03-STEP02",
+              "prompt": "các túi",
+              "answer": "bags",
+              "audioId": "S5-05",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S5-C03-STEP03",
+              "prompt": "các túi nhựa",
+              "answer": "plastic bags",
+              "audioId": "S5-06",
+              "purpose": "Xác định loại túi."
+            },
+            {
+              "id": "S5-C03-STEP04",
+              "prompt": "ít túi nhựa hơn",
+              "answer": "fewer plastic bags",
+              "audioId": "S5-07",
+              "purpose": "Dùng fewer với danh từ đếm được số nhiều."
+            },
+            {
+              "id": "S5-C03-STEP05",
+              "prompt": "sử dụng ít túi nhựa hơn",
+              "answer": "use fewer plastic bags",
+              "purpose": "Thêm hành động use để hoàn chỉnh cụm."
+            }
+          ]
+        },
+        {
+          "id": "S5-C04",
+          "english": "and to place recycling bins outside their doors",
+          "vietnamese": "và đặt các thùng tái chế bên ngoài cửa hàng của họ",
+          "chunkType": "added-action",
+          "roleQuestion": "Hành động thứ hai?",
+          "whenNeeded": "Khi muốn nối hành động thứ hai vào cùng khung encouraged ... to ....",
+          "roleMeaning": "Cụm này thêm hành động đặt thùng tái chế và giữ to song song với hành động đầu.",
+          "successMessage": "Bạn đã có hành động thứ hai với cấu trúc song song and to place.",
+          "iPlusOneSteps": [
+            {
+              "id": "S5-C04-STEP01",
+              "prompt": "thùng",
+              "answer": "bin",
+              "audioId": "S5-09",
+              "purpose": "Tạo mỏ neo nghĩa cho một thùng."
+            },
+            {
+              "id": "S5-C04-STEP02",
+              "prompt": "các thùng",
+              "answer": "bins",
+              "audioId": "S5-10",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S5-C04-STEP03",
+              "prompt": "các thùng tái chế",
+              "answer": "recycling bins",
+              "audioId": "S5-11",
+              "purpose": "Xác định chức năng tái chế."
+            },
+            {
+              "id": "S5-C04-STEP04",
+              "prompt": "cánh cửa",
+              "answer": "door",
+              "audioId": "S5-12",
+              "purpose": "Tạo mỏ neo nghĩa cho một cửa."
+            },
+            {
+              "id": "S5-C04-STEP05",
+              "prompt": "các cánh cửa",
+              "answer": "doors",
+              "audioId": "S5-13",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S5-C04-STEP06",
+              "prompt": "các cửa của họ",
+              "answer": "their doors",
+              "audioId": "S5-14",
+              "purpose": "Thêm quan hệ sở hữu."
+            },
+            {
+              "id": "S5-C04-STEP07",
+              "prompt": "bên ngoài các cửa của họ",
+              "answer": "outside their doors",
+              "audioId": "S5-15",
+              "purpose": "Thêm vị trí đặt thùng."
+            },
+            {
+              "id": "S5-C04-STEP08",
+              "prompt": "đặt các thùng tái chế",
+              "answer": "place recycling bins",
+              "purpose": "Thêm hành động place."
+            },
+            {
+              "id": "S5-C04-STEP09",
+              "prompt": "đặt các thùng tái chế bên ngoài cửa của họ",
+              "answer": "place recycling bins outside their doors",
+              "purpose": "Ghép hành động với vị trí."
+            },
+            {
+              "id": "S5-C04-STEP10",
+              "prompt": "và đặt các thùng tái chế bên ngoài cửa của họ",
+              "answer": "and to place recycling bins outside their doors",
+              "purpose": "Thêm and to để giữ cấu trúc song song."
+            }
+          ]
+        }
+      ],
+      "compositionTasks": [
+        {
+          "id": "S5-M01",
+          "prompt": "cũng khuyến khích các cửa hàng gần đó sử dụng ít túi nhựa hơn",
+          "answer": "also encouraged nearby shops to use fewer plastic bags",
+          "usesChunks": ["S5-C02", "S5-C03"],
+          "masteryCredit": ["S5-C02", "S5-C03"],
+          "roleLine": [
+            { "roleQuestion": "Đã khuyến khích ai làm gì?", "chunkId": "S5-C02", "english": "also encouraged nearby shops to" },
+            { "roleQuestion": "Hành động thứ nhất?", "chunkId": "S5-C03", "english": "use fewer plastic bags" }
+          ],
+          "successMessage": "Bạn đã ghép khung khuyến khích với hành động thứ nhất."
+        },
+        {
+          "id": "S5-M02",
+          "prompt": "sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa của họ",
+          "answer": "use fewer plastic bags and to place recycling bins outside their doors",
+          "usesChunks": ["S5-C03", "S5-C04"],
+          "masteryCredit": ["S5-C03", "S5-C04"],
+          "roleLine": [
+            { "roleQuestion": "Hành động thứ nhất?", "chunkId": "S5-C03", "english": "use fewer plastic bags" },
+            { "roleQuestion": "Hành động thứ hai?", "chunkId": "S5-C04", "english": "and to place recycling bins outside their doors" }
+          ],
+          "successMessage": "Bạn đã ghép được hai hành động song song."
+        },
+        {
+          "id": "S5-M03",
+          "stage": "sentence",
+          "prompt": "Dự án này cũng khuyến khích các cửa hàng gần đó sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa hàng của họ.",
+          "answer": "The project also encouraged nearby shops to use fewer plastic bags and to place recycling bins outside their doors.",
+          "audioId": "S5-21",
+          "usesChunks": ["S5-C01", "S5-C02", "S5-C03", "S5-C04"],
+          "masteryCredit": ["S5-C01", "S5-C02", "S5-C03", "S5-C04"],
+          "roleLine": [
+            { "roleQuestion": "Điều gì tạo ảnh hưởng?", "chunkId": "S5-C01", "english": "the project" },
+            { "roleQuestion": "Đã khuyến khích ai làm gì?", "chunkId": "S5-C02", "english": "also encouraged nearby shops to" },
+            { "roleQuestion": "Hành động thứ nhất?", "chunkId": "S5-C03", "english": "use fewer plastic bags" },
+            { "roleQuestion": "Hành động thứ hai?", "chunkId": "S5-C04", "english": "and to place recycling bins outside their doors" }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu với hai hành động được khuyến khích."
+        }
+      ],
+      "repairRules": [
+        {
+          "id": "S5-R01",
+          "appliesTo": ["S5-M01", "S5-M03"],
+          "chunkId": "S5-C02",
+          "detect": {
+            "commonWrongAnswers": ["nearby shop", "encouraged nearby shop to"]
+          },
+          "message": "Cụm cần sửa dùng shops ở số nhiều: các cửa hàng gần đó."
+        },
+        {
+          "id": "S5-R02",
+          "appliesTo": ["S5-M01", "S5-M02", "S5-M03"],
+          "chunkId": "S5-C03",
+          "detect": {
+            "commonWrongAnswers": ["fewer plastic bag", "less plastic bags"]
+          },
+          "message": "Cụm cần sửa dùng fewer với bags ở số nhiều."
+        },
+        {
+          "id": "S5-R03",
+          "appliesTo": ["S5-M02", "S5-M03"],
+          "chunkId": "S5-C04",
+          "detect": {
+            "commonWrongAnswers": ["and place recycling bins", "and to place recycling bin"]
+          },
+          "message": "Cụm cần sửa giữ to trước place và bins ở số nhiều."
+        },
+        {
+          "id": "S5-R04",
+          "appliesTo": ["S5-M02", "S5-M03"],
+          "chunkId": "S5-C04",
+          "detect": {
+            "commonWrongAnswers": ["outside their door"]
+          },
+          "message": "Cụm cần sửa dùng doors ở số nhiều: bên ngoài các cửa của họ."
+        },
+        {
+          "id": "S5-R05",
+          "appliesTo": ["S5-M03"],
+          "chunkId": "S5-C01",
+          "detect": {
+            "commonWrongAnswers": ["project also encouraged"]
+          },
+          "message": "Câu này nói về dự án đã được xác định, nên cần the project."
+        }
+      ]
+    },
+    {
+      "id": "S6-meaning-chunks",
+      "sentenceId": "S6",
+      "overview": {
+        "title": "Mình sẽ xây câu này từ các cụm nghĩa",
+        "summary": [
+          "Câu này thừa nhận một giới hạn rồi nêu thay đổi tích cực.",
+          "Mình sẽ học điều khu vườn không giải quyết và điều nó đã thay đổi.",
+          "Sau đó mình sẽ nối hai ý bằng although."
+        ],
+        "graded": false
+      },
+      "chunks": [
+        {
+          "id": "S6-C01",
+          "english": "although",
+          "vietnamese": "mặc dù",
+          "chunkType": "concession-linker",
+          "roleQuestion": "Quan hệ nhượng bộ?",
+          "whenNeeded": "Khi muốn thừa nhận một giới hạn trước khi nêu kết quả khác.",
+          "roleMeaning": "Cụm này báo hiệu ý sau vẫn đúng dù ý trước là một hạn chế.",
+          "successMessage": "Bạn đã có từ nối nhượng bộ: although.",
+          "iPlusOneSteps": [
+            {
+              "id": "S6-C01-STEP01",
+              "prompt": "mặc dù",
+              "answer": "although",
+              "purpose": "Nắm từ nối mở ý nhượng bộ."
+            }
+          ]
+        },
+        {
+          "id": "S6-C02",
+          "english": "the garden did not solve every environmental problem",
+          "vietnamese": "khu vườn không giải quyết mọi vấn đề môi trường",
+          "chunkType": "limitation",
+          "roleQuestion": "Điều gì không được giải quyết hết?",
+          "whenNeeded": "Khi muốn nói khu vườn không thể giải quyết tất cả vấn đề môi trường.",
+          "roleMeaning": "Cụm này nêu giới hạn được thừa nhận trước kết quả tích cực.",
+          "successMessage": "Bạn đã diễn đạt được giới hạn của khu vườn.",
+          "iPlusOneSteps": [
+            {
+              "id": "S6-C02-STEP01",
+              "prompt": "vấn đề",
+              "answer": "problem",
+              "audioId": "S6-01",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S6-C02-STEP02",
+              "prompt": "vấn đề môi trường",
+              "answer": "environmental problem",
+              "audioId": "S6-02",
+              "purpose": "Xác định loại vấn đề."
+            },
+            {
+              "id": "S6-C02-STEP03",
+              "prompt": "mọi vấn đề môi trường",
+              "answer": "every environmental problem",
+              "audioId": "S6-03",
+              "purpose": "Thêm every với danh từ số ít."
+            },
+            {
+              "id": "S6-C02-STEP04",
+              "prompt": "đã không giải quyết mọi vấn đề môi trường",
+              "answer": "did not solve every environmental problem",
+              "purpose": "Thêm phủ định quá khứ did not solve."
+            },
+            {
+              "id": "S6-C02-STEP05",
+              "prompt": "khu vườn không giải quyết mọi vấn đề môi trường",
+              "answer": "the garden did not solve every environmental problem",
+              "audioId": "S6-04",
+              "purpose": "Thêm chủ thể để hoàn chỉnh giới hạn."
+            }
+          ]
+        },
+        {
+          "id": "S6-C03",
+          "english": "it changed",
+          "vietnamese": "nó đã thay đổi",
+          "chunkType": "main-action",
+          "roleQuestion": "Điều gì đã xảy ra thay vào đó?",
+          "whenNeeded": "Khi muốn chuyển từ giới hạn sang tác động thực tế của khu vườn.",
+          "roleMeaning": "Cụm này mở ý chính về điều khu vườn đã thay đổi.",
+          "successMessage": "Bạn đã mở được ý chính: it changed.",
+          "iPlusOneSteps": [
+            {
+              "id": "S6-C03-STEP01",
+              "prompt": "đã thay đổi",
+              "answer": "changed",
+              "purpose": "Nắm hành động trong quá khứ."
+            },
+            {
+              "id": "S6-C03-STEP02",
+              "prompt": "nó đã thay đổi",
+              "answer": "it changed",
+              "purpose": "Thêm đại từ chỉ khu vườn."
+            }
+          ]
+        },
+        {
+          "id": "S6-C04",
+          "english": "how people thought about shared space",
+          "vietnamese": "cách mọi người nghĩ về không gian chung",
+          "chunkType": "changed-idea",
+          "roleQuestion": "Thay đổi điều gì?",
+          "whenNeeded": "Khi muốn nói sự thay đổi nằm ở cách mọi người suy nghĩ.",
+          "roleMeaning": "Cụm này nêu chính xác điều đã thay đổi trong nhận thức.",
+          "successMessage": "Bạn đã có cụm nêu cách suy nghĩ được thay đổi.",
+          "iPlusOneSteps": [
+            {
+              "id": "S6-C04-STEP01",
+              "prompt": "không gian chung",
+              "answer": "shared space",
+              "audioId": "S6-05",
+              "purpose": "Tạo mỏ neo nghĩa cho đối tượng suy nghĩ."
+            },
+            {
+              "id": "S6-C04-STEP02",
+              "prompt": "mọi người nghĩ về không gian chung",
+              "answer": "people thought about shared space",
+              "audioId": "S6-06",
+              "purpose": "Thêm người suy nghĩ và hành động trong quá khứ."
+            },
+            {
+              "id": "S6-C04-STEP03",
+              "prompt": "cách mọi người nghĩ về không gian chung",
+              "answer": "how people thought about shared space",
+              "audioId": "S6-07",
+              "purpose": "Thêm how để biến ý thành điều được thay đổi."
+            }
+          ]
+        }
+      ],
+      "compositionTasks": [
+        {
+          "id": "S6-M01",
+          "prompt": "nó đã thay đổi cách mọi người nghĩ về không gian chung",
+          "answer": "it changed how people thought about shared space",
+          "audioId": "S6-08",
+          "usesChunks": ["S6-C03", "S6-C04"],
+          "masteryCredit": ["S6-C03", "S6-C04"],
+          "roleLine": [
+            { "roleQuestion": "Điều gì đã xảy ra thay vào đó?", "chunkId": "S6-C03", "english": "it changed" },
+            { "roleQuestion": "Thay đổi điều gì?", "chunkId": "S6-C04", "english": "how people thought about shared space" }
+          ],
+          "successMessage": "Bạn đã ghép được tác động thực tế của khu vườn."
+        },
+        {
+          "id": "S6-M02",
+          "stage": "sentence",
+          "prompt": "Mặc dù khu vườn không giải quyết mọi vấn đề môi trường, nó đã thay đổi cách mọi người nghĩ về không gian chung.",
+          "answer": "Although the garden did not solve every environmental problem, it changed how people thought about shared space.",
+          "audioId": "S6-09",
+          "usesChunks": ["S6-C01", "S6-C02", "S6-C03", "S6-C04"],
+          "masteryCredit": ["S6-C01", "S6-C02", "S6-C03", "S6-C04"],
+          "roleLine": [
+            { "roleQuestion": "Quan hệ nhượng bộ?", "chunkId": "S6-C01", "english": "although" },
+            { "roleQuestion": "Điều gì không được giải quyết hết?", "chunkId": "S6-C02", "english": "the garden did not solve every environmental problem" },
+            { "roleQuestion": "Điều gì đã xảy ra thay vào đó?", "chunkId": "S6-C03", "english": "it changed" },
+            { "roleQuestion": "Thay đổi điều gì?", "chunkId": "S6-C04", "english": "how people thought about shared space" }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu nhượng bộ: có giới hạn nhưng vẫn có tác động."
+        }
+      ],
+      "repairRules": [
+        {
+          "id": "S6-R01",
+          "appliesTo": ["S6-M02"],
+          "chunkId": "S6-C01",
+          "detect": {
+            "commonWrongAnswers": ["the garden did not solve"]
+          },
+          "message": "Câu hoàn chỉnh cần although để mở ý nhượng bộ."
+        },
+        {
+          "id": "S6-R02",
+          "appliesTo": ["S6-M02"],
+          "chunkId": "S6-C02",
+          "detect": {
+            "commonWrongAnswers": ["all environmental problems", "the garden solved every environmental problem"]
+          },
+          "message": "Cụm cần sửa giữ did not và dùng every environmental problem."
+        },
+        {
+          "id": "S6-R03",
+          "appliesTo": ["S6-M01", "S6-M02"],
+          "chunkId": "S6-C04",
+          "detect": {
+            "commonWrongAnswers": ["people thought about shared space"]
+          },
+          "message": "Cụm cần sửa giữ how: thay đổi cách mọi người suy nghĩ."
+        }
+      ]
+    },
+    {
+      "id": "S7-meaning-chunks",
+      "sentenceId": "S7",
+      "overview": {
+        "title": "Mình sẽ xây câu này từ các cụm nghĩa",
+        "summary": [
+          "Câu cuối rút ra bài học từ dự án địa phương.",
+          "Mình sẽ học điều gì có thể ảnh hưởng đến thói quen và điều kiện để ảnh hưởng đó xảy ra.",
+          "Sau đó mình sẽ mở toàn bộ kết luận bằng it showed that."
+        ],
+        "graded": false
+      },
+      "chunks": [
+        {
+          "id": "S7-C01",
+          "english": "it showed that",
+          "vietnamese": "nó cho thấy rằng",
+          "chunkType": "conclusion-frame",
+          "roleQuestion": "Điều gì được rút ra?",
+          "whenNeeded": "Khi muốn giới thiệu bài học hoặc kết luận được rút ra từ một sự việc.",
+          "roleMeaning": "Cụm này mở nội dung kết luận của toàn bài.",
+          "successMessage": "Bạn đã có khung rút ra kết luận: it showed that.",
+          "iPlusOneSteps": [
+            {
+              "id": "S7-C01-STEP01",
+              "prompt": "đã cho thấy",
+              "answer": "showed",
+              "purpose": "Nắm hành động rút ra từ quá khứ."
+            },
+            {
+              "id": "S7-C01-STEP02",
+              "prompt": "đã cho thấy rằng",
+              "answer": "showed that",
+              "purpose": "Thêm that để mở nội dung kết luận."
+            },
+            {
+              "id": "S7-C01-STEP03",
+              "prompt": "nó cho thấy rằng",
+              "answer": "it showed that",
+              "purpose": "Thêm chủ thể chỉ toàn bộ câu chuyện trước đó."
+            }
+          ]
+        },
+        {
+          "id": "S7-C02",
+          "english": "a simple local project",
+          "vietnamese": "một dự án địa phương đơn giản",
+          "chunkType": "actor",
+          "roleQuestion": "Cái gì có thể tạo ảnh hưởng?",
+          "whenNeeded": "Khi muốn nói về một dự án nhỏ, đơn giản ở địa phương.",
+          "roleMeaning": "Cụm này nêu điều có khả năng tạo ảnh hưởng.",
+          "successMessage": "Bạn đã có cụm chủ thể: a simple local project.",
+          "iPlusOneSteps": [
+            {
+              "id": "S7-C02-STEP01",
+              "prompt": "dự án địa phương",
+              "answer": "local project",
+              "audioId": "S7-01",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S7-C02-STEP02",
+              "prompt": "dự án địa phương đơn giản",
+              "answer": "simple local project",
+              "audioId": "S7-02",
+              "purpose": "Thêm đặc điểm đơn giản."
+            },
+            {
+              "id": "S7-C02-STEP03",
+              "prompt": "một dự án địa phương đơn giản",
+              "answer": "a simple local project",
+              "audioId": "S7-03",
+              "purpose": "Thêm mạo từ để hoàn chỉnh cụm."
+            }
+          ]
+        },
+        {
+          "id": "S7-C03",
+          "english": "can influence daily habits",
+          "vietnamese": "có thể ảnh hưởng đến thói quen hằng ngày",
+          "chunkType": "influence",
+          "roleQuestion": "Có thể ảnh hưởng điều gì?",
+          "whenNeeded": "Khi muốn nói một việc có khả năng tác động đến thói quen thường ngày.",
+          "roleMeaning": "Cụm này nêu khả năng và đối tượng bị ảnh hưởng.",
+          "successMessage": "Bạn đã có cụm tác động: can influence daily habits.",
+          "iPlusOneSteps": [
+            {
+              "id": "S7-C03-STEP01",
+              "prompt": "thói quen",
+              "answer": "habit",
+              "audioId": "S7-04",
+              "purpose": "Tạo mỏ neo nghĩa cho một thói quen."
+            },
+            {
+              "id": "S7-C03-STEP02",
+              "prompt": "các thói quen",
+              "answer": "habits",
+              "audioId": "S7-05",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S7-C03-STEP03",
+              "prompt": "thói quen hằng ngày",
+              "answer": "daily habits",
+              "audioId": "S7-06",
+              "purpose": "Thêm phạm vi hằng ngày."
+            },
+            {
+              "id": "S7-C03-STEP04",
+              "prompt": "ảnh hưởng đến thói quen hằng ngày",
+              "answer": "influence daily habits",
+              "purpose": "Thêm hành động ảnh hưởng."
+            },
+            {
+              "id": "S7-C03-STEP05",
+              "prompt": "có thể ảnh hưởng đến thói quen hằng ngày",
+              "answer": "can influence daily habits",
+              "purpose": "Thêm can để hoàn chỉnh khả năng."
+            }
+          ]
+        },
+        {
+          "id": "S7-C04",
+          "english": "when people feel that the change belongs to them",
+          "vietnamese": "khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
+          "chunkType": "condition",
+          "roleQuestion": "Khi nào ảnh hưởng đó xảy ra?",
+          "whenNeeded": "Khi muốn nêu điều kiện để một thay đổi tác động đến thói quen.",
+          "roleMeaning": "Cụm này cho biết ảnh hưởng xảy ra khi mọi người cảm thấy có sự sở hữu.",
+          "successMessage": "Bạn đã có điều kiện với when và belongs to them.",
+          "iPlusOneSteps": [
+            {
+              "id": "S7-C04-STEP01",
+              "prompt": "sự thay đổi đó",
+              "answer": "the change",
+              "audioId": "S7-08",
+              "purpose": "Tạo mỏ neo nghĩa cho sự thay đổi cụ thể."
+            },
+            {
+              "id": "S7-C04-STEP02",
+              "prompt": "sự thay đổi đó thuộc về họ",
+              "answer": "the change belongs to them",
+              "audioId": "S7-09",
+              "purpose": "Thêm quan hệ thuộc về với belongs."
+            },
+            {
+              "id": "S7-C04-STEP03",
+              "prompt": "mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
+              "answer": "people feel that the change belongs to them",
+              "audioId": "S7-10",
+              "purpose": "Thêm cảm nhận của mọi người."
+            },
+            {
+              "id": "S7-C04-STEP04",
+              "prompt": "khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
+              "answer": "when people feel that the change belongs to them",
+              "audioId": "S7-11",
+              "purpose": "Thêm when để biến ý thành điều kiện."
+            }
+          ]
+        }
+      ],
+      "compositionTasks": [
+        {
+          "id": "S7-M01",
+          "prompt": "một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày",
+          "answer": "a simple local project can influence daily habits",
+          "audioId": "S7-07",
+          "usesChunks": ["S7-C02", "S7-C03"],
+          "masteryCredit": ["S7-C02", "S7-C03"],
+          "roleLine": [
+            { "roleQuestion": "Cái gì có thể tạo ảnh hưởng?", "chunkId": "S7-C02", "english": "a simple local project" },
+            { "roleQuestion": "Có thể ảnh hưởng điều gì?", "chunkId": "S7-C03", "english": "can influence daily habits" }
+          ],
+          "successMessage": "Bạn đã ghép được điều tạo ảnh hưởng và điều bị ảnh hưởng."
+        },
+        {
+          "id": "S7-M02",
+          "prompt": "một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
+          "answer": "a simple local project can influence daily habits when people feel that the change belongs to them",
+          "audioId": "S7-12",
+          "usesChunks": ["S7-C02", "S7-C03", "S7-C04"],
+          "masteryCredit": ["S7-C02", "S7-C03", "S7-C04"],
+          "roleLine": [
+            { "roleQuestion": "Cái gì có thể tạo ảnh hưởng?", "chunkId": "S7-C02", "english": "a simple local project" },
+            { "roleQuestion": "Có thể ảnh hưởng điều gì?", "chunkId": "S7-C03", "english": "can influence daily habits" },
+            { "roleQuestion": "Khi nào ảnh hưởng đó xảy ra?", "chunkId": "S7-C04", "english": "when people feel that the change belongs to them" }
+          ],
+          "successMessage": "Bạn đã thêm được điều kiện để dự án ảnh hưởng đến thói quen."
+        },
+        {
+          "id": "S7-M03",
+          "stage": "sentence",
+          "prompt": "Nó cho thấy rằng một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ.",
+          "answer": "It showed that a simple local project can influence daily habits when people feel that the change belongs to them.",
+          "audioId": "S7-13",
+          "usesChunks": ["S7-C01", "S7-C02", "S7-C03", "S7-C04"],
+          "masteryCredit": ["S7-C01", "S7-C02", "S7-C03", "S7-C04"],
+          "roleLine": [
+            { "roleQuestion": "Điều gì được rút ra?", "chunkId": "S7-C01", "english": "it showed that" },
+            { "roleQuestion": "Cái gì có thể tạo ảnh hưởng?", "chunkId": "S7-C02", "english": "a simple local project" },
+            { "roleQuestion": "Có thể ảnh hưởng điều gì?", "chunkId": "S7-C03", "english": "can influence daily habits" },
+            { "roleQuestion": "Khi nào ảnh hưởng đó xảy ra?", "chunkId": "S7-C04", "english": "when people feel that the change belongs to them" }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu kết luận và toàn bộ bảy câu của bài."
+        }
+      ],
+      "repairRules": [
+        {
+          "id": "S7-R01",
+          "appliesTo": ["S7-M03"],
+          "chunkId": "S7-C01",
+          "detect": {
+            "commonWrongAnswers": ["it showed a simple local project", "it showed a"]
+          },
+          "message": "Khung kết luận cần that sau showed: it showed that."
+        },
+        {
+          "id": "S7-R02",
+          "appliesTo": ["S7-M01", "S7-M02", "S7-M03"],
+          "chunkId": "S7-C03",
+          "detect": {
+            "commonWrongAnswers": ["daily habit", "influence daily habit"]
+          },
+          "message": "Cụm cần sửa dùng habits ở số nhiều: thói quen hằng ngày."
+        },
+        {
+          "id": "S7-R03",
+          "appliesTo": ["S7-M02", "S7-M03"],
+          "chunkId": "S7-C04",
+          "detect": {
+            "commonWrongAnswers": ["people feel that the change belongs to them"]
+          },
+          "message": "Cụm điều kiện cần when ở đầu."
+        },
+        {
+          "id": "S7-R04",
+          "appliesTo": ["S7-M02", "S7-M03"],
+          "chunkId": "S7-C04",
+          "detect": {
+            "commonWrongAnswers": ["the change belong to them"]
+          },
+          "message": "Chủ thể the change là số ít, nên cần belongs."
         }
       ]
     }
