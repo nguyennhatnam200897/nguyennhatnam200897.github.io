@@ -321,3 +321,81 @@ test("rollback targets match a singular word inside its plural form", () => {
     { taskId: "C1-C01-STEP01", start: 0, end: 1 },
   ]);
 });
+
+test("composition rollback targets support nested meaning chunks", () => {
+  const [tasks] = buildMeaningChunkTaskGroups([
+    {
+      id: "S2-meaning-chunks",
+      sentenceId: "S2",
+      chunks: [
+        {
+          id: "S2-C03",
+          english: "an empty parking lot",
+          vietnamese: "một bãi đỗ xe trống",
+          chunkType: "object",
+          roleQuestion: "Cái gì được thay đổi?",
+          whenNeeded: "Khi nói về một bãi đỗ xe trống.",
+          roleMeaning: "Cụm này nêu vật được thay đổi.",
+          iPlusOneSteps: [
+            {
+              id: "S2-C03-FINAL",
+              prompt: "một bãi đỗ xe trống",
+              answer: "an empty parking lot",
+            },
+          ],
+        },
+        {
+          id: "S2-C04",
+          english: "a small public garden",
+          vietnamese: "một khu vườn công cộng nhỏ",
+          chunkType: "result",
+          roleQuestion: "Trở thành cái gì?",
+          whenNeeded: "Khi nói về một khu vườn công cộng nhỏ.",
+          roleMeaning: "Cụm này nêu kết quả.",
+          iPlusOneSteps: [
+            {
+              id: "S2-C04-FINAL",
+              prompt: "một khu vườn công cộng nhỏ",
+              answer: "a small public garden",
+            },
+          ],
+        },
+        {
+          id: "S2-C05",
+          english: "turned an empty parking lot into a small public garden",
+          vietnamese:
+            "đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
+          chunkType: "change-frame",
+          roleQuestion: "Đã biến cái gì thành cái gì?",
+          whenNeeded: "Khi mô tả một sự chuyển đổi.",
+          roleMeaning: "Cụm này nối vật ban đầu với kết quả.",
+          iPlusOneSteps: [
+            {
+              id: "S2-C05-FINAL",
+              prompt:
+                "đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
+              answer:
+                "turned an empty parking lot into a small public garden",
+            },
+          ],
+        },
+      ],
+      compositionTasks: [
+        {
+          id: "S2-M01",
+          prompt:
+            "hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
+          answer:
+            "the local council turned an empty parking lot into a small public garden",
+          usesChunks: ["S2-C03", "S2-C04", "S2-C05"],
+        },
+      ],
+    },
+  ]);
+
+  assert.deepEqual(tasks.at(-1).rollbackTargets, [
+    { taskId: "S2-C03-FINAL", start: 4, end: 8 },
+    { taskId: "S2-C04-FINAL", start: 9, end: 13 },
+    { taskId: "S2-C05-FINAL", start: 3, end: 13 },
+  ]);
+});

@@ -230,7 +230,9 @@ test("builds the meaning chunk i+1 experiment as a cloned course", async () => {
   assert.equal(course.practicePolicy, undefined);
   assert.equal(course.tasks.some((task) => task.id === "S1-C01-STEP03"), false);
   assert.equal(experiment.tasks.some((task) => task.id === "S1-C01-STEP03"), true);
-  assert.equal(experiment.tasks.some((task) => task.id === "S2-01"), true);
+  assert.equal(experiment.tasks.some((task) => task.id === "S2-01"), false);
+  assert.equal(experiment.tasks.some((task) => task.id === "S2-C01-STEP01"), true);
+  assert.equal(experiment.tasks.some((task) => task.id === "S4-01"), true);
   assert.equal(byId.get("S1-C01-STEP03").answer, "many cities");
   assert.equal(
     byId.get("S1-M03").answer,
@@ -246,6 +248,52 @@ test("builds the meaning chunk i+1 experiment as a cloned course", async () => {
       start: 0,
       end: 2,
     }
+  );
+});
+
+test("defines the approved meaning chunk maps for sentences two and three", async () => {
+  const experimentData = await readCourseData(
+    "../data/courses/small-public-garden-gentle-i1.json"
+  );
+  const sentenceById = new Map(
+    experimentData.sentences.map((sentence) => [sentence.id, sentence])
+  );
+  const lessonBySentenceId = new Map(
+    experimentData.meaningChunkLessons.map((lesson) => [
+      lesson.sentenceId,
+      lesson,
+    ])
+  );
+  const s2 = lessonBySentenceId.get("S2");
+  const s3 = lessonBySentenceId.get("S3");
+
+  assert.deepEqual(
+    s2.chunks.map((chunk) => chunk.english),
+    [
+      "in one neighborhood",
+      "the local council",
+      "an empty parking lot",
+      "a small public garden",
+      "turned an empty parking lot into a small public garden",
+    ]
+  );
+  assert.deepEqual(
+    s3.chunks.map((chunk) => chunk.english),
+    [
+      "at first",
+      "some residents",
+      "complained that",
+      "the project would reduce parking spaces",
+      "and attract noise",
+    ]
+  );
+  assert.equal(
+    s2.compositionTasks.at(-1).answer,
+    sentenceById.get("S2").english
+  );
+  assert.equal(
+    s3.compositionTasks.at(-1).answer,
+    sentenceById.get("S3").english
   );
 });
 

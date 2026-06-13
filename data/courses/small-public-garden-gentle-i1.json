@@ -420,6 +420,547 @@
           "message": "Ý của bạn dễ hiểu, nhưng câu gốc không lặp lại changes ở cuối. Cụm cần dùng: ít gây ấn tượng mạnh nhất."
         }
       ]
+    },
+    {
+      "id": "S2-meaning-chunks",
+      "sentenceId": "S2",
+      "overview": {
+        "title": "Mình sẽ xây câu này từ các cụm nghĩa",
+        "summary": [
+          "Câu này kể về một thay đổi trong khu dân cư.",
+          "Mình sẽ học nơi chốn, người thực hiện, vật ban đầu và kết quả.",
+          "Sau đó mình sẽ ghép thành ý ai đã biến cái gì thành cái gì."
+        ],
+        "graded": false
+      },
+      "chunks": [
+        {
+          "id": "S2-C01",
+          "english": "in one neighborhood",
+          "vietnamese": "ở một khu dân cư",
+          "chunkType": "setting",
+          "roleQuestion": "Ở đâu?",
+          "whenNeeded": "Khi muốn đặt một sự việc vào một khu dân cư cụ thể.",
+          "roleMeaning": "Cụm này cho biết nơi sự thay đổi diễn ra.",
+          "successMessage": "Bạn đã có cụm chỉ nơi chốn: in one neighborhood.",
+          "iPlusOneSteps": [
+            {
+              "id": "S2-C01-STEP01",
+              "prompt": "khu dân cư",
+              "answer": "neighborhood",
+              "audioId": "S2-01",
+              "purpose": "Tạo mỏ neo nghĩa cho nơi chốn."
+            },
+            {
+              "id": "S2-C01-STEP02",
+              "prompt": "một khu dân cư",
+              "answer": "one neighborhood",
+              "audioId": "S2-02",
+              "purpose": "Thêm số lượng một."
+            },
+            {
+              "id": "S2-C01-STEP03",
+              "prompt": "ở một khu dân cư",
+              "answer": "in one neighborhood",
+              "audioId": "S2-03",
+              "purpose": "Thêm giới từ để hoàn chỉnh cụm nơi chốn."
+            }
+          ]
+        },
+        {
+          "id": "S2-C02",
+          "english": "the local council",
+          "vietnamese": "hội đồng địa phương",
+          "chunkType": "actor",
+          "roleQuestion": "Ai thực hiện thay đổi?",
+          "whenNeeded": "Khi muốn nói về hội đồng địa phương đã được xác định trong bối cảnh.",
+          "roleMeaning": "Cụm này nêu người hoặc tổ chức thực hiện hành động.",
+          "successMessage": "Bạn đã có cụm chủ thể: the local council.",
+          "iPlusOneSteps": [
+            {
+              "id": "S2-C02-STEP01",
+              "prompt": "hội đồng",
+              "answer": "council",
+              "audioId": "S2-04",
+              "purpose": "Tạo mỏ neo nghĩa cho tổ chức."
+            },
+            {
+              "id": "S2-C02-STEP02",
+              "prompt": "hội đồng địa phương",
+              "answer": "local council",
+              "audioId": "S2-05",
+              "purpose": "Thêm đặc điểm địa phương."
+            },
+            {
+              "id": "S2-C02-STEP03",
+              "prompt": "hội đồng địa phương đã được xác định",
+              "answer": "the local council",
+              "audioId": "S2-06",
+              "purpose": "Thêm the vì đây là hội đồng cụ thể trong câu chuyện."
+            }
+          ]
+        },
+        {
+          "id": "S2-C03",
+          "english": "an empty parking lot",
+          "vietnamese": "một bãi đỗ xe trống",
+          "chunkType": "changed-object",
+          "roleQuestion": "Cái gì được thay đổi?",
+          "whenNeeded": "Khi muốn nói về một bãi đỗ xe đang trống.",
+          "roleMeaning": "Cụm này nêu vật hoặc nơi ban đầu trước khi được biến đổi.",
+          "successMessage": "Bạn đã có cụm chỉ vật ban đầu: an empty parking lot.",
+          "iPlusOneSteps": [
+            {
+              "id": "S2-C03-STEP01",
+              "prompt": "bãi",
+              "answer": "lot",
+              "audioId": "S2-07",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S2-C03-STEP02",
+              "prompt": "bãi đỗ xe",
+              "answer": "parking lot",
+              "audioId": "S2-08",
+              "purpose": "Thêm chức năng đỗ xe."
+            },
+            {
+              "id": "S2-C03-STEP03",
+              "prompt": "một bãi đỗ xe",
+              "answer": "a parking lot",
+              "audioId": "S2-09",
+              "purpose": "Thêm mạo từ cho một vật chưa xác định."
+            },
+            {
+              "id": "S2-C03-STEP04",
+              "prompt": "bãi đỗ xe trống",
+              "answer": "empty parking lot",
+              "audioId": "S2-13",
+              "purpose": "Thêm trạng thái trống."
+            },
+            {
+              "id": "S2-C03-STEP05",
+              "prompt": "một bãi đỗ xe trống",
+              "answer": "an empty parking lot",
+              "audioId": "S2-14",
+              "purpose": "Dùng an trước âm đầu của empty để hoàn chỉnh cụm."
+            }
+          ]
+        },
+        {
+          "id": "S2-C04",
+          "english": "a small public garden",
+          "vietnamese": "một khu vườn công cộng nhỏ",
+          "chunkType": "result",
+          "roleQuestion": "Trở thành cái gì?",
+          "whenNeeded": "Khi muốn nói về một khu vườn công cộng nhỏ.",
+          "roleMeaning": "Cụm này nêu kết quả sau sự thay đổi.",
+          "successMessage": "Bạn đã có cụm chỉ kết quả: a small public garden.",
+          "iPlusOneSteps": [
+            {
+              "id": "S2-C04-STEP01",
+              "prompt": "khu vườn",
+              "answer": "garden",
+              "audioId": "S2-10",
+              "purpose": "Tạo mỏ neo nghĩa cho kết quả."
+            },
+            {
+              "id": "S2-C04-STEP02",
+              "prompt": "một khu vườn",
+              "answer": "a garden",
+              "audioId": "S2-11",
+              "purpose": "Thêm mạo từ cho một khu vườn."
+            },
+            {
+              "id": "S2-C04-STEP03",
+              "prompt": "khu vườn công cộng",
+              "answer": "public garden",
+              "audioId": "S2-16",
+              "purpose": "Thêm tính chất công cộng."
+            },
+            {
+              "id": "S2-C04-STEP04",
+              "prompt": "khu vườn công cộng nhỏ",
+              "answer": "small public garden",
+              "audioId": "S2-17",
+              "purpose": "Thêm kích thước nhỏ."
+            },
+            {
+              "id": "S2-C04-STEP05",
+              "prompt": "một khu vườn công cộng nhỏ",
+              "answer": "a small public garden",
+              "audioId": "S2-18",
+              "purpose": "Thêm mạo từ để hoàn chỉnh cụm kết quả."
+            }
+          ]
+        },
+        {
+          "id": "S2-C05",
+          "english": "turned an empty parking lot into a small public garden",
+          "vietnamese": "đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
+          "chunkType": "change-frame",
+          "roleQuestion": "Đã biến cái gì thành cái gì?",
+          "whenNeeded": "Khi muốn mô tả một vật hoặc nơi được biến thành một kết quả mới.",
+          "roleMeaning": "Cụm này nối vật ban đầu với kết quả bằng khung turned ... into ....",
+          "successMessage": "Bạn đã có khung chuyển đổi: turned ... into ....",
+          "iPlusOneSteps": [
+            {
+              "id": "S2-C05-STEP01",
+              "prompt": "đã biến một bãi đỗ xe thành một khu vườn",
+              "answer": "turned a parking lot into a garden",
+              "purpose": "Nắm khung turned ... into ... với hai vật đơn giản."
+            },
+            {
+              "id": "S2-C05-STEP02",
+              "prompt": "đã biến một bãi đỗ xe trống thành một khu vườn",
+              "answer": "turned an empty parking lot into a garden",
+              "purpose": "Thêm trạng thái của vật ban đầu."
+            },
+            {
+              "id": "S2-C05-STEP03",
+              "prompt": "đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
+              "answer": "turned an empty parking lot into a small public garden",
+              "purpose": "Thêm đầy đủ kết quả để hoàn chỉnh khung chuyển đổi."
+            }
+          ]
+        }
+      ],
+      "compositionTasks": [
+        {
+          "id": "S2-M01",
+          "prompt": "hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
+          "answer": "the local council turned an empty parking lot into a small public garden",
+          "audioId": "S2-19",
+          "usesChunks": ["S2-C02", "S2-C03", "S2-C04", "S2-C05"],
+          "masteryCredit": ["S2-C02", "S2-C03", "S2-C04", "S2-C05"],
+          "roleLine": [
+            { "roleQuestion": "Ai thực hiện thay đổi?", "chunkId": "S2-C02", "english": "the local council" },
+            { "roleQuestion": "Cái gì được thay đổi?", "chunkId": "S2-C03", "english": "an empty parking lot" },
+            { "roleQuestion": "Trở thành cái gì?", "chunkId": "S2-C04", "english": "a small public garden" },
+            { "roleQuestion": "Đã biến cái gì thành cái gì?", "chunkId": "S2-C05", "english": "turned an empty parking lot into a small public garden" }
+          ],
+          "successMessage": "Bạn đã ghép được ý chính: ai đã biến cái gì thành cái gì."
+        },
+        {
+          "id": "S2-M02",
+          "stage": "sentence",
+          "prompt": "Ở một khu dân cư, hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ.",
+          "answer": "In one neighborhood, the local council turned an empty parking lot into a small public garden.",
+          "audioId": "S2-20",
+          "usesChunks": ["S2-C01", "S2-C02", "S2-C05"],
+          "masteryCredit": ["S2-C01", "S2-C02", "S2-C03", "S2-C04", "S2-C05"],
+          "roleLine": [
+            { "roleQuestion": "Ở đâu?", "chunkId": "S2-C01", "english": "in one neighborhood" },
+            { "roleQuestion": "Ai thực hiện thay đổi?", "chunkId": "S2-C02", "english": "the local council" },
+            { "roleQuestion": "Đã biến cái gì thành cái gì?", "chunkId": "S2-C05", "english": "turned an empty parking lot into a small public garden" }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu về một thay đổi cụ thể trong khu dân cư."
+        }
+      ],
+      "repairRules": [
+        {
+          "id": "S2-R01",
+          "appliesTo": ["S2-M01", "S2-M02"],
+          "chunkId": "S2-C03",
+          "detect": {
+            "commonWrongAnswers": ["a empty parking lot"]
+          },
+          "message": "Cụm cần sửa dùng an trước âm đầu của empty: một bãi đỗ xe trống."
+        },
+        {
+          "id": "S2-R02",
+          "appliesTo": ["S2-M01", "S2-M02"],
+          "chunkId": "S2-C02",
+          "detect": {
+            "commonWrongAnswers": ["local council"]
+          },
+          "message": "Cụm cần sửa: hội đồng địa phương đã được xác định trong bối cảnh."
+        },
+        {
+          "id": "S2-R03",
+          "appliesTo": ["S2-M01", "S2-M02"],
+          "chunkId": "S2-C04",
+          "detect": {
+            "commonWrongAnswers": ["small public garden"]
+          },
+          "message": "Cụm cần sửa: một khu vườn công cộng nhỏ."
+        },
+        {
+          "id": "S2-R04",
+          "appliesTo": ["S2-M01", "S2-M02"],
+          "chunkId": "S2-C05",
+          "detect": {
+            "commonWrongAnswers": ["turned an empty parking lot to a small public garden"]
+          },
+          "message": "Khung cần sửa là turned ... into ...: biến cái gì thành cái gì."
+        }
+      ]
+    },
+    {
+      "id": "S3-meaning-chunks",
+      "sentenceId": "S3",
+      "overview": {
+        "title": "Mình sẽ xây câu này từ các cụm nghĩa",
+        "summary": [
+          "Câu này nói về phản ứng lo ngại lúc ban đầu.",
+          "Mình sẽ học ai phàn nàn, khung complained that và hai điều họ lo.",
+          "Sau đó mình sẽ đặt toàn bộ lời phàn nàn vào đúng thời điểm."
+        ],
+        "graded": false
+      },
+      "chunks": [
+        {
+          "id": "S3-C01",
+          "english": "at first",
+          "vietnamese": "ban đầu",
+          "chunkType": "time",
+          "roleQuestion": "Khi nào?",
+          "whenNeeded": "Khi muốn nói về phản ứng hoặc tình trạng ở giai đoạn đầu.",
+          "roleMeaning": "Cụm này đặt lời phàn nàn vào thời điểm ban đầu.",
+          "successMessage": "Bạn đã có cụm thời gian: at first.",
+          "iPlusOneSteps": [
+            {
+              "id": "S3-C01-STEP01",
+              "prompt": "ban đầu",
+              "answer": "at first",
+              "purpose": "Nắm cụm thời gian mở đầu."
+            }
+          ]
+        },
+        {
+          "id": "S3-C02",
+          "english": "some residents",
+          "vietnamese": "một số cư dân",
+          "chunkType": "actor",
+          "roleQuestion": "Ai phàn nàn?",
+          "whenNeeded": "Khi muốn nói một bộ phận cư dân, không phải tất cả.",
+          "roleMeaning": "Cụm này nêu nhóm người có phản ứng.",
+          "successMessage": "Bạn đã có cụm chủ thể: some residents.",
+          "iPlusOneSteps": [
+            {
+              "id": "S3-C02-STEP01",
+              "prompt": "cư dân",
+              "answer": "resident",
+              "audioId": "S3-01",
+              "purpose": "Tạo mỏ neo nghĩa cho một người."
+            },
+            {
+              "id": "S3-C02-STEP02",
+              "prompt": "các cư dân",
+              "answer": "residents",
+              "audioId": "S3-02",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S3-C02-STEP03",
+              "prompt": "một số cư dân",
+              "answer": "some residents",
+              "audioId": "S3-03",
+              "purpose": "Thêm lượng từ some để chỉ một bộ phận."
+            }
+          ]
+        },
+        {
+          "id": "S3-C03",
+          "english": "complained that",
+          "vietnamese": "phàn nàn rằng",
+          "chunkType": "reporting-frame",
+          "roleQuestion": "Họ đã làm gì?",
+          "whenNeeded": "Khi muốn dẫn vào nội dung mà ai đó phàn nàn.",
+          "roleMeaning": "Cụm này mở phần nội dung của lời phàn nàn.",
+          "successMessage": "Bạn đã có khung dẫn lời phàn nàn: complained that.",
+          "iPlusOneSteps": [
+            {
+              "id": "S3-C03-STEP01",
+              "prompt": "đã phàn nàn",
+              "answer": "complained",
+              "purpose": "Nắm hành động phàn nàn trong quá khứ."
+            },
+            {
+              "id": "S3-C03-STEP02",
+              "prompt": "đã phàn nàn rằng",
+              "answer": "complained that",
+              "purpose": "Thêm that để mở nội dung được phàn nàn."
+            }
+          ]
+        },
+        {
+          "id": "S3-C04",
+          "english": "the project would reduce parking spaces",
+          "vietnamese": "dự án sẽ làm giảm chỗ đỗ xe",
+          "chunkType": "reported-concern",
+          "roleQuestion": "Điều đáng lo thứ nhất?",
+          "whenNeeded": "Khi thuật lại dự đoán rằng một dự án sẽ làm giảm chỗ đỗ xe.",
+          "roleMeaning": "Cụm này nêu mối lo thứ nhất bên trong lời phàn nàn.",
+          "successMessage": "Bạn đã diễn đạt được mối lo: the project would reduce parking spaces.",
+          "iPlusOneSteps": [
+            {
+              "id": "S3-C04-STEP01",
+              "prompt": "dự án",
+              "answer": "project",
+              "audioId": "S3-04",
+              "purpose": "Tạo mỏ neo nghĩa cho sự việc."
+            },
+            {
+              "id": "S3-C04-STEP02",
+              "prompt": "dự án đã được xác định",
+              "answer": "the project",
+              "audioId": "S3-05",
+              "purpose": "Thêm the vì đây là dự án đang được bàn tới."
+            },
+            {
+              "id": "S3-C04-STEP03",
+              "prompt": "chỗ",
+              "answer": "space",
+              "audioId": "S3-06",
+              "purpose": "Tạo mỏ neo nghĩa cho một chỗ."
+            },
+            {
+              "id": "S3-C04-STEP04",
+              "prompt": "các chỗ",
+              "answer": "spaces",
+              "audioId": "S3-07",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S3-C04-STEP05",
+              "prompt": "các chỗ đỗ xe",
+              "answer": "parking spaces",
+              "audioId": "S3-08",
+              "purpose": "Thêm chức năng đỗ xe."
+            },
+            {
+              "id": "S3-C04-STEP06",
+              "prompt": "sẽ làm giảm các chỗ đỗ xe",
+              "answer": "would reduce parking spaces",
+              "purpose": "Thêm would để giữ góc nhìn dự đoán trong lời phàn nàn."
+            },
+            {
+              "id": "S3-C04-STEP07",
+              "prompt": "dự án sẽ làm giảm các chỗ đỗ xe",
+              "answer": "the project would reduce parking spaces",
+              "audioId": "S3-10",
+              "purpose": "Thêm chủ thể để hoàn chỉnh mối lo thứ nhất."
+            }
+          ]
+        },
+        {
+          "id": "S3-C05",
+          "english": "and attract noise",
+          "vietnamese": "và thu hút tiếng ồn",
+          "chunkType": "added-concern",
+          "roleQuestion": "Điều đáng lo thêm?",
+          "whenNeeded": "Khi muốn nối thêm một hệ quả dùng chung chủ thể và khung would.",
+          "roleMeaning": "Cụm này thêm mối lo thứ hai mà không lặp lại the project would.",
+          "successMessage": "Bạn đã thêm được mối lo thứ hai mà không lặp chủ thể.",
+          "iPlusOneSteps": [
+            {
+              "id": "S3-C05-STEP01",
+              "prompt": "tiếng ồn",
+              "answer": "noise",
+              "audioId": "S3-09",
+              "purpose": "Tạo mỏ neo nghĩa."
+            },
+            {
+              "id": "S3-C05-STEP02",
+              "prompt": "thu hút tiếng ồn",
+              "answer": "attract noise",
+              "purpose": "Thêm hành động gây ra mối lo."
+            },
+            {
+              "id": "S3-C05-STEP03",
+              "prompt": "và thu hút tiếng ồn",
+              "answer": "and attract noise",
+              "purpose": "Thêm and để nối mối lo thứ hai, không lặp chủ thể."
+            }
+          ]
+        }
+      ],
+      "compositionTasks": [
+        {
+          "id": "S3-M01",
+          "prompt": "dự án sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn",
+          "answer": "the project would reduce parking spaces and attract noise",
+          "audioId": "S3-13",
+          "usesChunks": ["S3-C04", "S3-C05"],
+          "masteryCredit": ["S3-C04", "S3-C05"],
+          "roleLine": [
+            { "roleQuestion": "Điều đáng lo thứ nhất?", "chunkId": "S3-C04", "english": "the project would reduce parking spaces" },
+            { "roleQuestion": "Điều đáng lo thêm?", "chunkId": "S3-C05", "english": "and attract noise" }
+          ],
+          "successMessage": "Bạn đã ghép được hai điều cư dân lo ngại."
+        },
+        {
+          "id": "S3-M02",
+          "prompt": "một số cư dân phàn nàn rằng dự án sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn",
+          "answer": "some residents complained that the project would reduce parking spaces and attract noise",
+          "audioId": "S3-15",
+          "usesChunks": ["S3-C02", "S3-C03", "S3-C04", "S3-C05"],
+          "masteryCredit": ["S3-C02", "S3-C03", "S3-C04", "S3-C05"],
+          "roleLine": [
+            { "roleQuestion": "Ai phàn nàn?", "chunkId": "S3-C02", "english": "some residents" },
+            { "roleQuestion": "Họ đã làm gì?", "chunkId": "S3-C03", "english": "complained that" },
+            { "roleQuestion": "Điều đáng lo thứ nhất?", "chunkId": "S3-C04", "english": "the project would reduce parking spaces" },
+            { "roleQuestion": "Điều đáng lo thêm?", "chunkId": "S3-C05", "english": "and attract noise" }
+          ],
+          "successMessage": "Bạn đã ghép được ai phàn nàn và toàn bộ nội dung họ lo."
+        },
+        {
+          "id": "S3-M03",
+          "stage": "sentence",
+          "prompt": "Ban đầu, một số cư dân phàn nàn rằng dự án sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn.",
+          "answer": "At first, some residents complained that the project would reduce parking spaces and attract noise.",
+          "audioId": "S3-16",
+          "usesChunks": ["S3-C01", "S3-C02", "S3-C03", "S3-C04", "S3-C05"],
+          "masteryCredit": ["S3-C01", "S3-C02", "S3-C03", "S3-C04", "S3-C05"],
+          "roleLine": [
+            { "roleQuestion": "Khi nào?", "chunkId": "S3-C01", "english": "at first" },
+            { "roleQuestion": "Ai phàn nàn?", "chunkId": "S3-C02", "english": "some residents" },
+            { "roleQuestion": "Họ đã làm gì?", "chunkId": "S3-C03", "english": "complained that" },
+            { "roleQuestion": "Điều đáng lo thứ nhất?", "chunkId": "S3-C04", "english": "the project would reduce parking spaces" },
+            { "roleQuestion": "Điều đáng lo thêm?", "chunkId": "S3-C05", "english": "and attract noise" }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu về phản ứng ban đầu và hai điều đáng lo."
+        }
+      ],
+      "repairRules": [
+        {
+          "id": "S3-R01",
+          "appliesTo": ["S3-M02", "S3-M03"],
+          "chunkId": "S3-C02",
+          "detect": {
+            "commonWrongAnswers": ["some resident"]
+          },
+          "message": "Cụm cần sửa dùng residents ở số nhiều: một số cư dân."
+        },
+        {
+          "id": "S3-R02",
+          "appliesTo": ["S3-M02", "S3-M03"],
+          "chunkId": "S3-C03",
+          "detect": {
+            "commonWrongAnswers": ["complained the project"]
+          },
+          "message": "Khung cần sửa là complained that để mở nội dung lời phàn nàn."
+        },
+        {
+          "id": "S3-R03",
+          "appliesTo": ["S3-M01", "S3-M02", "S3-M03"],
+          "chunkId": "S3-C04",
+          "detect": {
+            "commonWrongAnswers": ["the project reduce parking spaces"]
+          },
+          "message": "Cụm cần sửa giữ would trong lời dự đoán: dự án sẽ làm giảm chỗ đỗ xe."
+        },
+        {
+          "id": "S3-R04",
+          "appliesTo": ["S3-M01", "S3-M02", "S3-M03"],
+          "chunkId": "S3-C05",
+          "detect": {
+            "commonWrongAnswers": ["and the project would attract noise", "and would attract noise"]
+          },
+          "message": "Câu gốc không lặp the project would; cụm cần dùng là and attract noise."
+        }
+      ]
     }
   ],
   "taskGroups": [

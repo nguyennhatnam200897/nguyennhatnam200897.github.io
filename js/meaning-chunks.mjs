@@ -235,7 +235,10 @@ function buildRollbackTargets(composition, chunksById, lesson) {
       fail(`${lesson.id}.${composition.id}.usesChunks references unknown chunk "${chunkId}".`);
     }
 
-    const span = findTokenSpan(answerTokens, normalizedTokens(chunk.english), cursor);
+    const chunkTokens = normalizedTokens(chunk.english);
+    const span =
+      findTokenSpan(answerTokens, chunkTokens, cursor) ??
+      findTokenSpan(answerTokens, chunkTokens);
 
     if (!span) {
       fail(`${lesson.id}.${composition.id}.answer does not contain chunk "${chunkId}".`);
