@@ -270,6 +270,23 @@ function buildMeaningChunkSentenceGroups(tasks, practicePolicy) {
   return groups;
 }
 
+function buildMeaningChunkParagraphGroups(tasks, practicePolicy) {
+  return tasks.map((task) =>
+    meaningChunkGroup(
+      `meaning-paragraph-${task.id}`,
+      [task],
+      {
+        [task.id]: taskMasteryRule({
+          minCorrect: 1,
+          minStreak: 1,
+          requiresInterleavedCorrect: false,
+        }),
+      },
+      practicePolicy
+    )
+  );
+}
+
 function buildMeaningChunkGroups(tasks, practicePolicy) {
   const groups = [];
   const tasksBySentenceId = new Map();
@@ -288,7 +305,9 @@ function buildMeaningChunkGroups(tasks, practicePolicy) {
     groups.push(
       ...(hasMeaningChunkData
         ? buildMeaningChunkSentenceGroups(sentenceTasks, practicePolicy)
-        : buildFrontierGroups(sentenceTasks, practicePolicy))
+        : sentenceTasks.every((task) => task.stage === "paragraph")
+          ? buildMeaningChunkParagraphGroups(sentenceTasks, practicePolicy)
+          : buildFrontierGroups(sentenceTasks, practicePolicy))
     );
   });
 

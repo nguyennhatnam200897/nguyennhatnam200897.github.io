@@ -40,6 +40,98 @@ function buildSingleChunkLesson({
   };
 }
 
+function buildCompleteTwoSentenceFixture() {
+  return {
+    id: "complete-meaning-demo",
+    title: "Complete Meaning Demo",
+    level: "A2",
+    topic: "Meaning chunks",
+    practiceProfile: "meaning-chunk-i-plus-one",
+    paragraphTaskMode: "cumulative",
+    meaningChunkProfile: {
+      version: 2,
+      lessonCoverage: "complete",
+    },
+    sentences: [
+      {
+        id: "S1",
+        english: "Many cities try.",
+        vietnamese: "Nhiều thành phố cố gắng.",
+      },
+      {
+        id: "S2",
+        english: "People meet.",
+        vietnamese: "Mọi người gặp nhau.",
+      },
+    ],
+    taskGroups: [],
+    meaningChunkLessons: [
+      {
+        id: "S1-meaning-chunks",
+        sentenceId: "S1",
+        chunks: [
+          {
+            id: "S1-C01",
+            english: "many cities",
+            vietnamese: "nhiều thành phố",
+            chunkType: "entity",
+            roleQuestion: "Ai?",
+            whenNeeded: "Khi muốn nói về nhiều thành phố.",
+            roleMeaning: "Cụm này cho biết ai đang được nói tới.",
+            iPlusOneSteps: [
+              {
+                id: "S1-C01-FINAL",
+                prompt: "nhiều thành phố",
+                answer: "many cities",
+              },
+            ],
+          },
+        ],
+        compositionTasks: [
+          {
+            id: "S1-FINAL",
+            stage: "sentence",
+            prompt: "Nhiều thành phố cố gắng.",
+            answer: "Many cities try.",
+            usesChunks: ["S1-C01"],
+          },
+        ],
+      },
+      {
+        id: "S2-meaning-chunks",
+        sentenceId: "S2",
+        chunks: [
+          {
+            id: "S2-C01",
+            english: "people",
+            vietnamese: "mọi người",
+            chunkType: "entity",
+            roleQuestion: "Ai?",
+            whenNeeded: "Khi muốn nói về mọi người.",
+            roleMeaning: "Cụm này cho biết ai đang được nói tới.",
+            iPlusOneSteps: [
+              {
+                id: "S2-C01-FINAL",
+                prompt: "mọi người",
+                answer: "people",
+              },
+            ],
+          },
+        ],
+        compositionTasks: [
+          {
+            id: "S2-FINAL",
+            stage: "sentence",
+            prompt: "Mọi người gặp nhau.",
+            answer: "People meet.",
+            usesChunks: ["S2-C01"],
+          },
+        ],
+      },
+    ],
+  };
+}
+
 test("builds the current course from JSON data", () => {
   assert.equal(course.id, "small-public-garden");
   assert.equal(course.article.title, "A Small Public Garden");
@@ -64,6 +156,37 @@ test("creates cumulative paragraph tasks from course sentences", () => {
   assert.equal(
     paragraphTasks.at(-1).answer,
     course.article.sentences.map((sentence) => sentence.english).join(" ")
+  );
+});
+
+test("accepts complete meaning chunk coverage for every sentence", () => {
+  assert.doesNotThrow(() =>
+    buildLessonCourse(buildCompleteTwoSentenceFixture())
+  );
+});
+
+test("rejects complete meaning chunk coverage when a sentence is missing", () => {
+  const fixture = buildCompleteTwoSentenceFixture();
+  fixture.meaningChunkLessons = fixture.meaningChunkLessons.slice(0, 1);
+
+  assert.throws(
+    () => buildLessonCourse(fixture),
+    /lessonCoverage "complete" requires lessons for: S2/
+  );
+});
+
+test("maps cumulative paragraph spans to final sentence tasks", () => {
+  const completeCourse = buildLessonCourse(buildCompleteTwoSentenceFixture());
+  const paragraph = completeCourse.tasks.find((task) => task.id === "G2");
+
+  assert.equal(paragraph.stage, "paragraph");
+  assert.deepEqual(
+    paragraph.rollbackTargets.map((target) => target.taskId),
+    ["S1-FINAL", "S2-FINAL"]
+  );
+  assert.equal(
+    paragraph.rollbackTargets.at(-1).end,
+    paragraph.answer.replace(/[.,!?;:]/g, "").split(/\s+/).length
   );
 });
 

@@ -403,6 +403,38 @@ test("rejects compositions that reference an unknown meaning chunk", () => {
   );
 });
 
+test("requires cumulative meaning chunk paragraphs only once", () => {
+  const [paragraphGroup] = buildPracticeGroups(
+    [
+      {
+        id: "G2",
+        sentenceId: "PARAGRAPH",
+        stage: "paragraph",
+        rollbackTargets: [
+          { taskId: "S1-FINAL", start: 0, end: 3 },
+          { taskId: "S2-FINAL", start: 3, end: 5 },
+        ],
+      },
+    ],
+    {
+      mode: "frontier-rollback",
+      meaningChunkMastery: true,
+      minCorrect: 2,
+      repairCorrectCount: 1,
+    }
+  );
+
+  assert.deepEqual(paragraphGroup.masteryRulesByTaskId.G2, {
+    minCorrect: 1,
+    minStreak: 1,
+    requiresInterleavedCorrect: false,
+  });
+  assert.deepEqual(paragraphGroup.rollbackTargetsByTaskId.G2, [
+    { taskId: "S1-FINAL", start: 0, end: 3 },
+    { taskId: "S2-FINAL", start: 3, end: 5 },
+  ]);
+});
+
 test("rolls back only when the failed token is inside a learned prerequisite", () => {
   const futureGroups = buildPracticeGroups(
     [

@@ -129,7 +129,7 @@ function normalizeSentence(sentence, index) {
   };
 }
 
-function buildParagraphTasks(courseData, sentences) {
+function buildParagraphTasks(courseData, sentences, finalTaskIdBySentenceId) {
   if (courseData.paragraphTaskMode !== "cumulative") {
     return [];
   }
@@ -137,6 +137,18 @@ function buildParagraphTasks(courseData, sentences) {
   return sentences.slice(1).map((_, index) => {
     const sentenceCount = index + 2;
     const selected = sentences.slice(0, sentenceCount);
+    let start = 0;
+    const rollbackTargets = selected.map((sentence) => {
+      const end = start + answerTokens(sentence.english).length;
+      const target = {
+        taskId: finalTaskIdBySentenceId.get(sentence.id),
+        start,
+        end,
+      };
+
+      start = end;
+      return target;
+    });
 
     return {
       id: `G${sentenceCount}`,
@@ -146,6 +158,7 @@ function buildParagraphTasks(courseData, sentences) {
       prompt: selected.map((sentence) => sentence.vietnamese).join(" "),
       answer: selected.map((sentence) => sentence.english).join(" "),
       audioId: `G${sentenceCount}`,
+      rollbackTargets,
     };
   });
 }
@@ -225,6 +238,18 @@ function validateMeaningChunkLessonSentenceIds(courseData) {
 
     seenLessonSentenceIds.add(lesson.sentenceId);
   });
+
+  if (courseData.meaningChunkProfile?.lessonCoverage === "complete") {
+    const missingSentenceIds = [...sentenceIds].filter(
+      (sentenceId) => !seenLessonSentenceIds.has(sentenceId)
+    );
+
+    if (missingSentenceIds.length > 0) {
+      throw new Error(
+        `Invalid course data: lessonCoverage "complete" requires lessons for: ${missingSentenceIds.join(", ")}.`
+      );
+    }
+  }
 }
 
 function buildRawTaskGroups(courseData, practiceProfile) {
@@ -410,6 +435,19 @@ function attachGuidancePreservingMetadata(tasks) {
   });
 }
 
+function buildFinalTaskIdBySentenceId(sentenceTaskGroups) {
+  return new Map(
+    sentenceTaskGroups
+      .map((group) => {
+        const finalTask =
+          group.findLast((task) => task.stage === "sentence") ?? group.at(-1);
+
+        return finalTask ? [finalTask.sentenceId, finalTask.id] : null;
+      })
+      .filter(Boolean)
+  );
+}
+
 export function buildLessonCourse(courseData) {
   ["id", "title", "level", "topic"].forEach((field) => {
     assertString(courseData[field], field);
@@ -431,8 +469,14 @@ export function buildLessonCourse(courseData) {
   const sentenceTaskGroupsWithRollback = sentenceTaskGroups.map((group) =>
     attachRollbackTargets(group, practiceProfile)
   );
+  const finalTaskIdBySentenceId = buildFinalTaskIdBySentenceId(
+    sentenceTaskGroupsWithRollback
+  );
   const paragraphTasks = attachRollbackTargets(
-    insertBridgeTasks(buildParagraphTasks(courseData, sentences), practiceProfile),
+    insertBridgeTasks(
+      buildParagraphTasks(courseData, sentences, finalTaskIdBySentenceId),
+      practiceProfile
+    ),
     practiceProfile
   );
   const tasks = attachGuidancePreservingMetadata([
