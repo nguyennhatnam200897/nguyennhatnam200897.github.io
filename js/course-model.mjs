@@ -14,6 +14,39 @@ function cloneObjectArray(value) {
   );
 }
 
+function cloneDifficultyNotes(notes) {
+  return notes.map((note) => {
+    const copy = {
+      title: note.title,
+      body: note.body,
+    };
+
+    if (typeof note.tag === "string") {
+      copy.tag = note.tag;
+    }
+
+    return copy;
+  });
+}
+
+function cloneMeaningMap(meaningMap) {
+  return meaningMap.map((item) => {
+    const copy = {
+      label: item.label,
+    };
+
+    if (typeof item.meaning === "string") {
+      copy.meaning = item.meaning;
+    }
+
+    if (typeof item.chunkId === "string") {
+      copy.chunkId = item.chunkId;
+    }
+
+    return copy;
+  });
+}
+
 function cloneGuideMetadata(guide) {
   const metadata = {};
 
@@ -27,6 +60,10 @@ function cloneGuideMetadata(guide) {
 
   if (Array.isArray(guide.roleLine)) {
     metadata.roleLine = cloneObjectArray(guide.roleLine);
+  }
+
+  if (Array.isArray(guide.difficultyNotes)) {
+    metadata.difficultyNotes = cloneDifficultyNotes(guide.difficultyNotes);
   }
 
   return metadata;
@@ -106,11 +143,7 @@ function normalizeTask(task, indexPath) {
       : {}),
     ...(task.lessonOverview && typeof task.lessonOverview === "object"
       ? {
-          lessonOverview: {
-            title: task.lessonOverview.title,
-            summary: [...(task.lessonOverview.summary ?? [])],
-            graded: false,
-          },
+          lessonOverview: normalizeLessonOverview(task.lessonOverview),
         }
       : {}),
     ...(task.guide ? { guide: normalizeGuide(task.guide) } : {}),
@@ -127,6 +160,20 @@ function normalizeSentence(sentence, index) {
     english: sentence.english,
     vietnamese: sentence.vietnamese,
   };
+}
+
+function normalizeLessonOverview(lessonOverview) {
+  const normalized = {
+    title: lessonOverview.title,
+    summary: [...(lessonOverview.summary ?? [])],
+    graded: false,
+  };
+
+  if (Array.isArray(lessonOverview.meaningMap)) {
+    normalized.meaningMap = cloneMeaningMap(lessonOverview.meaningMap);
+  }
+
+  return normalized;
 }
 
 function buildParagraphTasks(courseData, sentences, finalTaskIdBySentenceId) {

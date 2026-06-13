@@ -506,6 +506,14 @@ test("preserves meaning chunk guide and role metadata through course normalizati
       {
         id: "S1-meaning-chunks",
         sentenceId: "S1",
+        overview: {
+          title: "Build the idea",
+          summary: ["Read the idea map before typing."],
+          graded: false,
+          meaningMap: [
+            { label: "Who?", meaning: "many cities", chunkId: "S1-C01" },
+          ],
+        },
         chunks: [
           {
             id: "S1-C01",
@@ -515,6 +523,13 @@ test("preserves meaning chunk guide and role metadata through course normalizati
             roleQuestion: "Ai?",
             whenNeeded: "When talking about many cities.",
             roleMeaning: "This chunk names who the sentence talks about.",
+            difficultyNotes: [
+              {
+                tag: "plural",
+                title: "Plural form",
+                body: "Use cities because the idea is more than one city.",
+              },
+            ],
             successMessage: "Bạn đã có cụm: many cities.",
             iPlusOneSteps: [
               { id: "S1-C01-STEP01", prompt: "cities", answer: "cities" },
@@ -536,6 +551,13 @@ test("preserves meaning chunk guide and role metadata through course normalizati
             roleLine: [
               { roleQuestion: "Ai?", chunkId: "S1-C01", english: "many cities" },
             ],
+            difficultyNotes: [
+              {
+                tag: "word-order",
+                title: "Keep the chunk order",
+                body: "The subject chunk comes before the action chunk.",
+              },
+            ],
           },
         ],
         repairRules: [
@@ -555,6 +577,7 @@ test("preserves meaning chunk guide and role metadata through course normalizati
   const byId = new Map(experiment.tasks.map((task) => [task.id, task]));
   const smallStepGuide = byId.get("S1-C01-STEP01").guide;
   const finalStepGuide = byId.get("S1-C01-STEP02").guide;
+  const firstTask = byId.get("S1-C01-STEP01");
 
   assert.equal(Object.hasOwn(smallStepGuide, "whenNeeded"), false);
   assert.equal(Object.hasOwn(smallStepGuide, "roleQuestion"), false);
@@ -586,6 +609,23 @@ test("preserves meaning chunk guide and role metadata through course normalizati
   assert.equal(byId.get("S1-M01").guide.successMessage, "You built the meaning.");
   assert.deepEqual(byId.get("S1-M01").roleLine, [
     { roleQuestion: "Ai?", chunkId: "S1-C01", english: "many cities" },
+  ]);
+  assert.deepEqual(firstTask.lessonOverview.meaningMap, [
+    { label: "Who?", meaning: "many cities", chunkId: "S1-C01" },
+  ]);
+  assert.deepEqual(finalStepGuide.difficultyNotes, [
+    {
+      tag: "plural",
+      title: "Plural form",
+      body: "Use cities because the idea is more than one city.",
+    },
+  ]);
+  assert.deepEqual(byId.get("S1-M01").guide.difficultyNotes, [
+    {
+      tag: "word-order",
+      title: "Keep the chunk order",
+      body: "The subject chunk comes before the action chunk.",
+    },
   ]);
 });
 
