@@ -15,6 +15,7 @@ const lesson = {
       whenNeeded:
         "Khi muốn nói về nhiều thành phố như một nhóm đang làm điều gì đó.",
       roleMeaning: "Cụm này cho biết ai đang được nói tới.",
+      successMessage: "Bạn đã có cụm: many cities.",
       iPlusOneSteps: [
         { id: "S1-C01-STEP01", prompt: "thành phố", answer: "city" },
         { id: "S1-C01-STEP02", prompt: "các thành phố", answer: "cities" },
@@ -94,6 +95,15 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
 
   assert.equal(oneTokenTask.stage, "object");
   assert.equal(oneTokenTask.audioId, "S1-C01-STEP01");
+  [
+    "whenNeeded",
+    "roleQuestion",
+    "roleMeaning",
+    "successMessage",
+  ].forEach((field) => {
+    assert.equal(Object.hasOwn(oneTokenTask.guide, field), false);
+    assert.equal(Object.hasOwn(pluralTask.guide, field), false);
+  });
   assert.equal(explicitStageTask.stage, "phrase");
   assert.equal(finalChunkTask.stage, "phrase");
   assert.deepEqual(finalChunkTask.meaningChunk, {
@@ -111,6 +121,10 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
   assert.equal(finalChunkTask.guide.whenNeeded, lesson.chunks[0].whenNeeded);
   assert.equal(finalChunkTask.guide.roleQuestion, "Ai?");
   assert.equal(finalChunkTask.guide.roleMeaning, lesson.chunks[0].roleMeaning);
+  assert.equal(
+    finalChunkTask.guide.successMessage,
+    "Bạn đã có cụm: many cities."
+  );
   assert.deepEqual(finalChunkTask.rollbackTargets, [
     { taskId: "S1-C01-STEP02", start: 1, end: 2 },
   ]);

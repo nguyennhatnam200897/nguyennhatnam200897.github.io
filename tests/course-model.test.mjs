@@ -242,7 +242,7 @@ test("preserves meaning chunk guide and role metadata through course normalizati
             roleQuestion: "Ai?",
             whenNeeded: "When talking about many cities.",
             roleMeaning: "This chunk names who the sentence talks about.",
-            successMessage: "You found the actor.",
+            successMessage: "Bạn đã có cụm: many cities.",
             iPlusOneSteps: [
               { id: "S1-C01-STEP01", prompt: "cities", answer: "cities" },
               {
@@ -280,17 +280,26 @@ test("preserves meaning chunk guide and role metadata through course normalizati
     ],
   });
   const byId = new Map(experiment.tasks.map((task) => [task.id, task]));
+  const smallStepGuide = byId.get("S1-C01-STEP01").guide;
+  const finalStepGuide = byId.get("S1-C01-STEP02").guide;
 
+  assert.equal(Object.hasOwn(smallStepGuide, "whenNeeded"), false);
+  assert.equal(Object.hasOwn(smallStepGuide, "roleQuestion"), false);
+  assert.equal(Object.hasOwn(smallStepGuide, "roleMeaning"), false);
+  assert.equal(Object.hasOwn(smallStepGuide, "successMessage"), false);
   assert.equal(
-    byId.get("S1-C01-STEP02").guide.whenNeeded,
+    finalStepGuide.whenNeeded,
     "When talking about many cities."
   );
-  assert.equal(byId.get("S1-C01-STEP02").guide.roleQuestion, "Ai?");
+  assert.equal(finalStepGuide.roleQuestion, "Ai?");
   assert.equal(
-    byId.get("S1-C01-STEP02").guide.roleMeaning,
+    finalStepGuide.roleMeaning,
     "This chunk names who the sentence talks about."
   );
-  assert.equal(byId.get("S1-C01-STEP02").guide.successMessage, "You found the actor.");
+  assert.equal(
+    finalStepGuide.successMessage,
+    "Bạn đã có cụm: many cities."
+  );
   assert.equal(byId.get("S1-C01-STEP02").meaningChunk.id, "S1-C01");
   assert.deepEqual(byId.get("S1-M01").usesChunks, ["S1-C01"]);
   assert.deepEqual(byId.get("S1-M01").masteryCredit, ["S1-C01"]);

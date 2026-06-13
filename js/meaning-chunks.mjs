@@ -107,10 +107,14 @@ function buildStepGuide(chunk, step, isFinalStep) {
         : `Small step toward "${chunk.english}".`),
     parts: cloneParts(step.parts),
     speech: step.speech ?? step.answer,
-    whenNeeded: chunk.whenNeeded,
-    roleQuestion: chunk.roleQuestion,
-    roleMeaning: chunk.roleMeaning,
-    successMessage: step.successMessage ?? chunk.successMessage,
+    ...(isFinalStep
+      ? {
+          whenNeeded: chunk.whenNeeded,
+          roleQuestion: chunk.roleQuestion,
+          roleMeaning: chunk.roleMeaning,
+          successMessage: step.successMessage ?? chunk.successMessage,
+        }
+      : {}),
   };
 }
 
