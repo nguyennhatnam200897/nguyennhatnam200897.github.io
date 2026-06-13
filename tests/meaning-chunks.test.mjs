@@ -12,6 +12,14 @@ const lesson = {
       "Mình sẽ học từng cụm rồi ghép thành câu.",
     ],
     graded: false,
+    meaningMap: [
+      { label: "Ai?", meaning: "nhieu thanh pho", chunkId: "S1-C01" },
+      {
+        label: "Dang co lam gi?",
+        meaning: "dang co gang lam",
+        chunkId: "S1-C02",
+      },
+    ],
   },
   chunks: [
     {
@@ -24,6 +32,13 @@ const lesson = {
         "Khi muốn nói về nhiều thành phố như một nhóm đang làm điều gì đó.",
       roleMeaning: "Cụm này cho biết ai đang được nói tới.",
       successMessage: "Bạn đã có cụm: many cities.",
+      difficultyNotes: [
+        {
+          tag: "plural",
+          title: "Vi sao dung cities?",
+          body: "Tieng Anh can so nhieu khi noi ve nhieu thanh pho.",
+        },
+      ],
       iPlusOneSteps: [
         { id: "S1-C01-STEP01", prompt: "thành phố", answer: "city" },
         { id: "S1-C01-STEP02", prompt: "các thành phố", answer: "cities" },
@@ -63,6 +78,13 @@ const lesson = {
       ],
       successMessage:
         "Bạn đã ghép được: ai đang cố làm gì.",
+      difficultyNotes: [
+        {
+          tag: "to-frame",
+          title: "Vi sao co to?",
+          body: "are trying to mo ra hanh dong phia sau.",
+        },
+      ],
     },
   ],
   repairRules: [
@@ -102,6 +124,14 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
   const explicitStageTask = groups[0].find((task) => task.id === "S1-C02-STEP01");
 
   assert.deepEqual(groups[0][0].lessonOverview, lesson.overview);
+  assert.deepEqual(groups[0][0].lessonOverview.meaningMap, [
+    { label: "Ai?", meaning: "nhieu thanh pho", chunkId: "S1-C01" },
+    {
+      label: "Dang co lam gi?",
+      meaning: "dang co gang lam",
+      chunkId: "S1-C02",
+    },
+  ]);
   assert.equal(
     groups[0].slice(1).some((task) => task.lessonOverview),
     false
@@ -138,6 +168,15 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
     finalChunkTask.guide.successMessage,
     "Bạn đã có cụm: many cities."
   );
+  assert.deepEqual(finalChunkTask.guide.difficultyNotes, [
+    {
+      tag: "plural",
+      title: "Vi sao dung cities?",
+      body: "Tieng Anh can so nhieu khi noi ve nhieu thanh pho.",
+    },
+  ]);
+  assert.equal(Object.hasOwn(oneTokenTask.guide, "difficultyNotes"), false);
+  assert.equal(Object.hasOwn(pluralTask.guide, "difficultyNotes"), false);
   assert.deepEqual(finalChunkTask.rollbackTargets, [
     { taskId: "S1-C01-STEP02", start: 1, end: 2 },
   ]);
@@ -164,6 +203,13 @@ test("composition rollback targets complete chunks instead of smaller old steps"
     },
   ]);
   assert.deepEqual(composition.roleLine, lesson.compositionTasks[0].roleLine);
+  assert.deepEqual(composition.guide.difficultyNotes, [
+    {
+      tag: "to-frame",
+      title: "Vi sao co to?",
+      body: "are trying to mo ra hanh dong phia sau.",
+    },
+  ]);
 });
 
 test("rejects duplicate output task ids", () => {
@@ -398,4 +444,28 @@ test("composition rollback targets support nested meaning chunks", () => {
     { taskId: "S2-C04-FINAL", start: 9, end: 13 },
     { taskId: "S2-C05-FINAL", start: 3, end: 13 },
   ]);
+});
+
+test("rejects a meaning map item that references an unknown chunk", () => {
+  const invalidLesson = structuredClone(lesson);
+  invalidLesson.overview.meaningMap = [
+    { label: "Unknown", meaning: "missing", chunkId: "S1-C99" },
+  ];
+
+  assert.throws(
+    () => buildMeaningChunkTaskGroups([invalidLesson]),
+    /Invalid meaning chunk data: S1-meaning-chunks.overview.meaningMap\[0\].chunkId references unknown chunk "S1-C99"\./
+  );
+});
+
+test("rejects malformed difficulty notes", () => {
+  const invalidLesson = structuredClone(lesson);
+  invalidLesson.chunks[0].difficultyNotes = [
+    { tag: "plural", title: "", body: "Missing title." },
+  ];
+
+  assert.throws(
+    () => buildMeaningChunkTaskGroups([invalidLesson]),
+    /Invalid meaning chunk data: S1-meaning-chunks.S1-C01.difficultyNotes\[0\].title must be a non-empty string\./
+  );
 });

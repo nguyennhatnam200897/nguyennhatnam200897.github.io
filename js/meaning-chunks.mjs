@@ -34,6 +34,74 @@ function cloneRoleLine(roleLine = []) {
   return roleLine.map((item) => ({ ...item }));
 }
 
+function cloneDifficultyNotes(notes = []) {
+  return notes.map((note) => {
+    const copy = {
+      title: note.title,
+      body: note.body,
+    };
+
+    if (typeof note.tag === "string") {
+      copy.tag = note.tag;
+    }
+
+    return copy;
+  });
+}
+
+function cloneMeaningMap(meaningMap = []) {
+  return meaningMap.map((item) => {
+    const copy = {
+      label: item.label,
+    };
+
+    if (typeof item.meaning === "string") {
+      copy.meaning = item.meaning;
+    }
+
+    if (typeof item.chunkId === "string") {
+      copy.chunkId = item.chunkId;
+    }
+
+    return copy;
+  });
+}
+
+function assertDifficultyNotes(value, field) {
+  if (value === undefined) {
+    return;
+  }
+
+  if (!Array.isArray(value)) {
+    fail(`${field} must be an array.`);
+  }
+
+  value.forEach((note, index) => {
+    if (!note || typeof note !== "object" || Array.isArray(note)) {
+      fail(`${field}[${index}] must be an object.`);
+    }
+
+    assertString(note.title, `${field}[${index}].title`);
+    assertString(note.body, `${field}[${index}].body`);
+
+    if (note.tag !== undefined) {
+      assertString(note.tag, `${field}[${index}].tag`);
+    }
+  });
+}
+
+function difficultyNotesForStep(chunk, step, isFinalStep) {
+  if (step.difficultyNotes !== undefined) {
+    return cloneDifficultyNotes(step.difficultyNotes);
+  }
+
+  if (isFinalStep && chunk.difficultyNotes !== undefined) {
+    return cloneDifficultyNotes(chunk.difficultyNotes);
+  }
+
+  return [];
+}
+
 function findTokenSpan(sourceTokens, targetTokens, startAt = 0) {
   if (targetTokens.length === 0 || targetTokens.length > sourceTokens.length) {
     return null;
@@ -96,7 +164,8 @@ function finalStepFor(chunk) {
 }
 
 function buildStepGuide(chunk, step, isFinalStep) {
-  return {
+  const difficultyNotes = difficultyNotesForStep(chunk, step, isFinalStep);
+  const guide = {
     term: step.term ?? step.answer,
     meaning: step.meaning ?? step.prompt,
     explanation:
@@ -107,15 +176,20 @@ function buildStepGuide(chunk, step, isFinalStep) {
         : `Small step toward "${chunk.english}".`),
     parts: cloneParts(step.parts),
     speech: step.speech ?? step.answer,
-    ...(isFinalStep
-      ? {
-          whenNeeded: chunk.whenNeeded,
-          roleQuestion: chunk.roleQuestion,
-          roleMeaning: chunk.roleMeaning,
-          successMessage: step.successMessage ?? chunk.successMessage,
-        }
-      : {}),
   };
+
+  if (isFinalStep) {
+    guide.whenNeeded = chunk.whenNeeded;
+    guide.roleQuestion = chunk.roleQuestion;
+    guide.roleMeaning = chunk.roleMeaning;
+    guide.successMessage = step.successMessage ?? chunk.successMessage;
+  }
+
+  if (difficultyNotes.length > 0) {
+    guide.difficultyNotes = difficultyNotes;
+  }
+
+  return guide;
 }
 
 function buildStepRollbackTargets(chunk, stepIndex) {
@@ -149,6 +223,11 @@ function buildStepTask(lesson, chunk, step, stepIndex) {
     assertString(step.stage, `${lesson.id}.${chunk.id}.iPlusOneSteps[${stepIndex}].stage`);
   }
 
+  assertDifficultyNotes(
+    step.difficultyNotes,
+    `${lesson.id}.${chunk.id}.iPlusOneSteps[${stepIndex}].difficultyNotes`
+  );
+
   const isFinalStep = stepIndex === chunk.iPlusOneSteps.length - 1;
   const rollbackTargets = buildStepRollbackTargets(chunk, stepIndex);
 
@@ -180,13 +259,17 @@ function validateChunk(lesson, chunk, chunkIndex) {
   assertString(chunk.roleQuestion, `${lesson.id}.${chunk.id}.roleQuestion`);
   assertString(chunk.whenNeeded, `${lesson.id}.${chunk.id}.whenNeeded`);
   assertString(chunk.roleMeaning, `${lesson.id}.${chunk.id}.roleMeaning`);
+  assertDifficultyNotes(
+    chunk.difficultyNotes,
+    `${lesson.id}.${chunk.id}.difficultyNotes`
+  );
 
   if (!Array.isArray(chunk.iPlusOneSteps) || chunk.iPlusOneSteps.length === 0) {
     fail(`${lesson.id}.${chunk.id}.iPlusOneSteps must be a non-empty array.`);
   }
 }
 
-function validateOverview(lesson) {
+function validateOverview(lesson, chunksById) {
   if (lesson.overview === undefined) {
     return;
   }
@@ -206,6 +289,42 @@ function validateOverview(lesson) {
   if (lesson.overview.graded !== false) {
     fail(`${lesson.id}.overview.graded must be false.`);
   }
+
+  if (lesson.overview.meaningMap === undefined) {
+    return;
+  }
+
+  if (!Array.isArray(lesson.overview.meaningMap)) {
+    fail(`${lesson.id}.overview.meaningMap must be an array.`);
+  }
+
+  lesson.overview.meaningMap.forEach((item, index) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      fail(`${lesson.id}.overview.meaningMap[${index}] must be an object.`);
+    }
+
+    assertString(item.label, `${lesson.id}.overview.meaningMap[${index}].label`);
+
+    if (item.meaning !== undefined) {
+      assertString(
+        item.meaning,
+        `${lesson.id}.overview.meaningMap[${index}].meaning`
+      );
+    }
+
+    if (item.chunkId !== undefined) {
+      assertString(
+        item.chunkId,
+        `${lesson.id}.overview.meaningMap[${index}].chunkId`
+      );
+
+      if (!chunksById.has(item.chunkId)) {
+        fail(
+          `${lesson.id}.overview.meaningMap[${index}].chunkId references unknown chunk "${item.chunkId}".`
+        );
+      }
+    }
+  });
 }
 
 function buildChunkIndex(chunks, lesson) {
@@ -276,7 +395,8 @@ function buildRepairRules(composition, lesson, chunksById) {
 }
 
 function buildCompositionGuide(composition) {
-  return {
+  const difficultyNotes = cloneDifficultyNotes(composition.difficultyNotes);
+  const guide = {
     term: composition.term ?? composition.answer,
     meaning: composition.meaning ?? composition.prompt,
     explanation:
@@ -287,6 +407,12 @@ function buildCompositionGuide(composition) {
     roleLine: cloneRoleLine(composition.roleLine),
     successMessage: composition.successMessage,
   };
+
+  if (difficultyNotes.length > 0) {
+    guide.difficultyNotes = difficultyNotes;
+  }
+
+  return guide;
 }
 
 function buildCompositionTask(lesson, composition, chunksById, compositionIndex) {
@@ -302,6 +428,11 @@ function buildCompositionTask(lesson, composition, chunksById, compositionIndex)
   if (composition.masteryCredit !== undefined) {
     assertStringArray(composition.masteryCredit, `${lesson.id}.${composition.id}.masteryCredit`);
   }
+
+  assertDifficultyNotes(
+    composition.difficultyNotes,
+    `${lesson.id}.${composition.id}.difficultyNotes`
+  );
 
   const roleLine = cloneRoleLine(composition.roleLine);
 
@@ -336,13 +467,13 @@ function assertUniqueTaskIds(tasks, lesson) {
 function buildLessonTasks(lesson, lessonIndex) {
   assertString(lesson.id, `meaningChunkLessons[${lessonIndex}].id`);
   assertString(lesson.sentenceId, `${lesson.id}.sentenceId`);
-  validateOverview(lesson);
 
   if (!Array.isArray(lesson.chunks)) {
     fail(`${lesson.id}.chunks must be an array.`);
   }
 
   const chunksById = buildChunkIndex(lesson.chunks, lesson);
+  validateOverview(lesson, chunksById);
   const stepTasks = lesson.chunks.flatMap((chunk) =>
     chunk.iPlusOneSteps.map((step, stepIndex) =>
       buildStepTask(lesson, chunk, step, stepIndex)
@@ -357,13 +488,19 @@ function buildLessonTasks(lesson, lessonIndex) {
   const tasks = [...stepTasks, ...compositionTasks];
 
   if (tasks[0] && lesson.overview) {
+    const lessonOverview = {
+      title: lesson.overview.title,
+      summary: [...lesson.overview.summary],
+      graded: false,
+    };
+
+    if (Array.isArray(lesson.overview.meaningMap)) {
+      lessonOverview.meaningMap = cloneMeaningMap(lesson.overview.meaningMap);
+    }
+
     tasks[0] = {
       ...tasks[0],
-      lessonOverview: {
-        title: lesson.overview.title,
-        summary: [...lesson.overview.summary],
-        graded: false,
-      },
+      lessonOverview,
     };
   }
 
