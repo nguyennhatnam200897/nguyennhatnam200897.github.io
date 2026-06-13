@@ -132,7 +132,7 @@ test("uses frontier groups for a rollback i+1 course", () => {
   assert.equal(futureGroups[0].requiresInterleavedCorrect, false);
 });
 
-test("builds meaning chunk mastery groups around complete chunks and compositions", () => {
+test("builds sequential meaning chunk groups in composition order", () => {
   const meaningChunkGroups = buildPracticeGroups(
     [
       {
@@ -144,6 +144,13 @@ test("builds meaning chunk mastery groups around complete chunks and composition
         id: "C1-final",
         sentenceId: "F1",
         meaningChunk: { id: "C1", isFinalStep: true },
+        rollbackTargets: [{ taskId: "C1-step", start: 0, end: 1 }],
+        repairRules: [
+          {
+            taskId: "C1-step",
+            commonWrongAnswers: ["wrong C1"],
+          },
+        ],
       },
       {
         id: "C2-step",
@@ -203,17 +210,19 @@ test("builds meaning chunk mastery groups around complete chunks and composition
   );
 
   assert.deepEqual(
-    meaningChunkGroups.map((practiceGroup) => practiceGroup.taskIds),
+    meaningChunkGroups.map(({ id, taskIds }) => ({ id, taskIds })),
     [
-      ["C1-step"],
-      ["C2-step"],
-      ["C1-final", "C2-final"],
-      ["M1"],
-      ["C3-step"],
-      ["C4-step"],
-      ["C3-final", "C4-final"],
-      ["M2"],
-      ["M3"],
+      { id: "meaning-step-C1-step", taskIds: ["C1-step"] },
+      { id: "meaning-step-C1-final", taskIds: ["C1-final"] },
+      { id: "meaning-step-C2-step", taskIds: ["C2-step"] },
+      { id: "meaning-step-C2-final", taskIds: ["C2-final"] },
+      { id: "meaning-compose-M1", taskIds: ["M1"] },
+      { id: "meaning-step-C3-step", taskIds: ["C3-step"] },
+      { id: "meaning-step-C3-final", taskIds: ["C3-final"] },
+      { id: "meaning-compose-M2", taskIds: ["M2"] },
+      { id: "meaning-step-C4-step", taskIds: ["C4-step"] },
+      { id: "meaning-step-C4-final", taskIds: ["C4-final"] },
+      { id: "meaning-compose-M3", taskIds: ["M3"] },
     ]
   );
   assert.deepEqual(meaningChunkGroups[0].masteryRulesByTaskId["C1-step"], {
@@ -221,11 +230,10 @@ test("builds meaning chunk mastery groups around complete chunks and composition
     minStreak: 1,
     requiresInterleavedCorrect: false,
   });
-  assert.equal(meaningChunkGroups[2].minCorrectBeforeNextIntroduction, 1);
-  assert.deepEqual(meaningChunkGroups[2].masteryRulesByTaskId["C1-final"], {
+  assert.deepEqual(meaningChunkGroups[1].masteryRulesByTaskId["C1-final"], {
     minCorrect: 2,
-    minStreak: 1,
-    requiresInterleavedCorrect: true,
+    minStreak: 2,
+    requiresInterleavedCorrect: false,
   });
   assert.deepEqual(meaningChunkGroups[7].masteryRulesByTaskId.M2, {
     minCorrect: 1,
@@ -238,9 +246,21 @@ test("builds meaning chunk mastery groups around complete chunks and composition
     ).length,
     1
   );
+  assert.equal(meaningChunkGroups[1].repairCorrectCount, 1);
+  assert.deepEqual(meaningChunkGroups[1].rollbackTargetsByTaskId, {
+    "C1-final": [{ taskId: "C1-step", start: 0, end: 1 }],
+  });
+  assert.deepEqual(meaningChunkGroups[1].repairRulesByTaskId, {
+    "C1-final": [
+      {
+        taskId: "C1-step",
+        commonWrongAnswers: ["wrong C1"],
+      },
+    ],
+  });
 });
 
-test("requires complete chunks twice with an intervening unit before composition", () => {
+test("requires each complete chunk twice in a row before composition", () => {
   const meaningChunkGroups = buildPracticeGroups(
     [
       {
@@ -280,10 +300,10 @@ test("requires complete chunks twice with an intervening unit before composition
   let session = createMasterySession(meaningChunkGroups);
   const expectedSequence = [
     "C1-step",
+    "C1-final",
+    "C1-final",
     "C2-step",
-    "C1-final",
     "C2-final",
-    "C1-final",
     "C2-final",
     "M1",
   ];
@@ -302,7 +322,7 @@ test("requires complete chunks twice with an intervening unit before composition
   assert.equal(getCurrentTaskId(session, meaningChunkGroups), null);
 });
 
-test("finishes isolated chunk practice before moving to a longer meaning", () => {
+test("resets consecutive final chunk mastery after a wrong answer", () => {
   const meaningChunkGroups = buildPracticeGroups(
     [
       {
@@ -316,17 +336,6 @@ test("finishes isolated chunk practice before moving to a longer meaning", () =>
         usesChunks: ["C1"],
         masteryCredit: ["C1"],
       },
-      {
-        id: "C2-final",
-        sentenceId: "F1",
-        meaningChunk: { id: "C2", isFinalStep: true },
-      },
-      {
-        id: "M2",
-        sentenceId: "F1",
-        usesChunks: ["C1", "C2"],
-        masteryCredit: ["C2"],
-      },
     ],
     {
       mode: "frontier-rollback",
@@ -336,43 +345,49 @@ test("finishes isolated chunk practice before moving to a longer meaning", () =>
     }
   );
   let session = createMasterySession(meaningChunkGroups);
-  const expectedSequence = [
-    "C1-final",
-    "C2-final",
-    "C1-final",
-    "C2-final",
-    "M1",
-    "M2",
-  ];
 
-  expectedSequence.forEach((taskId) => {
-    assert.equal(getCurrentTaskId(session, meaningChunkGroups), taskId);
-    session = recordMasteryAttempt(
-      session,
-      meaningChunkGroups,
-      taskId,
-      true
-    );
+  assert.equal(getCurrentTaskId(session, meaningChunkGroups), "C1-final");
+  session = recordMasteryAttempt(
+    session,
+    meaningChunkGroups,
+    "C1-final",
+    true
+  );
+  assert.equal(getCurrentTaskId(session, meaningChunkGroups), "C1-final");
+
+  session = recordMasteryAttempt(
+    session,
+    meaningChunkGroups,
+    "C1-final",
+    false
+  );
+  assert.deepEqual(session.stats["C1-final"], {
+    correctCount: 0,
+    hasInterleavedCorrect: false,
+    streak: 0,
+    wrongCount: 1,
   });
+  assert.equal(getCurrentTaskId(session, meaningChunkGroups), "C1-final");
 
-  assert.equal(getCurrentTaskId(session, meaningChunkGroups), null);
+  session = recordMasteryAttempt(
+    session,
+    meaningChunkGroups,
+    "C1-final",
+    true
+  );
+  assert.equal(getCurrentTaskId(session, meaningChunkGroups), "C1-final");
 });
 
-test("rejects a lone meaning chunk that cannot be interleaved before composition", () => {
+test("rejects compositions that reference an unknown meaning chunk", () => {
   assert.throws(
     () =>
       buildPracticeGroups(
         [
           {
-            id: "C1-final",
-            sentenceId: "F1",
-            meaningChunk: { id: "C1", isFinalStep: true },
-          },
-          {
             id: "M1",
             sentenceId: "F1",
-            usesChunks: ["C1"],
-            masteryCredit: ["C1"],
+            usesChunks: ["missing"],
+            masteryCredit: ["missing"],
           },
         ],
         {
@@ -382,7 +397,7 @@ test("rejects a lone meaning chunk that cannot be interleaved before composition
           repairCorrectCount: 1,
         }
       ),
-    /cannot interleave meaning chunk "C1" before composition "M1"/
+    /unknown chunk "missing"/
   );
 });
 

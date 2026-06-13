@@ -171,11 +171,12 @@ function taskRepairOptions(tasks) {
 
 function taskMasteryRule({
   minCorrect,
+  minStreak = 1,
   requiresInterleavedCorrect,
 }) {
   return {
     minCorrect,
-    minStreak: 1,
+    minStreak,
     requiresInterleavedCorrect,
   };
 }
@@ -193,7 +194,7 @@ function meaningChunkGroup(id, tasks, rules, practicePolicy, options = {}) {
 
 function buildMeaningChunkSentenceGroups(tasks, practicePolicy) {
   const groups = [];
-  const chunkSteps = new Map();
+  const chunkTasksById = new Map();
   const compositions = [];
   const scheduledTaskIds = new Set();
   const preparedChunkIds = new Set();
@@ -202,9 +203,9 @@ function buildMeaningChunkSentenceGroups(tasks, practicePolicy) {
     const chunkId = task.meaningChunk?.id;
 
     if (chunkId) {
-      const steps = chunkSteps.get(chunkId) ?? [];
-      steps.push(task);
-      chunkSteps.set(chunkId, steps);
+      const chunkTasks = chunkTasksById.get(chunkId) ?? [];
+      chunkTasks.push(task);
+      chunkTasksById.set(chunkId, chunkTasks);
     }
 
     if (Array.isArray(task.usesChunks)) {
@@ -212,152 +213,58 @@ function buildMeaningChunkSentenceGroups(tasks, practicePolicy) {
     }
   });
 
-  const appendInternalSteps = (chunkId) => {
-    const steps = chunkSteps.get(chunkId) ?? [];
-
-    steps
-      .filter((task) => !task.meaningChunk?.isFinalStep)
-      .forEach((task) => {
-        if (scheduledTaskIds.has(task.id)) {
-          return;
-        }
-
-        groups.push(
-          meaningChunkGroup(
-            `meaning-step-${task.id}`,
-            [task],
-            {
-              [task.id]: taskMasteryRule({
-                minCorrect: 1,
-                requiresInterleavedCorrect: false,
-              }),
-            },
-            practicePolicy
-          )
-        );
-        scheduledTaskIds.add(task.id);
-      });
-  };
-
-  const finalStepForChunk = (chunkId) =>
-    (chunkSteps.get(chunkId) ?? []).find(
-      (task) => task.meaningChunk?.isFinalStep
-    );
-
-  const nextUnpreparedChunkId = (compositionIndex, excludedChunkIds) => {
-    for (
-      let index = compositionIndex + 1;
-      index < compositions.length;
-      index += 1
-    ) {
-      const candidate = compositions[index].usesChunks.find(
-        (chunkId) =>
-          !preparedChunkIds.has(chunkId) &&
-          !excludedChunkIds.has(chunkId) &&
-          finalStepForChunk(chunkId)
-      );
-
-      if (candidate) {
-        return candidate;
-      }
+  const appendTask = (task, prefix) => {
+    if (scheduledTaskIds.has(task.id)) {
+      return;
     }
 
-    return null;
-  };
-
-  compositions.forEach((composition, compositionIndex) => {
-    const newChunkIds = composition.usesChunks.filter(
-      (chunkId) => !preparedChunkIds.has(chunkId)
-    );
-    const practiceChunkIds = [...newChunkIds];
-
-    if (practiceChunkIds.length === 1) {
-      const supportChunkId = nextUnpreparedChunkId(
-        compositionIndex,
-        new Set(practiceChunkIds)
-      );
-
-      if (supportChunkId) {
-        practiceChunkIds.push(supportChunkId);
-      }
-    }
-
-    practiceChunkIds.forEach((chunkId) => {
-      appendInternalSteps(chunkId);
-    });
-
-    const finalSteps = practiceChunkIds
-      .map(finalStepForChunk)
-      .filter(
-        (task) => task && !scheduledTaskIds.has(task.id)
-      );
-
-    if (finalSteps.length === 1) {
-      throw new Error(
-        `Invalid meaning chunk schedule: cannot interleave meaning chunk ` +
-          `"${finalSteps[0].meaningChunk.id}" before composition ` +
-          `"${composition.id}".`
-      );
-    }
-
-    if (finalSteps.length > 0) {
-      groups.push(
-        meaningChunkGroup(
-          `meaning-chunks-${composition.id}`,
-          finalSteps,
-          Object.fromEntries(
-            finalSteps.map((task) => [
-              task.id,
-              taskMasteryRule({
-                minCorrect: Number(practicePolicy.minCorrect) || 2,
-                requiresInterleavedCorrect: true,
-              }),
-            ])
-          ),
-          practicePolicy,
-          { minCorrectBeforeNextIntroduction: 1 }
-        )
-      );
-      finalSteps.forEach((task) => {
-        scheduledTaskIds.add(task.id);
-        preparedChunkIds.add(task.meaningChunk.id);
-      });
-    }
+    const isFinalChunk = Boolean(task.meaningChunk?.isFinalStep);
 
     groups.push(
       meaningChunkGroup(
-        `meaning-compose-${composition.id}`,
-        [composition],
+        `${prefix}-${task.id}`,
+        [task],
         {
-          [composition.id]: taskMasteryRule({
-            minCorrect: 1,
+          [task.id]: taskMasteryRule({
+            minCorrect: isFinalChunk
+              ? Number(practicePolicy.minCorrect) || 2
+              : 1,
+            minStreak: isFinalChunk ? 2 : 1,
             requiresInterleavedCorrect: false,
           }),
         },
         practicePolicy
       )
     );
-    scheduledTaskIds.add(composition.id);
+    scheduledTaskIds.add(task.id);
+  };
+
+  const appendChunk = (chunkId) => {
+    if (preparedChunkIds.has(chunkId)) {
+      return;
+    }
+
+    const chunkTasks = chunkTasksById.get(chunkId);
+
+    if (!chunkTasks) {
+      throw new Error(
+        `Invalid meaning chunk schedule: unknown chunk "${chunkId}".`
+      );
+    }
+
+    chunkTasks.forEach((task) => appendTask(task, "meaning-step"));
+    preparedChunkIds.add(chunkId);
+  };
+
+  compositions.forEach((composition) => {
+    composition.usesChunks.forEach(appendChunk);
+    appendTask(composition, "meaning-compose");
   });
 
   tasks
     .filter((task) => !scheduledTaskIds.has(task.id))
     .forEach((task) => {
-      groups.push(
-        meaningChunkGroup(
-          `meaning-fallback-${task.id}`,
-          [task],
-          {
-            [task.id]: taskMasteryRule({
-              minCorrect: task.meaningChunk?.isFinalStep
-                ? Number(practicePolicy.minCorrect) || 2
-                : 1,
-              requiresInterleavedCorrect: false,
-            }),
-          },
-          practicePolicy
-        )
-      );
+      appendTask(task, "meaning-fallback");
     });
 
   return groups;
