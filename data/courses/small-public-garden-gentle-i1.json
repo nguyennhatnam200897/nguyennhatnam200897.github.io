@@ -961,6 +961,425 @@
           "message": "Câu gốc không lặp the project would; cụm cần dùng là and attract noise."
         }
       ]
+    },
+    {
+      "id": "S4-meaning-chunks",
+      "sentenceId": "S4",
+      "overview": {
+        "title": "Mình sẽ xây câu này từ các cụm nghĩa",
+        "summary": [
+          "Câu này cho thấy khu vườn đã thay đổi tích cực sau vài tháng.",
+          "Mình sẽ học nơi đó phục vụ ba nhóm người như thế nào.",
+          "Sau đó mình sẽ ghép thời gian và quan hệ trái với lo ngại ban đầu."
+        ],
+        "graded": false
+      },
+      "chunks": [
+        {
+          "id": "S4-C01",
+          "english": "however",
+          "vietnamese": "tuy nhiên",
+          "chunkType": "linker",
+          "roleQuestion": "Quan hệ với ý trước?",
+          "whenNeeded": "Khi kết quả thực tế đổi hướng so với lo ngại hoặc dự đoán trước đó.",
+          "roleMeaning": "Cụm này báo hiệu câu sau đưa ra một diễn biến trái với điều vừa nêu.",
+          "successMessage": "Bạn đã có từ nối đổi hướng: however.",
+          "iPlusOneSteps": [
+            {
+              "id": "S4-C01-STEP01",
+              "prompt": "tuy nhiên",
+              "answer": "however",
+              "purpose": "Nắm từ nối báo hiệu sự đổi hướng."
+            }
+          ]
+        },
+        {
+          "id": "S4-C02",
+          "english": "within a few months",
+          "vietnamese": "chỉ trong vài tháng",
+          "chunkType": "time",
+          "roleQuestion": "Khi nào?",
+          "whenNeeded": "Khi muốn nói một thay đổi xảy ra trong một khoảng vài tháng.",
+          "roleMeaning": "Cụm này cho biết khoảng thời gian để thay đổi xuất hiện.",
+          "successMessage": "Bạn đã có cụm thời gian: within a few months.",
+          "iPlusOneSteps": [
+            {
+              "id": "S4-C02-STEP01",
+              "prompt": "tháng",
+              "answer": "month",
+              "audioId": "S4-02",
+              "purpose": "Tạo mỏ neo nghĩa cho một tháng."
+            },
+            {
+              "id": "S4-C02-STEP02",
+              "prompt": "các tháng",
+              "answer": "months",
+              "audioId": "S4-03",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S4-C02-STEP03",
+              "prompt": "vài tháng",
+              "answer": "a few months",
+              "audioId": "S4-04",
+              "purpose": "Thêm lượng từ chỉ một số ít."
+            },
+            {
+              "id": "S4-C02-STEP04",
+              "prompt": "trong vòng vài tháng",
+              "answer": "within a few months",
+              "audioId": "S4-05",
+              "purpose": "Thêm within để hoàn chỉnh khoảng thời gian."
+            }
+          ]
+        },
+        {
+          "id": "S4-C03",
+          "english": "the garden became a quiet place",
+          "vietnamese": "khu vườn đã trở thành một nơi yên tĩnh",
+          "chunkType": "change-result",
+          "roleQuestion": "Điều gì đã thay đổi thế nào?",
+          "whenNeeded": "Khi muốn nói khu vườn đã chuyển thành một nơi yên tĩnh.",
+          "roleMeaning": "Cụm này nêu đối tượng thay đổi và trạng thái mới của nó.",
+          "successMessage": "Bạn đã diễn đạt được sự thay đổi của khu vườn.",
+          "iPlusOneSteps": [
+            {
+              "id": "S4-C03-STEP01",
+              "prompt": "khu vườn đã được xác định",
+              "answer": "the garden",
+              "audioId": "S4-01",
+              "purpose": "Nắm chủ thể đã xuất hiện trong câu chuyện."
+            },
+            {
+              "id": "S4-C03-STEP02",
+              "prompt": "nơi",
+              "answer": "place",
+              "audioId": "S4-06",
+              "purpose": "Tạo mỏ neo nghĩa cho nơi chốn."
+            },
+            {
+              "id": "S4-C03-STEP03",
+              "prompt": "nơi yên tĩnh",
+              "answer": "quiet place",
+              "audioId": "S4-07",
+              "purpose": "Thêm đặc điểm yên tĩnh."
+            },
+            {
+              "id": "S4-C03-STEP04",
+              "prompt": "một nơi yên tĩnh",
+              "answer": "a quiet place",
+              "audioId": "S4-08",
+              "purpose": "Thêm mạo từ cho kết quả mới."
+            },
+            {
+              "id": "S4-C03-STEP05",
+              "prompt": "khu vườn đã trở thành một nơi yên tĩnh",
+              "answer": "the garden became a quiet place",
+              "audioId": "S4-09",
+              "purpose": "Thêm became để hoàn chỉnh sự thay đổi."
+            }
+          ]
+        },
+        {
+          "id": "S4-C04",
+          "english": "where children could play",
+          "vietnamese": "nơi trẻ em có thể chơi",
+          "chunkType": "place-detail",
+          "roleQuestion": "Nơi đó cho trẻ em làm gì?",
+          "whenNeeded": "Khi muốn giải thích một nơi cho phép trẻ em chơi.",
+          "roleMeaning": "Cụm này mở phần mô tả công dụng của nơi chốn cho trẻ em.",
+          "successMessage": "Bạn đã có cụm mô tả nơi chốn với where.",
+          "iPlusOneSteps": [
+            {
+              "id": "S4-C04-STEP01",
+              "prompt": "một đứa trẻ",
+              "answer": "child",
+              "audioId": "S4-10",
+              "purpose": "Tạo mỏ neo nghĩa cho một trẻ em."
+            },
+            {
+              "id": "S4-C04-STEP02",
+              "prompt": "trẻ em",
+              "answer": "children",
+              "audioId": "S4-11",
+              "purpose": "Chuyển sang dạng số nhiều bất quy tắc."
+            },
+            {
+              "id": "S4-C04-STEP03",
+              "prompt": "trẻ em chơi",
+              "answer": "children play",
+              "audioId": "S4-12",
+              "purpose": "Thêm hành động chơi."
+            },
+            {
+              "id": "S4-C04-STEP04",
+              "prompt": "trẻ em có thể chơi",
+              "answer": "children could play",
+              "audioId": "S4-13",
+              "purpose": "Thêm could để diễn đạt khả năng tại nơi đó."
+            },
+            {
+              "id": "S4-C04-STEP05",
+              "prompt": "nơi trẻ em có thể chơi",
+              "answer": "where children could play",
+              "purpose": "Thêm where để gắn công dụng vào một nơi chốn."
+            }
+          ]
+        },
+        {
+          "id": "S4-C05",
+          "english": "older people could meet",
+          "vietnamese": "người lớn tuổi có thể gặp nhau",
+          "chunkType": "place-detail",
+          "roleQuestion": "Người lớn tuổi có thể làm gì?",
+          "whenNeeded": "Khi muốn nói một nơi cho người lớn tuổi cơ hội gặp nhau.",
+          "roleMeaning": "Cụm này thêm nhóm người thứ hai và hoạt động của họ.",
+          "successMessage": "Bạn đã thêm được công dụng của nơi đó cho người lớn tuổi.",
+          "iPlusOneSteps": [
+            {
+              "id": "S4-C05-STEP01",
+              "prompt": "một người",
+              "answer": "person",
+              "audioId": "S4-14",
+              "purpose": "Tạo mỏ neo nghĩa cho một người."
+            },
+            {
+              "id": "S4-C05-STEP02",
+              "prompt": "mọi người",
+              "answer": "people",
+              "audioId": "S4-15",
+              "purpose": "Chuyển sang dạng số nhiều bất quy tắc."
+            },
+            {
+              "id": "S4-C05-STEP03",
+              "prompt": "người lớn tuổi",
+              "answer": "older people",
+              "audioId": "S4-16",
+              "purpose": "Thêm đặc điểm tuổi tác."
+            },
+            {
+              "id": "S4-C05-STEP04",
+              "prompt": "người lớn tuổi gặp nhau",
+              "answer": "older people meet",
+              "audioId": "S4-17",
+              "purpose": "Thêm hoạt động gặp nhau."
+            },
+            {
+              "id": "S4-C05-STEP05",
+              "prompt": "người lớn tuổi có thể gặp nhau",
+              "answer": "older people could meet",
+              "audioId": "S4-18",
+              "purpose": "Thêm could để hoàn chỉnh khả năng tại nơi đó."
+            }
+          ]
+        },
+        {
+          "id": "S4-C06",
+          "english": "office workers could rest during lunch breaks",
+          "vietnamese": "nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+          "chunkType": "place-detail",
+          "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?",
+          "whenNeeded": "Khi muốn nói nhân viên văn phòng có thể nghỉ trong giờ nghỉ trưa.",
+          "roleMeaning": "Cụm này thêm nhóm người thứ ba, hoạt động và thời điểm của họ.",
+          "successMessage": "Bạn đã thêm được công dụng của nơi đó cho nhân viên văn phòng.",
+          "iPlusOneSteps": [
+            {
+              "id": "S4-C06-STEP01",
+              "prompt": "nhân viên",
+              "answer": "worker",
+              "audioId": "S4-19",
+              "purpose": "Tạo mỏ neo nghĩa cho một nhân viên."
+            },
+            {
+              "id": "S4-C06-STEP02",
+              "prompt": "các nhân viên",
+              "answer": "workers",
+              "audioId": "S4-20",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S4-C06-STEP03",
+              "prompt": "nhân viên văn phòng",
+              "answer": "office workers",
+              "audioId": "S4-21",
+              "purpose": "Thêm môi trường làm việc."
+            },
+            {
+              "id": "S4-C06-STEP04",
+              "prompt": "nhân viên văn phòng nghỉ ngơi",
+              "answer": "office workers rest",
+              "audioId": "S4-22",
+              "purpose": "Thêm hoạt động nghỉ ngơi."
+            },
+            {
+              "id": "S4-C06-STEP05",
+              "prompt": "nhân viên văn phòng có thể nghỉ ngơi",
+              "answer": "office workers could rest",
+              "audioId": "S4-23",
+              "purpose": "Thêm could để diễn đạt khả năng."
+            },
+            {
+              "id": "S4-C06-STEP06",
+              "prompt": "giờ nghỉ",
+              "answer": "break",
+              "audioId": "S4-24",
+              "purpose": "Tạo mỏ neo nghĩa cho một giờ nghỉ."
+            },
+            {
+              "id": "S4-C06-STEP07",
+              "prompt": "các giờ nghỉ",
+              "answer": "breaks",
+              "audioId": "S4-25",
+              "purpose": "Thêm lớp số nhiều."
+            },
+            {
+              "id": "S4-C06-STEP08",
+              "prompt": "giờ nghỉ trưa",
+              "answer": "lunch breaks",
+              "audioId": "S4-26",
+              "purpose": "Xác định loại giờ nghỉ."
+            },
+            {
+              "id": "S4-C06-STEP09",
+              "prompt": "trong giờ nghỉ trưa",
+              "answer": "during lunch breaks",
+              "audioId": "S4-27",
+              "purpose": "Thêm during để tạo cụm thời gian."
+            },
+            {
+              "id": "S4-C06-STEP10",
+              "prompt": "nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+              "answer": "office workers could rest during lunch breaks",
+              "audioId": "S4-28",
+              "purpose": "Ghép hoạt động với thời điểm để hoàn chỉnh cụm."
+            }
+          ]
+        }
+      ],
+      "compositionTasks": [
+        {
+          "id": "S4-M01",
+          "prompt": "nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau",
+          "answer": "where children could play, older people could meet",
+          "usesChunks": ["S4-C04", "S4-C05"],
+          "masteryCredit": ["S4-C04", "S4-C05"],
+          "roleLine": [
+            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
+            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" }
+          ],
+          "successMessage": "Bạn đã ghép được công dụng của nơi đó cho hai nhóm người."
+        },
+        {
+          "id": "S4-M02",
+          "prompt": "nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+          "answer": "where children could play, older people could meet, and office workers could rest during lunch breaks",
+          "audioId": "S4-31",
+          "usesChunks": ["S4-C04", "S4-C05", "S4-C06"],
+          "masteryCredit": ["S4-C04", "S4-C05", "S4-C06"],
+          "roleLine": [
+            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
+            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
+            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+          ],
+          "successMessage": "Bạn đã ghép được công dụng của nơi đó cho cả ba nhóm người."
+        },
+        {
+          "id": "S4-M03",
+          "prompt": "khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+          "answer": "the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks",
+          "audioId": "S4-33",
+          "usesChunks": ["S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "masteryCredit": ["S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "roleLine": [
+            { "roleQuestion": "Điều gì đã thay đổi thế nào?", "chunkId": "S4-C03", "english": "the garden became a quiet place" },
+            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
+            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
+            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+          ],
+          "successMessage": "Bạn đã ghép nơi chốn mới với ba công dụng cụ thể."
+        },
+        {
+          "id": "S4-M04",
+          "prompt": "chỉ trong vài tháng, khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
+          "answer": "within a few months, the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks",
+          "audioId": "S4-34",
+          "usesChunks": ["S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "masteryCredit": ["S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "roleLine": [
+            { "roleQuestion": "Khi nào?", "chunkId": "S4-C02", "english": "within a few months" },
+            { "roleQuestion": "Điều gì đã thay đổi thế nào?", "chunkId": "S4-C03", "english": "the garden became a quiet place" },
+            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
+            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
+            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+          ],
+          "successMessage": "Bạn đã đặt toàn bộ thay đổi vào đúng khoảng thời gian."
+        },
+        {
+          "id": "S4-M05",
+          "stage": "sentence",
+          "prompt": "Tuy nhiên, chỉ trong vài tháng, khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa.",
+          "answer": "However, within a few months, the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks.",
+          "audioId": "S4-35",
+          "usesChunks": ["S4-C01", "S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "masteryCredit": ["S4-C01", "S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "roleLine": [
+            { "roleQuestion": "Quan hệ với ý trước?", "chunkId": "S4-C01", "english": "however" },
+            { "roleQuestion": "Khi nào?", "chunkId": "S4-C02", "english": "within a few months" },
+            { "roleQuestion": "Điều gì đã thay đổi thế nào?", "chunkId": "S4-C03", "english": "the garden became a quiet place" },
+            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
+            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
+            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu dài bằng sáu cụm nghĩa rõ ràng."
+        }
+      ],
+      "repairRules": [
+        {
+          "id": "S4-R01",
+          "appliesTo": ["S4-M01", "S4-M02", "S4-M03", "S4-M04", "S4-M05"],
+          "chunkId": "S4-C04",
+          "detect": {
+            "commonWrongAnswers": ["where child could play", "children could play"]
+          },
+          "message": "Cụm cần sửa dùng children ở số nhiều và giữ where để gắn vào nơi chốn."
+        },
+        {
+          "id": "S4-R02",
+          "appliesTo": ["S4-M01", "S4-M02", "S4-M03", "S4-M04", "S4-M05"],
+          "chunkId": "S4-C05",
+          "detect": {
+            "commonWrongAnswers": ["older people meet"]
+          },
+          "message": "Cụm cần sửa giữ could: người lớn tuổi có thể gặp nhau."
+        },
+        {
+          "id": "S4-R03",
+          "appliesTo": ["S4-M02", "S4-M03", "S4-M04", "S4-M05"],
+          "chunkId": "S4-C06",
+          "detect": {
+            "commonWrongAnswers": ["during lunch break", "office workers rest during lunch breaks"]
+          },
+          "message": "Cụm cần sửa giữ could và breaks ở số nhiều."
+        },
+        {
+          "id": "S4-R04",
+          "appliesTo": ["S4-M03", "S4-M04", "S4-M05"],
+          "chunkId": "S4-C03",
+          "detect": {
+            "commonWrongAnswers": ["the garden became quiet place"]
+          },
+          "message": "Cụm cần sửa dùng a quiet place: một nơi yên tĩnh."
+        },
+        {
+          "id": "S4-R05",
+          "appliesTo": ["S4-M05"],
+          "chunkId": "S4-C01",
+          "detect": {
+            "commonWrongAnswers": ["within a few months"]
+          },
+          "message": "Câu hoàn chỉnh cần however để đổi hướng so với lo ngại trước đó."
+        }
+      ]
     }
   ],
   "taskGroups": [

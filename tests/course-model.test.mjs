@@ -232,7 +232,9 @@ test("builds the meaning chunk i+1 experiment as a cloned course", async () => {
   assert.equal(experiment.tasks.some((task) => task.id === "S1-C01-STEP03"), true);
   assert.equal(experiment.tasks.some((task) => task.id === "S2-01"), false);
   assert.equal(experiment.tasks.some((task) => task.id === "S2-C01-STEP01"), true);
-  assert.equal(experiment.tasks.some((task) => task.id === "S4-01"), true);
+  assert.equal(experiment.tasks.some((task) => task.id === "S4-01"), false);
+  assert.equal(experiment.tasks.some((task) => task.id === "S4-C01-STEP01"), true);
+  assert.equal(experiment.tasks.some((task) => task.id === "S5-01"), true);
   assert.equal(byId.get("S1-C01-STEP03").answer, "many cities");
   assert.equal(
     byId.get("S1-M03").answer,
@@ -295,6 +297,35 @@ test("defines the approved meaning chunk maps for sentences two and three", asyn
     s3.compositionTasks.at(-1).answer,
     sentenceById.get("S3").english
   );
+});
+
+test("defines the approved meaning chunk map for sentence four", async () => {
+  const experimentData = await readCourseData(
+    "../data/courses/small-public-garden-gentle-i1.json"
+  );
+  const sentenceById = new Map(
+    experimentData.sentences.map((sentence) => [sentence.id, sentence])
+  );
+  const s4 = experimentData.meaningChunkLessons.find(
+    (lesson) => lesson.sentenceId === "S4"
+  );
+
+  assert.deepEqual(
+    s4.chunks.map((chunk) => chunk.english),
+    [
+      "however",
+      "within a few months",
+      "the garden became a quiet place",
+      "where children could play",
+      "older people could meet",
+      "office workers could rest during lunch breaks",
+    ]
+  );
+  assert.equal(
+    s4.compositionTasks.at(-1).answer,
+    sentenceById.get("S4").english
+  );
+  assert.equal(s4.compositionTasks.at(-1).roleLine.length, 6);
 });
 
 test("supports a course-level audio extension", () => {
