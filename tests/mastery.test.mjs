@@ -435,6 +435,98 @@ test("requires cumulative meaning chunk paragraphs only once", () => {
   ]);
 });
 
+test("repairs a paragraph through its broken sentence and meaning chunk", () => {
+  const repairGroups = buildPracticeGroups(
+    [
+      {
+        id: "S1-FINAL",
+        sentenceId: "S1",
+        stage: "sentence",
+      },
+      {
+        id: "S2-C01-FINAL",
+        sentenceId: "S2",
+        stage: "phrase",
+        meaningChunk: { id: "S2-C01", isFinalStep: true },
+      },
+      {
+        id: "S2-FINAL",
+        sentenceId: "S2",
+        stage: "sentence",
+        usesChunks: ["S2-C01"],
+        rollbackTargets: [
+          { taskId: "S2-C01-FINAL", start: 0, end: 2 },
+        ],
+      },
+      {
+        id: "G2",
+        sentenceId: "PARAGRAPH",
+        stage: "paragraph",
+        rollbackTargets: [
+          { taskId: "S1-FINAL", start: 0, end: 3 },
+          { taskId: "S2-FINAL", start: 3, end: 5 },
+        ],
+      },
+    ],
+    {
+      mode: "frontier-rollback",
+      meaningChunkMastery: true,
+      minCorrect: 2,
+      repairCorrectCount: 1,
+    }
+  );
+  const paragraphGroupIndex = repairGroups.findIndex(
+    (practiceGroup) => practiceGroup.taskIds[0] === "G2"
+  );
+  let session = {
+    ...createMasterySession(repairGroups),
+    groupIndex: paragraphGroupIndex,
+  };
+
+  session = recordMasteryAttempt(session, repairGroups, "G2", false, {
+    issue: { index: 4, actual: "wrong", expected: "meet", type: "mismatch" },
+  });
+  assert.equal(getCurrentTaskId(session, repairGroups), "S2-FINAL");
+
+  session = recordMasteryAttempt(
+    session,
+    repairGroups,
+    "S2-FINAL",
+    false,
+    {
+      issue: {
+        index: 1,
+        actual: "wrong",
+        expected: "people",
+        type: "mismatch",
+      },
+    }
+  );
+  assert.equal(getCurrentTaskId(session, repairGroups), "S2-C01-FINAL");
+
+  session = restoreMasterySession(
+    serializeMasterySession(session),
+    repairGroups
+  );
+  assert.equal(getCurrentTaskId(session, repairGroups), "S2-C01-FINAL");
+
+  session = recordMasteryAttempt(
+    session,
+    repairGroups,
+    "S2-C01-FINAL",
+    true
+  );
+  assert.equal(getCurrentTaskId(session, repairGroups), "S2-FINAL");
+
+  session = recordMasteryAttempt(
+    session,
+    repairGroups,
+    "S2-FINAL",
+    true
+  );
+  assert.equal(getCurrentTaskId(session, repairGroups), "G2");
+});
+
 test("rolls back only when the failed token is inside a learned prerequisite", () => {
   const futureGroups = buildPracticeGroups(
     [

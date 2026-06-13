@@ -344,6 +344,52 @@ function normalizeStats(stats = {}) {
   };
 }
 
+function cloneRepair(repair) {
+  if (!repair) {
+    return null;
+  }
+
+  return {
+    ...repair,
+    ...(repair.resumeRepair
+      ? { resumeRepair: cloneRepair(repair.resumeRepair) }
+      : {}),
+  };
+}
+
+function restoreRepair(value, groups, fallbackGroupIndex) {
+  if (
+    !value ||
+    typeof value !== "object" ||
+    typeof value.taskId !== "string"
+  ) {
+    return null;
+  }
+
+  return {
+    taskId: value.taskId,
+    returnGroupIndex: Math.min(
+      Math.max(
+        Number(value.returnGroupIndex) || fallbackGroupIndex,
+        0
+      ),
+      groups.length
+    ),
+    returnTaskId:
+      typeof value.returnTaskId === "string" ? value.returnTaskId : null,
+    correctCountRequired: Number(value.correctCountRequired) || 1,
+    ...(value.resumeRepair
+      ? {
+          resumeRepair: restoreRepair(
+            value.resumeRepair,
+            groups,
+            fallbackGroupIndex
+          ),
+        }
+      : {}),
+  };
+}
+
 function isStatsMastered(stats, rule = MASTERY_RULE) {
   return (
     stats.correctCount >= rule.minCorrect &&
@@ -370,7 +416,7 @@ export function serializeMasterySession(session) {
     groupIndex: session.groupIndex,
     introducedIds: [...session.introducedIds],
     lastAnsweredTaskId: session.lastAnsweredTaskId,
-    repair: session.repair ? { ...session.repair } : null,
+    repair: cloneRepair(session.repair),
     seenOverviewIds: [...(session.seenOverviewIds ?? [])],
     stats: Object.fromEntries(
       Object.entries(session.stats).map(([taskId, stats]) => [
@@ -399,24 +445,7 @@ export function restoreMasterySession(value, groups) {
       : [],
     lastAnsweredTaskId:
       typeof value.lastAnsweredTaskId === "string" ? value.lastAnsweredTaskId : null,
-    repair:
-      value.repair &&
-      typeof value.repair === "object" &&
-      typeof value.repair.taskId === "string"
-        ? {
-            taskId: value.repair.taskId,
-            returnGroupIndex: Math.min(
-              Math.max(Number(value.repair.returnGroupIndex) || groupIndex, 0),
-              groups.length
-            ),
-            returnTaskId:
-              typeof value.repair.returnTaskId === "string"
-                ? value.repair.returnTaskId
-                : null,
-            correctCountRequired:
-              Number(value.repair.correctCountRequired) || 1,
-          }
-        : null,
+    repair: restoreRepair(value.repair, groups, groupIndex),
     seenOverviewIds: Array.isArray(value.seenOverviewIds)
       ? value.seenOverviewIds.filter((sentenceId) => typeof sentenceId === "string")
       : [],
@@ -602,7 +631,7 @@ function rollbackTaskIdFor(groupToCheck, taskId, feedback) {
   return matches[0]?.taskId ?? null;
 }
 
-function recordRepairAttempt(session, taskId, correct) {
+function recordRepairAttempt(session, groups, taskId, correct, feedback) {
   const stats = updateStats(
     session.stats,
     taskId,
@@ -616,12 +645,42 @@ function recordRepairAttempt(session, taskId, correct) {
     stats,
   };
 
+  if (!correct) {
+    const repairGroup = groups.find((practiceGroup) =>
+      practiceGroup.taskIds.includes(taskId)
+    );
+    const rollbackTaskId = repairGroup
+      ? rollbackTaskIdFor(repairGroup, taskId, feedback)
+      : null;
+
+    if (rollbackTaskId && rollbackTaskId !== taskId) {
+      return {
+        ...nextSession,
+        repair: {
+          taskId: rollbackTaskId,
+          returnGroupIndex: session.repair.returnGroupIndex,
+          returnTaskId: taskId,
+          correctCountRequired: repairGroup.repairCorrectCount ?? 1,
+          resumeRepair: cloneRepair(session.repair),
+        },
+      };
+    }
+
+    return nextSession;
+  }
+
   if (
-    !correct ||
     normalizeStats(stats[taskId]).correctCount <
-      (session.repair.correctCountRequired ?? 1)
+    (session.repair.correctCountRequired ?? 1)
   ) {
     return nextSession;
+  }
+
+  if (session.repair.resumeRepair) {
+    return {
+      ...nextSession,
+      repair: cloneRepair(session.repair.resumeRepair),
+    };
   }
 
   return {
@@ -634,7 +693,7 @@ function recordRepairAttempt(session, taskId, correct) {
 
 export function recordMasteryAttempt(session, groups, taskId, correct, feedback) {
   if (session.repair?.taskId === taskId) {
-    return recordRepairAttempt(session, taskId, correct);
+    return recordRepairAttempt(session, groups, taskId, correct, feedback);
   }
 
   const currentGroup = getCurrentGroup(session, groups);

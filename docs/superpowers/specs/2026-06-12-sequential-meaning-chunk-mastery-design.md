@@ -8,6 +8,10 @@
 thạo cụm nghĩa. Nếu các tài liệu cũ yêu cầu xen kẽ hai cụm khi luyện riêng,
 quy tắc trong tài liệu này được ưu tiên.
 
+Đã áp dụng đầy đủ cho course `small-public-garden-gentle-i1` ngày 13/06/2026.
+Course này dùng bảy lesson cụm nghĩa liên tục, đoạn cộng dồn đúng một lần là
+qua, và repair đoạn quay về đúng câu/cụm hỏng trước khi trở lại đoạn.
+
 ## Mục tiêu
 
 Người học hoàn thiện trọn vẹn một cụm trước khi chuyển sang cụm tiếp theo.
@@ -224,6 +228,16 @@ Không được xuất hiện `are trying to` giữa hai lượt `many cities`.
 - Lỗi cụm trong composition quay đúng cụm.
 - Repair xong trở lại composition.
 - Cụm khác không bị đặt lại tiến độ.
+
+### Đoạn cộng dồn
+
+- Mỗi task đoạn cộng dồn đúng một lần thì qua.
+- Nếu sai ở đoạn, app dùng token span để xác định câu chứa lỗi.
+- App mở lại đúng task câu hoàn chỉnh đó một lần.
+- Nếu câu đang repair vẫn sai ở một cụm đã học, app đi sâu thêm một cấp về đúng
+  cụm hỏng, sửa cụm một lần, rồi quay lại câu.
+- Sau khi câu repair đúng, app quay lại task đoạn đang học.
+- Các câu và cụm không liên quan không bị xóa tiến độ.
 
 ### Hồi quy
 
