@@ -42,6 +42,7 @@ const elements = {
   feedbackNotes: document.querySelector("#feedback-notes"),
   finishState: document.querySelector("#finish-state"),
   guideContent: document.querySelector("#guide-content"),
+  guideDifficultyNotes: document.querySelector("#guide-difficulty-notes"),
   guideExplanation: document.querySelector("#guide-explanation"),
   guideIpa: document.querySelector("#guide-ipa"),
   guideMeaning: document.querySelector("#guide-meaning"),
@@ -56,6 +57,7 @@ const elements = {
   lesson: document.querySelector("#lesson"),
   listenGuide: document.querySelector("#listen-guide"),
   overviewContent: document.querySelector("#overview-content"),
+  overviewMeaningMap: document.querySelector("#overview-meaning-map"),
   overviewSummary: document.querySelector("#overview-summary"),
   overviewTitle: document.querySelector("#overview-title"),
   progress: document.querySelector("#global-progress"),
@@ -534,6 +536,33 @@ function renderGuideRoleLine(roleLine = []) {
   });
 }
 
+function renderGuideDifficultyNotes(notes = []) {
+  const rows = Array.isArray(notes) ? notes : [];
+
+  elements.guideDifficultyNotes.replaceChildren();
+  elements.guideDifficultyNotes.hidden = rows.length === 0;
+
+  if (rows.length === 0) {
+    return;
+  }
+
+  const title = document.createElement("h3");
+  title.textContent = "Điểm dễ sai";
+  elements.guideDifficultyNotes.append(title);
+
+  rows.forEach((note) => {
+    const item = document.createElement("article");
+    const noteTitle = document.createElement("h4");
+    const body = document.createElement("p");
+
+    item.className = "difficultyNote";
+    noteTitle.textContent = note.title;
+    body.textContent = note.body;
+    item.append(noteTitle, body);
+    elements.guideDifficultyNotes.append(item);
+  });
+}
+
 function renderGuide(task) {
   elements.guideTerm.textContent = task.guide.term;
   elements.guideMeaning.textContent = task.guide.meaning;
@@ -541,8 +570,44 @@ function renderGuide(task) {
   // Role metadata such as task.guide.whenNeeded and task.guide.roleQuestion is guide-only.
   renderGuideRole(task.guide);
   renderGuideRoleLine(task.guide.roleLine ?? task.roleLine ?? []);
+  renderGuideDifficultyNotes(task.guide.difficultyNotes);
   renderPronunciation(task.guide.pronunciation);
   renderGuideParts(task.guide.parts);
+}
+
+function renderOverviewMeaningMap(meaningMap = []) {
+  const rows = Array.isArray(meaningMap) ? meaningMap : [];
+
+  elements.overviewMeaningMap.replaceChildren();
+  elements.overviewMeaningMap.hidden = rows.length === 0;
+
+  if (rows.length === 0) {
+    return;
+  }
+
+  const title = document.createElement("h3");
+  const list = document.createElement("ol");
+
+  title.textContent = "Bản đồ ý";
+  list.className = "meaningMapList";
+  elements.overviewMeaningMap.append(title, list);
+
+  rows.forEach((item) => {
+    const row = document.createElement("li");
+    const label = document.createElement("strong");
+    const meaning = document.createElement("span");
+
+    row.className = "meaningMapItem";
+    label.textContent = item.label;
+    meaning.textContent = item.meaning ?? "";
+    row.append(label);
+
+    if (meaning.textContent) {
+      row.append(meaning);
+    }
+
+    list.append(row);
+  });
 }
 
 function renderOverview(task) {
@@ -557,6 +622,8 @@ function renderOverview(task) {
     paragraph.textContent = summary;
     elements.overviewSummary.append(paragraph);
   });
+
+  renderOverviewMeaningMap(overview.meaningMap);
 }
 
 function renderFeedback() {

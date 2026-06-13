@@ -233,6 +233,47 @@ button:disabled {
   margin: 0;
 }
 
+.meaningMap {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin-bottom: 28px;
+  max-width: 650px;
+  padding: 16px;
+}
+
+.meaningMap h3,
+.difficultyNotes h3 {
+  color: var(--green);
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: 0;
+  margin: 0 0 12px;
+}
+
+.meaningMapList {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.meaningMapItem {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+.meaningMapItem strong {
+  color: var(--text);
+}
+
+.meaningMapItem span {
+  color: var(--muted);
+}
+
 .guide {
   animation: appear 180ms ease-out;
 }
@@ -315,6 +356,30 @@ button:disabled {
 
 .guideRoleLine strong {
   color: var(--green);
+}
+
+.difficultyNotes {
+  background: var(--amber-soft);
+  border: 1px solid var(--amber-line);
+  border-radius: 6px;
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  max-width: 650px;
+  padding: 16px;
+}
+
+.difficultyNote h4 {
+  font-size: 16px;
+  line-height: 1.35;
+  margin: 0 0 4px;
+}
+
+.difficultyNote p {
+  color: #4b2600;
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0;
 }
 
 .guideNewWords {
@@ -579,6 +644,12 @@ textarea:focus {
 
   .overviewSummary p {
     font-size: 17px;
+  }
+
+  .meaningMapItem {
+    align-items: start;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .overview button {

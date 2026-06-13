@@ -18,9 +18,11 @@ test("uses only relative static assets suitable for a GitHub Pages subpath", asy
   assert.match(html, /id="overview-content"/);
   assert.match(html, /id="overview-title"/);
   assert.match(html, /id="overview-summary"/);
+  assert.match(html, /id="overview-meaning-map"/);
   assert.match(html, /id="continue-overview"/);
   assert.match(html, /id="guide-ipa"/);
   assert.match(html, /id="guide-new-words"/);
+  assert.match(html, /id="guide-difficulty-notes"/);
   assert.match(html, /id="listen-guide"/);
   assert.match(html, /id="continue-guide"/);
   assert.match(html, /id="reset-course"/);
@@ -140,6 +142,8 @@ test("renders meaning chunk role guidance in the guide screen", async () => {
   assert.match(appSource, /renderGuideRole/);
   assert.match(appSource, /task\.guide\.whenNeeded/);
   assert.match(appSource, /task\.guide\.roleQuestion/);
+  assert.match(appSource, /renderGuideDifficultyNotes/);
+  assert.match(appSource, /task\.guide\.difficultyNotes/);
 });
 
 test("renders lesson overviews and completion milestone messages", async () => {
@@ -149,6 +153,18 @@ test("renders lesson overviews and completion milestone messages", async () => {
   assert.match(appSource, /markOverviewSeen/);
   assert.match(appSource, /task\.guide\.successMessage/);
   assert.match(appSource, /completedGroup/);
+});
+
+test("renders meaning maps in overview and keeps guidance out of exercise", async () => {
+  const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
+  const renderExercise = appSource.match(
+    /function renderExercise\(task\) \{[\s\S]*?\n\}/
+  )?.[0];
+
+  assert.ok(renderExercise);
+  assert.match(appSource, /renderOverviewMeaningMap/);
+  assert.match(appSource, /overview\.meaningMap/);
+  assert.doesNotMatch(renderExercise, /difficultyNotes|meaningMap|guideRoleLine/);
 });
 
 test("does not require npm or generated build directories", () => {
