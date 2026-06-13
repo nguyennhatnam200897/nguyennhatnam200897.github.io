@@ -15,6 +15,10 @@ test("uses only relative static assets suitable for a GitHub Pages subpath", asy
   assert.match(html, /href="\.\/styles\.css"/);
   assert.match(html, /src="\.\/js\/app\.mjs"/);
   assert.match(html, /id="guide-content"/);
+  assert.match(html, /id="overview-content"/);
+  assert.match(html, /id="overview-title"/);
+  assert.match(html, /id="overview-summary"/);
+  assert.match(html, /id="continue-overview"/);
   assert.match(html, /id="guide-ipa"/);
   assert.match(html, /id="guide-new-words"/);
   assert.match(html, /id="listen-guide"/);
@@ -136,6 +140,15 @@ test("renders meaning chunk role guidance in the guide screen", async () => {
   assert.match(appSource, /renderGuideRole/);
   assert.match(appSource, /task\.guide\.whenNeeded/);
   assert.match(appSource, /task\.guide\.roleQuestion/);
+});
+
+test("renders lesson overviews and completion milestone messages", async () => {
+  const appSource = await readFile(path.join(root, "js", "app.mjs"), "utf8");
+
+  assert.match(appSource, /renderOverview/);
+  assert.match(appSource, /markOverviewSeen/);
+  assert.match(appSource, /task\.guide\.successMessage/);
+  assert.match(appSource, /completedGroup/);
 });
 
 test("does not require npm or generated build directories", () => {

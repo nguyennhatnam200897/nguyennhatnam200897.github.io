@@ -2,6 +2,7 @@ import { loadCourseByEntry, loadCourseIndex } from "./course-loader.mjs";
 import {
   createLessonFlow,
   openExercise,
+  openGuide,
   recordSubmission,
   revisitFailedGuide,
 } from "./lesson-flow.mjs";
@@ -11,7 +12,9 @@ import {
   calculateMasteryProgress,
   createMasterySession,
   getCurrentTaskId,
+  isOverviewSeen,
   isTaskIntroduced,
+  markOverviewSeen,
   recordMasteryAttempt,
   restoreMasterySession,
   serializeMasterySession,
@@ -28,6 +31,7 @@ const elements = {
   changeCourse: document.querySelector("#change-course"),
   checkButton: document.querySelector("#check-answer"),
   continueGuide: document.querySelector("#continue-guide"),
+  continueOverview: document.querySelector("#continue-overview"),
   courseList: document.querySelector("#course-list"),
   coursePicker: document.querySelector("#course-picker"),
   courseStatus: document.querySelector("#course-status"),
@@ -51,6 +55,9 @@ const elements = {
   guideWhenNeeded: document.querySelector("#guide-when-needed"),
   lesson: document.querySelector("#lesson"),
   listenGuide: document.querySelector("#listen-guide"),
+  overviewContent: document.querySelector("#overview-content"),
+  overviewSummary: document.querySelector("#overview-summary"),
+  overviewTitle: document.querySelector("#overview-title"),
   progress: document.querySelector("#global-progress"),
   progressBar: document.querySelector("#progress-bar"),
   prompt: document.querySelector("#prompt"),
@@ -153,10 +160,18 @@ function taskIndexFromId(taskId) {
 function createFlowForCurrentTask({ forceGuide = false } = {}) {
   const taskId = currentTaskId();
   const activeIndex = taskIndexFromId(taskId);
-  const phase =
-    forceGuide || (taskId && !isTaskIntroduced(masterySession, taskId))
-      ? "guide"
-      : "exercise";
+  const task = tasks[activeIndex];
+  const needsOverview =
+    taskId &&
+    task?.lessonOverview &&
+    !isOverviewSeen(masterySession, task.sentenceId);
+  const phase = forceGuide
+    ? "guide"
+    : needsOverview
+      ? "overview"
+      : taskId && !isTaskIntroduced(masterySession, taskId)
+        ? "guide"
+        : "exercise";
 
   return createLessonFlow(activeIndex, { phase });
 }
@@ -178,6 +193,12 @@ function focusAnswer() {
 function focusGuideContinue() {
   window.requestAnimationFrame(() => {
     elements.continueGuide.focus();
+  });
+}
+
+function focusOverviewContinue() {
+  window.requestAnimationFrame(() => {
+    elements.continueOverview.focus();
   });
 }
 
@@ -364,6 +385,7 @@ function showPicker() {
   elements.progress.hidden = true;
   elements.resetCourse.hidden = true;
   elements.changeCourse.hidden = true;
+  elements.overviewContent.hidden = true;
   elements.guideContent.hidden = true;
   elements.exerciseContent.hidden = true;
   elements.finishState.hidden = true;
@@ -523,6 +545,20 @@ function renderGuide(task) {
   renderGuideParts(task.guide.parts);
 }
 
+function renderOverview(task) {
+  const overview = task.lessonOverview;
+
+  elements.overviewTitle.textContent = overview.title;
+  elements.overviewSummary.className = "overviewSummary";
+  elements.overviewSummary.replaceChildren();
+
+  overview.summary.forEach((summary) => {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = summary;
+    elements.overviewSummary.append(paragraph);
+  });
+}
+
 function renderFeedback() {
   const feedback = flow.feedback;
   elements.feedbackNotes.replaceChildren();
@@ -588,6 +624,7 @@ function render() {
   elements.progressBar.style.width = `${progress}%`;
   elements.progress.setAttribute("aria-valuenow", String(progress));
   elements.progress.setAttribute("aria-label", `Đã hoàn thành ${progress}%`);
+  elements.overviewContent.hidden = finished || flow.phase !== "overview";
   elements.guideContent.hidden = finished || flow.phase !== "guide";
   elements.exerciseContent.hidden = finished || flow.phase !== "exercise";
   elements.finishState.hidden = !finished;
@@ -598,7 +635,9 @@ function render() {
 
   const task = activeTask();
 
-  if (flow.phase === "guide") {
+  if (flow.phase === "overview") {
+    renderOverview(task);
+  } else if (flow.phase === "guide") {
     renderGuide(task);
   } else {
     renderExercise(task);
@@ -624,7 +663,9 @@ function showCurrentTask({ forceGuide = false, speak = true } = {}) {
     return;
   }
 
-  if (flow.phase === "guide") {
+  if (flow.phase === "overview") {
+    focusOverviewContinue();
+  } else if (flow.phase === "guide") {
     focusGuideContinue();
 
     if (speak) {
@@ -633,6 +674,20 @@ function showCurrentTask({ forceGuide = false, speak = true } = {}) {
   } else {
     focusAnswer();
   }
+}
+
+function handleOverviewContinue() {
+  if (flow?.phase !== "overview" || isFinished()) {
+    return;
+  }
+
+  const task = activeTask();
+  masterySession = markOverviewSeen(masterySession, task.sentenceId);
+  saveSession();
+  flow = openGuide(flow);
+  render();
+  focusGuideContinue();
+  playGuide();
 }
 
 function handleGuideContinue() {
@@ -695,6 +750,7 @@ function handleCheck() {
 
   const task = activeTask();
   const feedback = evaluateAnswer(task, elements.answer.value);
+  const previousGroupIndex = masterySession.groupIndex;
 
   masterySession = recordMasteryAttempt(
     masterySession,
@@ -704,7 +760,13 @@ function handleCheck() {
     feedback
   );
   saveSession();
-  flow = recordSubmission(flow, feedback);
+  const completedGroup =
+    feedback.correct && masterySession.groupIndex > previousGroupIndex;
+  const resolvedFeedback =
+    completedGroup && task.guide.successMessage
+      ? { ...feedback, message: task.guide.successMessage }
+      : feedback;
+  flow = recordSubmission(flow, resolvedFeedback);
   render();
 
   speechPlayer.speak(task.answer, {
@@ -731,6 +793,12 @@ function handleAnswerKeyDown(event) {
 
 function handleGlobalKeyDown(event) {
   if (event.key !== "Enter" || event.shiftKey || !flow) {
+    return;
+  }
+
+  if (flow.phase === "overview") {
+    event.preventDefault();
+    handleOverviewContinue();
     return;
   }
 
@@ -767,6 +835,7 @@ elements.answer.addEventListener("keydown", handleAnswerKeyDown);
 elements.changeCourse.addEventListener("click", showPicker);
 elements.checkButton.addEventListener("click", handleCheck);
 elements.continueGuide.addEventListener("click", handleGuideContinue);
+elements.continueOverview.addEventListener("click", handleOverviewContinue);
 elements.listenGuide.addEventListener("click", playGuide);
 elements.resetCourse.addEventListener("click", resetCourse);
 elements.speakAnswer.addEventListener("click", handleSpeakAnswer);

@@ -104,6 +104,15 @@ function normalizeTask(task, indexPath) {
     ...(Array.isArray(task.repairRules)
       ? { repairRules: cloneRepairRules(task.repairRules) }
       : {}),
+    ...(task.lessonOverview && typeof task.lessonOverview === "object"
+      ? {
+          lessonOverview: {
+            title: task.lessonOverview.title,
+            summary: [...(task.lessonOverview.summary ?? [])],
+            graded: false,
+          },
+        }
+      : {}),
     ...(task.guide ? { guide: normalizeGuide(task.guide) } : {}),
   };
 }

@@ -4,6 +4,7 @@ import {
   createLessonFlow,
   finishCorrectSpeech,
   openExercise,
+  openGuide,
   recordSubmission,
   revisitFailedGuide,
 } from "../js/lesson-flow.mjs";
@@ -31,6 +32,16 @@ test("opens the exercise from the guide", () => {
 
   assert.equal(flow.phase, "exercise");
   assert.equal(flow.activeIndex, 0);
+});
+
+test("opens the guide from a lesson overview", () => {
+  const overview = createLessonFlow(0, { phase: "overview" });
+  const guide = openGuide(overview);
+
+  assert.equal(overview.phase, "overview");
+  assert.equal(guide.phase, "guide");
+  assert.equal(guide.activeIndex, 0);
+  assert.equal(guide.feedback, null);
 });
 
 test("waits for correct-answer speech before opening the next guide", () => {

@@ -186,6 +186,28 @@ function validateChunk(lesson, chunk, chunkIndex) {
   }
 }
 
+function validateOverview(lesson) {
+  if (lesson.overview === undefined) {
+    return;
+  }
+
+  assertString(lesson.overview.title, `${lesson.id}.overview.title`);
+
+  if (
+    !Array.isArray(lesson.overview.summary) ||
+    lesson.overview.summary.length === 0 ||
+    lesson.overview.summary.some(
+      (item) => typeof item !== "string" || item.trim() === ""
+    )
+  ) {
+    fail(`${lesson.id}.overview.summary must be a non-empty array of strings.`);
+  }
+
+  if (lesson.overview.graded !== false) {
+    fail(`${lesson.id}.overview.graded must be false.`);
+  }
+}
+
 function buildChunkIndex(chunks, lesson) {
   const chunksById = new Map();
 
@@ -311,6 +333,7 @@ function assertUniqueTaskIds(tasks, lesson) {
 function buildLessonTasks(lesson, lessonIndex) {
   assertString(lesson.id, `meaningChunkLessons[${lessonIndex}].id`);
   assertString(lesson.sentenceId, `${lesson.id}.sentenceId`);
+  validateOverview(lesson);
 
   if (!Array.isArray(lesson.chunks)) {
     fail(`${lesson.id}.chunks must be an array.`);
@@ -329,6 +352,18 @@ function buildLessonTasks(lesson, lessonIndex) {
   );
 
   const tasks = [...stepTasks, ...compositionTasks];
+
+  if (tasks[0] && lesson.overview) {
+    tasks[0] = {
+      ...tasks[0],
+      lessonOverview: {
+        title: lesson.overview.title,
+        summary: [...lesson.overview.summary],
+        graded: false,
+      },
+    };
+  }
+
   assertUniqueTaskIds(tasks, lesson);
 
   return tasks;

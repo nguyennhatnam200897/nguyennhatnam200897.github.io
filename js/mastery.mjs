@@ -340,6 +340,7 @@ export function createMasterySession() {
     introducedIds: [],
     lastAnsweredTaskId: null,
     repair: null,
+    seenOverviewIds: [],
     stats: {},
   };
 }
@@ -351,6 +352,7 @@ export function serializeMasterySession(session) {
     introducedIds: [...session.introducedIds],
     lastAnsweredTaskId: session.lastAnsweredTaskId,
     repair: session.repair ? { ...session.repair } : null,
+    seenOverviewIds: [...(session.seenOverviewIds ?? [])],
     stats: Object.fromEntries(
       Object.entries(session.stats).map(([taskId, stats]) => [
         taskId,
@@ -396,6 +398,9 @@ export function restoreMasterySession(value, groups) {
               Number(value.repair.correctCountRequired) || 1,
           }
         : null,
+    seenOverviewIds: Array.isArray(value.seenOverviewIds)
+      ? value.seenOverviewIds.filter((sentenceId) => typeof sentenceId === "string")
+      : [],
     stats: Object.fromEntries(
       Object.entries(value.stats ?? {}).map(([taskId, stats]) => [
         taskId,
@@ -411,6 +416,21 @@ export function getCurrentGroup(session, groups) {
 
 export function isTaskIntroduced(session, taskId) {
   return session.introducedIds.includes(taskId);
+}
+
+export function isOverviewSeen(session, sentenceId) {
+  return (session.seenOverviewIds ?? []).includes(sentenceId);
+}
+
+export function markOverviewSeen(session, sentenceId) {
+  if (isOverviewSeen(session, sentenceId)) {
+    return session;
+  }
+
+  return {
+    ...session,
+    seenOverviewIds: [...(session.seenOverviewIds ?? []), sentenceId],
+  };
 }
 
 function isTaskMastered(session, taskId, groupToCheck) {

@@ -206,6 +206,33 @@ button:disabled {
   height: 100%;
 }
 
+.overview {
+  animation: appear 180ms ease-out;
+}
+
+.overview h2 {
+  font-size: 38px;
+  line-height: 1.2;
+  margin: 0 0 22px;
+  max-width: 650px;
+  overflow-wrap: anywhere;
+}
+
+.overviewSummary {
+  border-left: 3px solid var(--green);
+  display: grid;
+  gap: 10px;
+  margin-bottom: 28px;
+  max-width: 650px;
+  padding-left: 18px;
+}
+
+.overviewSummary p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
 .guide {
   animation: appear 180ms ease-out;
 }
@@ -544,6 +571,18 @@ textarea:focus {
 
   .courseCard h2 {
     font-size: 23px;
+  }
+
+  .overview h2 {
+    font-size: 31px;
+  }
+
+  .overviewSummary p {
+    font-size: 17px;
+  }
+
+  .overview button {
+    width: 100%;
   }
 
   #guide-term {

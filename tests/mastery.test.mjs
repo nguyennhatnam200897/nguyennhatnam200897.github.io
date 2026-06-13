@@ -7,7 +7,9 @@ import {
   calculateMasteryProgress,
   createMasterySession,
   getCurrentTaskId,
+  isOverviewSeen,
   isTaskIntroduced,
+  markOverviewSeen,
   recordMasteryAttempt,
   restoreMasterySession,
   serializeMasterySession,
@@ -578,6 +580,22 @@ test("serializes and restores the mastery session", () => {
   const restored = restoreMasterySession(serializeMasterySession(session), groups);
 
   assert.deepEqual(restored, session);
+});
+
+test("serializes which lesson overviews have been seen", () => {
+  let session = createMasterySession(groups);
+
+  session = markOverviewSeen(session, "S1");
+  session = markOverviewSeen(session, "S1");
+
+  assert.deepEqual(session.seenOverviewIds, ["S1"]);
+  assert.equal(isOverviewSeen(session, "S1"), true);
+  assert.equal(isOverviewSeen(session, "S2"), false);
+  assert.deepEqual(
+    restoreMasterySession(serializeMasterySession(session), groups)
+      .seenOverviewIds,
+    ["S1"]
+  );
 });
 
 test("calculates partial progress within the active group", () => {

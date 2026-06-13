@@ -16,6 +16,15 @@ export function openExercise(flow) {
   };
 }
 
+export function openGuide(flow) {
+  return {
+    ...flow,
+    phase: "guide",
+    feedback: null,
+    waitingForSpeech: false,
+  };
+}
+
 export function recordSubmission(flow, feedback) {
   return {
     ...flow,

@@ -5,6 +5,14 @@ import { buildMeaningChunkTaskGroups } from "../js/meaning-chunks.mjs";
 const lesson = {
   id: "S1-meaning-chunks",
   sentenceId: "S1",
+  overview: {
+    title: "Mình sẽ xây câu này từ các cụm nghĩa",
+    summary: [
+      "Câu này nói về nhiều thành phố.",
+      "Mình sẽ học từng cụm rồi ghép thành câu.",
+    ],
+    graded: false,
+  },
   chunks: [
     {
       id: "S1-C01",
@@ -93,6 +101,11 @@ test("builds step tasks and composition tasks from meaning chunks", () => {
   const pluralTask = groups[0].find((task) => task.id === "S1-C01-STEP02");
   const explicitStageTask = groups[0].find((task) => task.id === "S1-C02-STEP01");
 
+  assert.deepEqual(groups[0][0].lessonOverview, lesson.overview);
+  assert.equal(
+    groups[0].slice(1).some((task) => task.lessonOverview),
+    false
+  );
   assert.equal(oneTokenTask.stage, "object");
   assert.equal(oneTokenTask.audioId, "S1-C01-STEP01");
   [
