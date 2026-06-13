@@ -94,6 +94,13 @@
               "audioId": "S1-03",
               "purpose": "Thêm lớp số lượng và hoàn chỉnh cụm."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "plural",
+              "title": "Vi sao dung cities?",
+              "body": "Tieng Viet noi nhieu thanh pho. Tieng Anh phai doi city thanh cities vi dang noi hon mot thanh pho."
+            }
           ]
         },
         {
@@ -216,6 +223,23 @@
               "audioId": "S1-13",
               "purpose": "Thêm lớp so sánh cao nhất và xác định nhóm đang được nói tới."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "plural",
+              "title": "changes la so nhieu",
+              "body": "Mot su thay doi la change. Khi noi nhung thay doi, tieng Anh dung changes."
+            },
+            {
+              "tag": "article",
+              "title": "Vi sao co the?",
+              "body": "the di voi most effective de chi nhom thay doi dang duoc xac dinh la hieu qua nhat trong y nay."
+            },
+            {
+              "tag": "word-order",
+              "title": "Trat tu trong cum danh tu",
+              "body": "Tieng Anh dat most effective truoc changes: muc do va tinh chat di truoc danh tu chinh."
+            }
           ]
         },
         {
@@ -279,6 +303,13 @@
               "answer": "but",
               "purpose": "Nắm quan hệ đổi hướng giữa hai ý."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "connector",
+              "title": "but doi huong y",
+              "body": "but bao hieu y sau lam nguoi doc nhin lai y truoc theo mot huong trai mong doi."
+            }
           ]
         }
       ],
@@ -287,11 +318,25 @@
           "id": "S1-M01",
           "prompt": "nhiều thành phố đang cố gắng làm",
           "answer": "many cities are trying to",
-          "usesChunks": ["S1-C01", "S1-C02"],
-          "masteryCredit": ["S1-C01", "S1-C02"],
+          "usesChunks": [
+            "S1-C01",
+            "S1-C02"
+          ],
+          "masteryCredit": [
+            "S1-C01",
+            "S1-C02"
+          ],
           "roleLine": [
-            { "roleQuestion": "Ai?", "chunkId": "S1-C01", "english": "many cities" },
-            { "roleQuestion": "Đang cố làm gì?", "chunkId": "S1-C02", "english": "are trying to" }
+            {
+              "roleQuestion": "Ai?",
+              "chunkId": "S1-C01",
+              "english": "many cities"
+            },
+            {
+              "roleQuestion": "Đang cố làm gì?",
+              "chunkId": "S1-C02",
+              "english": "are trying to"
+            }
           ],
           "successMessage": "Bạn đã ghép được: ai đang cố làm gì."
         },
@@ -299,11 +344,25 @@
           "id": "S1-M02",
           "prompt": "làm cho đời sống hằng ngày bền vững hơn",
           "answer": "make daily life more sustainable",
-          "usesChunks": ["S1-C03", "S1-C04"],
-          "masteryCredit": ["S1-C03", "S1-C04"],
+          "usesChunks": [
+            "S1-C03",
+            "S1-C04"
+          ],
+          "masteryCredit": [
+            "S1-C03",
+            "S1-C04"
+          ],
           "roleLine": [
-            { "roleQuestion": "Tác động vào cái gì?", "chunkId": "S1-C03", "english": "make daily life" },
-            { "roleQuestion": "Kết quả gì?", "chunkId": "S1-C04", "english": "more sustainable" }
+            {
+              "roleQuestion": "Tác động vào cái gì?",
+              "chunkId": "S1-C03",
+              "english": "make daily life"
+            },
+            {
+              "roleQuestion": "Kết quả gì?",
+              "chunkId": "S1-C04",
+              "english": "more sustainable"
+            }
           ],
           "successMessage": "Bạn đã ghép được: hành động tác động vào cái gì để đạt kết quả gì."
         },
@@ -312,13 +371,39 @@
           "prompt": "nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn",
           "answer": "many cities are trying to make daily life more sustainable",
           "audioId": "S1-09",
-          "usesChunks": ["S1-C01", "S1-C02", "S1-C03", "S1-C04"],
-          "masteryCredit": ["S1-C01", "S1-C02", "S1-C03", "S1-C04"],
+          "usesChunks": [
+            "S1-C01",
+            "S1-C02",
+            "S1-C03",
+            "S1-C04"
+          ],
+          "masteryCredit": [
+            "S1-C01",
+            "S1-C02",
+            "S1-C03",
+            "S1-C04"
+          ],
           "roleLine": [
-            { "roleQuestion": "Ai?", "chunkId": "S1-C01", "english": "many cities" },
-            { "roleQuestion": "Đang cố làm gì?", "chunkId": "S1-C02", "english": "are trying to" },
-            { "roleQuestion": "Tác động vào cái gì?", "chunkId": "S1-C03", "english": "make daily life" },
-            { "roleQuestion": "Kết quả gì?", "chunkId": "S1-C04", "english": "more sustainable" }
+            {
+              "roleQuestion": "Ai?",
+              "chunkId": "S1-C01",
+              "english": "many cities"
+            },
+            {
+              "roleQuestion": "Đang cố làm gì?",
+              "chunkId": "S1-C02",
+              "english": "are trying to"
+            },
+            {
+              "roleQuestion": "Tác động vào cái gì?",
+              "chunkId": "S1-C03",
+              "english": "make daily life"
+            },
+            {
+              "roleQuestion": "Kết quả gì?",
+              "chunkId": "S1-C04",
+              "english": "more sustainable"
+            }
           ],
           "successMessage": "Bạn đã viết được một ý hoàn chỉnh: ai đang cố làm gì, tác động vào cái gì, để đạt kết quả gì."
         },
@@ -326,11 +411,25 @@
           "id": "S1-M04",
           "prompt": "những thay đổi hiệu quả nhất thường là",
           "answer": "the most effective changes are often",
-          "usesChunks": ["S1-C05", "S1-C06"],
-          "masteryCredit": ["S1-C05", "S1-C06"],
+          "usesChunks": [
+            "S1-C05",
+            "S1-C06"
+          ],
+          "masteryCredit": [
+            "S1-C05",
+            "S1-C06"
+          ],
           "roleLine": [
-            { "roleQuestion": "Cái gì đang được nhận định?", "chunkId": "S1-C05", "english": "the most effective changes" },
-            { "roleQuestion": "Thường là gì?", "chunkId": "S1-C06", "english": "are often" }
+            {
+              "roleQuestion": "Cái gì đang được nhận định?",
+              "chunkId": "S1-C05",
+              "english": "the most effective changes"
+            },
+            {
+              "roleQuestion": "Thường là gì?",
+              "chunkId": "S1-C06",
+              "english": "are often"
+            }
           ],
           "successMessage": "Bạn đã mở được ý nhận định thứ hai."
         },
@@ -339,12 +438,32 @@
           "prompt": "những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất",
           "answer": "the most effective changes are often the least dramatic",
           "audioId": "S1-17",
-          "usesChunks": ["S1-C05", "S1-C06", "S1-C07"],
-          "masteryCredit": ["S1-C05", "S1-C06", "S1-C07"],
+          "usesChunks": [
+            "S1-C05",
+            "S1-C06",
+            "S1-C07"
+          ],
+          "masteryCredit": [
+            "S1-C05",
+            "S1-C06",
+            "S1-C07"
+          ],
           "roleLine": [
-            { "roleQuestion": "Cái gì đang được nhận định?", "chunkId": "S1-C05", "english": "the most effective changes" },
-            { "roleQuestion": "Thường là gì?", "chunkId": "S1-C06", "english": "are often" },
-            { "roleQuestion": "Có đặc điểm gì?", "chunkId": "S1-C07", "english": "the least dramatic" }
+            {
+              "roleQuestion": "Cái gì đang được nhận định?",
+              "chunkId": "S1-C05",
+              "english": "the most effective changes"
+            },
+            {
+              "roleQuestion": "Thường là gì?",
+              "chunkId": "S1-C06",
+              "english": "are often"
+            },
+            {
+              "roleQuestion": "Có đặc điểm gì?",
+              "chunkId": "S1-C07",
+              "english": "the least dramatic"
+            }
           ],
           "successMessage": "Bạn đã viết được ý thứ hai: cái gì thường có đặc điểm gì."
         },
@@ -354,73 +473,212 @@
           "prompt": "Nhiều thành phố đang cố gắng làm cho đời sống hằng ngày bền vững hơn, nhưng những thay đổi hiệu quả nhất thường là những thay đổi ít gây ấn tượng mạnh nhất.",
           "answer": "Many cities are trying to make daily life more sustainable, but the most effective changes are often the least dramatic.",
           "audioId": "S1-18",
-          "usesChunks": ["S1-C01", "S1-C02", "S1-C03", "S1-C04", "S1-C08", "S1-C05", "S1-C06", "S1-C07"],
-          "masteryCredit": ["S1-C01", "S1-C02", "S1-C03", "S1-C04", "S1-C08", "S1-C05", "S1-C06", "S1-C07"],
-          "roleLine": [
-            { "roleQuestion": "Ai?", "chunkId": "S1-C01", "english": "many cities" },
-            { "roleQuestion": "Đang cố làm gì?", "chunkId": "S1-C02", "english": "are trying to" },
-            { "roleQuestion": "Tác động vào cái gì?", "chunkId": "S1-C03", "english": "make daily life" },
-            { "roleQuestion": "Kết quả gì?", "chunkId": "S1-C04", "english": "more sustainable" },
-            { "roleQuestion": "Quan hệ giữa hai ý là gì?", "chunkId": "S1-C08", "english": "but" },
-            { "roleQuestion": "Cái gì đang được nhận định?", "chunkId": "S1-C05", "english": "the most effective changes" },
-            { "roleQuestion": "Thường là gì?", "chunkId": "S1-C06", "english": "are often" },
-            { "roleQuestion": "Có đặc điểm gì?", "chunkId": "S1-C07", "english": "the least dramatic" }
+          "usesChunks": [
+            "S1-C01",
+            "S1-C02",
+            "S1-C03",
+            "S1-C04",
+            "S1-C08",
+            "S1-C05",
+            "S1-C06",
+            "S1-C07"
           ],
-          "successMessage": "Bạn đã hoàn thành câu này và dùng được các câu hỏi vai trò để xây một ý dài."
+          "masteryCredit": [
+            "S1-C01",
+            "S1-C02",
+            "S1-C03",
+            "S1-C04",
+            "S1-C08",
+            "S1-C05",
+            "S1-C06",
+            "S1-C07"
+          ],
+          "roleLine": [
+            {
+              "roleQuestion": "Ai?",
+              "chunkId": "S1-C01",
+              "english": "many cities"
+            },
+            {
+              "roleQuestion": "Đang cố làm gì?",
+              "chunkId": "S1-C02",
+              "english": "are trying to"
+            },
+            {
+              "roleQuestion": "Tác động vào cái gì?",
+              "chunkId": "S1-C03",
+              "english": "make daily life"
+            },
+            {
+              "roleQuestion": "Kết quả gì?",
+              "chunkId": "S1-C04",
+              "english": "more sustainable"
+            },
+            {
+              "roleQuestion": "Quan hệ giữa hai ý là gì?",
+              "chunkId": "S1-C08",
+              "english": "but"
+            },
+            {
+              "roleQuestion": "Cái gì đang được nhận định?",
+              "chunkId": "S1-C05",
+              "english": "the most effective changes"
+            },
+            {
+              "roleQuestion": "Thường là gì?",
+              "chunkId": "S1-C06",
+              "english": "are often"
+            },
+            {
+              "roleQuestion": "Có đặc điểm gì?",
+              "chunkId": "S1-C07",
+              "english": "the least dramatic"
+            }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu này và dùng được các câu hỏi vai trò để xây một ý dài.",
+          "difficultyNotes": [
+            {
+              "tag": "connector",
+              "title": "Hai ve duoc noi bang but",
+              "body": "Ve truoc noi thanh pho muon lam doi song ben vung hon. Ve sau noi nhung thay doi hieu qua nhat lai it gay an tuong manh."
+            }
+          ]
         }
       ],
       "repairRules": [
         {
           "id": "S1-R01",
-          "appliesTo": ["S1-M01", "S1-M03", "S1-M06"],
+          "appliesTo": [
+            "S1-M01",
+            "S1-M03",
+            "S1-M06"
+          ],
           "chunkId": "S1-C01",
           "detect": {
             "expected": "many cities",
-            "commonWrongAnswers": ["many city"]
+            "commonWrongAnswers": [
+              "many city"
+            ]
           },
           "message": "Cụm cần sửa: nhiều thành phố."
         },
         {
           "id": "S1-R02",
-          "appliesTo": ["S1-M01", "S1-M03", "S1-M06"],
+          "appliesTo": [
+            "S1-M01",
+            "S1-M03",
+            "S1-M06"
+          ],
           "chunkId": "S1-C02",
           "detect": {
             "expected": "are trying to",
-            "commonWrongAnswers": ["trying to", "are try to", "are trying"]
+            "commonWrongAnswers": [
+              "trying to",
+              "are try to",
+              "are trying"
+            ]
           },
           "message": "Cụm cần sửa: đang cố gắng làm."
         },
         {
           "id": "S1-R03",
-          "appliesTo": ["S1-M02", "S1-M03", "S1-M06"],
+          "appliesTo": [
+            "S1-M02",
+            "S1-M03",
+            "S1-M06"
+          ],
           "chunkId": "S1-C03",
           "detect": {
             "expected": "daily life",
-            "commonWrongAnswers": ["daily lives"]
+            "commonWrongAnswers": [
+              "daily lives"
+            ]
           },
           "message": "Cụm cần sửa: đời sống hằng ngày."
         },
         {
           "id": "S1-R04",
-          "appliesTo": ["S1-M04", "S1-M05", "S1-M06"],
+          "appliesTo": [
+            "S1-M04",
+            "S1-M05",
+            "S1-M06"
+          ],
           "chunkId": "S1-C05",
           "detect": {
             "expected": "the most effective changes",
-            "commonWrongAnswers": ["most effective changes"]
+            "commonWrongAnswers": [
+              "most effective changes"
+            ]
           },
           "message": "Cụm cần sửa: những thay đổi hiệu quả nhất."
         },
         {
           "id": "S1-R05",
-          "appliesTo": ["S1-M05", "S1-M06"],
+          "appliesTo": [
+            "S1-M05",
+            "S1-M06"
+          ],
           "chunkId": "S1-C07",
           "detect": {
             "expected": "the least dramatic",
-            "commonWrongAnswers": ["the least dramatic changes", "least dramatic changes"]
+            "commonWrongAnswers": [
+              "the least dramatic changes",
+              "least dramatic changes"
+            ]
           },
           "message": "Ý của bạn dễ hiểu, nhưng câu gốc không lặp lại changes ở cuối. Cụm cần dùng: ít gây ấn tượng mạnh nhất."
         }
-      ]
+      ],
+      "overview": {
+        "title": "Minh se xay cau nay tu cac cum nghia",
+        "summary": [
+          "Cau nay noi ve thanh pho muon doi song ben vung hon.",
+          "Minh se ghep hai ve bang but de thay y bat ngo cua cau."
+        ],
+        "graded": false,
+        "meaningMap": [
+          {
+            "label": "Ai?",
+            "meaning": "nhieu thanh pho",
+            "chunkId": "S1-C01"
+          },
+          {
+            "label": "Dang co lam gi?",
+            "meaning": "dang co gang lam",
+            "chunkId": "S1-C02"
+          },
+          {
+            "label": "Tac dong vao cai gi?",
+            "meaning": "doi song hang ngay",
+            "chunkId": "S1-C03"
+          },
+          {
+            "label": "Ket qua gi?",
+            "meaning": "ben vung hon",
+            "chunkId": "S1-C04"
+          },
+          {
+            "label": "Quan he hai y?",
+            "meaning": "nhung",
+            "chunkId": "S1-C08"
+          },
+          {
+            "label": "Cai gi duoc nhan dinh?",
+            "meaning": "nhung thay doi hieu qua nhat",
+            "chunkId": "S1-C05"
+          },
+          {
+            "label": "Thuong la gi?",
+            "meaning": "thuong la",
+            "chunkId": "S1-C06"
+          },
+          {
+            "label": "Co dac diem gi?",
+            "meaning": "it gay an tuong manh nhat",
+            "chunkId": "S1-C07"
+          }
+        ]
+      }
     },
     {
       "id": "S2-meaning-chunks",
@@ -432,7 +690,34 @@
           "Mình sẽ học nơi chốn, người thực hiện, vật ban đầu và kết quả.",
           "Sau đó mình sẽ ghép thành ý ai đã biến cái gì thành cái gì."
         ],
-        "graded": false
+        "graded": false,
+        "meaningMap": [
+          {
+            "label": "O dau?",
+            "meaning": "trong mot khu dan cu",
+            "chunkId": "S2-C01"
+          },
+          {
+            "label": "Ai thuc hien thay doi?",
+            "meaning": "hoi dong dia phuong",
+            "chunkId": "S2-C02"
+          },
+          {
+            "label": "Cai gi duoc thay doi?",
+            "meaning": "mot bai do xe trong",
+            "chunkId": "S2-C03"
+          },
+          {
+            "label": "Tro thanh cai gi?",
+            "meaning": "mot khu vuon cong cong nho",
+            "chunkId": "S2-C04"
+          },
+          {
+            "label": "Khung bien doi?",
+            "meaning": "bien cai gi thanh cai gi",
+            "chunkId": "S2-C05"
+          }
+        ]
       },
       "chunks": [
         {
@@ -499,6 +784,13 @@
               "audioId": "S2-06",
               "purpose": "Thêm the vì đây là hội đồng cụ thể trong câu chuyện."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "article",
+              "title": "the local council",
+              "body": "Dung the vi hoi dong dia phuong la mot doi tuong xac dinh trong khu dan cu dang noi den."
+            }
           ]
         },
         {
@@ -545,6 +837,18 @@
               "answer": "an empty parking lot",
               "audioId": "S2-14",
               "purpose": "Dùng an trước âm đầu của empty để hoàn chỉnh cụm."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "article",
+              "title": "Vi sao dung an?",
+              "body": "lot la danh tu dem duoc so it, nen can a hoac an. Dung an vi empty bat dau bang am nguyen am."
+            },
+            {
+              "tag": "word-order",
+              "title": "parking lot la mot cum",
+              "body": "parking dung truoc lot de noi loai bai do xe. Khong dao thanh lot parking."
             }
           ]
         },
@@ -593,6 +897,13 @@
               "audioId": "S2-18",
               "purpose": "Thêm mạo từ để hoàn chỉnh cụm kết quả."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "article",
+              "title": "a small public garden",
+              "body": "Dung a vi day la mot khu vuon cong cong nho duoc gioi thieu nhu mot ket qua moi."
+            }
           ]
         },
         {
@@ -623,6 +934,13 @@
               "answer": "turned an empty parking lot into a small public garden",
               "purpose": "Thêm đầy đủ kết quả để hoàn chỉnh khung chuyển đổi."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "word-order",
+              "title": "turned into",
+              "body": "Khung turned A into B giu thu tu: vat ban dau dung sau turned, ket qua dung sau into."
+            }
           ]
         }
       ],
@@ -632,13 +950,39 @@
           "prompt": "hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ",
           "answer": "the local council turned an empty parking lot into a small public garden",
           "audioId": "S2-19",
-          "usesChunks": ["S2-C02", "S2-C03", "S2-C04", "S2-C05"],
-          "masteryCredit": ["S2-C02", "S2-C03", "S2-C04", "S2-C05"],
+          "usesChunks": [
+            "S2-C02",
+            "S2-C03",
+            "S2-C04",
+            "S2-C05"
+          ],
+          "masteryCredit": [
+            "S2-C02",
+            "S2-C03",
+            "S2-C04",
+            "S2-C05"
+          ],
           "roleLine": [
-            { "roleQuestion": "Ai thực hiện thay đổi?", "chunkId": "S2-C02", "english": "the local council" },
-            { "roleQuestion": "Cái gì được thay đổi?", "chunkId": "S2-C03", "english": "an empty parking lot" },
-            { "roleQuestion": "Trở thành cái gì?", "chunkId": "S2-C04", "english": "a small public garden" },
-            { "roleQuestion": "Đã biến cái gì thành cái gì?", "chunkId": "S2-C05", "english": "turned an empty parking lot into a small public garden" }
+            {
+              "roleQuestion": "Ai thực hiện thay đổi?",
+              "chunkId": "S2-C02",
+              "english": "the local council"
+            },
+            {
+              "roleQuestion": "Cái gì được thay đổi?",
+              "chunkId": "S2-C03",
+              "english": "an empty parking lot"
+            },
+            {
+              "roleQuestion": "Trở thành cái gì?",
+              "chunkId": "S2-C04",
+              "english": "a small public garden"
+            },
+            {
+              "roleQuestion": "Đã biến cái gì thành cái gì?",
+              "chunkId": "S2-C05",
+              "english": "turned an empty parking lot into a small public garden"
+            }
           ],
           "successMessage": "Bạn đã ghép được ý chính: ai đã biến cái gì thành cái gì."
         },
@@ -648,12 +992,34 @@
           "prompt": "Ở một khu dân cư, hội đồng địa phương đã biến một bãi đỗ xe trống thành một khu vườn công cộng nhỏ.",
           "answer": "In one neighborhood, the local council turned an empty parking lot into a small public garden.",
           "audioId": "S2-20",
-          "usesChunks": ["S2-C01", "S2-C02", "S2-C05"],
-          "masteryCredit": ["S2-C01", "S2-C02", "S2-C03", "S2-C04", "S2-C05"],
+          "usesChunks": [
+            "S2-C01",
+            "S2-C02",
+            "S2-C05"
+          ],
+          "masteryCredit": [
+            "S2-C01",
+            "S2-C02",
+            "S2-C03",
+            "S2-C04",
+            "S2-C05"
+          ],
           "roleLine": [
-            { "roleQuestion": "Ở đâu?", "chunkId": "S2-C01", "english": "in one neighborhood" },
-            { "roleQuestion": "Ai thực hiện thay đổi?", "chunkId": "S2-C02", "english": "the local council" },
-            { "roleQuestion": "Đã biến cái gì thành cái gì?", "chunkId": "S2-C05", "english": "turned an empty parking lot into a small public garden" }
+            {
+              "roleQuestion": "Ở đâu?",
+              "chunkId": "S2-C01",
+              "english": "in one neighborhood"
+            },
+            {
+              "roleQuestion": "Ai thực hiện thay đổi?",
+              "chunkId": "S2-C02",
+              "english": "the local council"
+            },
+            {
+              "roleQuestion": "Đã biến cái gì thành cái gì?",
+              "chunkId": "S2-C05",
+              "english": "turned an empty parking lot into a small public garden"
+            }
           ],
           "successMessage": "Bạn đã hoàn thành câu về một thay đổi cụ thể trong khu dân cư."
         }
@@ -661,37 +1027,57 @@
       "repairRules": [
         {
           "id": "S2-R01",
-          "appliesTo": ["S2-M01", "S2-M02"],
+          "appliesTo": [
+            "S2-M01",
+            "S2-M02"
+          ],
           "chunkId": "S2-C03",
           "detect": {
-            "commonWrongAnswers": ["a empty parking lot"]
+            "commonWrongAnswers": [
+              "a empty parking lot"
+            ]
           },
           "message": "Cụm cần sửa dùng an trước âm đầu của empty: một bãi đỗ xe trống."
         },
         {
           "id": "S2-R02",
-          "appliesTo": ["S2-M01", "S2-M02"],
+          "appliesTo": [
+            "S2-M01",
+            "S2-M02"
+          ],
           "chunkId": "S2-C02",
           "detect": {
-            "commonWrongAnswers": ["local council"]
+            "commonWrongAnswers": [
+              "local council"
+            ]
           },
           "message": "Cụm cần sửa: hội đồng địa phương đã được xác định trong bối cảnh."
         },
         {
           "id": "S2-R03",
-          "appliesTo": ["S2-M01", "S2-M02"],
+          "appliesTo": [
+            "S2-M01",
+            "S2-M02"
+          ],
           "chunkId": "S2-C04",
           "detect": {
-            "commonWrongAnswers": ["small public garden"]
+            "commonWrongAnswers": [
+              "small public garden"
+            ]
           },
           "message": "Cụm cần sửa: một khu vườn công cộng nhỏ."
         },
         {
           "id": "S2-R04",
-          "appliesTo": ["S2-M01", "S2-M02"],
+          "appliesTo": [
+            "S2-M01",
+            "S2-M02"
+          ],
           "chunkId": "S2-C05",
           "detect": {
-            "commonWrongAnswers": ["turned an empty parking lot to a small public garden"]
+            "commonWrongAnswers": [
+              "turned an empty parking lot to a small public garden"
+            ]
           },
           "message": "Khung cần sửa là turned ... into ...: biến cái gì thành cái gì."
         }
@@ -707,7 +1093,34 @@
           "Mình sẽ học ai phàn nàn, khung complained that và hai điều họ lo.",
           "Sau đó mình sẽ đặt toàn bộ lời phàn nàn vào đúng thời điểm."
         ],
-        "graded": false
+        "graded": false,
+        "meaningMap": [
+          {
+            "label": "Khi nao?",
+            "meaning": "ban dau",
+            "chunkId": "S3-C01"
+          },
+          {
+            "label": "Ai phan nan?",
+            "meaning": "mot so cu dan",
+            "chunkId": "S3-C02"
+          },
+          {
+            "label": "Ho da lam gi?",
+            "meaning": "phan nan rang",
+            "chunkId": "S3-C03"
+          },
+          {
+            "label": "Dieu dang lo thu nhat?",
+            "meaning": "du an se lam giam cho do xe",
+            "chunkId": "S3-C04"
+          },
+          {
+            "label": "Dieu dang lo them?",
+            "meaning": "va thu hut tieng on",
+            "chunkId": "S3-C05"
+          }
+        ]
       },
       "chunks": [
         {
@@ -759,6 +1172,13 @@
               "audioId": "S3-03",
               "purpose": "Thêm lượng từ some để chỉ một bộ phận."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "plural",
+              "title": "residents la mot nhom",
+              "body": "some di voi danh tu so nhieu residents vi chi mot so nguoi trong nhom cu dan."
+            }
           ]
         },
         {
@@ -782,6 +1202,13 @@
               "prompt": "đã phàn nàn rằng",
               "answer": "complained that",
               "purpose": "Thêm that để mở nội dung được phàn nàn."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "content-clause",
+              "title": "complained that mo noi dung",
+              "body": "that bao hieu phan sau la noi dung loi phan nan, khong phai mot tu rieng le."
             }
           ]
         },
@@ -843,6 +1270,18 @@
               "audioId": "S3-10",
               "purpose": "Thêm chủ thể để hoàn chỉnh mối lo thứ nhất."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "modal",
+              "title": "would la loi du doan lo ngai",
+              "body": "would o day dien dat dieu cu dan nghi se xay ra, khong phai viec da xay ra."
+            },
+            {
+              "tag": "plural",
+              "title": "parking spaces",
+              "body": "spaces la so nhieu vi y noi nhieu cho do xe, khong phai mot cho duy nhat."
+            }
           ]
         },
         {
@@ -874,6 +1313,13 @@
               "answer": "and attract noise",
               "purpose": "Thêm and để nối mối lo thứ hai, không lặp chủ thể."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "ellipsis",
+              "title": "and attract noise khong lap lai",
+              "body": "Cum nay noi them he qua thu hai va muon dung lai khung the project would tu phan truoc."
+            }
           ]
         }
       ],
@@ -883,11 +1329,25 @@
           "prompt": "dự án sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn",
           "answer": "the project would reduce parking spaces and attract noise",
           "audioId": "S3-13",
-          "usesChunks": ["S3-C04", "S3-C05"],
-          "masteryCredit": ["S3-C04", "S3-C05"],
+          "usesChunks": [
+            "S3-C04",
+            "S3-C05"
+          ],
+          "masteryCredit": [
+            "S3-C04",
+            "S3-C05"
+          ],
           "roleLine": [
-            { "roleQuestion": "Điều đáng lo thứ nhất?", "chunkId": "S3-C04", "english": "the project would reduce parking spaces" },
-            { "roleQuestion": "Điều đáng lo thêm?", "chunkId": "S3-C05", "english": "and attract noise" }
+            {
+              "roleQuestion": "Điều đáng lo thứ nhất?",
+              "chunkId": "S3-C04",
+              "english": "the project would reduce parking spaces"
+            },
+            {
+              "roleQuestion": "Điều đáng lo thêm?",
+              "chunkId": "S3-C05",
+              "english": "and attract noise"
+            }
           ],
           "successMessage": "Bạn đã ghép được hai điều cư dân lo ngại."
         },
@@ -896,15 +1356,48 @@
           "prompt": "một số cư dân phàn nàn rằng dự án sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn",
           "answer": "some residents complained that the project would reduce parking spaces and attract noise",
           "audioId": "S3-15",
-          "usesChunks": ["S3-C02", "S3-C03", "S3-C04", "S3-C05"],
-          "masteryCredit": ["S3-C02", "S3-C03", "S3-C04", "S3-C05"],
-          "roleLine": [
-            { "roleQuestion": "Ai phàn nàn?", "chunkId": "S3-C02", "english": "some residents" },
-            { "roleQuestion": "Họ đã làm gì?", "chunkId": "S3-C03", "english": "complained that" },
-            { "roleQuestion": "Điều đáng lo thứ nhất?", "chunkId": "S3-C04", "english": "the project would reduce parking spaces" },
-            { "roleQuestion": "Điều đáng lo thêm?", "chunkId": "S3-C05", "english": "and attract noise" }
+          "usesChunks": [
+            "S3-C02",
+            "S3-C03",
+            "S3-C04",
+            "S3-C05"
           ],
-          "successMessage": "Bạn đã ghép được ai phàn nàn và toàn bộ nội dung họ lo."
+          "masteryCredit": [
+            "S3-C02",
+            "S3-C03",
+            "S3-C04",
+            "S3-C05"
+          ],
+          "roleLine": [
+            {
+              "roleQuestion": "Ai phàn nàn?",
+              "chunkId": "S3-C02",
+              "english": "some residents"
+            },
+            {
+              "roleQuestion": "Họ đã làm gì?",
+              "chunkId": "S3-C03",
+              "english": "complained that"
+            },
+            {
+              "roleQuestion": "Điều đáng lo thứ nhất?",
+              "chunkId": "S3-C04",
+              "english": "the project would reduce parking spaces"
+            },
+            {
+              "roleQuestion": "Điều đáng lo thêm?",
+              "chunkId": "S3-C05",
+              "english": "and attract noise"
+            }
+          ],
+          "successMessage": "Bạn đã ghép được ai phàn nàn và toàn bộ nội dung họ lo.",
+          "difficultyNotes": [
+            {
+              "tag": "content-clause",
+              "title": "Noi dung loi phan nan nam sau that",
+              "body": "some residents complained that la khung dan vao. Phan sau that la dieu ho lo ngai."
+            }
+          ]
         },
         {
           "id": "S3-M03",
@@ -912,14 +1405,46 @@
           "prompt": "Ban đầu, một số cư dân phàn nàn rằng dự án sẽ làm giảm chỗ đỗ xe và thu hút tiếng ồn.",
           "answer": "At first, some residents complained that the project would reduce parking spaces and attract noise.",
           "audioId": "S3-16",
-          "usesChunks": ["S3-C01", "S3-C02", "S3-C03", "S3-C04", "S3-C05"],
-          "masteryCredit": ["S3-C01", "S3-C02", "S3-C03", "S3-C04", "S3-C05"],
+          "usesChunks": [
+            "S3-C01",
+            "S3-C02",
+            "S3-C03",
+            "S3-C04",
+            "S3-C05"
+          ],
+          "masteryCredit": [
+            "S3-C01",
+            "S3-C02",
+            "S3-C03",
+            "S3-C04",
+            "S3-C05"
+          ],
           "roleLine": [
-            { "roleQuestion": "Khi nào?", "chunkId": "S3-C01", "english": "at first" },
-            { "roleQuestion": "Ai phàn nàn?", "chunkId": "S3-C02", "english": "some residents" },
-            { "roleQuestion": "Họ đã làm gì?", "chunkId": "S3-C03", "english": "complained that" },
-            { "roleQuestion": "Điều đáng lo thứ nhất?", "chunkId": "S3-C04", "english": "the project would reduce parking spaces" },
-            { "roleQuestion": "Điều đáng lo thêm?", "chunkId": "S3-C05", "english": "and attract noise" }
+            {
+              "roleQuestion": "Khi nào?",
+              "chunkId": "S3-C01",
+              "english": "at first"
+            },
+            {
+              "roleQuestion": "Ai phàn nàn?",
+              "chunkId": "S3-C02",
+              "english": "some residents"
+            },
+            {
+              "roleQuestion": "Họ đã làm gì?",
+              "chunkId": "S3-C03",
+              "english": "complained that"
+            },
+            {
+              "roleQuestion": "Điều đáng lo thứ nhất?",
+              "chunkId": "S3-C04",
+              "english": "the project would reduce parking spaces"
+            },
+            {
+              "roleQuestion": "Điều đáng lo thêm?",
+              "chunkId": "S3-C05",
+              "english": "and attract noise"
+            }
           ],
           "successMessage": "Bạn đã hoàn thành câu về phản ứng ban đầu và hai điều đáng lo."
         }
@@ -927,37 +1452,60 @@
       "repairRules": [
         {
           "id": "S3-R01",
-          "appliesTo": ["S3-M02", "S3-M03"],
+          "appliesTo": [
+            "S3-M02",
+            "S3-M03"
+          ],
           "chunkId": "S3-C02",
           "detect": {
-            "commonWrongAnswers": ["some resident"]
+            "commonWrongAnswers": [
+              "some resident"
+            ]
           },
           "message": "Cụm cần sửa dùng residents ở số nhiều: một số cư dân."
         },
         {
           "id": "S3-R02",
-          "appliesTo": ["S3-M02", "S3-M03"],
+          "appliesTo": [
+            "S3-M02",
+            "S3-M03"
+          ],
           "chunkId": "S3-C03",
           "detect": {
-            "commonWrongAnswers": ["complained the project"]
+            "commonWrongAnswers": [
+              "complained the project"
+            ]
           },
           "message": "Khung cần sửa là complained that để mở nội dung lời phàn nàn."
         },
         {
           "id": "S3-R03",
-          "appliesTo": ["S3-M01", "S3-M02", "S3-M03"],
+          "appliesTo": [
+            "S3-M01",
+            "S3-M02",
+            "S3-M03"
+          ],
           "chunkId": "S3-C04",
           "detect": {
-            "commonWrongAnswers": ["the project reduce parking spaces"]
+            "commonWrongAnswers": [
+              "the project reduce parking spaces"
+            ]
           },
           "message": "Cụm cần sửa giữ would trong lời dự đoán: dự án sẽ làm giảm chỗ đỗ xe."
         },
         {
           "id": "S3-R04",
-          "appliesTo": ["S3-M01", "S3-M02", "S3-M03"],
+          "appliesTo": [
+            "S3-M01",
+            "S3-M02",
+            "S3-M03"
+          ],
           "chunkId": "S3-C05",
           "detect": {
-            "commonWrongAnswers": ["and the project would attract noise", "and would attract noise"]
+            "commonWrongAnswers": [
+              "and the project would attract noise",
+              "and would attract noise"
+            ]
           },
           "message": "Câu gốc không lặp the project would; cụm cần dùng là and attract noise."
         }
@@ -973,7 +1521,39 @@
           "Mình sẽ học nơi đó phục vụ ba nhóm người như thế nào.",
           "Sau đó mình sẽ ghép thời gian và quan hệ trái với lo ngại ban đầu."
         ],
-        "graded": false
+        "graded": false,
+        "meaningMap": [
+          {
+            "label": "Doi huong y?",
+            "meaning": "tuy nhien",
+            "chunkId": "S4-C01"
+          },
+          {
+            "label": "Khi nao?",
+            "meaning": "trong vai thang",
+            "chunkId": "S4-C02"
+          },
+          {
+            "label": "Dieu gi thay doi?",
+            "meaning": "khu vuon thanh mot noi yen tinh",
+            "chunkId": "S4-C03"
+          },
+          {
+            "label": "Noi do tre em lam gi?",
+            "meaning": "tre em co the choi",
+            "chunkId": "S4-C04"
+          },
+          {
+            "label": "Nguoi lon tuoi lam gi?",
+            "meaning": "co the gap nhau",
+            "chunkId": "S4-C05"
+          },
+          {
+            "label": "Nhan vien van phong lam gi?",
+            "meaning": "nghi trong gio trua",
+            "chunkId": "S4-C06"
+          }
+        ]
       },
       "chunks": [
         {
@@ -991,6 +1571,13 @@
               "prompt": "tuy nhiên",
               "answer": "however",
               "purpose": "Nắm từ nối báo hiệu sự đổi hướng."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "connector",
+              "title": "however doi chieu",
+              "body": "however bao hieu ket qua sau do khac voi dieu cu dan lo luc dau."
             }
           ]
         },
@@ -1031,6 +1618,13 @@
               "answer": "within a few months",
               "audioId": "S4-05",
               "purpose": "Thêm within để hoàn chỉnh khoảng thời gian."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "plural",
+              "title": "a few months",
+              "body": "a few nghia la vai, nen month doi thanh months."
             }
           ]
         },
@@ -1079,6 +1673,13 @@
               "audioId": "S4-09",
               "purpose": "Thêm became để hoàn chỉnh sự thay đổi."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "article",
+              "title": "the garden",
+              "body": "Dung the vi khu vuon da duoc gioi thieu o cau truoc, khong con la mot vat moi."
+            }
           ]
         },
         {
@@ -1124,6 +1725,23 @@
               "prompt": "nơi trẻ em có thể chơi",
               "answer": "where children could play",
               "purpose": "Thêm where để gắn công dụng vào một nơi chốn."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "relative-place",
+              "title": "where bo nghia cho place",
+              "body": "where mo mot phan noi ve dieu co the xay ra tai noi do."
+            },
+            {
+              "tag": "plural",
+              "title": "children la so nhieu bat quy tac",
+              "body": "child doi thanh children khi noi tre em noi chung trong khu vuon."
+            },
+            {
+              "tag": "modal",
+              "title": "could play",
+              "body": "could noi ve kha nang khu vuon tao ra, khong phai mot hanh dong dang xay ra tai luc noi."
             }
           ]
         },
@@ -1254,6 +1872,13 @@
               "audioId": "S4-28",
               "purpose": "Ghép hoạt động với thời điểm để hoàn chỉnh cụm."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "time-condition",
+              "title": "during lunch breaks",
+              "body": "during dat hanh dong nghi ngoi vao khoang thoi gian nghi trua."
+            }
           ]
         }
       ],
@@ -1262,11 +1887,25 @@
           "id": "S4-M01",
           "prompt": "nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau",
           "answer": "where children could play, older people could meet",
-          "usesChunks": ["S4-C04", "S4-C05"],
-          "masteryCredit": ["S4-C04", "S4-C05"],
+          "usesChunks": [
+            "S4-C04",
+            "S4-C05"
+          ],
+          "masteryCredit": [
+            "S4-C04",
+            "S4-C05"
+          ],
           "roleLine": [
-            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
-            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" }
+            {
+              "roleQuestion": "Nơi đó cho trẻ em làm gì?",
+              "chunkId": "S4-C04",
+              "english": "where children could play"
+            },
+            {
+              "roleQuestion": "Người lớn tuổi có thể làm gì?",
+              "chunkId": "S4-C05",
+              "english": "older people could meet"
+            }
           ],
           "successMessage": "Bạn đã ghép được công dụng của nơi đó cho hai nhóm người."
         },
@@ -1275,12 +1914,32 @@
           "prompt": "nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
           "answer": "where children could play, older people could meet, and office workers could rest during lunch breaks",
           "audioId": "S4-31",
-          "usesChunks": ["S4-C04", "S4-C05", "S4-C06"],
-          "masteryCredit": ["S4-C04", "S4-C05", "S4-C06"],
+          "usesChunks": [
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
+          ],
+          "masteryCredit": [
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
+          ],
           "roleLine": [
-            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
-            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
-            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+            {
+              "roleQuestion": "Nơi đó cho trẻ em làm gì?",
+              "chunkId": "S4-C04",
+              "english": "where children could play"
+            },
+            {
+              "roleQuestion": "Người lớn tuổi có thể làm gì?",
+              "chunkId": "S4-C05",
+              "english": "older people could meet"
+            },
+            {
+              "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?",
+              "chunkId": "S4-C06",
+              "english": "office workers could rest during lunch breaks"
+            }
           ],
           "successMessage": "Bạn đã ghép được công dụng của nơi đó cho cả ba nhóm người."
         },
@@ -1289,29 +1948,94 @@
           "prompt": "khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
           "answer": "the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks",
           "audioId": "S4-33",
-          "usesChunks": ["S4-C03", "S4-C04", "S4-C05", "S4-C06"],
-          "masteryCredit": ["S4-C03", "S4-C04", "S4-C05", "S4-C06"],
-          "roleLine": [
-            { "roleQuestion": "Điều gì đã thay đổi thế nào?", "chunkId": "S4-C03", "english": "the garden became a quiet place" },
-            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
-            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
-            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+          "usesChunks": [
+            "S4-C03",
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
           ],
-          "successMessage": "Bạn đã ghép nơi chốn mới với ba công dụng cụ thể."
+          "masteryCredit": [
+            "S4-C03",
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
+          ],
+          "roleLine": [
+            {
+              "roleQuestion": "Điều gì đã thay đổi thế nào?",
+              "chunkId": "S4-C03",
+              "english": "the garden became a quiet place"
+            },
+            {
+              "roleQuestion": "Nơi đó cho trẻ em làm gì?",
+              "chunkId": "S4-C04",
+              "english": "where children could play"
+            },
+            {
+              "roleQuestion": "Người lớn tuổi có thể làm gì?",
+              "chunkId": "S4-C05",
+              "english": "older people could meet"
+            },
+            {
+              "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?",
+              "chunkId": "S4-C06",
+              "english": "office workers could rest during lunch breaks"
+            }
+          ],
+          "successMessage": "Bạn đã ghép nơi chốn mới với ba công dụng cụ thể.",
+          "difficultyNotes": [
+            {
+              "tag": "relative-place",
+              "title": "where gan voi a quiet place",
+              "body": "where khong bat dau mot cau moi doc lap; no giai thich noi yen tinh do duoc dung de lam gi."
+            }
+          ]
         },
         {
           "id": "S4-M04",
           "prompt": "chỉ trong vài tháng, khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa",
           "answer": "within a few months, the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks",
           "audioId": "S4-34",
-          "usesChunks": ["S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
-          "masteryCredit": ["S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "usesChunks": [
+            "S4-C02",
+            "S4-C03",
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
+          ],
+          "masteryCredit": [
+            "S4-C02",
+            "S4-C03",
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
+          ],
           "roleLine": [
-            { "roleQuestion": "Khi nào?", "chunkId": "S4-C02", "english": "within a few months" },
-            { "roleQuestion": "Điều gì đã thay đổi thế nào?", "chunkId": "S4-C03", "english": "the garden became a quiet place" },
-            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
-            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
-            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+            {
+              "roleQuestion": "Khi nào?",
+              "chunkId": "S4-C02",
+              "english": "within a few months"
+            },
+            {
+              "roleQuestion": "Điều gì đã thay đổi thế nào?",
+              "chunkId": "S4-C03",
+              "english": "the garden became a quiet place"
+            },
+            {
+              "roleQuestion": "Nơi đó cho trẻ em làm gì?",
+              "chunkId": "S4-C04",
+              "english": "where children could play"
+            },
+            {
+              "roleQuestion": "Người lớn tuổi có thể làm gì?",
+              "chunkId": "S4-C05",
+              "english": "older people could meet"
+            },
+            {
+              "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?",
+              "chunkId": "S4-C06",
+              "english": "office workers could rest during lunch breaks"
+            }
           ],
           "successMessage": "Bạn đã đặt toàn bộ thay đổi vào đúng khoảng thời gian."
         },
@@ -1321,15 +2045,53 @@
           "prompt": "Tuy nhiên, chỉ trong vài tháng, khu vườn đã trở thành một nơi yên tĩnh, nơi trẻ em có thể chơi, người lớn tuổi có thể gặp nhau, và nhân viên văn phòng có thể nghỉ ngơi trong giờ nghỉ trưa.",
           "answer": "However, within a few months, the garden became a quiet place where children could play, older people could meet, and office workers could rest during lunch breaks.",
           "audioId": "S4-35",
-          "usesChunks": ["S4-C01", "S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
-          "masteryCredit": ["S4-C01", "S4-C02", "S4-C03", "S4-C04", "S4-C05", "S4-C06"],
+          "usesChunks": [
+            "S4-C01",
+            "S4-C02",
+            "S4-C03",
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
+          ],
+          "masteryCredit": [
+            "S4-C01",
+            "S4-C02",
+            "S4-C03",
+            "S4-C04",
+            "S4-C05",
+            "S4-C06"
+          ],
           "roleLine": [
-            { "roleQuestion": "Quan hệ với ý trước?", "chunkId": "S4-C01", "english": "however" },
-            { "roleQuestion": "Khi nào?", "chunkId": "S4-C02", "english": "within a few months" },
-            { "roleQuestion": "Điều gì đã thay đổi thế nào?", "chunkId": "S4-C03", "english": "the garden became a quiet place" },
-            { "roleQuestion": "Nơi đó cho trẻ em làm gì?", "chunkId": "S4-C04", "english": "where children could play" },
-            { "roleQuestion": "Người lớn tuổi có thể làm gì?", "chunkId": "S4-C05", "english": "older people could meet" },
-            { "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?", "chunkId": "S4-C06", "english": "office workers could rest during lunch breaks" }
+            {
+              "roleQuestion": "Quan hệ với ý trước?",
+              "chunkId": "S4-C01",
+              "english": "however"
+            },
+            {
+              "roleQuestion": "Khi nào?",
+              "chunkId": "S4-C02",
+              "english": "within a few months"
+            },
+            {
+              "roleQuestion": "Điều gì đã thay đổi thế nào?",
+              "chunkId": "S4-C03",
+              "english": "the garden became a quiet place"
+            },
+            {
+              "roleQuestion": "Nơi đó cho trẻ em làm gì?",
+              "chunkId": "S4-C04",
+              "english": "where children could play"
+            },
+            {
+              "roleQuestion": "Người lớn tuổi có thể làm gì?",
+              "chunkId": "S4-C05",
+              "english": "older people could meet"
+            },
+            {
+              "roleQuestion": "Nhân viên văn phòng có thể làm gì và khi nào?",
+              "chunkId": "S4-C06",
+              "english": "office workers could rest during lunch breaks"
+            }
           ],
           "successMessage": "Bạn đã hoàn thành câu dài bằng sáu cụm nghĩa rõ ràng."
         }
@@ -1337,46 +2099,81 @@
       "repairRules": [
         {
           "id": "S4-R01",
-          "appliesTo": ["S4-M01", "S4-M02", "S4-M03", "S4-M04", "S4-M05"],
+          "appliesTo": [
+            "S4-M01",
+            "S4-M02",
+            "S4-M03",
+            "S4-M04",
+            "S4-M05"
+          ],
           "chunkId": "S4-C04",
           "detect": {
-            "commonWrongAnswers": ["where child could play", "children could play"]
+            "commonWrongAnswers": [
+              "where child could play",
+              "children could play"
+            ]
           },
           "message": "Cụm cần sửa dùng children ở số nhiều và giữ where để gắn vào nơi chốn."
         },
         {
           "id": "S4-R02",
-          "appliesTo": ["S4-M01", "S4-M02", "S4-M03", "S4-M04", "S4-M05"],
+          "appliesTo": [
+            "S4-M01",
+            "S4-M02",
+            "S4-M03",
+            "S4-M04",
+            "S4-M05"
+          ],
           "chunkId": "S4-C05",
           "detect": {
-            "commonWrongAnswers": ["older people meet"]
+            "commonWrongAnswers": [
+              "older people meet"
+            ]
           },
           "message": "Cụm cần sửa giữ could: người lớn tuổi có thể gặp nhau."
         },
         {
           "id": "S4-R03",
-          "appliesTo": ["S4-M02", "S4-M03", "S4-M04", "S4-M05"],
+          "appliesTo": [
+            "S4-M02",
+            "S4-M03",
+            "S4-M04",
+            "S4-M05"
+          ],
           "chunkId": "S4-C06",
           "detect": {
-            "commonWrongAnswers": ["during lunch break", "office workers rest during lunch breaks"]
+            "commonWrongAnswers": [
+              "during lunch break",
+              "office workers rest during lunch breaks"
+            ]
           },
           "message": "Cụm cần sửa giữ could và breaks ở số nhiều."
         },
         {
           "id": "S4-R04",
-          "appliesTo": ["S4-M03", "S4-M04", "S4-M05"],
+          "appliesTo": [
+            "S4-M03",
+            "S4-M04",
+            "S4-M05"
+          ],
           "chunkId": "S4-C03",
           "detect": {
-            "commonWrongAnswers": ["the garden became quiet place"]
+            "commonWrongAnswers": [
+              "the garden became quiet place"
+            ]
           },
           "message": "Cụm cần sửa dùng a quiet place: một nơi yên tĩnh."
         },
         {
           "id": "S4-R05",
-          "appliesTo": ["S4-M05"],
+          "appliesTo": [
+            "S4-M05"
+          ],
           "chunkId": "S4-C01",
           "detect": {
-            "commonWrongAnswers": ["within a few months"]
+            "commonWrongAnswers": [
+              "within a few months"
+            ]
           },
           "message": "Câu hoàn chỉnh cần however để đổi hướng so với lo ngại trước đó."
         }
@@ -1392,7 +2189,29 @@
           "Mình sẽ học khung khuyến khích ai làm gì và từng hành động.",
           "Sau đó mình sẽ ghép hai hành động vào cùng một câu."
         ],
-        "graded": false
+        "graded": false,
+        "meaningMap": [
+          {
+            "label": "Dieu gi tao anh huong?",
+            "meaning": "du an nay",
+            "chunkId": "S5-C01"
+          },
+          {
+            "label": "Khuyen khich ai lam gi?",
+            "meaning": "khuyen khich cua hang gan do",
+            "chunkId": "S5-C02"
+          },
+          {
+            "label": "Hanh dong thu nhat?",
+            "meaning": "dung it tui nhua hon",
+            "chunkId": "S5-C03"
+          },
+          {
+            "label": "Hanh dong thu hai?",
+            "meaning": "dat thung tai che ngoai cua",
+            "chunkId": "S5-C04"
+          }
+        ]
       },
       "chunks": [
         {
@@ -1470,6 +2289,13 @@
               "answer": "also encouraged nearby shops to",
               "purpose": "Thêm also để nối với tác động trước đó của dự án."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "to-frame",
+              "title": "encouraged shops to",
+              "body": "encourage someone to do something nghia la khuyen khich ai lam viec gi. Vi vay sau shops can to de mo hanh dong."
+            }
           ]
         },
         {
@@ -1515,6 +2341,13 @@
               "prompt": "sử dụng ít túi nhựa hơn",
               "answer": "use fewer plastic bags",
               "purpose": "Thêm hành động use để hoàn chỉnh cụm."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "plural",
+              "title": "plastic bags",
+              "body": "bags la so nhieu vi y noi tui nhua noi chung, khong phai mot tui."
             }
           ]
         },
@@ -1595,6 +2428,18 @@
               "answer": "and to place recycling bins outside their doors",
               "purpose": "Thêm and to để giữ cấu trúc song song."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "to-frame",
+              "title": "and to place",
+              "body": "to place song song voi to use: ca hai la hanh dong ma cac cua hang duoc khuyen khich lam."
+            },
+            {
+              "tag": "ellipsis",
+              "title": "outside their doors",
+              "body": "their doors dung their de gan cua voi cac cua hang, va khong lap lai nearby shops."
+            }
           ]
         }
       ],
@@ -1603,11 +2448,25 @@
           "id": "S5-M01",
           "prompt": "cũng khuyến khích các cửa hàng gần đó sử dụng ít túi nhựa hơn",
           "answer": "also encouraged nearby shops to use fewer plastic bags",
-          "usesChunks": ["S5-C02", "S5-C03"],
-          "masteryCredit": ["S5-C02", "S5-C03"],
+          "usesChunks": [
+            "S5-C02",
+            "S5-C03"
+          ],
+          "masteryCredit": [
+            "S5-C02",
+            "S5-C03"
+          ],
           "roleLine": [
-            { "roleQuestion": "Đã khuyến khích ai làm gì?", "chunkId": "S5-C02", "english": "also encouraged nearby shops to" },
-            { "roleQuestion": "Hành động thứ nhất?", "chunkId": "S5-C03", "english": "use fewer plastic bags" }
+            {
+              "roleQuestion": "Đã khuyến khích ai làm gì?",
+              "chunkId": "S5-C02",
+              "english": "also encouraged nearby shops to"
+            },
+            {
+              "roleQuestion": "Hành động thứ nhất?",
+              "chunkId": "S5-C03",
+              "english": "use fewer plastic bags"
+            }
           ],
           "successMessage": "Bạn đã ghép khung khuyến khích với hành động thứ nhất."
         },
@@ -1615,13 +2474,34 @@
           "id": "S5-M02",
           "prompt": "sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa của họ",
           "answer": "use fewer plastic bags and to place recycling bins outside their doors",
-          "usesChunks": ["S5-C03", "S5-C04"],
-          "masteryCredit": ["S5-C03", "S5-C04"],
-          "roleLine": [
-            { "roleQuestion": "Hành động thứ nhất?", "chunkId": "S5-C03", "english": "use fewer plastic bags" },
-            { "roleQuestion": "Hành động thứ hai?", "chunkId": "S5-C04", "english": "and to place recycling bins outside their doors" }
+          "usesChunks": [
+            "S5-C03",
+            "S5-C04"
           ],
-          "successMessage": "Bạn đã ghép được hai hành động song song."
+          "masteryCredit": [
+            "S5-C03",
+            "S5-C04"
+          ],
+          "roleLine": [
+            {
+              "roleQuestion": "Hành động thứ nhất?",
+              "chunkId": "S5-C03",
+              "english": "use fewer plastic bags"
+            },
+            {
+              "roleQuestion": "Hành động thứ hai?",
+              "chunkId": "S5-C04",
+              "english": "and to place recycling bins outside their doors"
+            }
+          ],
+          "successMessage": "Bạn đã ghép được hai hành động song song.",
+          "difficultyNotes": [
+            {
+              "tag": "to-frame",
+              "title": "Hai hanh dong song song",
+              "body": "to use va to place la hai hanh dong cung nam sau encouraged nearby shops to."
+            }
+          ]
         },
         {
           "id": "S5-M03",
@@ -1629,13 +2509,39 @@
           "prompt": "Dự án này cũng khuyến khích các cửa hàng gần đó sử dụng ít túi nhựa hơn và đặt các thùng tái chế bên ngoài cửa hàng của họ.",
           "answer": "The project also encouraged nearby shops to use fewer plastic bags and to place recycling bins outside their doors.",
           "audioId": "S5-21",
-          "usesChunks": ["S5-C01", "S5-C02", "S5-C03", "S5-C04"],
-          "masteryCredit": ["S5-C01", "S5-C02", "S5-C03", "S5-C04"],
+          "usesChunks": [
+            "S5-C01",
+            "S5-C02",
+            "S5-C03",
+            "S5-C04"
+          ],
+          "masteryCredit": [
+            "S5-C01",
+            "S5-C02",
+            "S5-C03",
+            "S5-C04"
+          ],
           "roleLine": [
-            { "roleQuestion": "Điều gì tạo ảnh hưởng?", "chunkId": "S5-C01", "english": "the project" },
-            { "roleQuestion": "Đã khuyến khích ai làm gì?", "chunkId": "S5-C02", "english": "also encouraged nearby shops to" },
-            { "roleQuestion": "Hành động thứ nhất?", "chunkId": "S5-C03", "english": "use fewer plastic bags" },
-            { "roleQuestion": "Hành động thứ hai?", "chunkId": "S5-C04", "english": "and to place recycling bins outside their doors" }
+            {
+              "roleQuestion": "Điều gì tạo ảnh hưởng?",
+              "chunkId": "S5-C01",
+              "english": "the project"
+            },
+            {
+              "roleQuestion": "Đã khuyến khích ai làm gì?",
+              "chunkId": "S5-C02",
+              "english": "also encouraged nearby shops to"
+            },
+            {
+              "roleQuestion": "Hành động thứ nhất?",
+              "chunkId": "S5-C03",
+              "english": "use fewer plastic bags"
+            },
+            {
+              "roleQuestion": "Hành động thứ hai?",
+              "chunkId": "S5-C04",
+              "english": "and to place recycling bins outside their doors"
+            }
           ],
           "successMessage": "Bạn đã hoàn thành câu với hai hành động được khuyến khích."
         }
@@ -1643,46 +2549,74 @@
       "repairRules": [
         {
           "id": "S5-R01",
-          "appliesTo": ["S5-M01", "S5-M03"],
+          "appliesTo": [
+            "S5-M01",
+            "S5-M03"
+          ],
           "chunkId": "S5-C02",
           "detect": {
-            "commonWrongAnswers": ["nearby shop", "encouraged nearby shop to"]
+            "commonWrongAnswers": [
+              "nearby shop",
+              "encouraged nearby shop to"
+            ]
           },
           "message": "Cụm cần sửa dùng shops ở số nhiều: các cửa hàng gần đó."
         },
         {
           "id": "S5-R02",
-          "appliesTo": ["S5-M01", "S5-M02", "S5-M03"],
+          "appliesTo": [
+            "S5-M01",
+            "S5-M02",
+            "S5-M03"
+          ],
           "chunkId": "S5-C03",
           "detect": {
-            "commonWrongAnswers": ["fewer plastic bag", "less plastic bags"]
+            "commonWrongAnswers": [
+              "fewer plastic bag",
+              "less plastic bags"
+            ]
           },
           "message": "Cụm cần sửa dùng fewer với bags ở số nhiều."
         },
         {
           "id": "S5-R03",
-          "appliesTo": ["S5-M02", "S5-M03"],
+          "appliesTo": [
+            "S5-M02",
+            "S5-M03"
+          ],
           "chunkId": "S5-C04",
           "detect": {
-            "commonWrongAnswers": ["and place recycling bins", "and to place recycling bin"]
+            "commonWrongAnswers": [
+              "and place recycling bins",
+              "and to place recycling bin"
+            ]
           },
           "message": "Cụm cần sửa giữ to trước place và bins ở số nhiều."
         },
         {
           "id": "S5-R04",
-          "appliesTo": ["S5-M02", "S5-M03"],
+          "appliesTo": [
+            "S5-M02",
+            "S5-M03"
+          ],
           "chunkId": "S5-C04",
           "detect": {
-            "commonWrongAnswers": ["outside their door"]
+            "commonWrongAnswers": [
+              "outside their door"
+            ]
           },
           "message": "Cụm cần sửa dùng doors ở số nhiều: bên ngoài các cửa của họ."
         },
         {
           "id": "S5-R05",
-          "appliesTo": ["S5-M03"],
+          "appliesTo": [
+            "S5-M03"
+          ],
           "chunkId": "S5-C01",
           "detect": {
-            "commonWrongAnswers": ["project also encouraged"]
+            "commonWrongAnswers": [
+              "project also encouraged"
+            ]
           },
           "message": "Câu này nói về dự án đã được xác định, nên cần the project."
         }
@@ -1698,7 +2632,29 @@
           "Mình sẽ học điều khu vườn không giải quyết và điều nó đã thay đổi.",
           "Sau đó mình sẽ nối hai ý bằng although."
         ],
-        "graded": false
+        "graded": false,
+        "meaningMap": [
+          {
+            "label": "Quan he nhuong bo?",
+            "meaning": "mac du",
+            "chunkId": "S6-C01"
+          },
+          {
+            "label": "Gioi han duoc thua nhan?",
+            "meaning": "khong giai quyet moi van de",
+            "chunkId": "S6-C02"
+          },
+          {
+            "label": "Tac dong thuc te?",
+            "meaning": "no da thay doi",
+            "chunkId": "S6-C03"
+          },
+          {
+            "label": "Thay doi dieu gi?",
+            "meaning": "cach moi nguoi nghi ve khong gian chung",
+            "chunkId": "S6-C04"
+          }
+        ]
       },
       "chunks": [
         {
@@ -1716,6 +2672,13 @@
               "prompt": "mặc dù",
               "answer": "although",
               "purpose": "Nắm từ nối mở ý nhượng bộ."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "connector",
+              "title": "although la nhuong bo",
+              "body": "although dat mot gioi han o dau cau, roi y chinh sau dau phay moi noi tac dong that su."
             }
           ]
         },
@@ -1820,6 +2783,13 @@
               "audioId": "S6-07",
               "purpose": "Thêm how để biến ý thành điều được thay đổi."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "content-clause",
+              "title": "how people thought",
+              "body": "how o day nghia la cach ma moi nguoi suy nghi, lam ro dieu da thay doi."
+            }
           ]
         }
       ],
@@ -1829,11 +2799,25 @@
           "prompt": "nó đã thay đổi cách mọi người nghĩ về không gian chung",
           "answer": "it changed how people thought about shared space",
           "audioId": "S6-08",
-          "usesChunks": ["S6-C03", "S6-C04"],
-          "masteryCredit": ["S6-C03", "S6-C04"],
+          "usesChunks": [
+            "S6-C03",
+            "S6-C04"
+          ],
+          "masteryCredit": [
+            "S6-C03",
+            "S6-C04"
+          ],
           "roleLine": [
-            { "roleQuestion": "Điều gì đã xảy ra thay vào đó?", "chunkId": "S6-C03", "english": "it changed" },
-            { "roleQuestion": "Thay đổi điều gì?", "chunkId": "S6-C04", "english": "how people thought about shared space" }
+            {
+              "roleQuestion": "Điều gì đã xảy ra thay vào đó?",
+              "chunkId": "S6-C03",
+              "english": "it changed"
+            },
+            {
+              "roleQuestion": "Thay đổi điều gì?",
+              "chunkId": "S6-C04",
+              "english": "how people thought about shared space"
+            }
           ],
           "successMessage": "Bạn đã ghép được tác động thực tế của khu vườn."
         },
@@ -1843,42 +2827,89 @@
           "prompt": "Mặc dù khu vườn không giải quyết mọi vấn đề môi trường, nó đã thay đổi cách mọi người nghĩ về không gian chung.",
           "answer": "Although the garden did not solve every environmental problem, it changed how people thought about shared space.",
           "audioId": "S6-09",
-          "usesChunks": ["S6-C01", "S6-C02", "S6-C03", "S6-C04"],
-          "masteryCredit": ["S6-C01", "S6-C02", "S6-C03", "S6-C04"],
-          "roleLine": [
-            { "roleQuestion": "Quan hệ nhượng bộ?", "chunkId": "S6-C01", "english": "although" },
-            { "roleQuestion": "Điều gì không được giải quyết hết?", "chunkId": "S6-C02", "english": "the garden did not solve every environmental problem" },
-            { "roleQuestion": "Điều gì đã xảy ra thay vào đó?", "chunkId": "S6-C03", "english": "it changed" },
-            { "roleQuestion": "Thay đổi điều gì?", "chunkId": "S6-C04", "english": "how people thought about shared space" }
+          "usesChunks": [
+            "S6-C01",
+            "S6-C02",
+            "S6-C03",
+            "S6-C04"
           ],
-          "successMessage": "Bạn đã hoàn thành câu nhượng bộ: có giới hạn nhưng vẫn có tác động."
+          "masteryCredit": [
+            "S6-C01",
+            "S6-C02",
+            "S6-C03",
+            "S6-C04"
+          ],
+          "roleLine": [
+            {
+              "roleQuestion": "Quan hệ nhượng bộ?",
+              "chunkId": "S6-C01",
+              "english": "although"
+            },
+            {
+              "roleQuestion": "Điều gì không được giải quyết hết?",
+              "chunkId": "S6-C02",
+              "english": "the garden did not solve every environmental problem"
+            },
+            {
+              "roleQuestion": "Điều gì đã xảy ra thay vào đó?",
+              "chunkId": "S6-C03",
+              "english": "it changed"
+            },
+            {
+              "roleQuestion": "Thay đổi điều gì?",
+              "chunkId": "S6-C04",
+              "english": "how people thought about shared space"
+            }
+          ],
+          "successMessage": "Bạn đã hoàn thành câu nhượng bộ: có giới hạn nhưng vẫn có tác động.",
+          "difficultyNotes": [
+            {
+              "tag": "connector",
+              "title": "Mac du nhung van",
+              "body": "Although neu gioi han, nhung y chinh la tac dong: it changed how people thought about shared space."
+            }
+          ]
         }
       ],
       "repairRules": [
         {
           "id": "S6-R01",
-          "appliesTo": ["S6-M02"],
+          "appliesTo": [
+            "S6-M02"
+          ],
           "chunkId": "S6-C01",
           "detect": {
-            "commonWrongAnswers": ["the garden did not solve"]
+            "commonWrongAnswers": [
+              "the garden did not solve"
+            ]
           },
           "message": "Câu hoàn chỉnh cần although để mở ý nhượng bộ."
         },
         {
           "id": "S6-R02",
-          "appliesTo": ["S6-M02"],
+          "appliesTo": [
+            "S6-M02"
+          ],
           "chunkId": "S6-C02",
           "detect": {
-            "commonWrongAnswers": ["all environmental problems", "the garden solved every environmental problem"]
+            "commonWrongAnswers": [
+              "all environmental problems",
+              "the garden solved every environmental problem"
+            ]
           },
           "message": "Cụm cần sửa giữ did not và dùng every environmental problem."
         },
         {
           "id": "S6-R03",
-          "appliesTo": ["S6-M01", "S6-M02"],
+          "appliesTo": [
+            "S6-M01",
+            "S6-M02"
+          ],
           "chunkId": "S6-C04",
           "detect": {
-            "commonWrongAnswers": ["people thought about shared space"]
+            "commonWrongAnswers": [
+              "people thought about shared space"
+            ]
           },
           "message": "Cụm cần sửa giữ how: thay đổi cách mọi người suy nghĩ."
         }
@@ -1894,7 +2925,29 @@
           "Mình sẽ học điều gì có thể ảnh hưởng đến thói quen và điều kiện để ảnh hưởng đó xảy ra.",
           "Sau đó mình sẽ mở toàn bộ kết luận bằng it showed that."
         ],
-        "graded": false
+        "graded": false,
+        "meaningMap": [
+          {
+            "label": "Bai hoc rut ra?",
+            "meaning": "no cho thay rang",
+            "chunkId": "S7-C01"
+          },
+          {
+            "label": "Cai gi tao anh huong?",
+            "meaning": "mot du an dia phuong don gian",
+            "chunkId": "S7-C02"
+          },
+          {
+            "label": "Anh huong dieu gi?",
+            "meaning": "thoi quen hang ngay",
+            "chunkId": "S7-C03"
+          },
+          {
+            "label": "Khi nao anh huong xay ra?",
+            "meaning": "khi moi nguoi cam thay su thay doi thuoc ve ho",
+            "chunkId": "S7-C04"
+          }
+        ]
       },
       "chunks": [
         {
@@ -1924,6 +2977,13 @@
               "prompt": "nó cho thấy rằng",
               "answer": "it showed that",
               "purpose": "Thêm chủ thể chỉ toàn bộ câu chuyện trước đó."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "content-clause",
+              "title": "showed that mo ket luan",
+              "body": "that mo noi dung bai hoc duoc rut ra tu cau chuyen."
             }
           ]
         },
@@ -1957,6 +3017,18 @@
               "answer": "a simple local project",
               "audioId": "S7-03",
               "purpose": "Thêm mạo từ để hoàn chỉnh cụm."
+            }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "article",
+              "title": "a simple local project",
+              "body": "Dung a vi noi mot du an dia phuong don gian nhu mot vi du dai dien."
+            },
+            {
+              "tag": "word-order",
+              "title": "simple local project",
+              "body": "simple va local dung truoc project de mo ta loai du an truoc khi neu danh tu chinh."
             }
           ]
         },
@@ -2003,6 +3075,13 @@
               "answer": "can influence daily habits",
               "purpose": "Thêm can để hoàn chỉnh khả năng."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "modal",
+              "title": "can influence",
+              "body": "can noi ve kha nang chung cua mot du an, khong phai mot hanh dong da xong."
+            }
           ]
         },
         {
@@ -2043,6 +3122,18 @@
               "audioId": "S7-11",
               "purpose": "Thêm when để biến ý thành điều kiện."
             }
+          ],
+          "difficultyNotes": [
+            {
+              "tag": "time-condition",
+              "title": "when people feel",
+              "body": "when noi dieu kien de anh huong xay ra: khi moi nguoi cam thay thay doi thuoc ve ho."
+            },
+            {
+              "tag": "article",
+              "title": "the change",
+              "body": "Dung the vi change la su thay doi dang duoc noi den trong cau, khong phai mot thay doi bat ky."
+            }
           ]
         }
       ],
@@ -2052,11 +3143,25 @@
           "prompt": "một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày",
           "answer": "a simple local project can influence daily habits",
           "audioId": "S7-07",
-          "usesChunks": ["S7-C02", "S7-C03"],
-          "masteryCredit": ["S7-C02", "S7-C03"],
+          "usesChunks": [
+            "S7-C02",
+            "S7-C03"
+          ],
+          "masteryCredit": [
+            "S7-C02",
+            "S7-C03"
+          ],
           "roleLine": [
-            { "roleQuestion": "Cái gì có thể tạo ảnh hưởng?", "chunkId": "S7-C02", "english": "a simple local project" },
-            { "roleQuestion": "Có thể ảnh hưởng điều gì?", "chunkId": "S7-C03", "english": "can influence daily habits" }
+            {
+              "roleQuestion": "Cái gì có thể tạo ảnh hưởng?",
+              "chunkId": "S7-C02",
+              "english": "a simple local project"
+            },
+            {
+              "roleQuestion": "Có thể ảnh hưởng điều gì?",
+              "chunkId": "S7-C03",
+              "english": "can influence daily habits"
+            }
           ],
           "successMessage": "Bạn đã ghép được điều tạo ảnh hưởng và điều bị ảnh hưởng."
         },
@@ -2065,14 +3170,41 @@
           "prompt": "một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ",
           "answer": "a simple local project can influence daily habits when people feel that the change belongs to them",
           "audioId": "S7-12",
-          "usesChunks": ["S7-C02", "S7-C03", "S7-C04"],
-          "masteryCredit": ["S7-C02", "S7-C03", "S7-C04"],
-          "roleLine": [
-            { "roleQuestion": "Cái gì có thể tạo ảnh hưởng?", "chunkId": "S7-C02", "english": "a simple local project" },
-            { "roleQuestion": "Có thể ảnh hưởng điều gì?", "chunkId": "S7-C03", "english": "can influence daily habits" },
-            { "roleQuestion": "Khi nào ảnh hưởng đó xảy ra?", "chunkId": "S7-C04", "english": "when people feel that the change belongs to them" }
+          "usesChunks": [
+            "S7-C02",
+            "S7-C03",
+            "S7-C04"
           ],
-          "successMessage": "Bạn đã thêm được điều kiện để dự án ảnh hưởng đến thói quen."
+          "masteryCredit": [
+            "S7-C02",
+            "S7-C03",
+            "S7-C04"
+          ],
+          "roleLine": [
+            {
+              "roleQuestion": "Cái gì có thể tạo ảnh hưởng?",
+              "chunkId": "S7-C02",
+              "english": "a simple local project"
+            },
+            {
+              "roleQuestion": "Có thể ảnh hưởng điều gì?",
+              "chunkId": "S7-C03",
+              "english": "can influence daily habits"
+            },
+            {
+              "roleQuestion": "Khi nào ảnh hưởng đó xảy ra?",
+              "chunkId": "S7-C04",
+              "english": "when people feel that the change belongs to them"
+            }
+          ],
+          "successMessage": "Bạn đã thêm được điều kiện để dự án ảnh hưởng đến thói quen.",
+          "difficultyNotes": [
+            {
+              "tag": "time-condition",
+              "title": "when dat dieu kien",
+              "body": "Anh huong den thoi quen xay ra khi moi nguoi cam thay su thay doi thuoc ve ho."
+            }
+          ]
         },
         {
           "id": "S7-M03",
@@ -2080,13 +3212,39 @@
           "prompt": "Nó cho thấy rằng một dự án địa phương đơn giản có thể ảnh hưởng đến thói quen hằng ngày khi mọi người cảm thấy rằng sự thay đổi đó thuộc về họ.",
           "answer": "It showed that a simple local project can influence daily habits when people feel that the change belongs to them.",
           "audioId": "S7-13",
-          "usesChunks": ["S7-C01", "S7-C02", "S7-C03", "S7-C04"],
-          "masteryCredit": ["S7-C01", "S7-C02", "S7-C03", "S7-C04"],
+          "usesChunks": [
+            "S7-C01",
+            "S7-C02",
+            "S7-C03",
+            "S7-C04"
+          ],
+          "masteryCredit": [
+            "S7-C01",
+            "S7-C02",
+            "S7-C03",
+            "S7-C04"
+          ],
           "roleLine": [
-            { "roleQuestion": "Điều gì được rút ra?", "chunkId": "S7-C01", "english": "it showed that" },
-            { "roleQuestion": "Cái gì có thể tạo ảnh hưởng?", "chunkId": "S7-C02", "english": "a simple local project" },
-            { "roleQuestion": "Có thể ảnh hưởng điều gì?", "chunkId": "S7-C03", "english": "can influence daily habits" },
-            { "roleQuestion": "Khi nào ảnh hưởng đó xảy ra?", "chunkId": "S7-C04", "english": "when people feel that the change belongs to them" }
+            {
+              "roleQuestion": "Điều gì được rút ra?",
+              "chunkId": "S7-C01",
+              "english": "it showed that"
+            },
+            {
+              "roleQuestion": "Cái gì có thể tạo ảnh hưởng?",
+              "chunkId": "S7-C02",
+              "english": "a simple local project"
+            },
+            {
+              "roleQuestion": "Có thể ảnh hưởng điều gì?",
+              "chunkId": "S7-C03",
+              "english": "can influence daily habits"
+            },
+            {
+              "roleQuestion": "Khi nào ảnh hưởng đó xảy ra?",
+              "chunkId": "S7-C04",
+              "english": "when people feel that the change belongs to them"
+            }
           ],
           "successMessage": "Bạn đã hoàn thành câu kết luận và toàn bộ bảy câu của bài."
         }
@@ -2094,37 +3252,59 @@
       "repairRules": [
         {
           "id": "S7-R01",
-          "appliesTo": ["S7-M03"],
+          "appliesTo": [
+            "S7-M03"
+          ],
           "chunkId": "S7-C01",
           "detect": {
-            "commonWrongAnswers": ["it showed a simple local project", "it showed a"]
+            "commonWrongAnswers": [
+              "it showed a simple local project",
+              "it showed a"
+            ]
           },
           "message": "Khung kết luận cần that sau showed: it showed that."
         },
         {
           "id": "S7-R02",
-          "appliesTo": ["S7-M01", "S7-M02", "S7-M03"],
+          "appliesTo": [
+            "S7-M01",
+            "S7-M02",
+            "S7-M03"
+          ],
           "chunkId": "S7-C03",
           "detect": {
-            "commonWrongAnswers": ["daily habit", "influence daily habit"]
+            "commonWrongAnswers": [
+              "daily habit",
+              "influence daily habit"
+            ]
           },
           "message": "Cụm cần sửa dùng habits ở số nhiều: thói quen hằng ngày."
         },
         {
           "id": "S7-R03",
-          "appliesTo": ["S7-M02", "S7-M03"],
+          "appliesTo": [
+            "S7-M02",
+            "S7-M03"
+          ],
           "chunkId": "S7-C04",
           "detect": {
-            "commonWrongAnswers": ["people feel that the change belongs to them"]
+            "commonWrongAnswers": [
+              "people feel that the change belongs to them"
+            ]
           },
           "message": "Cụm điều kiện cần when ở đầu."
         },
         {
           "id": "S7-R04",
-          "appliesTo": ["S7-M02", "S7-M03"],
+          "appliesTo": [
+            "S7-M02",
+            "S7-M03"
+          ],
           "chunkId": "S7-C04",
           "detect": {
-            "commonWrongAnswers": ["the change belong to them"]
+            "commonWrongAnswers": [
+              "the change belong to them"
+            ]
           },
           "message": "Chủ thể the change là số ít, nên cần belongs."
         }

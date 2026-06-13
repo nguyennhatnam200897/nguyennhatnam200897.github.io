@@ -132,6 +132,40 @@ function buildCompleteTwoSentenceFixture() {
   };
 }
 
+function collectDifficultyNotesFromLesson(lesson) {
+  const notes = [];
+
+  lesson.chunks.forEach((chunk) => {
+    if (Array.isArray(chunk.difficultyNotes)) {
+      chunk.difficultyNotes.forEach((note) => notes.push(note));
+    }
+
+    chunk.iPlusOneSteps.forEach((step) => {
+      if (Array.isArray(step.difficultyNotes)) {
+        step.difficultyNotes.forEach((note) => notes.push(note));
+      }
+    });
+  });
+
+  (lesson.compositionTasks ?? []).forEach((task) => {
+    if (Array.isArray(task.difficultyNotes)) {
+      task.difficultyNotes.forEach((note) => notes.push(note));
+    }
+  });
+
+  return notes;
+}
+
+function collectDifficultyNotesFromCourseData(courseData) {
+  const notes = [];
+
+  courseData.meaningChunkLessons.forEach((lesson) => {
+    collectDifficultyNotesFromLesson(lesson).forEach((note) => notes.push(note));
+  });
+
+  return notes;
+}
+
 test("builds the current course from JSON data", () => {
   assert.equal(course.id, "small-public-garden");
   assert.equal(course.article.title, "A Small Public Garden");
@@ -393,6 +427,69 @@ test("defines complete meaning chunk coverage for sentences five through seven",
     experiment.tasks.some((task) => /^S[1-7]-\d+$/.test(task.id)),
     false
   );
+});
+
+test("defines meaning maps and non-quiz difficulty note coverage for Gentle course", async () => {
+  const experimentData = await readCourseData(
+    "../data/courses/small-public-garden-gentle-i1.json"
+  );
+  const experiment = buildLessonCourse(experimentData);
+  const lessonBySentenceId = new Map(
+    experimentData.meaningChunkLessons.map((lesson) => [
+      lesson.sentenceId,
+      lesson,
+    ])
+  );
+  const requiredTags = [
+    "article",
+    "plural",
+    "modal",
+    "connector",
+    "relative-place",
+    "time-condition",
+    "content-clause",
+    "to-frame",
+    "word-order",
+    "ellipsis",
+  ];
+  const notes = collectDifficultyNotesFromCourseData(experimentData);
+  const tagSet = new Set(notes.map((note) => note.tag).filter(Boolean));
+  const missingTags = requiredTags.filter((tag) => !tagSet.has(tag));
+  const quizPattern = /hay chon|tra loi|dien vao|dung dap an nao/i;
+  const quizNotes = notes.filter((note) =>
+    quizPattern.test(`${note.title} ${note.body}`)
+  );
+
+  assert.deepEqual(missingTags, []);
+  assert.deepEqual(quizNotes, []);
+  assert.equal(notes.length >= 20, true);
+
+  ["S1", "S2", "S3", "S4", "S5", "S6", "S7"].forEach((sentenceId) => {
+    const lesson = lessonBySentenceId.get(sentenceId);
+
+    assert.ok(lesson.overview);
+    assert.equal(Array.isArray(lesson.overview.meaningMap), true);
+    assert.equal(lesson.overview.meaningMap.length > 0, true);
+    lesson.overview.meaningMap.forEach((item) => {
+      if (item.chunkId) {
+        assert.ok(
+          lesson.chunks.some((chunk) => chunk.id === item.chunkId),
+          `${sentenceId} meaning map references ${item.chunkId}`
+        );
+      }
+    });
+  });
+
+  const byId = new Map(experiment.tasks.map((task) => [task.id, task]));
+  assert.equal(
+    Array.isArray(byId.get("S2-C03-STEP05").guide.difficultyNotes),
+    true
+  );
+  assert.equal(
+    Array.isArray(byId.get("S5-M02").guide.difficultyNotes),
+    true
+  );
+  assert.equal(byId.get("S2-C03-STEP01").guide.difficultyNotes, undefined);
 });
 
 test("supports a course-level audio extension", () => {
